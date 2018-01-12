@@ -2,150 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASMEmu.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASMEmu.zip" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASM_Simulator.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/hamcrest-core-1.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/junit-5.0-SNAPSHOT.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/junit_5_0_SNAPSHOT.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/constant-multiply.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/forloop.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/hello.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/helloworld.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/loop.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/trial.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/variable-multiply.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/glossary.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/currentTest.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/coins.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_addTypecheck.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_forgottenAssign.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_forgottenTerminator.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_greaterTypecheck.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_junkAfterMainBlock.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_lexical.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_multiplyTypecheck.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_redefinition.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_useBeforeDefine.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/coins.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/fewerCoins.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/moreCoins.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/printTest.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/fewerCoins.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/moreCoins.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/coins.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/coins.asmo" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/fewerCoins.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/moreCoins.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/printTest.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/printTest.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/coins.asmo" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/currentTest.asm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pika.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/ASM Me! (pika).launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/ASM_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/NumberedFileLister_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaAbstractSyntaxTree_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaCodeGenerator_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaCompiler_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaOptimize Me!.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaSemanticChecker_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaTokenPrinter_currentTest.launch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/NumberedFileLister.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaAbstractSyntaxTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaApplication.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaCodeGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaCompiler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaSemanticChecker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaStandaloneOptimizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaTokenPrinter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestNumberedFileLister.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestTokenPrinter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTest.pika" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokenOnlyAST.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokens.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/sampleFile.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/sampleFileListing.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeChunk.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMInstruction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/InputHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LineBasedReader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharString.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/TextLocation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/FixtureDefinitions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestInputHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLineBasedIteratorImp.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLocatedCharStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/simpleFixture.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/simpleLocatedCharOut.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexemeMap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Lextant.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PartiallyScannedPunctuator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanningAids.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Scanner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/ScannerImp.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/logging/PikaLogger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/optimizer/Optimizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseTreePrinter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/PathToRootIterable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BinaryOperatorNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BooleanConstantNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ErrorNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/MainBlockNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/NewlineNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/SpaceNode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/Binding.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAccessMethod.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAllocator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryLocation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/NegativeMemoryAllocator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/PositiveMemoryAllocator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/Scope.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/SymbolTable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/IdentifierToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/LextantToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/NullToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/NumberToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/Token.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/TokenImp.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/Tokens.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/MyPikaCompiler.iml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -168,11 +25,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestAbstractSyntaxTree.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestAbstractSyntaxTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="28">
+              <caret line="29" column="51" lean-forward="false" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="25" column="3" lean-forward="true" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -186,6 +53,7 @@
         <option value="Bill &lt;billjohn1235813@gmail.com&gt;" />
       </list>
     </option>
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -197,6 +65,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pika.iml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -227,9 +96,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -257,10 +123,13 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -406,7 +275,8 @@
       <updated>1515735399517</updated>
       <workItem from="1515735401576" duration="54000" />
       <workItem from="1515735587260" duration="124000" />
-      <workItem from="1515735713635" duration="948000" />
+      <workItem from="1515735713635" duration="1574000" />
+      <workItem from="1515742800815" duration="52000" />
     </task>
     <task id="LOCAL-00001" summary=":droplet: refactor">
       <created>1515742003980</created>
@@ -415,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515742003980</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=":droplet: refactor">
+      <created>1515742187111</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1515742187111</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -424,25 +301,25 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1126000" />
+    <option name="totallyTimeSpent" value="1804000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -454,7 +331,9 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -473,6 +352,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pika.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="812">
+          <caret line="29" column="51" lean-forward="true" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pika.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -501,7 +396,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="812">
           <caret line="38" column="18" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -509,14 +403,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="17" column="38" lean-forward="false" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state relative-caret-position="28">
+          <caret line="29" column="51" lean-forward="false" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="25" column="3" lean-forward="true" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
           <folding />
         </state>
       </provider>
