@@ -2,150 +2,150 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MyPikaCompiler.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/ASMEmu.exe" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/ASMEmu.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/ASM_Simulator.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/constant-multiply.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/forloop.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/hello.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/helloworld.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/loop.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/trial.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/ASM_Emulator/variable-multiply.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/doc/glossary.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/currentTest.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/coins.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_addTypecheck.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_forgottenAssign.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_forgottenTerminator.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_greaterTypecheck.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_junkAfterMainBlock.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_lexical.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_multiplyTypecheck.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_redefinition.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/err_useBeforeDefine.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/expected/coins.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/expected/fewerCoins.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/expected/moreCoins.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/expected/printTest.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/fewerCoins.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/moreCoins.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/output/coins.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/output/coins.asmo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/output/fewerCoins.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/output/moreCoins.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/output/printTest.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/input/pika-0/printTest.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/output/coins.asmo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/output/currentTest.asm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/ASM Me! (pika).launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/ASM_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/NumberedFileLister_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaAbstractSyntaxTree_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaCodeGenerator_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaCompiler_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaOptimize Me!.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaSemanticChecker_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/runConfigurations/PikaTokenPrinter_currentTest.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/NumberedFileLister.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaAbstractSyntaxTree.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaCodeGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaCompiler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaSemanticChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaStandaloneOptimizer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/PikaTokenPrinter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/FixtureDefinitions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/TestAbstractSyntaxTree.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/TestNumberedFileLister.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/TestSemanticChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/TestTokenPrinter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/coinTest.pika" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/coinTestAST.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/coinTestSemantics.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/coinTestTokenOnlyAST.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/coinTestTokens.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/sampleFile.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/applications/tests/fixtures/sampleFileListing.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/Labeller.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/Macros.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/codeStorage/ASMCodeChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/codeStorage/ASMInstruction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/codeStorage/ASMOpcode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/runtime/MemoryManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/asmCodeGenerator/runtime/RunTime.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/InputHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/LineBasedReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/LocatedChar.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/LocatedCharStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/LocatedCharString.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/PushbackCharStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/TextLocation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/FixtureDefinitions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/TestInputHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/TestLineBasedIteratorImp.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/TestLocatedCharStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/simpleFixture.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/inputHandler/tests/simpleLocatedCharOut.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/Keyword.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/LexemeMap.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/LexicalAnalyzer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/Lextant.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/PartiallyScannedPunctuator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/Punctuator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/PunctuatorScanner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/PunctuatorScanningAids.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/Scanner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/lexicalAnalyzer/ScannerImp.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/logging/PikaLogger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/optimizer/Optimizer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/ParseNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/ParseNodeVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/ParseTreePrinter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/PathToRootIterable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/BinaryOperatorNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/BooleanConstantNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/DeclarationNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/ErrorNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/IdentifierNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/IntegerConstantNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/MainBlockNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/NewlineNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/PrintStatementNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/ProgramNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parseTree/nodeTypes/SpaceNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/parser/Parser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/SemanticAnalyzer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/signatures/FunctionSignature.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/types/PrimitiveType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/semanticAnalyzer/types/Type.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/Binding.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/MemoryAccessMethod.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/MemoryAllocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/MemoryLocation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/NegativeMemoryAllocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/PositiveMemoryAllocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/Scope.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/symbolTable/SymbolTable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tests/FileFixturesTestCase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/IdentifierToken.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/LextantToken.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/NullToken.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/NumberToken.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/Token.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/TokenImp.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pika/src/tokens/Tokens.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASMEmu.exe" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASMEmu.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/ASM_Simulator.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/hamcrest-core-1.3.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/junit-5.0-SNAPSHOT.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/junit_5_0_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/constant-multiply.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/forloop.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/hello.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/helloworld.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/loop.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/trial.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/variable-multiply.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/glossary.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/currentTest.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/coins.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_addTypecheck.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_forgottenAssign.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_forgottenTerminator.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_greaterTypecheck.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_junkAfterMainBlock.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_lexical.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_multiplyTypecheck.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_redefinition.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/err_useBeforeDefine.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/coins.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/fewerCoins.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/moreCoins.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/expected/printTest.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/fewerCoins.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/moreCoins.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/coins.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/coins.asmo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/fewerCoins.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/moreCoins.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/output/printTest.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/input/pika-0/printTest.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/coins.asmo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/currentTest.asm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pika.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/ASM Me! (pika).launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/ASM_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/NumberedFileLister_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaAbstractSyntaxTree_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaCodeGenerator_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaCompiler_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaOptimize Me!.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaSemanticChecker_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runConfigurations/PikaTokenPrinter_currentTest.launch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/NumberedFileLister.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaAbstractSyntaxTree.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaApplication.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaCodeGenerator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaCompiler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaSemanticChecker.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaStandaloneOptimizer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/PikaTokenPrinter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestNumberedFileLister.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/TestTokenPrinter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTest.pika" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokenOnlyAST.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokens.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/sampleFile.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/sampleFileListing.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeChunk.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMInstruction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/InputHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LineBasedReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharString.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/TextLocation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/FixtureDefinitions.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestInputHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLineBasedIteratorImp.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLocatedCharStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/simpleFixture.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inputHandler/tests/simpleLocatedCharOut.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexemeMap.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Lextant.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PartiallyScannedPunctuator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanningAids.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Scanner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/ScannerImp.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/logging/PikaLogger.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/optimizer/Optimizer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/ParseTreePrinter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/PathToRootIterable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BinaryOperatorNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BooleanConstantNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ErrorNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/MainBlockNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/NewlineNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/SpaceNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/Binding.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAccessMethod.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAllocator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryLocation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/NegativeMemoryAllocator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/PositiveMemoryAllocator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/Scope.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/symbolTable/SymbolTable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/IdentifierToken.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/LextantToken.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/NullToken.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/NumberToken.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/Token.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/TokenImp.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tokens/Tokens.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/MyPikaCompiler.iml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -181,6 +181,11 @@
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Bill &lt;billjohn1235813@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -242,13 +247,6 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="applications" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="applications" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -408,8 +406,16 @@
       <updated>1515735399517</updated>
       <workItem from="1515735401576" duration="54000" />
       <workItem from="1515735587260" duration="124000" />
-      <workItem from="1515735713635" duration="758000" />
+      <workItem from="1515735713635" duration="948000" />
     </task>
+    <task id="LOCAL-00001" summary=":droplet: refactor">
+      <created>1515742003980</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1515742003980</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -418,7 +424,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="936000" />
+    <option name="totallyTimeSpent" value="1126000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
@@ -457,6 +463,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value=":droplet: refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value=":droplet: refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
