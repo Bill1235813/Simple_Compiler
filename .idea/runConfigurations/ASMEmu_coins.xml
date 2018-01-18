@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ASMEmu_coins" type="External_Tools_CONFIGURATION" factoryName="External tools configuration factory">
+    <method>
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_ASMEmu" />
+    </method>
+  </configuration>
+</component>
