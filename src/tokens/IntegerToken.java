@@ -2,10 +2,10 @@ package tokens;
 
 import inputHandler.TextLocation;
 
-public class NumberToken extends TokenImp {
+public class IntegerToken extends TokenImp {
 	protected int value;
 	
-	protected NumberToken(TextLocation location, String lexeme) {
+	protected IntegerToken(TextLocation location, String lexeme) {
 		super(location, lexeme);
 	}
 	protected void setValue(int value) {
@@ -15,8 +15,8 @@ public class NumberToken extends TokenImp {
 		return value;
 	}
 	
-	public static NumberToken make(TextLocation location, String lexeme) {
-		NumberToken result = new NumberToken(location, lexeme);
+	public static IntegerToken make(TextLocation location, String lexeme) {
+		IntegerToken result = new IntegerToken(location, lexeme);
 		result.setValue(Integer.parseInt(lexeme));
 		return result;
 	}
