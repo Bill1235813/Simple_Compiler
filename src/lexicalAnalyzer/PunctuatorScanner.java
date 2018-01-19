@@ -24,6 +24,8 @@ import tokens.Token;
 public class PunctuatorScanner {
 	private PushbackCharStream input;
 	private PartiallyScannedPunctuator scanned;
+	private static final char CommentMarker = '#';
+	private static final char LineBreaker = '\n';
 	
 	public static Token scan(LocatedChar startingCharacter, PushbackCharStream input) {
 		PunctuatorScanner scanner = new PunctuatorScanner(startingCharacter, input);
@@ -57,5 +59,28 @@ public class PunctuatorScanner {
 			LocatedChar lc = scanned.chopTail();
 			input.pushback(lc);
 		}
+	}
+
+	public static boolean judgeComment(LocatedChar startingCharacter, PushbackCharStream input) {
+		if(isComment(startingCharacter)) {
+			dealWithComment(input);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	private static boolean isComment(LocatedChar c) {
+		return (c.getCharacter() == CommentMarker);
+	}
+	private static boolean isCommentEnd(LocatedChar c) {
+		return (c.getCharacter() == CommentMarker) || (c.getCharacter() == LineBreaker);
+	}
+	private static void dealWithComment(PushbackCharStream input) {
+		LocatedChar c = input.next();
+		while(!isCommentEnd(c)) {
+			c = input.next();
+		}
+		input.pushback(c);
 	}
 }

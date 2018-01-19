@@ -42,7 +42,12 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 			return scanIdentifier(ch);
 		}
 		else if(isPunctuatorStart(ch)) {
-			return PunctuatorScanner.scan(ch, input);
+			if(PunctuatorScanner.judgeComment(ch, input)) {
+				return findNextToken();
+			}
+			else {
+				return PunctuatorScanner.scan(ch, input);
+			}
 		}
 		else if(isEndOfInput(ch)) {
 			return NullToken.make(ch.getLocation());

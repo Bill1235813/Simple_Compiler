@@ -7,7 +7,7 @@ public class FixtureDefinitions {
 	public static final String NUMBERED_FILE_EXPECTED_FILENAME  = FIXTURE_DIRECTORY + "sampleFileListing.txt";
 	
 	public static final String TOKEN_PRINTER_INPUT_FILENAME     = FIXTURE_DIRECTORY + "coinTest.pika";
-	public static final String TOKEN_PRINTER_EXPECTED_FILENAME  = FIXTURE_DIRECTORY + "coinTestTokens.txt";
+	public static final String TOKEN_PRINTER_EXPECTED_FILENAME  = FIXTURE_DIRECTORY + "samplePika.txt";
 	
 	public static final String AST_INPUT_FILENAME               = FIXTURE_DIRECTORY + "coinTest.pika";
 	public static final String AST_EXPECTED_FULL_FILENAME       = FIXTURE_DIRECTORY + "coinTestAST.txt";
