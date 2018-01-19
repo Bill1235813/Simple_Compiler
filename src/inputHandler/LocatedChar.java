@@ -50,8 +50,8 @@ public class LocatedChar {
 	//////////////////////////////////////////////////////////////////////////////
 	// delegates
 	
-	public boolean isLowerCase() {
-		return Character.isLowerCase(character) || (character == '_');
+	public boolean isAlphabetic() {
+		return Character.isAlphabetic(character) || (character == '_');
 	}
 	public boolean isDigit() {
 		return Character.isDigit(character);

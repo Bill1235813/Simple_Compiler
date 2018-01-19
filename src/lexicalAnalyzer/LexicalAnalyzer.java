@@ -17,6 +17,8 @@ import tokens.Token;
 import static lexicalAnalyzer.PunctuatorScanningAids.*;
 
 public class LexicalAnalyzer extends ScannerImp implements Scanner {
+	private static final int MAX_IDENTIFIER = 32;
+
 	public static LexicalAnalyzer make(String filename) {
 		InputHandler handler = InputHandler.fromFilename(filename);
 		PushbackCharStream charStream = PushbackCharStream.make(handler);
@@ -35,10 +37,10 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	protected Token findNextToken() {
 		LocatedChar ch = nextNonWhitespaceChar();
 		
-		if(ch.isDigit()) {
+		if(isNumberStart(ch)) {
 			return scanNumber(ch);
 		}
-		else if(ch.isLowerCase()) {
+		else if(isIdentifierStart(ch)) {
 			return scanIdentifier(ch);
 		}
 		else if(isPunctuatorStart(ch)) {
@@ -94,9 +96,12 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	private Token scanIdentifier(LocatedChar firstChar) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(firstChar.getCharacter());
-		appendSubsequentLowercase(buffer);
+		appendSubsequentAlphabet(buffer);
 
 		String lexeme = buffer.toString();
+		if (lexeme.length() > MAX_IDENTIFIER) {
+			lexicalError(firstChar);
+		}
 		if(Keyword.isAKeyword(lexeme)) {
 			return LextantToken.make(firstChar.getLocation(), lexeme, Keyword.forLexeme(lexeme));
 		}
@@ -104,9 +109,9 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 			return IdentifierToken.make(firstChar.getLocation(), lexeme);
 		}
 	}
-	private void appendSubsequentLowercase(StringBuffer buffer) {
+	private void appendSubsequentAlphabet(StringBuffer buffer) {
 		LocatedChar c = input.next();
-		while(c.isLowerCase()) {
+		while(isIdentifierContinue(c)) {
 			buffer.append(c.getCharacter());
 			c = input.next();
 		}
@@ -159,8 +164,28 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	private boolean isEndOfInput(LocatedChar lc) {
 		return lc == LocatedCharStream.FLAG_END_OF_INPUT;
 	}
-	
-	
+
+	public boolean isNumberStart(LocatedChar lc) {
+		if(lc.isDigit()) {
+			return true;
+		}
+		else if(lc.getCharacter() == '+' || lc.getCharacter() == '-') {
+			LocatedChar c = input.next();
+			input.pushback(c);
+			return c.isDigit();
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isIdentifierStart(LocatedChar lc) {
+		return lc.isAlphabetic();
+	}
+
+	public boolean isIdentifierContinue(LocatedChar lc) {
+		return lc.isAlphabetic() || lc.isDigit() || lc.getCharacter() == '$';
+	}
 	//////////////////////////////////////////////////////////////////////////////
 	// Error-reporting	
 
