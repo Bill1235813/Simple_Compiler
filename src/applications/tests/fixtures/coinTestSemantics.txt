@@ -2,16 +2,16 @@ ProgramNode (EXEC)  [scope:27 bytes]
     MainBlockNode (OPEN_BRACE)  
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, quarters) INTEGER 
-            IntegerConstantNode (number, 6) INTEGER 
+            IntegerConstantNode (integerConst, 6) INTEGER 
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, dimes) INTEGER 
-            IntegerConstantNode (number, 3) INTEGER 
+            IntegerConstantNode (integerConst, 3) INTEGER 
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, nickels) INTEGER 
-            IntegerConstantNode (number, 7) INTEGER 
+            IntegerConstantNode (integerConst, 7) INTEGER 
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, pennies) INTEGER 
-            IntegerConstantNode (number, 17) INTEGER 
+            IntegerConstantNode (integerConst, 17) INTEGER 
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, value) INTEGER 
             BinaryOperatorNode (ADD) INTEGER 
@@ -19,13 +19,13 @@ ProgramNode (EXEC)  [scope:27 bytes]
                     BinaryOperatorNode (ADD) INTEGER 
                         BinaryOperatorNode (MULTIPLY) INTEGER 
                             IdentifierNode (identifier, quarters) INTEGER 
-                            IntegerConstantNode (number, 25) INTEGER 
+                            IntegerConstantNode (integerConst, 25) INTEGER 
                         BinaryOperatorNode (MULTIPLY) INTEGER 
                             IdentifierNode (identifier, dimes) INTEGER 
-                            IntegerConstantNode (number, 10) INTEGER 
+                            IntegerConstantNode (integerConst, 10) INTEGER 
                     BinaryOperatorNode (MULTIPLY) INTEGER 
                         IdentifierNode (identifier, nickels) INTEGER 
-                        IntegerConstantNode (number, 5) INTEGER 
+                        IntegerConstantNode (integerConst, 5) INTEGER 
                 IdentifierNode (identifier, pennies) INTEGER 
         PrintStatementNode (PRINT)  
             IdentifierNode (identifier, value) INTEGER 

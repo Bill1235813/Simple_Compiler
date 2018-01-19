@@ -5,5 +5,8 @@ public class FixtureDefinitions {
 	
 	public static final String COMMENT_INPUT_FILENAME     = FIXTURE_DIRECTORY + "currentTest.pika";
 	public static final String COMMENT_EXPECTED_FILENAME  = FIXTURE_DIRECTORY + "samplePika.txt";
+	
+	public static final String FLOATING_INPUT_FILENAME = FIXTURE_DIRECTORY + "floatingTest.pika";
+	public static final String FLOATING_EXPECTED_FILENAME = FIXTURE_DIRECTORY + "floatingResult.txt";
 
 }

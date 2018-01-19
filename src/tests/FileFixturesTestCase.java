@@ -21,7 +21,7 @@ public abstract class FileFixturesTestCase extends TestCase {
 //string i/o	
 
 	public String outputFor(Command command) throws Exception {
-		System.setProperty("line.separator", "\r\n");
+		System.setProperty("line.separator", "\n");  // MAYBE should use \n (not in windows)
 		OutputStream byteArrayOS = new ByteArrayOutputStream();
 		PrintStream out = new PrintStream(byteArrayOS);
 		command.run(out);
