@@ -12,7 +12,7 @@
         DLabel       $print-format-newline     
         DataC        10                        %% "\n"
         DataC        0                         
-        DLabel       $print-format-separator   
+        DLabel       $print-format-space       
         DataC        32                        %% " "
         DataC        0                         
         DLabel       $boolean-true-string      
@@ -86,7 +86,7 @@
         PushD        $global-memory-block      
         PushI        0                         
         Add                                    %% quarters
-        PushI        5                         
+        PushI        6                         
         StoreI                                 
         PushD        $global-memory-block      
         PushI        4                         
@@ -132,8 +132,6 @@
         LoadI                                  
         Add                                    
         StoreI                                 
-        PushD        $print-format-newline     
-        Printf                                 
         PushD        $global-memory-block      
         PushI        16                        
         Add                                    %% value
@@ -210,7 +208,7 @@
         Label        -print-boolean-2-join     
         PushD        $print-format-boolean     
         Printf                                 
-        PushD        $print-format-separator   
+        PushD        $print-format-newline     
         Printf                                 
         PushD        $global-memory-block      
         PushI        25                        
@@ -234,7 +232,7 @@
         Label        -print-boolean-3-join     
         PushD        $print-format-boolean     
         Printf                                 
-        PushD        $print-format-separator   
+        PushD        $print-format-space       
         Printf                                 
         PushD        $global-memory-block      
         PushI        26                        

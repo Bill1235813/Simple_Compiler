@@ -2,13 +2,13 @@ package parseTree.nodeTypes;
 
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
-import tokens.NumberToken;
+import tokens.IntegerToken;
 import tokens.Token;
 
 public class IntegerConstantNode extends ParseNode {
 	public IntegerConstantNode(Token token) {
 		super(token);
-		assert(token instanceof NumberToken);
+		assert(token instanceof IntegerToken);
 	}
 	public IntegerConstantNode(ParseNode node) {
 		super(node);
@@ -21,8 +21,8 @@ public class IntegerConstantNode extends ParseNode {
 		return numberToken().getValue();
 	}
 
-	public NumberToken numberToken() {
-		return (NumberToken)token;
+	public IntegerToken numberToken() {
+		return (IntegerToken)token;
 	}	
 
 ///////////////////////////////////////////////////////////
