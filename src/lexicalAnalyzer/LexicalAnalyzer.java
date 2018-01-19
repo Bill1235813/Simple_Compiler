@@ -8,11 +8,7 @@ import inputHandler.LocatedChar;
 import inputHandler.LocatedCharStream;
 import inputHandler.PushbackCharStream;
 import inputHandler.TextLocation;
-import tokens.IdentifierToken;
-import tokens.LextantToken;
-import tokens.NullToken;
-import tokens.IntegerToken;
-import tokens.Token;
+import tokens.*;
 
 import static lexicalAnalyzer.PunctuatorScanningAids.*;
 
@@ -76,17 +72,71 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	private Token scanNumber(LocatedChar firstChar) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(firstChar.getCharacter());
-		appendSubsequentDigits(buffer);
-		
-		return IntegerToken.make(firstChar.getLocation(), buffer.toString());
-	}
-	private void appendSubsequentDigits(StringBuffer buffer) {
-		LocatedChar c = input.next();
-		while(c.isDigit()) {
-			buffer.append(c.getCharacter());
-			c = input.next();
+
+		Boolean floatingflag = (firstChar.getCharacter() == '.');
+		floatingflag = appendSubsequentDigits(buffer, floatingflag);
+
+		if(floatingflag) {
+			return FloatingToken.make(firstChar.getLocation(), buffer.toString());
 		}
-		input.pushback(c);
+		else {
+			return IntegerToken.make(firstChar.getLocation(), buffer.toString());
+		}
+	}
+	private Boolean appendSubsequentDigits(StringBuffer buffer, Boolean floatingflag) {
+		LocatedChar c = input.next();
+		if(!floatingflag) {  // already begin with '.' don't need this step
+			while (c.isDigit()) {
+				buffer.append(c.getCharacter());
+				c = input.next();
+			}
+		}
+
+		// check floating number
+		LocatedChar checkfloat = c;
+		if(c.getCharacter() == '.' || floatingflag) {  // maybe floating number or begin with '.'
+			checkfloat = input.next();
+			if(!checkfloat.isDigit() && !floatingflag) {  // not floating number
+				input.pushback(checkfloat);
+				input.pushback(c);
+			}
+			else {  // is floating number
+				floatingflag = true;
+				buffer.append(c.getCharacter());
+				while(checkfloat.isDigit()) {
+					buffer.append(checkfloat.getCharacter());
+					checkfloat = input.next();
+				}
+			}
+		}
+		else {  // integer with no '.' after
+			input.pushback(c);
+		}
+
+		// check exponential
+		LocatedChar checkexp = checkfloat;
+		if(floatingflag && checkfloat.getCharacter() == 'E') {  // maybe exponential
+			checkexp = input.next();
+			if(!isIntegerStart(checkexp)) {  // is exponential
+				input.pushback(checkexp);
+				input.pushback(checkfloat);
+			}
+			else {
+				buffer.append(checkfloat.getCharacter());
+				buffer.append(checkexp.getCharacter());
+				checkexp = input.next();
+				while(checkexp.isDigit()) {
+					buffer.append(checkexp.getCharacter());
+					checkexp = input.next();
+				}
+				input.pushback(checkexp);
+			}
+		}
+		else if (floatingflag) {  // is float but not exponential
+			input.pushback(checkfloat);
+		}
+
+		return floatingflag;
 	}
 	
 	
@@ -99,7 +149,7 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 		appendSubsequentAlphabet(buffer);
 
 		String lexeme = buffer.toString();
-		if (lexeme.length() > MAX_IDENTIFIER) {
+		if(lexeme.length() > MAX_IDENTIFIER) {
 			lexicalError(firstChar);
 		}
 		if(Keyword.isAKeyword(lexeme)) {
@@ -165,25 +215,52 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 		return lc == LocatedCharStream.FLAG_END_OF_INPUT;
 	}
 
-	public boolean isNumberStart(LocatedChar lc) {
+	private boolean isNumberStart(LocatedChar lc) {
 		if(lc.isDigit()) {
 			return true;
 		}
-		else if(lc.getCharacter() == '+' || lc.getCharacter() == '-') {
-			LocatedChar c = input.next();
-			input.pushback(c);
-			return c.isDigit();
+		else if(lc.getCharacter() == '+' || lc.getCharacter() == '-'
+				|| lc.getCharacter() == '.') {  // maybe floating number .x or +x, -x
+			LocatedChar checknumber = input.next();
+			if(checknumber.isDigit()) {
+				input.pushback(checknumber);
+				return true;
+			}
+			else if(lc.getCharacter() != '.' && checknumber.getCharacter() == '.') {  // maybe floating number +.x (-.x)
+				LocatedChar checkfloating = input.next();
+				input.pushback(checkfloating);
+				input.pushback(checknumber);
+				return checkfloating.isDigit();
+			}
+			else {
+				input.pushback(checknumber);
+				return false;
+			}
 		}
 		else {
 			return false;
 		}
 	}
 
-	public boolean isIdentifierStart(LocatedChar lc) {
+	private boolean isIntegerStart(LocatedChar lc) {
+		if(lc.isDigit()) {
+			return true;
+		}
+		else if(lc.getCharacter() == '+' || lc.getCharacter() == '-') {
+			LocatedChar checknumber = input.next();
+			input.pushback(checknumber);
+			return checknumber.isDigit();
+		}
+		else {
+			return false;
+		}
+	}
+
+	private boolean isIdentifierStart(LocatedChar lc) {
 		return lc.isAlphabetic();
 	}
 
-	public boolean isIdentifierContinue(LocatedChar lc) {
+	private boolean isIdentifierContinue(LocatedChar lc) {
 		return lc.isAlphabetic() || lc.isDigit() || lc.getCharacter() == '$';
 	}
 	//////////////////////////////////////////////////////////////////////////////

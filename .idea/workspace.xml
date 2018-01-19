@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/tokens/FloatingToken.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/input/currentTest.pika" afterPath="$PROJECT_DIR$/input/currentTest.pika" />
-      <change beforePath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" />
       <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/IntegerToken.java" afterPath="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,16 +25,22 @@
       <file leaf-file-name="LexicalAnalyzer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+            <state relative-caret-position="308">
+              <caret line="228" column="120" lean-forward="false" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#824#825#0" expanded="true" />
-                <element signature="e#843#844#0" expanded="true" />
-                <element signature="e#4490#4491#0" expanded="true" />
-                <element signature="e#4545#4546#0" expanded="true" />
-                <element signature="e#4869#4870#0" expanded="true" />
-                <element signature="e#4900#4901#0" expanded="true" />
+                <element signature="e#708#709#0" expanded="true" />
+                <element signature="e#727#728#0" expanded="true" />
+                <element signature="method#scanNumber#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="method#appendSubsequentDigits#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="method#scanIdentifier#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="method#appendSubsequentAlphabet#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="method#oldScanPunctuator#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="e#5946#5947#0" expanded="true" />
+                <element signature="e#6001#6002#0" expanded="true" />
+                <element signature="method#isIntegerStart#0;class#LexicalAnalyzer#0" expanded="false" />
+                <element signature="e#7085#7086#0" expanded="true" />
+                <element signature="e#7116#7117#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,8 +49,8 @@
       <file leaf-file-name="currentTest.pika" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="140">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,8 +59,8 @@
       <file leaf-file-name="LocatedChar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/inputHandler/LocatedChar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+            <state relative-caret-position="252">
+              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding>
                 <element signature="e#1150#1151#0" expanded="true" />
                 <element signature="e#1219#1220#0" expanded="true" />
@@ -68,8 +76,8 @@
       <file leaf-file-name="Punctuator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="954">
-              <caret line="46" column="40" lean-forward="false" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="40" />
+            <state relative-caret-position="366">
+              <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -85,25 +93,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScannerImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/ScannerImp.java">
+      <file leaf-file-name="FloatingToken.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tokens/FloatingToken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="362">
+              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding>
-                <element signature="e#469#470#0" expanded="true" />
-                <element signature="e#516#517#0" expanded="true" />
+                <element signature="e#193#194#0" expanded="true" />
+                <element signature="e#232#233#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IntegerToken.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tokens/IntegerToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="18" column="65" lean-forward="true" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -129,11 +127,15 @@
       <find>printf</find>
       <find>lowercase</find>
       <find>q</find>
+      <find>integer</find>
+      <find>number</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>Q$</replace>
       <replace>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</replace>
+      <replace>Floating</replace>
+      <replace>integerConst</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\Solution code\java\MyPikaCompiler\src</dir>
@@ -165,15 +167,18 @@
         <option value="$PROJECT_DIR$/ASM_Emulator/constant-multiply-nocomment.asm" />
         <option value="$PROJECT_DIR$/ASM_Emulator/loop.asm" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
-        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/test/FixtureDefinitions.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/currentTest.pika" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestComment.java" />
         <option value="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" />
-        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
+        <option value="$PROJECT_DIR$/src/tokens/FloatingToken.java" />
+        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
+        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" />
         <option value="$PROJECT_DIR$/input/currentTest.pika" />
+        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
       </list>
     </option>
   </component>
@@ -227,6 +232,21 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="fixtures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -642,8 +662,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.PikaTokenPrinter" />
-        <item index="1" class="java.lang.String" itemvalue="Application.PikaCompiler" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TestComment" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TestComment" />
+        <item index="2" class="java.lang.String" itemvalue="Application.PikaCompiler" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.TestTokenPrinter.testTokenPrinter" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.TestComment.testTokenPrinter" />
       </list>
@@ -674,7 +694,7 @@
       <workItem from="1515838990101" duration="9318000" />
       <workItem from="1516264213143" duration="1014000" />
       <workItem from="1516299722715" duration="3571000" />
-      <workItem from="1516330742108" duration="14606000" />
+      <workItem from="1516330742108" duration="21836000" />
     </task>
     <task id="LOCAL-00001" summary=":droplet: refactor">
       <created>1515742003980</created>
@@ -711,13 +731,17 @@
       <option name="project" value="LOCAL" />
       <updated>1516341766465</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=":beer: fix bug in Integer and Identifier LA">
+      <created>1516346305303</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1516346305303</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestComment - 2018.01.18 at 21h 42m 20s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TestComment - 2018.01.18 at 21h 44m 01s.xml">
       <configuration name="TestComment" configurationId="JUnit" />
     </history-entry>
@@ -730,11 +754,17 @@
     <history-entry file="TestComment - 2018.01.18 at 22h 01m 18s.xml">
       <configuration name="TestComment" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="TestComment - 2018.01.19 at 00h 22m 54s.xml">
+      <configuration name="TestComment" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestComment - 2018.01.19 at 00h 24m 30s.xml">
+      <configuration name="TestComment" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestComment - 2018.01.19 at 00h 24m 45s.xml">
+      <configuration name="TestComment" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="TestComment_testTokenPrinter - 2018.01.18 at 21h 56m 13s.xml">
       <configuration name="TestComment.testTokenPrinter" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestInputHandler - 2018.01.18 at 21h 11m 12s.xml">
-      <configuration name="TestInputHandler" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TestTokenPrinter_testTokenPrinter - 2018.01.18 at 21h 52m 48s.xml">
       <configuration name="TestTokenPrinter.testTokenPrinter" configurationId="JUnit" />
@@ -742,12 +772,9 @@
     <history-entry file="TestTokenPrinter_testTokenPrinter - 2018.01.18 at 21h 56m 31s.xml">
       <configuration name="TestTokenPrinter.testTokenPrinter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="inputHandler_tests_in_pika - 2018.01.12 at 01h 17m 34s.xml">
-      <configuration name="inputHandler.tests in pika" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52570000" />
+    <option name="totallyTimeSpent" value="59800000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -806,28 +833,32 @@
     <MESSAGE value=":droplet: run several tests" />
     <MESSAGE value=":sparkles: update keywords" />
     <MESSAGE value=":sparkles: add comment and test" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: add comment and test" />
+    <MESSAGE value=":beer: fix bug in Integer and Identifier LA" />
+    <option name="LAST_COMMIT_MESSAGE" value=":beer: fix bug in Integer and Identifier LA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java</url>
-          <line>172</line>
-          <properties />
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="25" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="Punctuator.NULL_PUNCTUATOR" language="JAVA" />
+        <watch expression="buffer.toStringCache[0]" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>buffer.toStringCache[0]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>buffer[0]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>Punctuator.NULL_PUNCTUATOR</expression-string>
         <language-id>JAVA</language-id>
@@ -836,13 +867,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tests/FileFixturesTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-759">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tokens/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -980,9 +1004,9 @@
         <state relative-caret-position="320">
           <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding>
-            <element signature="e#929#930#0" expanded="true" />
-            <element signature="e#965#966#0" expanded="true" />
-            <element signature="e#1031#1032#0" expanded="true" />
+            <element signature="e#929#930#0" expanded="false" />
+            <element signature="e#965#966#0" expanded="false" />
+            <element signature="e#1031#1032#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1095,24 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestComment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/currentTest.pika">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-56">
@@ -1145,10 +1151,10 @@
         <state relative-caret-position="200">
           <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding>
-            <element signature="e#355#356#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#467#468#0" expanded="true" />
-            <element signature="e#513#514#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="false" />
+            <element signature="e#413#414#0" expanded="false" />
+            <element signature="e#467#468#0" expanded="false" />
+            <element signature="e#513#514#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1169,14 +1175,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/applications/PikaTokenPrinter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1185,37 +1183,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding>
-            <element signature="e#1128#1129#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/applications/PikaCompiler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="46" column="40" lean-forward="false" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1241,24 +1212,80 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tokens/IntegerToken.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="18" column="65" lean-forward="true" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
+        <state relative-caret-position="168">
+          <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
+    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="21" />
+        <state relative-caret-position="819">
+          <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestComment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="880">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tokens/FloatingToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding>
+            <element signature="e#193#194#0" expanded="true" />
+            <element signature="e#232#233#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="9" column="106" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="106" />
+          <folding>
+            <element signature="e#1128#1129#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/inputHandler/LocatedChar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+        <state relative-caret-position="252">
+          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding>
             <element signature="e#1150#1151#0" expanded="true" />
             <element signature="e#1219#1220#0" expanded="true" />
@@ -1270,18 +1297,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+        <state relative-caret-position="308">
+          <caret line="228" column="120" lean-forward="false" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#843#844#0" expanded="true" />
-            <element signature="e#4490#4491#0" expanded="true" />
-            <element signature="e#4545#4546#0" expanded="true" />
-            <element signature="e#4869#4870#0" expanded="true" />
-            <element signature="e#4900#4901#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#727#728#0" expanded="true" />
+            <element signature="method#scanNumber#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#appendSubsequentDigits#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#scanIdentifier#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#appendSubsequentAlphabet#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#oldScanPunctuator#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="e#5946#5947#0" expanded="true" />
+            <element signature="e#6001#6002#0" expanded="true" />
+            <element signature="method#isIntegerStart#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="e#7085#7086#0" expanded="true" />
+            <element signature="e#7116#7117#0" expanded="true" />
           </folding>
         </state>
       </provider>
