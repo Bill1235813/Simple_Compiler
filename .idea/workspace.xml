@@ -2,12 +2,97 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/tokens/FloatingToken.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/applications/NumberedFileLister.java" afterPath="$PROJECT_DIR$/src/applications/NumberedFileLister.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaAbstractSyntaxTree.java" afterPath="$PROJECT_DIR$/src/applications/PikaAbstractSyntaxTree.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaApplication.java" afterPath="$PROJECT_DIR$/src/applications/PikaApplication.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaCodeGenerator.java" afterPath="$PROJECT_DIR$/src/applications/PikaCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaCompiler.java" afterPath="$PROJECT_DIR$/src/applications/PikaCompiler.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaSemanticChecker.java" afterPath="$PROJECT_DIR$/src/applications/PikaSemanticChecker.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaStandaloneOptimizer.java" afterPath="$PROJECT_DIR$/src/applications/PikaStandaloneOptimizer.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/PikaTokenPrinter.java" afterPath="$PROJECT_DIR$/src/applications/PikaTokenPrinter.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java" afterPath="$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/TestNumberedFileLister.java" afterPath="$PROJECT_DIR$/src/applications/tests/TestNumberedFileLister.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java" afterPath="$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/TestTokenPrinter.java" afterPath="$PROJECT_DIR$/src/applications/tests/TestTokenPrinter.java" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt" afterPath="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeChunk.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeChunk.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMInstruction.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMInstruction.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/InputHandler.java" afterPath="$PROJECT_DIR$/src/inputHandler/InputHandler.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/LineBasedReader.java" afterPath="$PROJECT_DIR$/src/inputHandler/LineBasedReader.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedChar.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharStream.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/LocatedCharString.java" afterPath="$PROJECT_DIR$/src/inputHandler/LocatedCharString.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java" afterPath="$PROJECT_DIR$/src/inputHandler/PushbackCharStream.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/TextLocation.java" afterPath="$PROJECT_DIR$/src/inputHandler/TextLocation.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/inputHandler/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/tests/TestInputHandler.java" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestInputHandler.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/tests/TestLineBasedIteratorImp.java" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLineBasedIteratorImp.java" />
+      <change beforePath="$PROJECT_DIR$/src/inputHandler/tests/TestLocatedCharStream.java" afterPath="$PROJECT_DIR$/src/inputHandler/tests/TestLocatedCharStream.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/LexemeMap.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexemeMap.java" />
       <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Lextant.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Lextant.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/PartiallyScannedPunctuator.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PartiallyScannedPunctuator.java" />
       <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanningAids.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanningAids.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Scanner.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Scanner.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/ScannerImp.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/ScannerImp.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestComment.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestComment.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestFloatingToken.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestFloatingToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/logging/PikaLogger.java" afterPath="$PROJECT_DIR$/src/logging/PikaLogger.java" />
+      <change beforePath="$PROJECT_DIR$/src/optimizer/Optimizer.java" afterPath="$PROJECT_DIR$/src/optimizer/Optimizer.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNode.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseTreePrinter.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseTreePrinter.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/PathToRootIterable.java" afterPath="$PROJECT_DIR$/src/parseTree/PathToRootIterable.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/BinaryOperatorNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BinaryOperatorNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/BlockStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BlockStatementNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/BooleanConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/BooleanConstantNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ErrorNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ErrorNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/NewlineNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/NewlineNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/SpaceNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/SpaceNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/Binding.java" afterPath="$PROJECT_DIR$/src/symbolTable/Binding.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/MemoryAccessMethod.java" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAccessMethod.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/MemoryAllocator.java" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryAllocator.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/MemoryLocation.java" afterPath="$PROJECT_DIR$/src/symbolTable/MemoryLocation.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/NegativeMemoryAllocator.java" afterPath="$PROJECT_DIR$/src/symbolTable/NegativeMemoryAllocator.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/PositiveMemoryAllocator.java" afterPath="$PROJECT_DIR$/src/symbolTable/PositiveMemoryAllocator.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/Scope.java" afterPath="$PROJECT_DIR$/src/symbolTable/Scope.java" />
+      <change beforePath="$PROJECT_DIR$/src/symbolTable/SymbolTable.java" afterPath="$PROJECT_DIR$/src/symbolTable/SymbolTable.java" />
+      <change beforePath="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" afterPath="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/FloatingToken.java" afterPath="$PROJECT_DIR$/src/tokens/FloatingToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/IdentifierToken.java" afterPath="$PROJECT_DIR$/src/tokens/IdentifierToken.java" />
       <change beforePath="$PROJECT_DIR$/src/tokens/IntegerToken.java" afterPath="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/LextantToken.java" afterPath="$PROJECT_DIR$/src/tokens/LextantToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/NullToken.java" afterPath="$PROJECT_DIR$/src/tokens/NullToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/Token.java" afterPath="$PROJECT_DIR$/src/tokens/Token.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/TokenImp.java" afterPath="$PROJECT_DIR$/src/tokens/TokenImp.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/Tokens.java" afterPath="$PROJECT_DIR$/src/tokens/Tokens.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,86 +107,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="LexicalAnalyzer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java">
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="228" column="120" lean-forward="false" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#708#709#0" expanded="true" />
-                <element signature="e#727#728#0" expanded="true" />
-                <element signature="method#scanNumber#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="method#appendSubsequentDigits#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="method#scanIdentifier#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="method#appendSubsequentAlphabet#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="method#oldScanPunctuator#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="e#5946#5947#0" expanded="true" />
-                <element signature="e#6001#6002#0" expanded="true" />
-                <element signature="method#isIntegerStart#0;class#LexicalAnalyzer#0" expanded="false" />
-                <element signature="e#7085#7086#0" expanded="true" />
-                <element signature="e#7116#7117#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="currentTest.pika" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="393">
+              <caret line="324" column="42" lean-forward="false" selection-start-line="324" selection-start-column="42" selection-end-line="324" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LocatedChar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/inputHandler/LocatedChar.java">
+      <file leaf-file-name="coinTestAST.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-              <folding>
-                <element signature="e#1150#1151#0" expanded="true" />
-                <element signature="e#1219#1220#0" expanded="true" />
-                <element signature="e#1247#1248#0" expanded="true" />
-                <element signature="e#1289#1290#0" expanded="true" />
-                <element signature="e#1322#1323#0" expanded="true" />
-                <element signature="e#1369#1370#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Punctuator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+            <state relative-caret-position="336">
+              <caret line="12" column="48" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Keyword.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java">
+      <file leaf-file-name="coinTestSemantics.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="1648">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FloatingToken.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tokens/FloatingToken.java">
+      <file leaf-file-name="TestSemanticChecker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-              <folding>
-                <element signature="e#193#194#0" expanded="true" />
-                <element signature="e#232#233#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="195">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,6 +170,7 @@
       <find>q</find>
       <find>integer</find>
       <find>number</find>
+      <find>mainblock</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -136,9 +178,11 @@
       <replace>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</replace>
       <replace>Floating</replace>
       <replace>integerConst</replace>
+      <replace>BlockStatement</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\Solution code\java\MyPikaCompiler\src</dir>
+      <dir>D:\Solution code\java\MyPikaCompiler\src\applications</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -179,6 +223,11 @@
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" />
         <option value="$PROJECT_DIR$/input/currentTest.pika" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/parser/Parser.kt" />
+        <option value="$PROJECT_DIR$/src/parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" />
+        <option value="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" />
+        <option value="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt" />
       </list>
     </option>
   </component>
@@ -231,28 +280,22 @@
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="applications" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="applications" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="lexicalAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="applications" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
               <item name="fixtures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tokens" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -326,11 +369,17 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/runConfigurations/PikaCompiler_currentTest.launch</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokenOnlyAST.txt</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/applications/tests/fixtures/coinTestTokens.txt</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/parser/Parser.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tokens/IntegerToken.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tests/FileFixturesTestCase.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -338,7 +387,10 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/runConfigurations/ASMEmu.launch</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/lexicalAnalyzer/tests/TestFloatingToken.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/floatingResult.txt</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/floatingTest.pika</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/parseTree/nodeTypes/BlockStatementNode.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -346,6 +398,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/parseTree/nodeTypes/MainBlockNode.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -439,32 +492,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.PikaTokenPrinter">
+  <component name="RunManager" selected="JUnit.TestSemanticChecker">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
-    </configuration>
-    <configuration name="PikaCompiler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="applications.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="applications.PikaCompiler" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/currentTest.pika" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="pika" />
-      <envs />
     </configuration>
     <configuration name="PikaStandaloneOptimizer" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -514,57 +548,7 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="TestComment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="lexicalAnalyzer.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="pika" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="lexicalAnalyzer.tests" />
-      <option name="MAIN_CLASS_NAME" value="lexicalAnalyzer.tests.TestComment" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="TestComment.testTokenPrinter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="lexicalAnalyzer.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="pika" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="lexicalAnalyzer.tests" />
-      <option name="MAIN_CLASS_NAME" value="lexicalAnalyzer.tests.TestComment" />
-      <option name="METHOD_NAME" value="testTokenPrinter" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="TestTokenPrinter.testTokenPrinter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestSemanticChecker" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="applications.tests.*" />
@@ -575,9 +559,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="applications.tests" />
-      <option name="MAIN_CLASS_NAME" value="applications.tests.TestTokenPrinter" />
-      <option name="METHOD_NAME" value="testTokenPrinter" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="applications.tests.TestSemanticChecker" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -598,6 +582,81 @@
       <option name="MAIN_CLASS_NAME" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="applications in pika" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="applications.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="pika" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="applications" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="applications.tests in pika" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="applications.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="pika" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="applications.tests" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="lexicalAnalyzer.tests in pika" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="lexicalAnalyzer.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="pika" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="lexicalAnalyzer.tests" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -654,18 +713,18 @@
       <item index="1" class="java.lang.String" itemvalue="External Tools.ASMEmu_coins" />
       <item index="2" class="java.lang.String" itemvalue="External Tools.ASMEmu_currentTest" />
       <item index="3" class="java.lang.String" itemvalue="Application.PikaTokenPrinter" />
-      <item index="4" class="java.lang.String" itemvalue="Application.PikaCompiler" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TestComment" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.TestTokenPrinter.testTokenPrinter" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.TestComment.testTokenPrinter" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.applications.tests in pika" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.lexicalAnalyzer.tests in pika" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.applications in pika" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.TestSemanticChecker" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.PikaTokenPrinter" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TestComment" />
-        <item index="2" class="java.lang.String" itemvalue="Application.PikaCompiler" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TestTokenPrinter.testTokenPrinter" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TestComment.testTokenPrinter" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TestSemanticChecker" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.applications.tests in pika" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.applications in pika" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.lexicalAnalyzer.tests in pika" />
+        <item index="4" class="java.lang.String" itemvalue="Application.PikaTokenPrinter" />
       </list>
     </recent_temporary>
   </component>
@@ -694,7 +753,7 @@
       <workItem from="1515838990101" duration="9318000" />
       <workItem from="1516264213143" duration="1014000" />
       <workItem from="1516299722715" duration="3571000" />
-      <workItem from="1516330742108" duration="21836000" />
+      <workItem from="1516330742108" duration="24959000" />
     </task>
     <task id="LOCAL-00001" summary=":droplet: refactor">
       <created>1515742003980</created>
@@ -738,43 +797,50 @@
       <option name="project" value="LOCAL" />
       <updated>1516346305303</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary=":sparkles: fix some bug of integer and add floating number in LA">
+      <created>1516353544780</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1516353544780</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestComment - 2018.01.18 at 21h 44m 01s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 48m 30s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.18 at 21h 50m 50s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 48m 52s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.18 at 21h 54m 00s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 49m 13s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.18 at 22h 01m 18s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 49m 18s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.19 at 00h 22m 54s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 49m 32s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.19 at 00h 24m 30s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 49m 43s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment - 2018.01.19 at 00h 24m 45s.xml">
-      <configuration name="TestComment" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 50m 05s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestComment_testTokenPrinter - 2018.01.18 at 21h 56m 13s.xml">
-      <configuration name="TestComment.testTokenPrinter" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 51m 04s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestTokenPrinter_testTokenPrinter - 2018.01.18 at 21h 52m 48s.xml">
-      <configuration name="TestTokenPrinter.testTokenPrinter" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 52m 10s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestTokenPrinter_testTokenPrinter - 2018.01.18 at 21h 56m 31s.xml">
-      <configuration name="TestTokenPrinter.testTokenPrinter" configurationId="JUnit" />
+    <history-entry file="TestSemanticChecker - 2018.01.20 at 01h 52m 25s.xml">
+      <configuration name="TestSemanticChecker" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59800000" />
+    <option name="totallyTimeSpent" value="62923000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -795,10 +861,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14554974" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32879582" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -834,13 +900,26 @@
     <MESSAGE value=":sparkles: update keywords" />
     <MESSAGE value=":sparkles: add comment and test" />
     <MESSAGE value=":beer: fix bug in Integer and Identifier LA" />
-    <option name="LAST_COMMIT_MESSAGE" value=":beer: fix bug in Integer and Identifier LA" />
+    <MESSAGE value=":sparkles: fix some bug of integer and add floating number in LA" />
+    <MESSAGE value=":droplet: reformat" />
+    <option name="LAST_COMMIT_MESSAGE" value=":droplet: reformat" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java</url>
+          <line>25</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="OS.contains(&quot;Windows&quot;)" language="JAVA" />
+      </configuration>
       <configuration name="Application">
         <watch expression="Punctuator.NULL_PUNCTUATOR" language="JAVA" />
         <watch expression="buffer.toStringCache[0]" language="JAVA" />
@@ -849,6 +928,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>OS.contains(&quot;Windows&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>buffer.toStringCache[0]</expression-string>
         <language-id>JAVA</language-id>
@@ -867,45 +951,13 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tokens/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tokens/NumberToken.java" />
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Lextant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/IntelliJ IDEA Community Edition 2017.2/JDK/src.zip!/java/lang/StringBuffer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="114" column="11" lean-forward="false" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Scanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/inputHandler/InputHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
-            <element signature="e#2310#2311#0" expanded="false" />
-            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#2553#2554#0" expanded="false" />
+            <element signature="e#2618#2619#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -931,17 +983,6 @@
         <state relative-caret-position="700">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="72" column="22" lean-forward="false" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
-          <folding>
-            <element signature="e#1642#1643#0" expanded="false" />
-            <element signature="e#1685#1686#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1004,9 +1045,9 @@
         <state relative-caret-position="320">
           <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding>
-            <element signature="e#929#930#0" expanded="false" />
-            <element signature="e#965#966#0" expanded="false" />
-            <element signature="e#1031#1032#0" expanded="false" />
+            <element signature="e#1038#1039#0" expanded="false" />
+            <element signature="e#1083#1084#0" expanded="false" />
+            <element signature="e#1163#1164#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1016,9 +1057,9 @@
         <state relative-caret-position="476">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#416#441#0" expanded="false" />
-            <element signature="e#818#819#0" expanded="false" />
-            <element signature="e#872#873#0" expanded="false" />
+            <element signature="e#422#447#0" expanded="false" />
+            <element signature="e#854#855#0" expanded="false" />
+            <element signature="e#917#918#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1027,14 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/junit-5.0-SNAPSHOT.jar!/junit/framework/TestCase.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="189" column="23" lean-forward="false" selection-start-line="189" selection-start-column="23" selection-end-line="189" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1051,14 +1084,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1132,8 +1157,8 @@
         <state relative-caret-position="-57">
           <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
           <folding>
-            <element signature="e#2457#2458#0" expanded="true" />
-            <element signature="e#2506#2507#0" expanded="true" />
+            <element signature="e#2655#2656#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1151,10 +1176,10 @@
         <state relative-caret-position="200">
           <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding>
-            <element signature="e#355#356#0" expanded="false" />
-            <element signature="e#413#414#0" expanded="false" />
-            <element signature="e#467#468#0" expanded="false" />
-            <element signature="e#513#514#0" expanded="false" />
+            <element signature="e#372#373#0" expanded="false" />
+            <element signature="e#439#440#0" expanded="false" />
+            <element signature="e#498#499#0" expanded="false" />
+            <element signature="e#553#554#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1204,8 +1229,8 @@
         <state relative-caret-position="396">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
-            <element signature="e#469#470#0" expanded="true" />
-            <element signature="e#516#517#0" expanded="true" />
+            <element signature="e#510#511#0" expanded="false" />
+            <element signature="e#566#567#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1231,7 +1256,7 @@
         <state relative-caret-position="476">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1249,8 +1274,8 @@
         <state relative-caret-position="362">
           <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
           <folding>
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#232#233#0" expanded="true" />
+            <element signature="e#193#194#0" expanded="false" />
+            <element signature="e#232#233#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1260,8 +1285,8 @@
         <state relative-caret-position="252">
           <caret line="9" column="106" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="106" />
           <folding>
-            <element signature="e#1128#1129#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1281#1282#0" expanded="false" />
+            <element signature="e#1350#1351#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1287,12 +1312,34 @@
         <state relative-caret-position="252">
           <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding>
-            <element signature="e#1150#1151#0" expanded="true" />
-            <element signature="e#1219#1220#0" expanded="true" />
-            <element signature="e#1247#1248#0" expanded="true" />
-            <element signature="e#1289#1290#0" expanded="true" />
-            <element signature="e#1322#1323#0" expanded="true" />
-            <element signature="e#1369#1370#0" expanded="true" />
+            <element signature="e#1291#1292#0" expanded="false" />
+            <element signature="e#1369#1370#0" expanded="false" />
+            <element signature="e#1401#1402#0" expanded="false" />
+            <element signature="e#1452#1453#0" expanded="false" />
+            <element signature="e#1489#1490#0" expanded="false" />
+            <element signature="e#1545#1546#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="226" column="28" lean-forward="true" selection-start-line="226" selection-start-column="28" selection-end-line="226" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#708#709#0" expanded="false" />
+            <element signature="e#727#728#0" expanded="false" />
+            <element signature="method#scanNumber#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#appendSubsequentDigits#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#scanIdentifier#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#appendSubsequentAlphabet#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="method#oldScanPunctuator#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="e#5941#5942#0" expanded="false" />
+            <element signature="e#5996#5997#0" expanded="false" />
+            <element signature="method#isIntegerStart#0;class#LexicalAnalyzer#0" expanded="false" />
+            <element signature="e#7072#7073#0" expanded="false" />
+            <element signature="e#7103#7104#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1305,25 +1352,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java">
+    <entry file="file://$PROJECT_DIR$/src/tests/FileFixturesTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="228" column="120" lean-forward="false" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
+        <state relative-caret-position="560">
+          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applications/tests/TestAbstractSyntaxTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="34" column="22" lean-forward="false" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/junit-5.0-SNAPSHOT.jar!/org/junit/internal/runners/JUnit38ClassRunner.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/junit-5.0-SNAPSHOT.jar!/junit/framework/TestCase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#708#709#0" expanded="true" />
-            <element signature="e#727#728#0" expanded="true" />
-            <element signature="method#scanNumber#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="method#appendSubsequentDigits#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="method#scanIdentifier#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="method#appendSubsequentAlphabet#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="method#oldScanPunctuator#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="e#5946#5947#0" expanded="true" />
-            <element signature="e#6001#6002#0" expanded="true" />
-            <element signature="method#isIntegerStart#0;class#LexicalAnalyzer#0" expanded="false" />
-            <element signature="e#7085#7086#0" expanded="true" />
-            <element signature="e#7116#7117#0" expanded="true" />
+            <element signature="e#3299#3300#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="324" column="42" lean-forward="false" selection-start-line="324" selection-start-column="42" selection-end-line="324" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="12" column="48" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1648">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

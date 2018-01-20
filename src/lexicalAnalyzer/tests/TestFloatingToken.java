@@ -10,10 +10,10 @@ import java.io.PrintStream;
 import static lexicalAnalyzer.tests.FixtureDefinitions.FLOATING_INPUT_FILENAME;
 import static lexicalAnalyzer.tests.FixtureDefinitions.FLOATING_EXPECTED_FILENAME;
 
-public class TestFloatingToken extends FileFixturesTestCase{
-	
-	public void testTokenPrinter() throws Exception {
-        String actualOutput =	tokenPrinterOutput(FLOATING_INPUT_FILENAME);
+public class TestFloatingToken extends FileFixturesTestCase {
+
+    public void testTokenPrinter() throws Exception {
+        String actualOutput = tokenPrinterOutput(FLOATING_INPUT_FILENAME);
         String expectedOutput = getContents(FLOATING_EXPECTED_FILENAME);
         assertEquals(expectedOutput, actualOutput);
     }
@@ -24,6 +24,7 @@ public class TestFloatingToken extends FileFixturesTestCase{
 
     public class TokenPrinterCommand implements Command {
         String filename;
+
         public TokenPrinterCommand(String filename) {
             this.filename = filename;
         }
@@ -33,5 +34,5 @@ public class TestFloatingToken extends FileFixturesTestCase{
             PikaTokenPrinter.scanFile(filename, out);
         }
     }
-    
+
 }

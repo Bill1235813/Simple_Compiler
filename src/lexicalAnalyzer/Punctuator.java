@@ -18,7 +18,7 @@ public enum Punctuator implements Lextant {
 	ASSIGN(":="),
 	SEPARATOR(","),
 	SPACE(";"),
-	TERMINATOR("."), 
+	TERMINATOR("."),
 	OPEN_BRACE("{"),
 	CLOSE_BRACE("}"),
 	OPEN_BRACKET("["),
@@ -31,22 +31,24 @@ public enum Punctuator implements Lextant {
 
 	private String lexeme;
 	private Token prototype;
-	
+
 	private Punctuator(String lexeme) {
 		this.lexeme = lexeme;
 		this.prototype = LextantToken.make(null, lexeme, this);
 	}
+
 	public String getLexeme() {
 		return lexeme;
 	}
+
 	public Token prototype() {
 		return prototype;
 	}
-	
-	
+
+
 	public static Punctuator forLexeme(String lexeme) {
-		for(Punctuator punctuator: values()) {
-			if(punctuator.lexeme.equals(lexeme)) {
+		for (Punctuator punctuator : values()) {
+			if (punctuator.lexeme.equals(lexeme)) {
 				return punctuator;
 			}
 		}
@@ -60,7 +62,7 @@ public enum Punctuator implements Lextant {
 		   return lexemeToPunctuator.forLexeme(lexeme);
 	}
 */
-	
+
 }
 
 

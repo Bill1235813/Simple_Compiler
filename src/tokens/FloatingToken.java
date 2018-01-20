@@ -8,9 +8,11 @@ public class FloatingToken extends TokenImp {
     protected FloatingToken(TextLocation location, String lexeme) {
         super(location, lexeme);
     }
+
     protected void setValue(double value) {
         this.value = value;
     }
+
     public double getValue() {
         return value;
     }

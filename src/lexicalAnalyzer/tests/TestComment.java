@@ -13,7 +13,7 @@ import static lexicalAnalyzer.tests.FixtureDefinitions.COMMENT_EXPECTED_FILENAME
 public class TestComment extends FileFixturesTestCase {
 
     public void testTokenPrinter() throws Exception {
-        String actualOutput =	tokenPrinterOutput(COMMENT_INPUT_FILENAME);
+        String actualOutput = tokenPrinterOutput(COMMENT_INPUT_FILENAME);
         String expectedOutput = getContents(COMMENT_EXPECTED_FILENAME);
         assertEquals(expectedOutput, actualOutput);
     }
@@ -24,6 +24,7 @@ public class TestComment extends FileFixturesTestCase {
 
     public class TokenPrinterCommand implements Command {
         String filename;
+
         public TokenPrinterCommand(String filename) {
             this.filename = filename;
         }
