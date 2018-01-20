@@ -4,17 +4,7 @@ import java.util.Arrays;
 
 import logging.PikaLogger;
 import parseTree.*;
-import parseTree.nodeTypes.BinaryOperatorNode;
-import parseTree.nodeTypes.BooleanConstantNode;
-import parseTree.nodeTypes.BlockStatementNode;
-import parseTree.nodeTypes.DeclarationNode;
-import parseTree.nodeTypes.ErrorNode;
-import parseTree.nodeTypes.IdentifierNode;
-import parseTree.nodeTypes.IntegerConstantNode;
-import parseTree.nodeTypes.NewlineNode;
-import parseTree.nodeTypes.PrintStatementNode;
-import parseTree.nodeTypes.ProgramNode;
-import parseTree.nodeTypes.SpaceNode;
+import parseTree.nodeTypes.*;
 import tokens.*;
 import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Lextant;
@@ -318,6 +308,9 @@ public class Parser {
         if (startsIntegerConstant(nowReading)) {
             return parseIntegerConstant();
         }
+        if (startsFloatingConstant(nowReading)) {
+            return parseFloatingConstant();
+        }
         if (startsIdentifier(nowReading)) {
             return parseIdentifier();
         }
@@ -329,7 +322,8 @@ public class Parser {
     }
 
     private boolean startsLiteral(Token token) {
-        return startsIntegerConstant(token) || startsIdentifier(token) || startsBooleanConstant(token);
+        return startsIntegerConstant(token) || startsFloatingConstant(token) ||
+                startsIdentifier(token) || startsBooleanConstant(token);
     }
 
     // integer (terminal)
@@ -343,6 +337,19 @@ public class Parser {
 
     private boolean startsIntegerConstant(Token token) {
         return token instanceof IntegerToken;
+    }
+
+    // floating (terminal)
+    private ParseNode parseFloatingConstant() {
+        if (!startsFloatingConstant(nowReading)) {
+            return syntaxErrorNode("floating constant");
+        }
+        readToken();
+        return new FloatingConstantNode(previouslyRead);
+    }
+
+    private boolean startsFloatingConstant(Token token) {
+        return token instanceof FloatingToken;
     }
 
     // identifier (terminal)
