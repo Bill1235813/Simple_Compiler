@@ -5,6 +5,10 @@
         DataC        37                        %% "%d"
         DataC        100                       
         DataC        0                         
+        DLabel       $print-format-floating    
+        DataC        37                        %% "%g"
+        DataC        103                       
+        DataC        0                         
         DLabel       $print-format-boolean     
         DataC        37                        %% "%s"
         DataC        115                       

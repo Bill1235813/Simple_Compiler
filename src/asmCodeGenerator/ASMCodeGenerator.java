@@ -10,6 +10,7 @@ import lexicalAnalyzer.Lextant;
 import lexicalAnalyzer.Punctuator;
 import parseTree.*;
 import parseTree.nodeTypes.*;
+import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -228,11 +229,20 @@ public class ASMCodeGenerator {
         public void visitLeave(BinaryOperatorNode node) {
             Lextant operator = node.getOperator();
 
-            if (operator == Punctuator.GREATER) {
+            if (isComparisonOperatorNode(operator)) {
                 visitComparisonOperatorNode(node, operator);
             } else {
                 visitNormalBinaryOperatorNode(node);
             }
+        }
+        
+        private boolean isComparisonOperatorNode(Lextant operator) {
+        		for (Punctuator comparison: FunctionSignatures.comparisons) {
+        			if (operator == comparison) {
+        				return true;
+        			}
+        		}
+        		return false;
         }
 
         private void visitComparisonOperatorNode(BinaryOperatorNode node,
@@ -240,7 +250,9 @@ public class ASMCodeGenerator {
 
             ASMCodeFragment arg1 = removeValueCode(node.child(0));
             ASMCodeFragment arg2 = removeValueCode(node.child(1));
-
+            
+            Type compareType = node.getSignature().firstParamType();
+            
             Labeller labeller = new Labeller("compare");
 
             String startLabel = labeller.newLabel("arg1");
@@ -279,8 +291,14 @@ public class ASMCodeGenerator {
             code.append(arg1);
             code.append(arg2);
 
-            ASMOpcode opcode = opcodeForOperator(node.getOperator());
-            code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+            Object variant = node.getSignature().getVariant();
+            if (variant instanceof ASMOpcode) {
+            		ASMOpcode opcode = (ASMOpcode)variant;
+            		code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+            } else {
+            		// throw exception
+            		assert false : "unimplemented operator in opcodeForOperator";
+            }
         }
 
         private ASMOpcode opcodeForOperator(Lextant lextant) {

@@ -9,6 +9,7 @@ import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
 import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.FunctionSignature;
+import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -86,10 +87,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         List<Type> childTypes = Arrays.asList(left.getType(), right.getType());
 
         Lextant operator = operatorFor(node);
-        FunctionSignature signature = FunctionSignature.signatureOf(operator);
+        FunctionSignatures signatures = FunctionSignatures.signaturesOf(operator);
+        FunctionSignature signature = signatures.acceptingSignature(childTypes);
 
         if (signature.accepts(childTypes)) {
             node.setType(signature.resultType());
+            node.setSignature(signature);
         } else {
             typeCheckError(node, childTypes);
             node.setType(PrimitiveType.ERROR);

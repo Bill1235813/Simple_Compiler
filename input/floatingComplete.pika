@@ -1,4 +1,8 @@
 exec {
     const avogadro := 6.022E+23.
     const pi := 3.14159.
+    const twoPi := pi + pi.
+    const squarePi := pi * pi.
+    const morePi := squarePi > twoPi.
+    print twoPi; squarePi; morePi ; _n_.
 }

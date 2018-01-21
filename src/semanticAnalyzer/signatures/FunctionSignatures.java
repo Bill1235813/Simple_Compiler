@@ -5,13 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import asmCodeGenerator.codeStorage.ASMOpcode;
+import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Type;
-
+import static semanticAnalyzer.types.PrimitiveType.*;
 
 public class FunctionSignatures extends ArrayList<FunctionSignature> {
     private static final long serialVersionUID = -4907792488209670697L;
     private static Map<Object, FunctionSignatures> signaturesForKey = new HashMap<Object, FunctionSignatures>();
-
+    public static final Punctuator []comparisons = { 
+    		Punctuator.GREATER, Punctuator.GREATEROREQUAL, Punctuator.LESS, 
+    		Punctuator.LESSOREQUAL, Punctuator.EQUAL, Punctuator.NOTEQUAL
+    	};
+    
     Object key;
 
     public FunctionSignatures(Object key, FunctionSignature... functionSignatures) {
@@ -69,10 +75,31 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
 
-//		new FunctionSignatures(Punctuator.ADD,
-//		    new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
-//		    new FunctionSignature(ASMOpcode.FAdd, FLOAT, FLOAT, FLOAT)
-//		);
+		new FunctionSignatures(Punctuator.ADD,
+		    new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
+		    new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING)
+		);
+
+		new FunctionSignatures(Punctuator.MULTIPLY,
+			    new FunctionSignature(ASMOpcode.Multiply, INTEGER, INTEGER, INTEGER),
+			    new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING)
+		);
+		
+		for (Punctuator comparison: comparisons) {
+			FunctionSignature iSignature = new FunctionSignature(1, INTEGER, INTEGER, BOOLEAN);
+			FunctionSignature cSignature = new FunctionSignature(1, CHARACTER, CHARACTER, BOOLEAN);
+			FunctionSignature fSignature = new FunctionSignature(1, FLOATING, FLOATING, BOOLEAN);
+			FunctionSignature bSignature = new FunctionSignature(1, BOOLEAN, BOOLEAN, BOOLEAN);
+			FunctionSignature sSignature = new FunctionSignature(1, STRING, STRING, BOOLEAN);
+			
+			if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
+				new FunctionSignatures(comparison, iSignature, 
+						cSignature, fSignature, bSignature, sSignature);
+			} else {
+				new FunctionSignatures(comparison, iSignature, 
+						cSignature, fSignature);
+			}
+		}
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
         // Then, we give that key two signatures: one an (INT x INT -> INT) and the other

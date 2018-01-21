@@ -71,6 +71,8 @@ public class PrintStatementGenerator {
         switch ((PrimitiveType) type) {
             case INTEGER:
                 return RunTime.INTEGER_PRINT_FORMAT;
+            case FLOATING:
+            		return RunTime.FLOATING_PRINT_FORMAT;
             case BOOLEAN:
                 return RunTime.BOOLEAN_PRINT_FORMAT;
             default:

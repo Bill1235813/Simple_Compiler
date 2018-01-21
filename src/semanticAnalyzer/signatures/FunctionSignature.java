@@ -48,6 +48,14 @@ public class FunctionSignature {
         return false;
     }
 
+    public Type firstParamType() {
+    		if (paramTypes.length > 0) {
+    			return paramTypes[0];
+    		} else {
+    			assert false: "no parameter in this operation";
+    			return PrimitiveType.ERROR;
+    		}
+    }
 
     ///////////////////////////////////////////////////////////////
     // main query
@@ -90,7 +98,7 @@ public class FunctionSignature {
     ///////////////////////////////////////////////////////////////////
     // Signatures for pika-0 operators
     // this section will probably disappear in pika-1 (in favor of FunctionSignatures)
-
+    
     private static FunctionSignature addSignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.INTEGER);
     private static FunctionSignature multiplySignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.INTEGER);
     private static FunctionSignature greaterSignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.BOOLEAN);
