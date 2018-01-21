@@ -31,6 +31,11 @@ public enum Punctuator implements Lextant {
 
 	private String lexeme;
 	private Token prototype;
+	// All comparison nodes
+	public static final Punctuator []comparisons = {
+			GREATER, GREATEROREQUAL, LESS,
+			LESSOREQUAL, EQUAL, NOTEQUAL
+	};
 
 	private Punctuator(String lexeme) {
 		this.lexeme = lexeme;

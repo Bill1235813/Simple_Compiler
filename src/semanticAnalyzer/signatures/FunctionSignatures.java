@@ -8,16 +8,14 @@ import java.util.Map;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Type;
+import asmCodeGenerator.simpleCodeGenerator.IntegerDivideCodeGenerator;
+import asmCodeGenerator.simpleCodeGenerator.FloatingDivideCodeGenerator;
 import static semanticAnalyzer.types.PrimitiveType.*;
 
 public class FunctionSignatures extends ArrayList<FunctionSignature> {
     private static final long serialVersionUID = -4907792488209670697L;
     private static Map<Object, FunctionSignatures> signaturesForKey = new HashMap<Object, FunctionSignatures>();
-    public static final Punctuator []comparisons = { 
-    		Punctuator.GREATER, Punctuator.GREATEROREQUAL, Punctuator.LESS, 
-    		Punctuator.LESSOREQUAL, Punctuator.EQUAL, Punctuator.NOTEQUAL
-    	};
-    
+
     Object key;
 
     public FunctionSignatures(Object key, FunctionSignature... functionSignatures) {
@@ -75,17 +73,31 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
 
-		new FunctionSignatures(Punctuator.ADD,
-		    new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
-		    new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING)
+		new FunctionSignatures(
+		        Punctuator.ADD,
+                new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
+		        new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING)
 		);
 
-		new FunctionSignatures(Punctuator.MULTIPLY,
+		new FunctionSignatures(
+		        Punctuator.SUBTRACT,
+                new FunctionSignature(ASMOpcode.Subtract, INTEGER, INTEGER, INTEGER),
+                new FunctionSignature(ASMOpcode.FSubtract, FLOATING, FLOATING, FLOATING)
+        );
+
+		new FunctionSignatures(
+		        Punctuator.MULTIPLY,
 			    new FunctionSignature(ASMOpcode.Multiply, INTEGER, INTEGER, INTEGER),
 			    new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING)
 		);
-		
-		for (Punctuator comparison: comparisons) {
+
+		new FunctionSignatures(
+                Punctuator.DIVIDE,
+                new FunctionSignature(new IntegerDivideCodeGenerator(), INTEGER, INTEGER, INTEGER),
+                new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING)
+        );
+
+		for (Punctuator comparison: Punctuator.comparisons) {
 			FunctionSignature iSignature = new FunctionSignature(1, INTEGER, INTEGER, BOOLEAN);
 			FunctionSignature cSignature = new FunctionSignature(1, CHARACTER, CHARACTER, BOOLEAN);
 			FunctionSignature fSignature = new FunctionSignature(1, FLOATING, FLOATING, BOOLEAN);

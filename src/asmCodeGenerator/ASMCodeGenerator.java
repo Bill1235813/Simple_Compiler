@@ -6,6 +6,7 @@ import java.util.Map;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.runtime.RunTime;
+import asmCodeGenerator.simpleCodeGenerator.SimpleCodeGenerator;
 import lexicalAnalyzer.Lextant;
 import lexicalAnalyzer.Punctuator;
 import parseTree.*;
@@ -22,6 +23,11 @@ import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 // do not call the code generator if any errors have occurred during analysis.
 public class ASMCodeGenerator {
     ParseNode root;
+    private static final ASMOpcode[] defaultJumpList = {JumpFalse, JumpPos, JumpNeg};
+    private static final Map<Type,ASMOpcode> comparisonOperationMap = new HashMap<Type, ASMOpcode>();
+    private static final Map<Type,ASMOpcode[]> comparisonJumpMap = new HashMap<Type, ASMOpcode[]>();
+    private static final Map<Punctuator, Integer> comparisonJumpIndexMap = new HashMap<Punctuator, Integer>();
+    private static final Map<Punctuator, Integer> comparisonBooleanIndexMap = new HashMap<Punctuator, Integer>();
 
     public static ASMCodeFragment generate(ParseNode syntaxTree) {
         ASMCodeGenerator codeGenerator = new ASMCodeGenerator(syntaxTree);
@@ -30,7 +36,39 @@ public class ASMCodeGenerator {
 
     public ASMCodeGenerator(ParseNode root) {
         super();
+        makeComparisonOperationMap();
+        makeComparisonJumpMap();
+        makeComparisonIndexMap();
         this.root = root;
+    }
+
+    private void makeComparisonOperationMap() {
+        comparisonOperationMap.put(PrimitiveType.FLOATING, FSubtract);
+        comparisonOperationMap.put(PrimitiveType.BOOLEAN, Xor);
+    }
+    private void makeComparisonJumpMap() {
+        ASMOpcode[] floatingJumpList = {JumpFZero, JumpFPos, JumpFNeg};
+        comparisonJumpMap.put(PrimitiveType.FLOATING, floatingJumpList);
+    }
+    private void makeComparisonIndexMap() {
+        // '>' -> JumpPos True
+        comparisonJumpIndexMap.put(Punctuator.GREATER, 1);
+        comparisonBooleanIndexMap.put(Punctuator.GREATER, 1);
+        // '<' -> JumpNeg True
+        comparisonJumpIndexMap.put(Punctuator.LESS, 2);
+        comparisonBooleanIndexMap.put(Punctuator.LESS, 1);
+        // '>=' -> JumpNeg False
+        comparisonJumpIndexMap.put(Punctuator.GREATEROREQUAL, 2);
+        comparisonBooleanIndexMap.put(Punctuator.GREATEROREQUAL, 0);
+        // '<=' -> JumpPos False
+        comparisonJumpIndexMap.put(Punctuator.LESSOREQUAL, 1);
+        comparisonBooleanIndexMap.put(Punctuator.LESSOREQUAL, 0);
+        // '==' -> JumpFalse True
+        comparisonJumpIndexMap.put(Punctuator.EQUAL, 0);
+        comparisonBooleanIndexMap.put(Punctuator.EQUAL, 1);
+        // '!=' -> JumpFalse False
+        comparisonJumpIndexMap.put(Punctuator.NOTEQUAL, 0);
+        comparisonBooleanIndexMap.put(Punctuator.NOTEQUAL, 0);
     }
 
     public ASMCodeFragment makeASM() {
@@ -237,7 +275,7 @@ public class ASMCodeGenerator {
         }
         
         private boolean isComparisonOperatorNode(Lextant operator) {
-        		for (Punctuator comparison: FunctionSignatures.comparisons) {
+        		for (Punctuator comparison: Punctuator.comparisons) {
         			if (operator == comparison) {
         				return true;
         			}
@@ -250,17 +288,23 @@ public class ASMCodeGenerator {
 
             ASMCodeFragment arg1 = removeValueCode(node.child(0));
             ASMCodeFragment arg2 = removeValueCode(node.child(1));
-            
-            Type compareType = node.getSignature().firstParamType();
-            
-            Labeller labeller = new Labeller("compare");
 
+            // based on Type and Punctuator, find the correct way to compare
+            Type compareType = node.getSignature().firstParamType();
+            ASMOpcode comparisonOperation = comparisonOperationMap.getOrDefault(compareType, Subtract);
+            ASMOpcode comparisonJumpList[] = comparisonJumpMap.getOrDefault(compareType, defaultJumpList);
+            int jumpIndex = comparisonJumpIndexMap.getOrDefault(operator, -1);
+            int booleanIndex = comparisonBooleanIndexMap.getOrDefault(operator, -1);
+
+            // Set several Labels
+            Labeller labeller = new Labeller("compare");
             String startLabel = labeller.newLabel("arg1");
             String arg2Label = labeller.newLabel("arg2");
             String subLabel = labeller.newLabel("sub");
             String trueLabel = labeller.newLabel("true");
             String falseLabel = labeller.newLabel("false");
             String joinLabel = labeller.newLabel("join");
+            String[] booleanList = {falseLabel, trueLabel};
 
             newValueCode(node);
             code.add(Label, startLabel);
@@ -268,10 +312,10 @@ public class ASMCodeGenerator {
             code.add(Label, arg2Label);
             code.append(arg2);
             code.add(Label, subLabel);
-            code.add(Subtract);
+            code.add(comparisonOperation);
 
-            code.add(JumpPos, trueLabel);
-            code.add(Jump, falseLabel);
+            code.add(comparisonJumpList[jumpIndex], booleanList[booleanIndex]);
+            code.add(Jump, booleanList[1 - booleanIndex]);
 
             code.add(Label, trueLabel);
             code.add(PushI, 1);
@@ -293,11 +337,19 @@ public class ASMCodeGenerator {
 
             Object variant = node.getSignature().getVariant();
             if (variant instanceof ASMOpcode) {
-            		ASMOpcode opcode = (ASMOpcode)variant;
-            		code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+                ASMOpcode opcode = (ASMOpcode)variant;
+                code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+            } else if (variant instanceof SimpleCodeGenerator) {
+                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
+                ASMCodeFragment fragment = generator.generate(node);
+                code.append(fragment);
+
+                if (fragment.isAddress()) {
+                    code.markAsAddress();  // cannot understand it
+                }
             } else {
-            		// throw exception
-            		assert false : "unimplemented operator in opcodeForOperator";
+                // throw exception
+                assert false : "unimplemented operator in opcodeForOperator";
             }
         }
 

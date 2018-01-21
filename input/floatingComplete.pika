@@ -4,5 +4,8 @@ exec {
     const twoPi := pi + pi.
     const squarePi := pi * pi.
     const morePi := squarePi > twoPi.
-    print twoPi; squarePi; morePi ; _n_.
+    const subPi := squarePi - twoPi.
+    const dividePi := squarePi / pi.
+    print twoPi; squarePi; morePi ; subPi ; _n_ , dividePi.
+    const errorPi := pi / 0.0.
 }
