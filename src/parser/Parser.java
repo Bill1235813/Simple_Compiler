@@ -198,7 +198,7 @@ public class Parser {
     }
 
     private boolean startsDeclaration(Token token) {
-        return token.isLextant(Keyword.CONST);
+        return token.isLextant(Keyword.CONST) || token.isLextant(Keyword.VAR);
     }
 
 
@@ -263,10 +263,10 @@ public class Parser {
     }
 
     private boolean startsAdditiveExpression(Token token) {
-        return startsLiteral(token);
+        return startsAtomicExpression(token);
     }
 
-    // multiplicativeExpression -> atomicExpression [MULT atomicExpression]*  (left-assoc)
+    // multiplicativeExpression -> Expression [MULT atomicExpression]*  (left-assoc)
     private ParseNode parseMultiplicativeExpression() {
         if (!startsMultiplicativeExpression(nowReading)) {
             return syntaxErrorNode("multiplicativeExpression");
@@ -287,18 +287,81 @@ public class Parser {
         return startsAtomicExpression(token);
     }
 
-    // atomicExpression -> literal
+    // atomicExpression -> literal | parentheses | casting
     private ParseNode parseAtomicExpression() {
         if (!startsAtomicExpression(nowReading)) {
             return syntaxErrorNode("atomic expression");
+        }
+        if (startsParenthesesExpression(nowReading)) {
+            return parseParenthesesExpression();
+        }
+        if (startsCastingExpression(nowReading)) {
+            return parseCastingExpression();
         }
         return parseLiteral();
     }
 
     private boolean startsAtomicExpression(Token token) {
-        return startsLiteral(token);
+        return startsLiteral(token) || startsParenthesesExpression(token) ||
+                startsCastingExpression(token);
     }
 
+    // parentheses expression -> ( expression )
+    private ParseNode parseParenthesesExpression() {
+        if (!startsParenthesesExpression(nowReading)) {
+            return syntaxErrorNode("parentheses expression");
+        }
+
+        ParseNode parenthesesExpression = new ParenthesesNode(nowReading);
+        expect(Punctuator.OPEN_PARENTHESE);
+        ParseNode expression = parseExpression();
+        parenthesesExpression.appendChild(expression);
+        expect(Punctuator.CLOSE_PARENTHESE);
+        
+        return parenthesesExpression;
+    }
+    
+    private boolean startsParenthesesExpression(Token token) {
+        return token.isLextant(Punctuator.OPEN_PARENTHESE);  
+    }
+    
+    // casting expression -> [ expression | type ] 
+    private ParseNode parseCastingExpression() {
+        if (!startsCastingExpression(nowReading)) {
+            return syntaxErrorNode("casting expression");
+        }
+        
+        ParseNode castingExpression = new CastingNode(nowReading);
+        expect(Punctuator.OPEN_BRACKET);
+        ParseNode expression = parseExpression();
+        castingExpression.appendChild(expression);
+        expect(Punctuator.VERTICAL_LINE);
+        ParseNode type = parseType();
+        castingExpression.appendChild(type);
+        expect(Punctuator.CLOSE_BRACKET);
+
+        return castingExpression;
+    }
+
+    private boolean startsCastingExpression(Token token) {
+        return token.isLextant(Punctuator.OPEN_BRACKET);
+    }
+
+    // type -> bool | char | string | int | float
+    private ParseNode parseType() {
+        if (!startsType(nowReading)) {
+            return syntaxErrorNode("Type ");
+        }
+        readToken();
+        return new TypeNode(previouslyRead);
+    }
+
+    private boolean startsType(Token token) {
+        return token.isLextant(Keyword.BOOL) || token.isLextant(Keyword.CHAR) ||
+                token.isLextant(Keyword.STRING) || token.isLextant(Keyword.INT) ||
+                token.isLextant(Keyword.FLOAT);
+    }
+    
     // literal -> integerConstant | identifier | booleanConstant
     //     characterConstant | stringConstant | floatingConstant
     private ParseNode parseLiteral() {

@@ -50,7 +50,7 @@ public class MemoryManager {
     private static final String MMGR_ALLOC_REMAINDER_SIZE = "$mmgr-alloc-remainder-size";
     private static final String MMGR_ALLOC_FOUND_BLOCK = "-mmgr-alloc-found-block";
     private static final String MMGR_ALLOC_PROCESS_CURRENT = "-mmgr-alloc-process-current";
-    private static final String MMGR_ALLOC_TEST_BLOCK = "-mmgr-alloc-test-block";
+    private static final String MMGR_ALLOC_TEST_BLOCK = "-mmgr-alloc-tests-block";
     private static final String MMGR_ALLOC_NO_BLOCK_WORKS = "-mmgr-alloc-no-block-works";
     private static final String MMGR_ALLOC_RETURN_USERBLOCK = "-mmgr-alloc-return-userblock";
 
@@ -693,7 +693,7 @@ public class MemoryManager {
     private static final String MMGRD_PBLOCK_FORMAT = "$$mmgrd-pblock-format";
     private static final String MMGRD_PFREE_RETURN_ADDRESS = "$$mmgrd-pfree-return";
     private static final String MMGRD_PFREE_CURRENT_BLOCK = "$$mmgrd-pfree-current-block";
-    private static final String MMGRD_PFREE_LOOP_TEST = "--mmgrd-pfree-loop-test";
+    private static final String MMGRD_PFREE_LOOP_TEST = "--mmgrd-pfree-loop-tests";
     private static final String MMGRD_PFREE_LOOP_DONE = "--mmgrd-pfree-loop-done";
 
     // [... block] -> [...]

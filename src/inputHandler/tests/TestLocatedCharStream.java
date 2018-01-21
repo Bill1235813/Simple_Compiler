@@ -48,7 +48,7 @@ public class TestLocatedCharStream extends FileFixturesTestCase {
     }
 
 //////////////////////////////////////////////////////////////////////////////
-// write the fixture for this regression test.  Change writeFixture to true then run.
+// write the fixture for this regression tests.  Change writeFixture to true then run.
 // don't forget to change it back to false after.
 
 
