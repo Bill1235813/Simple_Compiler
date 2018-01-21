@@ -14,6 +14,8 @@ import static lexicalAnalyzer.PunctuatorScanningAids.*;
 
 public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	private static final int MAX_IDENTIFIER = 32;
+	private static final char MIN_CHARACTER = 32;
+	private static final char MAX_CHARACTER = 126;
 
 	public static LexicalAnalyzer make(String filename) {
 		InputHandler handler = InputHandler.fromFilename(filename);
@@ -35,6 +37,10 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 
 		if (isNumberStart(ch)) {
 			return scanNumber(ch);
+		} else if (isCharacterStart(ch)) {
+			return scanCharacter(ch);
+		} else if (isStringStart(ch)) {
+			return scanString(ch);
 		} else if (isIdentifierStart(ch)) {
 			return scanIdentifier(ch);
 		} else if (isPunctuatorStart(ch)) {
@@ -62,7 +68,7 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 
 
 	//////////////////////////////////////////////////////////////////////////////
-	// Integer lexical analysis
+	// Integer and floating lexical analysis
 
 	private Token scanNumber(LocatedChar firstChar) {
 		StringBuffer buffer = new StringBuffer();
@@ -159,6 +165,63 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 		input.pushback(c);
 	}
 
+	//////////////////////////////////////////////////////////////////////////////
+	// Character lexical analysis
+
+	private Token scanCharacter(LocatedChar firstChar) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(firstChar.getCharacter());
+
+		LocatedChar c = input.next();
+		if (c.getCharacter() < MIN_CHARACTER ||
+				c.getCharacter() > MAX_CHARACTER) {
+			lexicalError(firstChar);
+			input.pushback(c);
+		} else {
+			buffer.append(c.getCharacter());
+			LocatedChar end = input.next();
+			if (!isCharacterStart(end)) {
+				lexicalError(firstChar);
+				input.pushback(end);
+			} else {
+				buffer.append(end.getCharacter());
+			}
+		}
+
+		String lexeme = buffer.toString();
+		return CharacterToken.make(firstChar.getLocation(), lexeme);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	// String lexical analysis
+
+	private Token scanString(LocatedChar firstChar) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(firstChar.getCharacter());
+		Boolean validflag = appendSubsequentString(buffer);
+
+		String lexeme = buffer.toString();
+		// check invalid string
+		if (!validflag) {
+			lexicalError(firstChar);
+		}
+		return StringToken.make(firstChar.getLocation(), lexeme);
+	}
+
+	private boolean appendSubsequentString(StringBuffer buffer) {
+		Boolean validflag = true;
+		LocatedChar c = input.next();
+		while (isStringContinue(c)) {
+			buffer.append(c.getCharacter());
+			c = input.next();
+		}
+		if (isNewLine(c)) {
+			validflag = false;
+		} else {
+			buffer.append(c.getCharacter());
+		}
+		return validflag;
+	}
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Punctuator lexical analysis
@@ -246,6 +309,23 @@ public class LexicalAnalyzer extends ScannerImp implements Scanner {
 	private boolean isIdentifierContinue(LocatedChar lc) {
 		return lc.isAlphabetic() || lc.isDigit() || lc.getCharacter() == '$';
 	}
+
+	private boolean isCharacterStart(LocatedChar lc) {
+		return lc.getCharacter() == '^';
+	}
+
+	private boolean isStringStart(LocatedChar lc) {
+		return lc.getCharacter() == '"';
+	}
+
+	private boolean isStringContinue(LocatedChar lc) {
+		return lc.getCharacter() != '"' && lc.getCharacter() != '\n';
+	}
+
+	private boolean isNewLine(LocatedChar lc) {
+		return lc.getCharacter() == '\n';
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 	// Error-reporting
 

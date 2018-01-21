@@ -1,0 +1,6 @@
+exec {
+    const s := "12345"
+    var c := ^a^
+    var se := "1234
+    const ce := ^a
+}
