@@ -48,6 +48,11 @@ public interface ParseNodeVisitor {
 
     void visit(SpaceNode node);
 
+    void visit(TabNode node);
+
+    void visit(CharacterConstantNode node);
+
+    void visit(StringConstantNode node);
 
     public static class Default implements ParseNodeVisitor {
         public void defaultVisit(ParseNode node) {
@@ -141,5 +146,18 @@ public interface ParseNodeVisitor {
         public void visit(SpaceNode node) {
             defaultVisitForLeaf(node);
         }
+
+        public void visit(TabNode node) {
+            defaultVisitForLeaf(node);
+        }
+
+        public void visit(CharacterConstantNode node) {
+            defaultVisitForLeaf(node);
+        }
+
+        public void visit(StringConstantNode node) {
+            defaultVisitForLeaf(node);
+        }
+
     }
 }

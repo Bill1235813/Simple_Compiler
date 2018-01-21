@@ -300,6 +300,7 @@ public class Parser {
     }
 
     // literal -> integerConstant | identifier | booleanConstant
+    //     characterConstant | stringConstant | floatingConstant
     private ParseNode parseLiteral() {
         if (!startsLiteral(nowReading)) {
             return syntaxErrorNode("literal");
@@ -317,13 +318,20 @@ public class Parser {
         if (startsBooleanConstant(nowReading)) {
             return parseBooleanConstant();
         }
+        if (startsCharacterConstant(nowReading)) {
+            return parseCharacterConstant();
+        }
+        if (startsStringConstant(nowReading)) {
+            return parseStringConstant();
+        }
 
         return syntaxErrorNode("literal");
     }
 
     private boolean startsLiteral(Token token) {
         return startsIntegerConstant(token) || startsFloatingConstant(token) ||
-                startsIdentifier(token) || startsBooleanConstant(token);
+                startsIdentifier(token) || startsBooleanConstant(token) ||
+                startsCharacterConstant(token) || startsStringConstant(token);
     }
 
     // integer (terminal)
@@ -352,6 +360,32 @@ public class Parser {
         return token instanceof FloatingToken;
     }
 
+    // character (terminal)
+    private ParseNode parseCharacterConstant() {
+        if (!startsCharacterConstant(nowReading)) {
+            return syntaxErrorNode("character constant");
+        }
+        readToken();
+        return new CharacterConstantNode(previouslyRead);
+    }
+
+    private boolean startsCharacterConstant(Token token) {
+        return token instanceof CharacterToken;
+    }
+    
+    // string (terminal)
+    private ParseNode parseStringConstant() {
+        if (!startsStringConstant(nowReading)) {
+            return syntaxErrorNode("string constant");
+        }
+        readToken();
+        return new StringConstantNode(previouslyRead);
+    }
+
+    private boolean startsStringConstant(Token token) {
+        return token instanceof StringToken;
+    }
+    
     // identifier (terminal)
     private ParseNode parseIdentifier() {
         if (!startsIdentifier(nowReading)) {
