@@ -1,20 +1,19 @@
 package parseTree.nodeTypes;
 
-import parseTree.ParseNode;
-import parseTree.ParseNodeVisitor;
 import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Lextant;
+import parseTree.ParseNode;
+import parseTree.ParseNodeVisitor;
 import tokens.LextantToken;
 import tokens.Token;
 
-public class DeclarationNode extends ParseNode {
+public class AssignmentStatementNode extends ParseNode {
 
-    public DeclarationNode(Token token) {
+    public AssignmentStatementNode(Token token) {
         super(token);
-        assert (token.isLextant(Keyword.CONST, Keyword.VAR));
     }
 
-    public DeclarationNode(ParseNode node) {
+    public AssignmentStatementNode(ParseNode node) {
         super(node);
     }
 
@@ -22,7 +21,7 @@ public class DeclarationNode extends ParseNode {
     ////////////////////////////////////////////////////////////
     // attributes
 
-    public Lextant getDeclarationType() {
+    public Lextant getAssignmentStatementType() {
         return lextantToken().getLextant();
     }
 
@@ -34,8 +33,8 @@ public class DeclarationNode extends ParseNode {
     ////////////////////////////////////////////////////////////
     // convenience factory
 
-    public static DeclarationNode withChildren(Token token, ParseNode declaredName, ParseNode initializer) {
-        DeclarationNode node = new DeclarationNode(token);
+    public static AssignmentStatementNode withChildren(Token token, ParseNode declaredName, ParseNode initializer) {
+        AssignmentStatementNode node = new AssignmentStatementNode(token);
         node.appendChild(declaredName);
         node.appendChild(initializer);
         return node;
@@ -50,4 +49,5 @@ public class DeclarationNode extends ParseNode {
         visitChildren(visitor);
         visitor.visitLeave(this);
     }
+    
 }

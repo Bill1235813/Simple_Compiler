@@ -85,7 +85,7 @@ public class Parser {
     ///////////////////////////////////////////////////////////
     // statements
 
-    // statement-> declaration | printStmt
+    // statement-> declaration | printStmt | blockStmt | assignmentStmt
     private ParseNode parseStatement() {
         if (!startsStatement(nowReading)) {
             return syntaxErrorNode("statement");
@@ -96,14 +96,53 @@ public class Parser {
         if (startsPrintStatement(nowReading)) {
             return parsePrintStatement();
         }
+        if (startsBlockStatement(nowReading)) {
+            return parseBlockStatement();
+        }
+        if (startsAssignmentStatement(nowReading)) {
+            return parseAssignmentStatement();
+        }
         return syntaxErrorNode("statement");
     }
 
     private boolean startsStatement(Token token) {
         return startsPrintStatement(token) ||
-                startsDeclaration(token);
+                startsDeclaration(token) || 
+                startsBlockStatement(token) ||
+                startsAssignmentStatement(token);
     }
 
+    // assignmentStmt -> target (identifier) := expression .
+    private ParseNode parseAssignmentStatement() {
+        if (!startsAssignmentStatement(nowReading)) {
+            return syntaxErrorNode("assignmentStatement");
+        }
+        Token assignmentToken = nowReading;
+
+        ParseNode target = parseTarget();
+        expect(Punctuator.ASSIGN);
+        ParseNode initializer = parseExpression();
+        expect(Punctuator.TERMINATOR);
+
+        return AssignmentStatementNode.withChildren(assignmentToken, target, initializer);
+    }
+
+    private boolean startsAssignmentStatement(Token token) {
+        return startsTarget(token);
+    }
+    
+    // target -> identifier
+    private ParseNode parseTarget() {
+        if (!startsTarget(nowReading)) {
+            return syntaxErrorNode("target");
+        }
+        return parseIdentifier();
+    }
+
+    private boolean startsTarget(Token token) {
+        return startsIdentifier(token);
+    }
+    
     // printStmt -> PRINT printExpressionList .
     private ParseNode parsePrintStatement() {
         if (!startsPrintStatement(nowReading)) {
@@ -145,12 +184,16 @@ public class Parser {
             readToken();
             ParseNode child = new NewlineNode(previouslyRead);
             parent.appendChild(child);
+        } else if (nowReading.isLextant(Keyword.TAB)) {
+            readToken();
+            ParseNode child = new TabNode(previouslyRead);
+            parent.appendChild(child);
         }
         // else we interpret the printExpression as epsilon, and do nothing
     }
 
     private boolean startsPrintExpression(Token token) {
-        return startsExpression(token) || token.isLextant(Keyword.NEWLINE);
+        return startsExpression(token) || token.isLextant(Keyword.NEWLINE, Keyword.TAB);
     }
 
 
@@ -198,7 +241,7 @@ public class Parser {
     }
 
     private boolean startsDeclaration(Token token) {
-        return token.isLextant(Keyword.CONST) || token.isLextant(Keyword.VAR);
+        return token.isLextant(Keyword.CONST, Keyword.VAR);
     }
 
 
@@ -357,9 +400,8 @@ public class Parser {
     }
 
     private boolean startsType(Token token) {
-        return token.isLextant(Keyword.BOOL) || token.isLextant(Keyword.CHAR) ||
-                token.isLextant(Keyword.STRING) || token.isLextant(Keyword.INT) ||
-                token.isLextant(Keyword.FLOAT);
+        return token.isLextant(Keyword.BOOL, Keyword.CHAR, Keyword.STRING, 
+                Keyword.INT, Keyword.FLOAT);
     }
     
     // literal -> integerConstant | identifier | booleanConstant
