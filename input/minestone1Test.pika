@@ -1,0 +1,39 @@
+exec {
+
+    # definition of string and char and float
+    const _ch := ^a^.
+    var _$string := "12345".
+    var _s := "Bill".
+    const _f1 := .8.
+    var _i1 := 2.
+    var _bool := _i1 > [ _f1 | int].
+
+    # expression
+    _i1 := (2 + 2 * _i1) / (_i1 + 1 * 2) + [2.5 | int].
+    print _ch; _$string; _s ; _f1 ; _t_ ; _i1; _bool; _n_.
+
+    # blockStmt and assignmtStmt and casting
+    {
+        var _f1 := -2.0E1.
+        _f1 := (2.03 * _f1) + [ (1+ 2)| float ].
+        _f1 := [ [_f1 | int] | float ].
+        _s := "123".
+        print _f1; _s, _n_.
+    }
+
+    # blockStmt and comparison
+    {
+        var splus := _s.
+        const scomp := (splus == _s).
+        const fcomp := 1.0 >= [[ 1.5 | int ] | float].
+        const icomp := 1234 > [[12345 | char] | int].
+        const bcomp := fcomp != icomp.
+        const ch := ^a^.
+        const ccomp := _ch <= ch.
+        const ccomp2 := _ch < ch.
+        const _ch := ^b^.
+        const ccomp3 := _ch <= ch.
+        print scomp;fcomp;icomp;bcomp;ccomp;ccomp2;ccomp3;_n_;_f1; _i1/0; _f1/0.0.
+    }
+
+}

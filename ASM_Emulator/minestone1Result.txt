@@ -1,0 +1,4 @@
+a 12345 Bill 0.8 	 3 true 
+-37 123
+true true true false true false false 
+ 0.8 Runtime error: integer divide by zero

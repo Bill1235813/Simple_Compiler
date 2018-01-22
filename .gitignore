@@ -25,3 +25,6 @@ hs_err_pid*
 
 bin
 /ASM_Emulator/out.html
+/src/tryjava.java
+.idea/inspectionProfiles/
+src/tryjava.java
