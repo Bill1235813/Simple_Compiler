@@ -1,0 +1,5 @@
+exec {
+    var c := ^a^.
+    var s := "12345".
+    print c; _t_, s.
+}

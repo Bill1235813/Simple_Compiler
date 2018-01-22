@@ -140,7 +140,7 @@ public class ASMCodeGenerator {
         // Get code from the map.
         private ASMCodeFragment getAndRemoveCode(ParseNode node) {
             ASMCodeFragment result = codeMap.get(node);
-            codeMap.remove(result);
+            codeMap.remove(node);
             return result;
         }
 
@@ -177,11 +177,13 @@ public class ASMCodeGenerator {
         }
 
         private void turnAddressIntoValue(ASMCodeFragment code, ParseNode node) {
-            if (node.getType() == PrimitiveType.INTEGER) {
+            if (node.getType() == PrimitiveType.INTEGER ||
+                    node.getType() == PrimitiveType.STRING) {
                 code.add(LoadI);
             } else if (node.getType() == PrimitiveType.FLOATING) {
                 code.add(LoadF);
-            } else if (node.getType() == PrimitiveType.BOOLEAN) {
+            } else if (node.getType() == PrimitiveType.BOOLEAN ||
+                    node.getType() == PrimitiveType.CHARACTER) {
                 code.add(LoadC);
             } else {
                 assert false : "node " + node;
@@ -194,7 +196,6 @@ public class ASMCodeGenerator {
         public void visitLeave(ParseNode node) {
             assert false : "node " + node + " not handled in ASMCodeGenerator";
         }
-
 
         ///////////////////////////////////////////////////////////////////////////
         // constructs larger than statements
@@ -228,6 +229,12 @@ public class ASMCodeGenerator {
             code.add(Printf);
         }
 
+        public void visit(TabNode node) {
+            newVoidCode(node);
+            code.add(PushD, RunTime.TAB_PRINT_FORMAT);
+            code.add(Printf);
+        }
+
         public void visit(SpaceNode node) {
             newVoidCode(node);
             code.add(PushD, RunTime.SPACE_PRINT_FORMAT);
@@ -248,13 +255,15 @@ public class ASMCodeGenerator {
         }
 
         private ASMOpcode opcodeForStore(Type type) {
-            if (type == PrimitiveType.INTEGER) {
+            if (type == PrimitiveType.INTEGER ||
+                type == PrimitiveType.STRING) {
                 return StoreI;
             }
             if (type == PrimitiveType.FLOATING) {
                 return StoreF;
             }
-            if (type == PrimitiveType.BOOLEAN) {
+            if (type == PrimitiveType.BOOLEAN ||
+                type == PrimitiveType.CHARACTER) {
                 return StoreC;
             }
             assert false : "Type " + type + " unimplemented in opcodeForStore()";
@@ -353,6 +362,7 @@ public class ASMCodeGenerator {
             }
         }
 
+        // unused
         private ASMOpcode opcodeForOperator(Lextant lextant) {
             assert (lextant instanceof Punctuator);
             Punctuator punctuator = (Punctuator) lextant;
@@ -383,14 +393,28 @@ public class ASMCodeGenerator {
 
         public void visit(IntegerConstantNode node) {
             newValueCode(node);
-
             code.add(PushI, node.getValue());
         }
 
         public void visit(FloatingConstantNode node) {
             newValueCode(node);
-
             code.add(PushF, node.getValue());
+        }
+
+        public void visit(CharacterConstantNode node) {
+            newValueCode(node);
+            code.add(PushI, (int)node.getValue());
+        }
+
+        public void visit(StringConstantNode node) {
+            newValueCode(node);
+
+            Labeller labeller = new Labeller("string");
+            String stringlabel = labeller.newLabel("constant");
+
+            code.add(DLabel, stringlabel);
+            code.add(DataS, node.getValue());
+            code.add(PushD, stringlabel);
         }
     }
 
