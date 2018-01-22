@@ -16,6 +16,9 @@
         DLabel       $print-format-newline     
         DataC        10                        %% "\n"
         DataC        0                         
+        DLabel       $print-format-tab         
+        DataC        9                         %% "\t"
+        DataC        0                         
         DLabel       $print-format-space       
         DataC        32                        %% " "
         DataC        0                         
@@ -113,7 +116,7 @@
         Jump         $$general-runtime-error   
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
-        DataZ        57                        
+        DataZ        61                        
         Label        $$main                    
         PushD        $global-memory-block      
         PushI        0                         
@@ -205,6 +208,15 @@
         FDivide                                
         StoreF                                 
         PushD        $global-memory-block      
+        PushI        49                        
+        Add                                    %% divideInt
+        PushI        5                         
+        PushI        2                         
+        Duplicate                              
+        JumpFalse    $$i-divide-by-zero        
+        Divide                                 
+        StoreI                                 
+        PushD        $global-memory-block      
         PushI        16                        
         Add                                    %% twoPi
         LoadF                                  
@@ -250,8 +262,20 @@
         LoadF                                  
         PushD        $print-format-floating    
         Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
         PushD        $global-memory-block      
         PushI        49                        
+        Add                                    %% divideInt
+        LoadI                                  
+        PushD        $print-format-integer     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        53                        
         Add                                    %% errorPi
         PushD        $global-memory-block      
         PushI        8                         

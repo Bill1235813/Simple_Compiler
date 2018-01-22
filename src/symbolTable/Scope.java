@@ -66,20 +66,20 @@ public class Scope {
 
     ///////////////////////////////////////////////////////////////////////
 //bindings
-    public Binding createBinding(IdentifierNode identifierNode, Type type) {
+    public Binding createBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Token token = identifierNode.getToken();
         symbolTable.errorIfAlreadyDefined(token);
 
         String lexeme = token.getLexeme();
-        Binding binding = allocateNewBinding(type, token.getLocation(), lexeme);
+        Binding binding = allocateNewBinding(type, token.getLocation(), lexeme, constflag);
         symbolTable.install(lexeme, binding);
 
         return binding;
     }
 
-    private Binding allocateNewBinding(Type type, TextLocation textLocation, String lexeme) {
+    private Binding allocateNewBinding(Type type, TextLocation textLocation, String lexeme, Boolean constflag) {
         MemoryLocation memoryLocation = allocator.allocate(type.getSize());
-        return new Binding(type, textLocation, memoryLocation, lexeme);
+        return new Binding(type, textLocation, memoryLocation, lexeme, constflag);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -110,9 +110,9 @@ public class Scope {
         }
 
         @Override
-        public Binding createBinding(IdentifierNode identifierNode, Type type) {
+        public Binding createBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
             unscopedIdentifierError(identifierNode.getToken());
-            return super.createBinding(identifierNode, type);
+            return super.createBinding(identifierNode, type, constflag);
         }
 
         // subscopes of null scope need their own strategy.  Assumes global block is static.

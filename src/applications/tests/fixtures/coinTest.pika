@@ -3,7 +3,7 @@ exec {
 	const dimes    :=  3.
 	const nickels  :=  7.
 	const pennies  := 17.
-    
+
 	const value := quarters * 25 +
     			 dimes    * 10 +
     			 nickels  *  5 +

@@ -6,6 +6,7 @@ exec {
     const morePi := squarePi > twoPi.
     const subPi := squarePi - twoPi.
     const dividePi := squarePi / pi.
-    print twoPi; squarePi; morePi ; subPi ; _n_ , dividePi.
+    const divideInt := 5 / 2.
+    print twoPi; squarePi; morePi ; subPi ; _n_ , dividePi; divideInt; _n_.
     const errorPi := pi / 0.0.
 }

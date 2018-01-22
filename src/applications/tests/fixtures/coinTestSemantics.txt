@@ -1,5 +1,5 @@
 ProgramNode (EXEC)  [scope:27 bytes] 
-    BlockStatementNode (OPEN_BRACE)  
+    BlockStatementNode (OPEN_BRACE)  [scope:27 bytes]
         DeclarationNode (CONST) INTEGER 
             IdentifierNode (identifier, quarters) INTEGER 
             IntegerConstantNode (integerConst, 6) INTEGER 

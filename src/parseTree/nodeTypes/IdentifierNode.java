@@ -46,6 +46,14 @@ public class IdentifierNode extends ParseNode {
 ////////////////////////////////////////////////////////////
 // Speciality functions
 
+    public void setConst(Boolean constflag) {
+        binding.setConstflag(constflag);
+    }
+
+    public Boolean getConst() {
+        return binding.getConstflag();
+    }
+
     public Binding findVariableBinding() {
         String identifier = token.getLexeme();
 

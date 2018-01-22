@@ -3,7 +3,9 @@ package semanticAnalyzer;
 import java.util.Arrays;
 import java.util.List;
 
+import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Lextant;
+import lexicalAnalyzer.Punctuator;
 import logging.PikaLogger;
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
@@ -35,9 +37,11 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     public void visitEnter(BlockStatementNode node) {
+        enterSubscope(node);
     }
 
     public void visitLeave(BlockStatementNode node) {
+        leaveScope(node);
     }
 
 
@@ -48,7 +52,6 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         node.setScope(scope);
     }
 
-    @SuppressWarnings("unused")
     private void enterSubscope(ParseNode node) {
         Scope baseScope = node.getLocalScope();
         Scope scope = baseScope.createSubscope();
@@ -73,8 +76,30 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         Type declarationType = initializer.getType();
         node.setType(declarationType);
 
+        Boolean constflag = (lextantFor(node) == Keyword.CONST);
         identifier.setType(declarationType);
-        addBinding(identifier, declarationType);
+        addBinding(identifier, declarationType, constflag);
+    }
+
+    @Override
+    public void visitLeave(AssignmentStatementNode node) {
+        IdentifierNode target = (IdentifierNode) node.child(0);
+        if (target.getConst()) {
+            constAssignError(node);
+            node.setType(PrimitiveType.ERROR);
+            return;
+        }
+
+        ParseNode result = node.child(1);
+
+        Type targetType = target.getType();
+        Type resultType = result.getType();
+        if (targetType != resultType) {
+            typeAssignError(node, targetType, resultType);
+            node.setType(PrimitiveType.ERROR);
+        } else {
+            node.setType(targetType);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -86,7 +111,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         ParseNode right = node.child(1);
         List<Type> childTypes = Arrays.asList(left.getType(), right.getType());
 
-        Lextant operator = operatorFor(node);
+        Lextant operator = lextantFor(node);
         FunctionSignatures signatures = FunctionSignatures.signaturesOf(operator);
         FunctionSignature signature = signatures.acceptingSignature(childTypes);
 
@@ -99,11 +124,32 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         }
     }
 
-    private Lextant operatorFor(BinaryOperatorNode node) {
-        LextantToken token = (LextantToken) node.getToken();
-        return token.getLextant();
+    @Override
+    public void visitLeave(ParenthesesNode node) {
+        assert node.nChildren() == 1;
+        ParseNode expression = node.child(0);
+        Type resultType = expression.getType();
+        node.setType(resultType);
     }
 
+    @Override
+    public void visitLeave(CastingNode node) {
+        assert node.nChildren() == 2;
+        ParseNode before = node.child(0);
+        ParseNode after = node.child(1);
+        List<Type> childTypes = Arrays.asList(before.getType(), after.getType());
+
+        FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.VERTICAL_LINE);
+        FunctionSignature signature = signatures.acceptingSignature(childTypes);
+
+        if (signature.accepts(childTypes)) {
+            node.setType(signature.resultType());
+            node.setSignature(signature);
+        } else {
+            typeCastError(node, childTypes);
+            node.setType(PrimitiveType.ERROR);
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes
@@ -128,7 +174,27 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     @Override
+    public void visit(CharacterConstantNode node) {
+        node.setType(PrimitiveType.CHARACTER);
+    }
+
+    @Override
+    public void visit(StringConstantNode node) {
+        node.setType(PrimitiveType.STRING);
+    }
+
+    @Override
+    public void visit(TypeNode node) {
+        assert node.getToken() instanceof LextantToken;
+        node.setType(PrimitiveType.getTypeFromLextant(lextantFor(node)));
+    }
+
+    @Override
     public void visit(NewlineNode node) {
+    }
+
+    @Override
+    public void visit(TabNode node) {
     }
 
     @Override
@@ -153,14 +219,41 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         return (parent instanceof DeclarationNode) && (node == parent.child(0));
     }
 
-    private void addBinding(IdentifierNode identifierNode, Type type) {
+    private void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Scope scope = identifierNode.getLocalScope();
-        Binding binding = scope.createBinding(identifierNode, type);
+        Binding binding = scope.createBinding(identifierNode, type, constflag);
         identifierNode.setBinding(binding);
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // helper functions for finding Lextant
+    private Lextant lextantFor(ParseNode node) {
+        LextantToken token = (LextantToken) node.getToken();
+        return token.getLextant();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // error logging/printing
+    private void constAssignError(ParseNode node) {
+        Token token = node.getToken();
+
+        logError("assign to const variable " + token.getLexeme()
+                + " at " + token.getLocation());
+    }
+
+    private void typeAssignError(ParseNode node, Type targetType, Type resultType) {
+        Token token = node.getToken();
+
+        logError("assign " + resultType + " to "
+                + targetType + " at " + token.getLocation());
+    }
+
+    private void typeCastError(ParseNode node, List<Type> operandTypes) {
+        Token token = node.getToken();
+
+        logError("cast not defined for types "
+                + operandTypes + " at " + token.getLocation());
+    }
 
     private void typeCheckError(ParseNode node, List<Type> operandTypes) {
         Token token = node.getToken();

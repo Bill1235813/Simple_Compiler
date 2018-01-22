@@ -1,6 +1,9 @@
 package semanticAnalyzer.types;
 
 
+import lexicalAnalyzer.Keyword;
+import lexicalAnalyzer.Lextant;
+
 public enum PrimitiveType implements Type {
     BOOLEAN(1),
     CHARACTER(1),
@@ -12,6 +15,20 @@ public enum PrimitiveType implements Type {
 
     private int sizeInBytes;
     private String infoString;
+
+    public static PrimitiveType getTypeFromLextant(Lextant lextant) {
+        assert (lextant instanceof Keyword);
+        Keyword keyword = (Keyword) lextant;
+
+        switch (keyword) {
+            case BOOL: return BOOLEAN;
+            case INT: return INTEGER;
+            case FLOAT: return  FLOATING;
+            case CHAR: return CHARACTER;
+            case STRING: return STRING;
+            default: return ERROR;
+        }
+    }
 
     private PrimitiveType(int size) {
         this.sizeInBytes = size;
