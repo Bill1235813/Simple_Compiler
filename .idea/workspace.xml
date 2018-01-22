@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment=":sparkles: finish casting and assignment for semantic analyzer">
-      <change beforePath="" afterPath="$PROJECT_DIR$/ASM_Emulator/input/printCSTest.asm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/input/printCSTest.pika" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/output/printCSTest.asm" />
+    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment=":sparkles: finish all of print statement (including string and character) with a small test">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToBooleanCodeGenerator.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToCharacterCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/ASM_Emulator/input/printCSTest.asm" afterPath="$PROJECT_DIR$/ASM_Emulator/input/printCSTest.asm" />
+      <change beforePath="$PROJECT_DIR$/input/printCSTest.pika" afterPath="$PROJECT_DIR$/input/printCSTest.pika" />
+      <change beforePath="$PROJECT_DIR$/output/printCSTest.asm" afterPath="$PROJECT_DIR$/output/printCSTest.asm" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +28,8 @@
       <file leaf-file-name="ASMCodeGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="254" column="0" lean-forward="false" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
+            <state relative-caret-position="-10">
+              <caret line="369" column="9" lean-forward="true" selection-start-line="369" selection-start-column="9" selection-end-line="369" selection-end-column="9" />
               <folding>
                 <element signature="method#makeComparisonOperationMap#0;class#ASMCodeGenerator#0" expanded="false" />
                 <element signature="method#makeComparisonJumpMap#0;class#ASMCodeGenerator#0" expanded="false" />
@@ -36,53 +38,14 @@
                 <element signature="e#4516#4517#0" expanded="true" />
                 <element signature="e#5515#5516#0" expanded="true" />
                 <element signature="e#5568#5569#0" expanded="true" />
-                <element signature="e#7346#7347#0" expanded="true" />
-                <element signature="e#7436#7437#0" expanded="true" />
+                <element signature="e#7338#7339#0" expanded="true" />
+                <element signature="e#7428#7429#0" expanded="true" />
+                <element signature="e#8981#8982#0" expanded="true" />
+                <element signature="e#9022#9023#0" expanded="true" />
+                <element signature="e#9078#9079#0" expanded="true" />
+                <element signature="e#9119#9120#0" expanded="true" />
                 <element signature="method#opcodeForOperator#0;class#CodeVisitor#0;class#ASMCodeGenerator#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ASMOpcode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="76" column="4" lean-forward="false" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
-              <folding>
-                <element signature="e#8798#8799#0" expanded="true" />
-                <element signature="e#8851#8852#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ParseNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseTree/ParseNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-              <folding>
-                <element signature="e#1014#1015#0" expanded="true" />
-                <element signature="e#1042#1043#0" expanded="true" />
-                <element signature="e#1181#1182#0" expanded="true" />
-                <element signature="e#1213#1214#0" expanded="true" />
-                <element signature="e#1414#1415#0" expanded="true" />
-                <element signature="e#1442#1443#0" expanded="true" />
-                <element signature="e#2872#2873#0" expanded="true" />
-                <element signature="e#2906#2907#0" expanded="true" />
-                <element signature="e#2959#2960#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProgramNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -167,15 +130,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/tokens/FloatingToken.java" />
-        <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/fixtures/samplePika.txt" />
-        <option value="$PROJECT_DIR$/src/parser/Parser.kt" />
-        <option value="$PROJECT_DIR$/src/applications/tests/fixtures/coinTestAST.txt" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/FloatingConstantNode.java" />
         <option value="$PROJECT_DIR$/src/tests/FileFixturesTestCase.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/SimpleCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerDivideCodeGenerator.java" />
-        <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingDivideCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
         <option value="$PROJECT_DIR$/src/tryjava.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" />
@@ -208,15 +166,20 @@
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
         <option value="$PROJECT_DIR$/src/symbolTable/Binding.java" />
         <option value="$PROJECT_DIR$/src/symbolTable/Scope.java" />
-        <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
         <option value="$PROJECT_DIR$/input/currentTest.pika" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
         <option value="$PROJECT_DIR$/output/printCSTest.pika" />
         <option value="$PROJECT_DIR$/output/printCSTest.asm" />
-        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/ASM_Emulator/input/printCSTest.asm" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToBooleanCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingDivideCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToCharacterCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
         <option value="$PROJECT_DIR$/input/printCSTest.pika" />
       </list>
     </option>
@@ -297,6 +260,13 @@
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
+              <item name="simpleCodeGenerator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="logging" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -304,6 +274,13 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="signatures" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -744,7 +721,7 @@
       <workItem from="1515838990101" duration="9318000" />
       <workItem from="1516264213143" duration="1014000" />
       <workItem from="1516299722715" duration="3571000" />
-      <workItem from="1516330742108" duration="90459000" />
+      <workItem from="1516330742108" duration="94952000" />
     </task>
     <task id="LOCAL-00001" summary=":droplet: refactor">
       <created>1515742003980</created>
@@ -858,7 +835,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516597194202</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary=":sparkles: finish all of print statement (including string and character) with a small test">
+      <created>1516606728090</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1516606728090</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -894,7 +878,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128423000" />
+    <option name="totallyTimeSpent" value="132916000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -963,7 +947,8 @@
     <MESSAGE value=":sparkles: :flags: add type, parentheses and casting node, and a small test" />
     <MESSAGE value=":beer: add assignment node to parser" />
     <MESSAGE value=":sparkles: finish casting and assignment for semantic analyzer" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: finish casting and assignment for semantic analyzer" />
+    <MESSAGE value=":sparkles: finish all of print statement (including string and character) with a small test" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: finish all of print statement (including string and character) with a small test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1035,68 +1020,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1156#1157#0" expanded="false" />
-            <element signature="e#1190#1191#0" expanded="false" />
-            <element signature="e#1224#1225#0" expanded="false" />
-            <element signature="e#1257#1258#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/symbolTable/NegativeMemoryAllocator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-912">
-          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/IntelliJ IDEA Community Edition 2017.2/JDK/src.zip!/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="99" column="22" lean-forward="false" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTestSemantics.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applications/tests/fixtures/coinTest.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/applications/tests/TestSemanticChecker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
@@ -1208,14 +1131,6 @@
             <element signature="e#1560#1561#0" expanded="false" />
             <element signature="e#1593#1594#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="109" column="72" lean-forward="true" selection-start-line="109" selection-start-column="72" selection-end-line="109" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,14 +1260,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4894">
           <caret line="87" column="36" lean-forward="true" selection-start-line="86" selection-start-column="8" selection-end-line="87" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1490,21 +1397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#1521#1522#0" expanded="false" />
-            <element signature="e#1567#1568#0" expanded="false" />
-            <element signature="e#2218#2219#0" expanded="false" />
-            <element signature="e#2266#2267#0" expanded="false" />
-            <element signature="e#2307#2308#0" expanded="false" />
-            <element signature="e#2346#2347#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
@@ -1513,21 +1405,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="76" column="4" lean-forward="false" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
-          <folding>
-            <element signature="e#8798#8799#0" expanded="true" />
-            <element signature="e#8851#8852#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/output/printCSTest.asm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
           <caret line="141" column="47" lean-forward="true" selection-start-line="141" selection-start-column="47" selection-end-line="141" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-245">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMCodeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="41" column="19" lean-forward="false" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+          <folding>
+            <element signature="e#982#983#0" expanded="true" />
+            <element signature="e#1043#1044#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/SimpleCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1540,11 +1456,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/PrintStatementNode.java">
+    <entry file="file://$PROJECT_DIR$/input/currentTest.pika">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-245">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="230">
+          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-504">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASM_Emulator/input/currentTest.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5040">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerDivideCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToBooleanCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1566,34 +1516,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingDivideCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CastToCharacterCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/codeStorage/ASMOpcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1115">
+          <caret line="89" column="55" lean-forward="true" selection-start-line="89" selection-start-column="55" selection-end-line="89" selection-end-column="55" />
+          <folding>
+            <element signature="e#8798#8799#0" expanded="true" />
+            <element signature="e#8851#8852#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ASM_Emulator/input/printCSTest.asm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+        <state relative-caret-position="346">
+          <caret line="131" column="33" lean-forward="false" selection-start-line="131" selection-start-column="33" selection-end-line="131" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/input/printCSTest.pika">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        <state relative-caret-position="252">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        <state relative-caret-position="448">
+          <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="254" column="0" lean-forward="false" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
+        <state relative-caret-position="-10">
+          <caret line="369" column="9" lean-forward="true" selection-start-line="369" selection-start-column="9" selection-end-line="369" selection-end-column="9" />
           <folding>
             <element signature="method#makeComparisonOperationMap#0;class#ASMCodeGenerator#0" expanded="false" />
             <element signature="method#makeComparisonJumpMap#0;class#ASMCodeGenerator#0" expanded="false" />
@@ -1602,8 +1581,12 @@
             <element signature="e#4516#4517#0" expanded="true" />
             <element signature="e#5515#5516#0" expanded="true" />
             <element signature="e#5568#5569#0" expanded="true" />
-            <element signature="e#7346#7347#0" expanded="true" />
-            <element signature="e#7436#7437#0" expanded="true" />
+            <element signature="e#7338#7339#0" expanded="true" />
+            <element signature="e#7428#7429#0" expanded="true" />
+            <element signature="e#8981#8982#0" expanded="true" />
+            <element signature="e#9022#9023#0" expanded="true" />
+            <element signature="e#9078#9079#0" expanded="true" />
+            <element signature="e#9119#9120#0" expanded="true" />
             <element signature="method#opcodeForOperator#0;class#CodeVisitor#0;class#ASMCodeGenerator#0" expanded="false" />
           </folding>
         </state>

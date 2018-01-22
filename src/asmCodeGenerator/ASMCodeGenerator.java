@@ -154,7 +154,7 @@ public class ASMCodeGenerator {
             return frag;
         }
 
-        private ASMCodeFragment removeAddressCode(ParseNode node) {
+        ASMCodeFragment removeAddressCode(ParseNode node) {
             ASMCodeFragment frag = getAndRemoveCode(node);
             assert frag.isAddress();
             return frag;
@@ -241,8 +241,15 @@ public class ASMCodeGenerator {
             code.add(Printf);
         }
 
+        public void visitLeave(AssignmentStatementNode node) {
+            setAndStore(node);
+        }
 
         public void visitLeave(DeclarationNode node) {
+            setAndStore(node);
+        }
+
+        private void setAndStore(ParseNode node) {
             newVoidCode(node);
             ASMCodeFragment lvalue = removeAddressCode(node.child(0));
             ASMCodeFragment rvalue = removeValueCode(node.child(1));
@@ -358,7 +365,7 @@ public class ASMCodeGenerator {
                 }
             } else {
                 // throw exception
-                assert false : "unimplemented operator in opcodeForOperator";
+                assert false : "unimplemented operator in BinaryOperator";
             }
         }
 
@@ -378,7 +385,37 @@ public class ASMCodeGenerator {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // leaf nodes (ErrorNode not necessary)
+        // parentheses and casting nodes
+        public void visitLeave(ParenthesesNode node) {
+            newValueCode(node);
+            ASMCodeFragment child = removeValueCode(node.child(0));
+            code.append(child);
+        }
+
+        public void visitLeave(CastingNode node) {
+            newValueCode(node);
+            ASMCodeFragment child = removeValueCode(node.child(0));
+            code.append(child);
+
+            Object variant = node.getSignature().getVariant();
+            if (variant instanceof ASMOpcode) {
+                ASMOpcode opcode = (ASMOpcode) variant;
+                code.add(opcode);
+            } else if (variant instanceof SimpleCodeGenerator) {
+                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
+                ASMCodeFragment fragment = generator.generate(node);
+                code.append(fragment);
+
+                if (fragment.isAddress()) {
+                    code.markAsAddress();
+                }
+            } else {
+                assert false : "unimplemented type in Casting";
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        // leaf nodes (TypeNode and ErrorNode not necessary)
         public void visit(BooleanConstantNode node) {
             newValueCode(node);
             code.add(PushI, node.getValue() ? 1 : 0);

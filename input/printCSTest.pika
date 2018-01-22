@@ -1,5 +1,10 @@
 exec {
     var c := ^a^.
     var s := "12345".
-    print c; _t_, s.
+    const k:= s=="12345".
+    var m:= c<^b^.
+    c := ^b^.
+    m := m==k.
+    const i:= [[(12345)|char]|int].
+    print c; _t_, s; _n_, k; m; i.
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import asmCodeGenerator.codeStorage.ASMOpcode;
+import asmCodeGenerator.simpleCodeGenerator.CastToBooleanCodeGenerator;
+import asmCodeGenerator.simpleCodeGenerator.CastToCharacterCodeGenerator;
 import com.sun.org.apache.bcel.internal.generic.NOP;
 import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Type;
@@ -123,11 +125,12 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(ASMOpcode.Nop, STRING, STRING, BOOLEAN),
                 new FunctionSignature(ASMOpcode.ConvertI, FLOATING, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.ConvertF, INTEGER, FLOATING, FLOATING),
-                new FunctionSignature(1, INTEGER, BOOLEAN, BOOLEAN),
-                new FunctionSignature(1, CHARACTER, BOOLEAN, BOOLEAN),
-                new FunctionSignature(1, INTEGER, CHARACTER, CHARACTER),
-                new FunctionSignature(1, CHARACTER, INTEGER, INTEGER)
+                new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),
+                new FunctionSignature(new CastToBooleanCodeGenerator(), CHARACTER, BOOLEAN, BOOLEAN),
+                new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, CHARACTER, CHARACTER),
+                new FunctionSignature(ASMOpcode.Nop, CHARACTER, INTEGER, INTEGER)
         );
+
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
         // Then, we give that key two signatures: one an (INT x INT -> INT) and the other
         // a (FLOAT x FLOAT -> FLOAT).  Each signature has a "whichVariant" parameter where
