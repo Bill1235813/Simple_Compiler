@@ -8,7 +8,7 @@ import static asmCodeGenerator.codeStorage.ASMOpcode.BTAnd;
 import static asmCodeGenerator.codeStorage.ASMOpcode.PushI;
 
 public class CastToCharacterCodeGenerator implements SimpleCodeGenerator {
-    private static final int CAST_HELPER_NUMBER = 255;
+    private static final int CAST_HELPER_NUMBER = 127;
 
     public CastToCharacterCodeGenerator() {
         super();
