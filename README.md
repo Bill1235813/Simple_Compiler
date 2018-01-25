@@ -6,11 +6,11 @@ more strange type of assembly (some .asm).
 
 type | regular expr
 --- | ---
-*integerConstant* | (+\|-)^?[0..9]^+
-*floatingConstant* | (+\|-)^?([0..9]^*.[0..9]^+)(E(+\|-)^?[0..9]^+)^?
-*booleanConstant* | ``_true_``\|``_false_``
-*stringConstant* | "[^"\n]^*"
-*characterConstant* | ^a^, ascii from 32 to 126
+*integerConstant* | **(+\|-)?[0..9]^+**
+*floatingConstant* | **(+\|-)?([0..9]*.[0..9]^+)(E(+\|-)?[0..9]^+)?**
+*booleanConstant* | **``_true_`` \| ``_false_``**
+*stringConstant* | **"[^"\n]*"**
+*characterConstant* | **^a^, ascii from 32 to 126**
 
 ## Keywords
 
