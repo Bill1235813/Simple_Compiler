@@ -8,7 +8,7 @@ type | regular expr
 --- | ---
 *integerConstant* | **(+\|-)?[0..9]^+**
 *floatingConstant* | **(+\|-)?([0..9]*.[0..9]^+)(E(+\|-)?[0..9]^+)?**
-*booleanConstant* | **_true_ \| _false_**
+*booleanConstant* | **\_true\_ \| \_false\_**
 *stringConstant* | **"[^"\n]*"**
 *characterConstant* | **^a^, ascii from 32 to 126**
 
@@ -43,7 +43,7 @@ pika-1: ``bool`` | ``char`` | ``string`` | ``int`` | ``float`` |  ``_t_`` (only 
 
 *printExpressionList* -> *printExpression* concatenates (**,** | **;**)
 
-*printExpression* -> *expression* | **_n_** | **_t_** | ``epsilon``
+*printExpression* -> *expression* | **\_n\_** | **\_t\_** | ``epsilon``
 
 *expression* -> *expression operator expression* | **(** *expression* **)** | **\[** *expression* **|** *type* **\]** | *literal*
 
