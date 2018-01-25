@@ -122,7 +122,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(ASMOpcode.Nop, FLOATING, FLOATING, FLOATING),
                 new FunctionSignature(ASMOpcode.Nop, CHARACTER, CHARACTER, CHARACTER),
                 new FunctionSignature(ASMOpcode.Nop, BOOLEAN, BOOLEAN, BOOLEAN),
-                new FunctionSignature(ASMOpcode.Nop, STRING, STRING, BOOLEAN),
+                new FunctionSignature(ASMOpcode.Nop, STRING, STRING, STRING),
                 new FunctionSignature(ASMOpcode.ConvertI, FLOATING, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.ConvertF, INTEGER, FLOATING, FLOATING),
                 new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),

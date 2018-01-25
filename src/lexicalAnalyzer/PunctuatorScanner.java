@@ -85,6 +85,5 @@ public class PunctuatorScanner {
         while (!isCommentEnd(c)) {
             c = input.next();
         }
-        input.pushback(c);
     }
 }
