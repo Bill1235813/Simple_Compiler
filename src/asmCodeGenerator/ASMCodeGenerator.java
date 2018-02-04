@@ -11,7 +11,6 @@ import lexicalAnalyzer.Lextant;
 import lexicalAnalyzer.Punctuator;
 import parseTree.*;
 import parseTree.nodeTypes.*;
-import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -280,13 +279,13 @@ public class ASMCodeGenerator {
 
         ///////////////////////////////////////////////////////////////////////////
         // expressions
-        public void visitLeave(BinaryOperatorNode node) {
+        public void visitLeave(OperatorNode node) {
             Lextant operator = node.getOperator();
 
             if (isComparisonOperatorNode(operator)) {
                 visitComparisonOperatorNode(node, operator);
             } else {
-                visitNormalBinaryOperatorNode(node);
+                visitNormalOperatorNode(node);
             }
         }
         
@@ -299,7 +298,7 @@ public class ASMCodeGenerator {
         		return false;
         }
 
-        private void visitComparisonOperatorNode(BinaryOperatorNode node,
+        private void visitComparisonOperatorNode(OperatorNode node,
                                                  Lextant operator) {
 
             ASMCodeFragment arg1 = removeValueCode(node.child(0));
@@ -343,13 +342,12 @@ public class ASMCodeGenerator {
 
         }
 
-        private void visitNormalBinaryOperatorNode(BinaryOperatorNode node) {
+        private void visitNormalOperatorNode(OperatorNode node) {
             newValueCode(node);
-            ASMCodeFragment arg1 = removeValueCode(node.child(0));
-            ASMCodeFragment arg2 = removeValueCode(node.child(1));
-
-            code.append(arg1);
-            code.append(arg2);
+            for (int i=0; i<node.nChildren(); ++i) {
+                ASMCodeFragment arg = removeValueCode(node.child(i));
+                code.append(arg);
+            }
 
             Object variant = node.getSignature().getVariant();
             if (variant instanceof ASMOpcode) {
@@ -365,7 +363,7 @@ public class ASMCodeGenerator {
                 }
             } else {
                 // throw exception
-                assert false : "unimplemented operator in BinaryOperator";
+                assert false : "unimplemented operator in Operator";
             }
         }
 

@@ -247,10 +247,13 @@ public class Parser {
 
     ///////////////////////////////////////////////////////////
     // expressions
-    // expr                     -> comparisonExpression
-    // comparisonExpression     -> additiveExpression [> additiveExpression]?
+    // expr                     -> orExpression
+    // orExpression             -> andExpression [&& andExpression]* (left-assoc)
+    // andExpression            -> comparisonExpression [|| comparisonExpression]* (left-assoc)
+    // comparisonExpression     -> additiveExpression [> additiveExpression]* (left-assoc)
     // additiveExpression       -> multiplicativeExpression [+ multiplicativeExpression]*  (left-assoc)
-    // multiplicativeExpression -> atomicExpression [MULT atomicExpression]*  (left-assoc)
+    // multiplicativeExpression -> unaryExpression [MULT unaryExpression]*  (left-assoc)
+    // unaryExpression          -> [!]* atomicExpression (prefix right-assoc)
     // atomicExpression         -> literal
     // literal                  -> integerConstant | identifier | booleanConstant
 
@@ -259,14 +262,58 @@ public class Parser {
         if (!startsExpression(nowReading)) {
             return syntaxErrorNode("expression");
         }
-        return parseComparisonExpression();
+        return parseOrExpression();
     }
 
     private boolean startsExpression(Token token) {
-        return startsComparisonExpression(token);
+        return startsOrExpression(token);
     }
 
-    // comparisonExpression -> additiveExpression [> additiveExpression]?
+    // orExpression -> andExpression [&& andExpression]* (left-assoc)
+    private ParseNode parseOrExpression() {
+        if (!startsOrExpression(nowReading)) {
+            return syntaxErrorNode("or expression");
+        }
+
+        ParseNode left = parseAndExpression();
+        while (nowReading.isLextant(Punctuator.BOOLEAN_OR)) {
+            Token orToken = nowReading;
+            readToken();
+            ParseNode right = parseAndExpression();
+
+            left = OperatorNode.withChildren(orToken, left, right);
+        }
+        return left;
+
+    }
+
+    private boolean startsOrExpression(Token token) {
+        return startsAndExpression(token);
+    }
+
+    // andExpression -> comparisonExpression [|| comparisonExpression]* (left-assoc)
+    private ParseNode parseAndExpression() {
+        if (!startsAndExpression(nowReading)) {
+            return syntaxErrorNode("and expression");
+        }
+
+        ParseNode left = parseComparisonExpression();
+        while (nowReading.isLextant(Punctuator.BOOLEAN_AND)) {
+            Token andToken = nowReading;
+            readToken();
+            ParseNode right = parseComparisonExpression();
+
+            left = OperatorNode.withChildren(andToken, left, right);
+        }
+        return left;
+
+    }
+
+    private boolean startsAndExpression(Token token) {
+        return startsComparisonExpression(token);
+    }
+    
+    // comparisonExpression -> additiveExpression [> additiveExpression]* (left-assoc)
     private ParseNode parseComparisonExpression() {
         if (!startsComparisonExpression(nowReading)) {
             return syntaxErrorNode("comparison expression");
@@ -278,7 +325,7 @@ public class Parser {
             readToken();
             ParseNode right = parseAdditiveExpression();
 
-            left = BinaryOperatorNode.withChildren(compareToken, left, right);
+            left = OperatorNode.withChildren(compareToken, left, right);
         }
         return left;
 
@@ -300,35 +347,62 @@ public class Parser {
             readToken();
             ParseNode right = parseMultiplicativeExpression();
 
-            left = BinaryOperatorNode.withChildren(additiveToken, left, right);
+            left = OperatorNode.withChildren(additiveToken, left, right);
         }
         return left;
     }
 
     private boolean startsAdditiveExpression(Token token) {
-        return startsAtomicExpression(token);
+        return startsMultiplicativeExpression(token);
     }
 
-    // multiplicativeExpression -> Expression [MULT atomicExpression]*  (left-assoc)
+    // multiplicativeExpression -> unaryExpression [MULT unaryExpression]*  (left-assoc)
     private ParseNode parseMultiplicativeExpression() {
         if (!startsMultiplicativeExpression(nowReading)) {
             return syntaxErrorNode("multiplicativeExpression");
         }
 
-        ParseNode left = parseAtomicExpression();
+        ParseNode left = parseUnaryExpression();
         while (nowReading.isLextant(Punctuator.MULTIPLY, Punctuator.DIVIDE)) {
             Token multiplicativeToken = nowReading;
             readToken();
-            ParseNode right = parseAtomicExpression();
+            ParseNode right = parseUnaryExpression();
 
-            left = BinaryOperatorNode.withChildren(multiplicativeToken, left, right);
+            left = OperatorNode.withChildren(multiplicativeToken, left, right);
         }
         return left;
     }
 
     private boolean startsMultiplicativeExpression(Token token) {
-        return startsAtomicExpression(token);
+        return startsUnaryExpression(token);
     }
+
+    // unaryExpression -> [!]* atomicExpression (prefix right-assoc)
+    private ParseNode parseUnaryExpression() {
+        if (!startsUnaryExpression(nowReading)) {
+            return syntaxErrorNode("unaryExpression");
+        }
+
+        // prefix unary
+        ParseNode right;
+        if (haveUnary(nowReading)) {
+            Token unaryToken = nowReading;
+            readToken();
+            right = parseUnaryExpression();
+            right = OperatorNode.withChildren(unaryToken, right);
+        } else {
+            right = parseAtomicExpression();
+        }
+        return right;
+    }
+
+    private boolean startsUnaryExpression(Token token) {
+        return haveUnary(token) | startsAtomicExpression(token);
+    }
+    private boolean haveUnary(Token token) {
+        return token.isLextant(Punctuator.BOOLEAN_NOT, Keyword.CLONE, Keyword.LENGTH);
+    }
+
 
     // atomicExpression -> literal | parentheses | casting
     private ParseNode parseAtomicExpression() {

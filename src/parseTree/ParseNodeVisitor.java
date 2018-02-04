@@ -1,15 +1,14 @@
 package parseTree;
 
 import parseTree.nodeTypes.*;
-import tokens.FloatingToken;
 
 // Visitor pattern with pre- and post-order visits
 public interface ParseNodeVisitor {
 
     // non-leaf nodes: visitEnter and visitLeave
-    void visitEnter(BinaryOperatorNode node);
+    void visitEnter(OperatorNode node);
 
-    void visitLeave(BinaryOperatorNode node);
+    void visitLeave(OperatorNode node);
 
     void visitEnter(BlockStatementNode node);
 
@@ -84,11 +83,11 @@ public interface ParseNodeVisitor {
             defaultVisit(node);
         }
 
-        public void visitEnter(BinaryOperatorNode node) {
+        public void visitEnter(OperatorNode node) {
             defaultVisitEnter(node);
         }
 
-        public void visitLeave(BinaryOperatorNode node) {
+        public void visitLeave(OperatorNode node) {
             defaultVisitLeave(node);
         }
 

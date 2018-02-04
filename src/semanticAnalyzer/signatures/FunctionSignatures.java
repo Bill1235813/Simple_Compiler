@@ -76,6 +76,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
 
+        // arithmetic +, -, *, /
 		new FunctionSignatures(
 		        Punctuator.ADD,
                 new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
@@ -100,6 +101,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING)
         );
 
+		// comparison <. >, <=, >=, !=, ==
 		for (Punctuator comparison: Punctuator.comparisons) {
 			FunctionSignature iSignature = new FunctionSignature(1, INTEGER, INTEGER, BOOLEAN);
 			FunctionSignature cSignature = new FunctionSignature(1, CHARACTER, CHARACTER, BOOLEAN);
@@ -116,6 +118,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 			}
 		}
 
+		// casting
         new FunctionSignatures(
                 Punctuator.VERTICAL_LINE,
                 new FunctionSignature(ASMOpcode.Nop, INTEGER, INTEGER, INTEGER),
@@ -129,6 +132,22 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new CastToBooleanCodeGenerator(), CHARACTER, BOOLEAN, BOOLEAN),
                 new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, CHARACTER, CHARACTER),
                 new FunctionSignature(ASMOpcode.Nop, CHARACTER, INTEGER, INTEGER)
+        );
+
+		// boolean &&, ||, !
+		new FunctionSignatures(
+		        Punctuator.BOOLEAN_AND,
+                new FunctionSignature(ASMOpcode.And, BOOLEAN, BOOLEAN, BOOLEAN)
+        );
+
+        new FunctionSignatures(
+                Punctuator.BOOLEAN_OR,
+                new FunctionSignature(ASMOpcode.Or, BOOLEAN, BOOLEAN, BOOLEAN)
+        );
+
+        new FunctionSignatures(
+                Punctuator.BOOLEAN_NOT,
+                new FunctionSignature(ASMOpcode.BNegate, BOOLEAN, BOOLEAN)
         );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.

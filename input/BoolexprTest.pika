@@ -1,0 +1,8 @@
+exec {
+    const a:= _true_.
+    const b:= _false_.
+    var c:= a || b && b.
+    var d:= ! b && a.
+    var e:= ! ! b.
+    print c;d;e;_n_.
+}

@@ -1,5 +1,6 @@
 package semanticAnalyzer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -105,11 +106,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     ///////////////////////////////////////////////////////////////////////////
     // expressions
     @Override
-    public void visitLeave(BinaryOperatorNode node) {
-        assert node.nChildren() == 2;
-        ParseNode left = node.child(0);
-        ParseNode right = node.child(1);
-        List<Type> childTypes = Arrays.asList(left.getType(), right.getType());
+    public void visitLeave(OperatorNode node) {
+//        assert node.nChildren() == 2;
+        List<Type> childTypes = new ArrayList<Type>();
+        for (int i=0; i<node.nChildren(); ++i) {
+            childTypes.add(node.child(i).getType());
+        }
 
         Lextant operator = lextantFor(node);
         FunctionSignatures signatures = FunctionSignatures.signaturesOf(operator);
