@@ -259,7 +259,6 @@ public class ASMCodeGenerator {
             Type type = node.getType();
             code.add(opcodeForStore(type));
         }
-
         private ASMOpcode opcodeForStore(Type type) {
             if (type == PrimitiveType.INTEGER ||
                 type == PrimitiveType.STRING) {
@@ -276,7 +275,61 @@ public class ASMCodeGenerator {
             return null;
         }
 
+        public void visitLeave(IfStatementNode node) {
 
+            ASMCodeFragment condition = removeValueCode(node.child(0));
+            ASMCodeFragment true_branch = removeVoidCode(node.child(1));
+
+            // Set several Labels
+            Labeller labeller = new Labeller("if");
+            String conditionLabel = labeller.newLabel("condition");
+            String trueLabel = labeller.newLabel("true");
+            String falseLabel = labeller.newLabel("false");
+            String joinLabel = labeller.newLabel("join");
+
+            newVoidCode(node);
+            code.add(Label, conditionLabel);
+            code.append(condition);
+            code.add(JumpFalse, falseLabel);
+
+            code.add(Label, trueLabel);
+            code.append(true_branch);
+            code.add(Jump, joinLabel);
+
+            // deal with else
+            code.add(Label, falseLabel);
+            if (node.getElse_flag()) {
+                ASMCodeFragment false_branch = removeVoidCode(node.child(2));
+                code.append(false_branch);
+            }
+
+            code.add(Jump, joinLabel);
+            code.add(Label, joinLabel);
+
+        }
+
+        public void visitLeave(WhileStatementNode node) {
+
+            ASMCodeFragment condition = removeValueCode(node.child(0));
+            ASMCodeFragment body = removeVoidCode(node.child(1));
+
+            // Set several Labels
+            Labeller labeller = new Labeller("while");
+            String conditionLabel = labeller.newLabel("condition");
+            String startsLabel = labeller.newLabel("starts");
+            String endsLabel = labeller.newLabel("ends");
+
+            newVoidCode(node);
+            code.add(Label, conditionLabel);
+            code.append(condition);
+            code.add(JumpFalse, endsLabel);
+
+            code.add(Label, startsLabel);
+            code.append(body);
+            code.add(Jump, conditionLabel);
+
+            code.add(Label, endsLabel);
+        }
         ///////////////////////////////////////////////////////////////////////////
         // expressions
         public void visitLeave(OperatorNode node) {
@@ -288,7 +341,6 @@ public class ASMCodeGenerator {
                 visitNormalOperatorNode(node);
             }
         }
-        
         private boolean isComparisonOperatorNode(Lextant operator) {
         		for (Punctuator comparison: Punctuator.comparisons) {
         			if (operator == comparison) {

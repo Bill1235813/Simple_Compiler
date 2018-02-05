@@ -85,7 +85,7 @@ public class Parser {
     ///////////////////////////////////////////////////////////
     // statements
 
-    // statement-> declaration | printStmt | blockStmt | assignmentStmt
+    // statement-> declaration | printStmt | blockStmt | assignmentStmt | ifStmt | whileStmt
     private ParseNode parseStatement() {
         if (!startsStatement(nowReading)) {
             return syntaxErrorNode("statement");
@@ -102,6 +102,12 @@ public class Parser {
         if (startsAssignmentStatement(nowReading)) {
             return parseAssignmentStatement();
         }
+        if (startsIfStatement(nowReading)) {
+            return parseIfStatement();
+        }
+        if (startsWhileStatement(nowReading)) {
+            return parseWhileStatement();
+        }
         return syntaxErrorNode("statement");
     }
 
@@ -109,7 +115,58 @@ public class Parser {
         return startsPrintStatement(token) ||
                 startsDeclaration(token) || 
                 startsBlockStatement(token) ||
-                startsAssignmentStatement(token);
+                startsAssignmentStatement(token) ||
+                startsIfStatement(token) ||
+                startsWhileStatement(token);
+    }
+
+    // whileStmt -> while (expr) blockStmt
+    private ParseNode parseWhileStatement() {
+        if (!startsWhileStatement(nowReading)) {
+            return syntaxErrorNode("whileStatement");
+        }
+        Token whileToken = nowReading;
+
+        expect(Keyword.WHILE);
+        expect(Punctuator.OPEN_PARENTHESE);
+        ParseNode condition = parseExpression();
+        expect(Punctuator.CLOSE_PARENTHESE);
+        ParseNode body= parseBlockStatement();
+        return WhileStatementNode.withChildren(whileToken, condition, body);
+    }
+
+    private boolean startsWhileStatement(Token token) {
+        return token.isLextant(Keyword.WHILE);
+    }
+
+    // ifStmt -> if (expr) blockStmt (else blockStmt)?
+    private ParseNode parseIfStatement() {
+        if (!startsIfStatement(nowReading)) {
+            return syntaxErrorNode("ifStatement");
+        }
+        Token ifToken = nowReading;
+        Boolean else_flag = false;
+
+        expect(Keyword.IF);
+        expect(Punctuator.OPEN_PARENTHESE);
+        ParseNode condition = parseExpression();
+        expect(Punctuator.CLOSE_PARENTHESE);
+        ParseNode true_branch= parseBlockStatement();
+        if (haveElse(nowReading)) {
+            else_flag = true;
+            expect(Keyword.ELSE);
+            ParseNode false_branch= parseBlockStatement();
+            return IfStatementNode.withChildren(else_flag, ifToken, condition, true_branch, false_branch);
+        } else {
+            return IfStatementNode.withChildren(else_flag, ifToken, condition, true_branch);
+        }
+    }
+
+    private boolean startsIfStatement(Token token) {
+        return token.isLextant(Keyword.IF);
+    }
+    private boolean haveElse(Token token) {
+        return token.isLextant(Keyword.ELSE);
     }
 
     // assignmentStmt -> target (identifier) := expression .

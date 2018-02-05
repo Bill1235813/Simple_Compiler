@@ -1,19 +1,18 @@
 package parseTree.nodeTypes;
 
-import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Lextant;
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
 import tokens.LextantToken;
 import tokens.Token;
 
-public class AssignmentStatementNode extends ParseNode {
+public class WhileStatementNode extends ParseNode {
 
-    public AssignmentStatementNode(Token token) {
+    public WhileStatementNode(Token token) {
         super(token);
     }
 
-    public AssignmentStatementNode(ParseNode node) {
+    public WhileStatementNode(ParseNode node) {
         super(node);
     }
 
@@ -21,7 +20,7 @@ public class AssignmentStatementNode extends ParseNode {
     ////////////////////////////////////////////////////////////
     // attributes
 
-    public Lextant getAssignmentStatementType() {
+    public Lextant getWhileStatementType() {
         return lextantToken().getLextant();
     }
 
@@ -33,10 +32,10 @@ public class AssignmentStatementNode extends ParseNode {
     ////////////////////////////////////////////////////////////
     // convenience factory
 
-    public static AssignmentStatementNode withChildren(Token token, ParseNode target, ParseNode assignexpr) {
-        AssignmentStatementNode node = new AssignmentStatementNode(token);
-        node.appendChild(target);
-        node.appendChild(assignexpr);
+    public static WhileStatementNode withChildren(Token token, ParseNode condition, ParseNode body) {
+        WhileStatementNode node = new WhileStatementNode(token);
+        node.appendChild(condition);
+        node.appendChild(body);
         return node;
     }
 
@@ -49,5 +48,4 @@ public class AssignmentStatementNode extends ParseNode {
         visitChildren(visitor);
         visitor.visitLeave(this);
     }
-    
 }

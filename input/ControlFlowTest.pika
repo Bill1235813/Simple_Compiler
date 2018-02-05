@@ -1,0 +1,20 @@
+exec {
+    var Bill:=7.
+    if (Bill<=8) {
+        if (!!(Bill>=6)) {
+            print Bill;_n_.
+        }
+        print Bill+ 1;_n_.
+    } else {
+        Bill:=100.
+        print Bill;_n_.
+    }
+
+    var i:=100.
+    var sum:=0.
+    while (i>0) {
+        sum:=sum+ i.
+        i:=i- 1.
+    }
+    print sum;_n_.
+}

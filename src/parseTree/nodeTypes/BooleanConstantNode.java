@@ -7,6 +7,7 @@ import tokens.LextantToken;
 import tokens.Token;
 
 public class BooleanConstantNode extends ParseNode {
+
     public BooleanConstantNode(Token token) {
         super(token);
         assert (token.isLextant(Keyword.TRUE, Keyword.FALSE));

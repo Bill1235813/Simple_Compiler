@@ -103,6 +103,23 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         }
     }
 
+    @Override
+    public void visitLeave(IfStatementNode node) {
+        checkConditionBoolean(node);
+    }
+
+    @Override
+    public void visitLeave(WhileStatementNode node) {
+        checkConditionBoolean(node);
+    }
+    private void checkConditionBoolean(ParseNode node) {
+        OperatorNode condition = (OperatorNode) node.child(0);
+        if (condition.getType() != PrimitiveType.BOOLEAN) {
+            notBooleanConditionError(node);
+            node.setType(PrimitiveType.ERROR);
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // expressions
     @Override
@@ -236,6 +253,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // error logging/printing
+    private void notBooleanConditionError(ParseNode node) {
+        Token token = node.getToken();
+
+        logError(token.getLexeme() + " statement must have boolean condition"
+                + " at " + token.getLocation());
+    }
+
     private void constAssignError(ParseNode node) {
         Token token = node.getToken();
 
