@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import asmCodeGenerator.FullCodeGenerator.ShortCircuitAndCodeGenerator;
+import asmCodeGenerator.FullCodeGenerator.ShortCircuitOrCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.simpleCodeGenerator.CastToBooleanCodeGenerator;
 import asmCodeGenerator.simpleCodeGenerator.CastToCharacterCodeGenerator;
@@ -126,7 +128,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		// casting
         new FunctionSignatures(
                 Punctuator.CASTING,
-                new FunctionSignature(ASMOpcode.Nop, S, S, S),
+                new FunctionSignature(ASMOpcode.Nop, setS, S, S, S),
                 new FunctionSignature(ASMOpcode.ConvertI, FLOATING, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.ConvertF, INTEGER, FLOATING, FLOATING),
                 new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),
@@ -138,12 +140,12 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		// boolean &&, ||, !
 		new FunctionSignatures(
 		        Punctuator.BOOLEAN_AND,
-                new FunctionSignature(ASMOpcode.And, BOOLEAN, BOOLEAN, BOOLEAN)
+                new FunctionSignature(new ShortCircuitAndCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN)
         );
 
         new FunctionSignatures(
                 Punctuator.BOOLEAN_OR,
-                new FunctionSignature(ASMOpcode.Or, BOOLEAN, BOOLEAN, BOOLEAN)
+                new FunctionSignature(new ShortCircuitOrCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN)
         );
 
         new FunctionSignatures(

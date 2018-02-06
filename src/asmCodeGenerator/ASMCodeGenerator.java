@@ -1,8 +1,11 @@
 package asmCodeGenerator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import asmCodeGenerator.FullCodeGenerator.FullCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.runtime.RunTime;
@@ -330,6 +333,7 @@ public class ASMCodeGenerator {
 
             code.add(Label, endsLabel);
         }
+
         ///////////////////////////////////////////////////////////////////////////
         // expressions
         public void visitLeave(OperatorNode node) {
@@ -396,6 +400,34 @@ public class ASMCodeGenerator {
 
         private void visitNormalOperatorNode(OperatorNode node) {
             newValueCode(node);
+
+            Object variant = node.getSignature().getVariant();
+            if (variant instanceof ASMOpcode) {
+                appendUndeterminedChildren(node);
+                ASMOpcode opcode = (ASMOpcode)variant;
+                code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+            } else if (variant instanceof SimpleCodeGenerator) {
+                appendUndeterminedChildren(node);
+                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
+                ASMCodeFragment fragment = generator.generate(node);
+                code.append(fragment);
+                if (fragment.isAddress()) {
+                    code.markAsAddress();
+                }
+            } else if (variant instanceof FullCodeGenerator) {
+                FullCodeGenerator generator = (FullCodeGenerator)variant;
+                ASMCodeFragment[] args = getUndeterminedChildren(node);
+                ASMCodeFragment fragment = generator.generate(node, args);
+                code.append(fragment);
+                if(fragment.isAddress()) {
+                    code.markAsAddress();
+                }
+            } else {
+                // throw exception
+                assert false : "unimplemented operator in Operator";
+            }
+        }
+        private void appendUndeterminedChildren(ParseNode node) {
             for (int i=0; i<node.nChildren(); ++i) {
                 if (node.child(i) instanceof TypeNode) {
                     continue;
@@ -403,23 +435,16 @@ public class ASMCodeGenerator {
                 ASMCodeFragment arg = removeValueCode(node.child(i));
                 code.append(arg);
             }
-
-            Object variant = node.getSignature().getVariant();
-            if (variant instanceof ASMOpcode) {
-                ASMOpcode opcode = (ASMOpcode)variant;
-                code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
-            } else if (variant instanceof SimpleCodeGenerator) {
-                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
-                ASMCodeFragment fragment = generator.generate(node);
-                code.append(fragment);
-
-                if (fragment.isAddress()) {
-                    code.markAsAddress();  // cannot understand it
+        }
+        private ASMCodeFragment[] getUndeterminedChildren(ParseNode node) {
+            List<ASMCodeFragment> args = new ArrayList<>();
+            for (int i=0; i<node.nChildren(); ++i) {
+                if (node.child(i) instanceof TypeNode) {
+                    continue;
                 }
-            } else {
-                // throw exception
-                assert false : "unimplemented operator in Operator";
+                args.add(removeValueCode(node.child(i)));
             }
+            return args.toArray(new ASMCodeFragment[args.size()]);
         }
 
         // unused

@@ -126,12 +126,23 @@
         DLabel       $global-memory-block      
         DataZ        0                         
         Label        $$main                    
-        PushF        1.700000
-        PushF        2.800000
+        PushF        1.700000                  
+        PushF        2.800000                  
         FAdd                                   
-        PushF        8.100000
+        PushF        8.100000                  
         FSubtract                              
-        PushF        3.600000
+        PushF        3.600000                  
+        FAdd                                   
+        PushD        $print-format-floating    
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
+        PushF        1.700000                  
+        PushF        2.800000                  
+        FAdd                                   
+        PushF        8.000000                  
+        FSubtract                              
+        PushF        3.500000                  
         FAdd                                   
         PushD        $print-format-floating    
         Printf                                 
