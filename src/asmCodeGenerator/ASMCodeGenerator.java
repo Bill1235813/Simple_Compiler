@@ -397,6 +397,9 @@ public class ASMCodeGenerator {
         private void visitNormalOperatorNode(OperatorNode node) {
             newValueCode(node);
             for (int i=0; i<node.nChildren(); ++i) {
+                if (node.child(i) instanceof TypeNode) {
+                    continue;
+                }
                 ASMCodeFragment arg = removeValueCode(node.child(i));
                 code.append(arg);
             }
@@ -442,27 +445,30 @@ public class ASMCodeGenerator {
             code.append(child);
         }
 
-        public void visitLeave(CastingNode node) {
-            newValueCode(node);
-            ASMCodeFragment child = removeValueCode(node.child(0));
-            code.append(child);
-
-            Object variant = node.getSignature().getVariant();
-            if (variant instanceof ASMOpcode) {
-                ASMOpcode opcode = (ASMOpcode) variant;
-                code.add(opcode);
-            } else if (variant instanceof SimpleCodeGenerator) {
-                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
-                ASMCodeFragment fragment = generator.generate(node);
-                code.append(fragment);
-
-                if (fragment.isAddress()) {
-                    code.markAsAddress();
-                }
-            } else {
-                assert false : "unimplemented type in Casting";
-            }
+        public void visitLeave(TypeNode node) {
         }
+
+//        public void visitLeave(CastingNode node) {
+//            newValueCode(node);
+//            ASMCodeFragment child = removeValueCode(node.child(0));
+//            code.append(child);
+//
+//            Object variant = node.getSignature().getVariant();
+//            if (variant instanceof ASMOpcode) {
+//                ASMOpcode opcode = (ASMOpcode) variant;
+//                code.add(opcode);
+//            } else if (variant instanceof SimpleCodeGenerator) {
+//                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
+//                ASMCodeFragment fragment = generator.generate(node);
+//                code.append(fragment);
+//
+//                if (fragment.isAddress()) {
+//                    code.markAsAddress();
+//                }
+//            } else {
+//                assert false : "unimplemented type in Casting";
+//            }
+//        }
 
         ///////////////////////////////////////////////////////////////////////////
         // leaf nodes (TypeNode and ErrorNode not necessary)

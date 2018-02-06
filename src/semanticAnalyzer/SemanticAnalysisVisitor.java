@@ -13,6 +13,7 @@ import parseTree.ParseNodeVisitor;
 import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.FunctionSignature;
 import semanticAnalyzer.signatures.FunctionSignatures;
+import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -151,22 +152,33 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         node.setType(resultType);
     }
 
+//    @Override
+//    public void visitLeave(CastingNode node) {
+//        assert node.nChildren() == 2;
+//        ParseNode before = node.child(0);
+//        ParseNode after = node.child(1);
+//        List<Type> childTypes = Arrays.asList(before.getType(), after.getType());
+//
+//        FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.VERTICAL_LINE);
+//        FunctionSignature signature = signatures.acceptingSignature(childTypes);
+//
+//        if (signature.accepts(childTypes)) {
+//            node.setType(signature.resultType());
+//            node.setSignature(signature);
+//        } else {
+//            typeCastError(node, childTypes);
+//            node.setType(PrimitiveType.ERROR);
+//        }
+//    }
+
     @Override
-    public void visitLeave(CastingNode node) {
-        assert node.nChildren() == 2;
-        ParseNode before = node.child(0);
-        ParseNode after = node.child(1);
-        List<Type> childTypes = Arrays.asList(before.getType(), after.getType());
-
-        FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.VERTICAL_LINE);
-        FunctionSignature signature = signatures.acceptingSignature(childTypes);
-
-        if (signature.accepts(childTypes)) {
-            node.setType(signature.resultType());
-            node.setSignature(signature);
+    public void visitLeave(TypeNode node) {
+        assert node.getToken() instanceof LextantToken;
+        assert node.nChildren() <= 1;
+        if (node.nChildren() == 0) {
+            node.setType(PrimitiveType.getTypeFromLextant(lextantFor(node)));
         } else {
-            typeCastError(node, childTypes);
-            node.setType(PrimitiveType.ERROR);
+            node.setType(new Array(node.child(0).getType()));
         }
     }
 
@@ -200,12 +212,6 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     @Override
     public void visit(StringConstantNode node) {
         node.setType(PrimitiveType.STRING);
-    }
-
-    @Override
-    public void visit(TypeNode node) {
-        assert node.getToken() instanceof LextantToken;
-        node.setType(PrimitiveType.getTypeFromLextant(lextantFor(node)));
     }
 
     @Override

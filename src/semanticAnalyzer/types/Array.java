@@ -1,5 +1,7 @@
 package semanticAnalyzer.types;
 
+import static semanticAnalyzer.types.PrimitiveType.*;
+
 public class Array implements Type{
 	private Type subtype;
 	
@@ -17,7 +19,7 @@ public class Array implements Type{
 	
 	@Override
 	public int getSize() {
-		return 0;
+		return INTEGER.getSize();
 	}
 
 	@Override

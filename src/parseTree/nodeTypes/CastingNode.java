@@ -6,6 +6,7 @@ import semanticAnalyzer.signatures.FunctionSignature;
 import tokens.LextantToken;
 import tokens.Token;
 
+// nobody use it now ~ smile
 public class CastingNode extends ParseNode{
 
     private FunctionSignature signature = FunctionSignature.nullInstance();

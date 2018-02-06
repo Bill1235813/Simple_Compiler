@@ -78,6 +78,8 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
     static {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
+        TypeVariable S = new TypeVariable("S");
+        List<TypeVariable> setS = Arrays.asList(S);
 
         // arithmetic +, -, *, /
 		new FunctionSignatures(
@@ -123,12 +125,8 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 
 		// casting
         new FunctionSignatures(
-                Punctuator.VERTICAL_LINE,
-                new FunctionSignature(ASMOpcode.Nop, INTEGER, INTEGER, INTEGER),
-                new FunctionSignature(ASMOpcode.Nop, FLOATING, FLOATING, FLOATING),
-                new FunctionSignature(ASMOpcode.Nop, CHARACTER, CHARACTER, CHARACTER),
-                new FunctionSignature(ASMOpcode.Nop, BOOLEAN, BOOLEAN, BOOLEAN),
-                new FunctionSignature(ASMOpcode.Nop, STRING, STRING, STRING),
+                Punctuator.CASTING,
+                new FunctionSignature(ASMOpcode.Nop, S, S, S),
                 new FunctionSignature(ASMOpcode.ConvertI, FLOATING, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.ConvertF, INTEGER, FLOATING, FLOATING),
                 new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),
@@ -154,8 +152,6 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         );
 
         // array-indexing []
-        TypeVariable S = new TypeVariable("S");
-        List<TypeVariable> setS = Arrays.asList(S);
 //        new FunctionSignatures(
 //        			Punctuator.OPEN_BRACKET,
 //        			new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, new Array(S), INTEGER, S)
