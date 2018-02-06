@@ -1,6 +1,7 @@
 package semanticAnalyzer.signatures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,9 @@ import asmCodeGenerator.simpleCodeGenerator.CastToBooleanCodeGenerator;
 import asmCodeGenerator.simpleCodeGenerator.CastToCharacterCodeGenerator;
 import com.sun.org.apache.bcel.internal.generic.NOP;
 import lexicalAnalyzer.Punctuator;
+import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.Type;
+import semanticAnalyzer.types.TypeVariable;
 import asmCodeGenerator.simpleCodeGenerator.IntegerDivideCodeGenerator;
 import asmCodeGenerator.simpleCodeGenerator.FloatingDivideCodeGenerator;
 import static semanticAnalyzer.types.PrimitiveType.*;
@@ -149,6 +152,14 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 Punctuator.BOOLEAN_NOT,
                 new FunctionSignature(ASMOpcode.BNegate, BOOLEAN, BOOLEAN)
         );
+
+        // array-indexing []
+        TypeVariable S = new TypeVariable("S");
+        List<TypeVariable> setS = Arrays.asList(S);
+//        new FunctionSignatures(
+//        			Punctuator.OPEN_BRACKET,
+//        			new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, new Array(S), INTEGER, S)
+//        	);
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
         // Then, we give that key two signatures: one an (INT x INT -> INT) and the other
