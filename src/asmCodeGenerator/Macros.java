@@ -38,6 +38,18 @@ public class Macros {
         frag.add(DataZ, 4);
     }
 
+    public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
+    		loadIFrom(frag, fromlocation);
+    		storeITo(frag, tolocation);
+    }
+    
+    public static void swap(ASMCodeFragment frag, String firstlocation, String secondlocation) {
+    		loadIFrom(frag, firstlocation);
+    		loadIFrom(frag, secondlocation);
+    		storeITo(frag, firstlocation);
+    		storeITo(frag, secondlocation);
+    }
+    
     /**
      * [... baseLocation] -> [... intValue]
      *

@@ -267,7 +267,8 @@ public class ASMCodeGenerator {
                 type == PrimitiveType.STRING) {
                 return StoreI;
             }
-            if (type == PrimitiveType.FLOATING) {
+            if (type == PrimitiveType.FLOATING ||
+            		type == PrimitiveType.RATIONAL) {
                 return StoreF;
             }
             if (type == PrimitiveType.BOOLEAN ||

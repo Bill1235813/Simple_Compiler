@@ -46,6 +46,11 @@ public enum Punctuator implements Lextant {
 			LESSOREQUAL, EQUAL, NOTEQUAL
 	};
 
+	public static final Punctuator []multiplicative = {
+			MULTIPLY, DIVIDE, OVER, 
+			EXPRESS_OVER, RATIONALIZE
+	};
+	
 	private Punctuator(String lexeme) {
 		this.lexeme = lexeme;
 		this.prototype = LextantToken.make(null, lexeme, this);

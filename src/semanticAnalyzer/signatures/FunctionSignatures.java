@@ -18,6 +18,8 @@ import semanticAnalyzer.types.Type;
 import semanticAnalyzer.types.TypeVariable;
 import asmCodeGenerator.simpleCodeGenerator.IntegerDivideCodeGenerator;
 import asmCodeGenerator.simpleCodeGenerator.FloatingDivideCodeGenerator;
+import asmCodeGenerator.simpleCodeGenerator.FormRationalCodeGenerator;
+
 import static semanticAnalyzer.types.PrimitiveType.*;
 
 public class FunctionSignatures extends ArrayList<FunctionSignature> {
@@ -83,7 +85,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         TypeVariable S = new TypeVariable("S");
         List<TypeVariable> setS = Arrays.asList(S);
 
-        // arithmetic +, -, *, /
+        // arithmetic +, -, *, /, //, ///, ////
 		new FunctionSignatures(
 		        Punctuator.ADD,
                 new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
@@ -108,6 +110,17 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING)
         );
 
+		new FunctionSignatures(
+				Punctuator.OVER,
+				new FunctionSignature(new FormRationalCodeGenerator(), INTEGER, INTEGER, RATIONAL)
+		);
+		
+//		new FunctionSignatures(
+//				Punctuator.EXPRESS_OVER,
+//				new FunctionSignature(new RationalExpressOverCodeGenerator(), RATIONAL, INTEGER, INTEGER),
+//				new FunctionSignature(new FloatingExpressOverCodeGenerator(), FLOATING, INTEGER, INTEGER)
+//		);
+		
 		// comparison <. >, <=, >=, !=, ==
 		for (Punctuator comparison: Punctuator.comparisons) {
 			FunctionSignature iSignature = new FunctionSignature(1, INTEGER, INTEGER, BOOLEAN);
