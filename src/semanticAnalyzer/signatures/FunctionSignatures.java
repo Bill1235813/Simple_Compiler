@@ -9,16 +9,12 @@ import java.util.Map;
 import asmCodeGenerator.FullCodeGenerator.ShortCircuitAndCodeGenerator;
 import asmCodeGenerator.FullCodeGenerator.ShortCircuitOrCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMOpcode;
-import asmCodeGenerator.simpleCodeGenerator.CastToBooleanCodeGenerator;
-import asmCodeGenerator.simpleCodeGenerator.CastToCharacterCodeGenerator;
+import asmCodeGenerator.simpleCodeGenerator.*;
 import com.sun.org.apache.bcel.internal.generic.NOP;
 import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.Type;
 import semanticAnalyzer.types.TypeVariable;
-import asmCodeGenerator.simpleCodeGenerator.IntegerDivideCodeGenerator;
-import asmCodeGenerator.simpleCodeGenerator.FloatingDivideCodeGenerator;
-import asmCodeGenerator.simpleCodeGenerator.FormRationalCodeGenerator;
 
 import static semanticAnalyzer.types.PrimitiveType.*;
 
@@ -89,25 +85,29 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		new FunctionSignatures(
 		        Punctuator.ADD,
                 new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
-		        new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING)
+		        new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING),
+                new FunctionSignature(new RationalAddCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
 		);
 
 		new FunctionSignatures(
 		        Punctuator.SUBTRACT,
                 new FunctionSignature(ASMOpcode.Subtract, INTEGER, INTEGER, INTEGER),
-                new FunctionSignature(ASMOpcode.FSubtract, FLOATING, FLOATING, FLOATING)
+                new FunctionSignature(ASMOpcode.FSubtract, FLOATING, FLOATING, FLOATING),
+                new FunctionSignature(new RationalSubtractCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
         );
 
 		new FunctionSignatures(
 		        Punctuator.MULTIPLY,
 			    new FunctionSignature(ASMOpcode.Multiply, INTEGER, INTEGER, INTEGER),
-			    new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING)
+			    new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING),
+                new FunctionSignature(new RationalMultiplyCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
 		);
 
 		new FunctionSignatures(
                 Punctuator.DIVIDE,
                 new FunctionSignature(new IntegerDivideCodeGenerator(), INTEGER, INTEGER, INTEGER),
-                new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING)
+                new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING),
+                new FunctionSignature(new RationalDivideCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
         );
 
 		new FunctionSignatures(
@@ -115,11 +115,17 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 				new FunctionSignature(new FormRationalCodeGenerator(), INTEGER, INTEGER, RATIONAL)
 		);
 		
-//		new FunctionSignatures(
-//				Punctuator.EXPRESS_OVER,
-//				new FunctionSignature(new RationalExpressOverCodeGenerator(), RATIONAL, INTEGER, INTEGER),
-//				new FunctionSignature(new FloatingExpressOverCodeGenerator(), FLOATING, INTEGER, INTEGER)
-//		);
+		new FunctionSignatures(
+				Punctuator.EXPRESS_OVER,
+				new FunctionSignature(new RationalExpressOverCodeGenerator(), RATIONAL, INTEGER, INTEGER),
+				new FunctionSignature(new FloatingExpressOverCodeGenerator(), FLOATING, INTEGER, INTEGER)
+		);
+
+		new FunctionSignatures(
+		        Punctuator.RATIONALIZE,
+                new FunctionSignature(new RationalRationalizeCodeGenerator(), RATIONAL, INTEGER, RATIONAL),
+                new FunctionSignature(new FloatingRationalizeCodeGenerator(), FLOATING, INTEGER, RATIONAL)
+        );
 		
 		// comparison <. >, <=, >=, !=, ==
 		for (Punctuator comparison: Punctuator.comparisons) {
@@ -147,7 +153,12 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),
                 new FunctionSignature(new CastToBooleanCodeGenerator(), CHARACTER, BOOLEAN, BOOLEAN),
                 new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, CHARACTER, CHARACTER),
-                new FunctionSignature(ASMOpcode.Nop, CHARACTER, INTEGER, INTEGER)
+                new FunctionSignature(ASMOpcode.Nop, CHARACTER, INTEGER, INTEGER),
+                new FunctionSignature(ASMOpcode.Divide, RATIONAL, INTEGER, INTEGER),
+                new FunctionSignature(new RationalToFloatingCodeGenerator(), RATIONAL, FLOATING,FLOATING),
+                new FunctionSignature(new IntegerToRationalCodeGenerator(), INTEGER, RATIONAL, RATIONAL),
+                new FunctionSignature(new IntegerToRationalCodeGenerator(), CHARACTER, RATIONAL, RATIONAL),
+                new FunctionSignature(new FloatingToRationalCodeGenerator(), FLOATING, RATIONAL, RATIONAL)
         );
 
 		// boolean &&, ||, !

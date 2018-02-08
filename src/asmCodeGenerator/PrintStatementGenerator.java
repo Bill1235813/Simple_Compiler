@@ -11,6 +11,8 @@ import asmCodeGenerator.ASMCodeGenerator.CodeVisitor;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.runtime.RunTime;
 
+import static asmCodeGenerator.Macros.loadIFrom;
+import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
 public class PrintStatementGenerator {
@@ -69,35 +71,35 @@ public class PrintStatementGenerator {
         code.add(Negate);   //  [... (pos)denom -num]
         code.add(Exchange);   //  [... -num (pos)denom]
         code.add(Label, positive2);
-        Macros.storeITo(code, RunTime.FIRST_DENOMINATOR);
-        Macros.storeITo(code, RunTime.FIRST_NUMERATOR);
-        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);
-        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);
+        storeITo(code, RunTime.FIRST_DENOMINATOR);
+        storeITo(code, RunTime.FIRST_NUMERATOR);
+        loadIFrom(code, RunTime.FIRST_NUMERATOR);
+        loadIFrom(code, RunTime.FIRST_DENOMINATOR);
         code.add(Divide);   //  [... int]
         code.add(Duplicate);    //  [... int int]
-        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
+        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
         code.add(Multiply); //  [... int int*denom]
-        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
+        loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
         code.add(Exchange); //  [... int num int*denom]
         code.add(Subtract); //  [... int fact.num]
         code.add(Duplicate);    //  [... int fact.num fact.num]
         code.add(JumpFalse, endwith_nofraction);    //  [... int fact.num] if (fact.num==0) jump
 
         // has faction
-        Macros.storeITo(code, RunTime.FIRST_NUMERATOR); //  [... int]
+        storeITo(code, RunTime.FIRST_NUMERATOR); //  [... int]
         code.add(Duplicate);    //  [... int int]
-        Macros.storeITo(code, RunTime.PRINT_TEMP);  //  [... int]
+        storeITo(code, RunTime.PRINT_TEMP);  //  [... int]
         code.add(JumpFalse, endwith_noint); //  [...]
 
         // has int
-        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
+        loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
         code.add(Duplicate);    //  [... fact.num fact.num]
         code.add(JumpPos, positive1);   //  [... fact.num]
         code.add(Negate);   //  [... (pos)fact.num]
         code.add(Label, positive1);    //  [... (pos)fact.num]
-        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
+        loadIFrom(code, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
         code.add(Exchange); //  [... (pos)denom (pos)fact.num]
-        Macros.loadIFrom(code, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
+        loadIFrom(code, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
         code.add(Jump, endwith_original);
 
         // determine format
@@ -107,18 +109,18 @@ public class PrintStatementGenerator {
         code.add(Jump, endjoin);
 
         code.add(Label, endwith_noint);    //  [...] denom must be positive
-        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);
+        loadIFrom(code, RunTime.FIRST_NUMERATOR);
         code.add(Duplicate);    //  [... num num]
         code.add(JumpPos, endwith_nointpos);    //  [... num]
         code.add(Negate);   //  [... -num]
         code.add(Jump, endwith_nointneg);
         code.add(Label, endwith_nointpos);
-        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
         code.add(Exchange);  //  [... denom num]
         code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_POS);
         code.add(Jump, endjoin);
         code.add(Label, endwith_nointneg);
-        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
         code.add(Exchange); //  [... denom num]
         code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_NEG);
         code.add(Jump, endjoin);

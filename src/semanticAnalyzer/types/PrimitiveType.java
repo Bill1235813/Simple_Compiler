@@ -27,6 +27,7 @@ public enum PrimitiveType implements Type {
             case FLOAT: return  FLOATING;
             case CHAR: return CHARACTER;
             case STRING: return STRING;
+            case RAT: return RATIONAL;
             default: return ERROR;
         }
     }
