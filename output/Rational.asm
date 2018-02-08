@@ -2519,6 +2519,7 @@
         Multiply                               
         Call         $$convert-to-lowest-terms 
         Divide                                 
+        Nop                                    
         Label        -compare-20-arg2          
         PushI        0                         
         Label        -compare-20-sub           
@@ -2557,6 +2558,7 @@
         ConvertF                               
         Exchange                               
         FDivide                                
+        Nop                                    
         Label        -compare-21-arg2          
         PushF        -1.750000                 
         Label        -compare-21-sub           

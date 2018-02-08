@@ -14,9 +14,11 @@ import com.sun.org.apache.bcel.internal.generic.NOP;
 import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.Type;
+import semanticAnalyzer.types.TypeLiteral;
 import semanticAnalyzer.types.TypeVariable;
 
 import static semanticAnalyzer.types.PrimitiveType.*;
+import static semanticAnalyzer.types.TypeLiteral.*;
 
 public class FunctionSignatures extends ArrayList<FunctionSignature> {
     private static final long serialVersionUID = -4907792488209670697L;
@@ -71,6 +73,9 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         return signatures.acceptingSignature(types);
     }
 
+    private static TypeLiteral Type(Type type) {
+        return new TypeLiteral(type);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     // Put the signatures for operators in the following static block.
@@ -147,18 +152,18 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		// casting
         new FunctionSignatures(
                 Punctuator.CASTING,
-                new FunctionSignature(ASMOpcode.Nop, setS, S, S, S),
-                new FunctionSignature(ASMOpcode.ConvertI, FLOATING, INTEGER, INTEGER),
-                new FunctionSignature(ASMOpcode.ConvertF, INTEGER, FLOATING, FLOATING),
-                new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, BOOLEAN, BOOLEAN),
-                new FunctionSignature(new CastToBooleanCodeGenerator(), CHARACTER, BOOLEAN, BOOLEAN),
-                new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, CHARACTER, CHARACTER),
-                new FunctionSignature(ASMOpcode.Nop, CHARACTER, INTEGER, INTEGER),
-                new FunctionSignature(ASMOpcode.Divide, RATIONAL, INTEGER, INTEGER),
-                new FunctionSignature(new RationalToFloatingCodeGenerator(), RATIONAL, FLOATING,FLOATING),
-                new FunctionSignature(new IntegerToRationalCodeGenerator(), INTEGER, RATIONAL, RATIONAL),
-                new FunctionSignature(new IntegerToRationalCodeGenerator(), CHARACTER, RATIONAL, RATIONAL),
-                new FunctionSignature(new FloatingToRationalCodeGenerator(), FLOATING, RATIONAL, RATIONAL)
+                new FunctionSignature(ASMOpcode.Nop, setS, S, Type(S), S),
+                new FunctionSignature(ASMOpcode.ConvertI, FLOATING, TYPE_INTEGER, INTEGER),
+                new FunctionSignature(ASMOpcode.ConvertF, INTEGER, TYPE_FLOATING, FLOATING),
+                new FunctionSignature(new CastToBooleanCodeGenerator(), INTEGER, TYPE_BOOLEAN, BOOLEAN),
+                new FunctionSignature(new CastToBooleanCodeGenerator(), CHARACTER, TYPE_BOOLEAN, BOOLEAN),
+                new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, TYPE_CHARACTER, CHARACTER),
+                new FunctionSignature(ASMOpcode.Nop, CHARACTER, TYPE_INTEGER, INTEGER),
+                new FunctionSignature(ASMOpcode.Divide, RATIONAL, TYPE_INTEGER, INTEGER),
+                new FunctionSignature(new RationalToFloatingCodeGenerator(), RATIONAL, TYPE_FLOATING,FLOATING),
+                new FunctionSignature(new IntegerToRationalCodeGenerator(), INTEGER, TYPE_RATIONAL, RATIONAL),
+                new FunctionSignature(new IntegerToRationalCodeGenerator(), CHARACTER, TYPE_RATIONAL, RATIONAL),
+                new FunctionSignature(new FloatingToRationalCodeGenerator(), FLOATING, TYPE_RATIONAL, RATIONAL)
         );
 
 		// boolean &&, ||, !

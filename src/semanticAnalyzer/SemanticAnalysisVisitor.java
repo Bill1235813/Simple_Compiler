@@ -16,6 +16,7 @@ import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
+import semanticAnalyzer.types.TypeLiteral;
 import symbolTable.Binding;
 import symbolTable.Scope;
 import tokens.LextantToken;
@@ -128,7 +129,11 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 //        assert node.nChildren() == 2;
         List<Type> childTypes = new ArrayList<Type>();
         for (int i=0; i<node.nChildren(); ++i) {
-            childTypes.add(node.child(i).getType());
+            if (node.child(i) instanceof TypeNode) {
+                childTypes.add(new TypeLiteral(node.child(i).getType()));
+            } else {
+                childTypes.add(node.child(i).getType());
+            }
         }
 
         Lextant operator = lextantFor(node);
