@@ -26,8 +26,8 @@ import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 public class ASMCodeGenerator {
     ParseNode root;
     private static final ASMOpcode[] defaultJumpList = {JumpFalse, JumpPos, JumpNeg};
-    private static final Map<Type,ASMOpcode> comparisonOperationMap = new HashMap<Type, ASMOpcode>();
-    private static final Map<Type,ASMOpcode[]> comparisonJumpMap = new HashMap<Type, ASMOpcode[]>();
+    private static final Map<Type, ASMOpcode> comparisonOperationMap = new HashMap<Type, ASMOpcode>();
+    private static final Map<Type, ASMOpcode[]> comparisonJumpMap = new HashMap<Type, ASMOpcode[]>();
     private static final Map<Punctuator, Integer> comparisonJumpIndexMap = new HashMap<Punctuator, Integer>();
     private static final Map<Punctuator, Integer> comparisonBooleanIndexMap = new HashMap<Punctuator, Integer>();
 
@@ -48,10 +48,12 @@ public class ASMCodeGenerator {
         comparisonOperationMap.put(PrimitiveType.FLOATING, FSubtract);
         comparisonOperationMap.put(PrimitiveType.BOOLEAN, Xor);
     }
+
     private void makeComparisonJumpMap() {
         ASMOpcode[] floatingJumpList = {JumpFZero, JumpFPos, JumpFNeg};
         comparisonJumpMap.put(PrimitiveType.FLOATING, floatingJumpList);
     }
+
     private void makeComparisonIndexMap() {
         // '>' -> JumpPos True
         comparisonJumpIndexMap.put(Punctuator.GREATER, 1);
@@ -187,6 +189,11 @@ public class ASMCodeGenerator {
             } else if (node.getType() == PrimitiveType.BOOLEAN ||
                     node.getType() == PrimitiveType.CHARACTER) {
                 code.add(LoadC);
+            } else if (node.getType() == PrimitiveType.RATIONAL) {
+                code.add(Duplicate);
+                code.add(LoadI);
+                code.add(Exchange);
+                Macros.readIOffset(code, 4);
             } else {
                 assert false : "node " + node;
             }
@@ -256,23 +263,34 @@ public class ASMCodeGenerator {
             ASMCodeFragment lvalue = removeAddressCode(node.child(0));
             ASMCodeFragment rvalue = removeValueCode(node.child(1));
 
-            code.append(lvalue);
-            code.append(rvalue);
-
             Type type = node.getType();
-            code.add(opcodeForStore(type));
+            if (type == PrimitiveType.RATIONAL) {
+                code.append(lvalue);
+                code.add(Duplicate);
+                code.append(rvalue);
+                Macros.storeITo(code, RunTime.FIRST_DENOMINATOR);
+                code.add(StoreI);
+                code.add(PushI, 4);
+                code.add(Add);
+                Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);
+                code.add(StoreI);
+            } else {
+                code.append(lvalue);
+                code.append(rvalue);
+                code.add(opcodeForStore(type));
+            }
         }
+
         private ASMOpcode opcodeForStore(Type type) {
             if (type == PrimitiveType.INTEGER ||
-                type == PrimitiveType.STRING) {
+                    type == PrimitiveType.STRING) {
                 return StoreI;
             }
-            if (type == PrimitiveType.FLOATING ||
-            		type == PrimitiveType.RATIONAL) {
+            if (type == PrimitiveType.FLOATING) {
                 return StoreF;
             }
             if (type == PrimitiveType.BOOLEAN ||
-                type == PrimitiveType.CHARACTER) {
+                    type == PrimitiveType.CHARACTER) {
                 return StoreC;
             }
             assert false : "Type " + type + " unimplemented in opcodeForStore()";
@@ -346,13 +364,14 @@ public class ASMCodeGenerator {
                 visitNormalOperatorNode(node);
             }
         }
+
         private boolean isComparisonOperatorNode(Lextant operator) {
-        		for (Punctuator comparison: Punctuator.comparisons) {
-        			if (operator == comparison) {
-        				return true;
-        			}
-        		}
-        		return false;
+            for (Punctuator comparison : Punctuator.comparisons) {
+                if (operator == comparison) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void visitComparisonOperatorNode(OperatorNode node,
@@ -405,22 +424,22 @@ public class ASMCodeGenerator {
             Object variant = node.getSignature().getVariant();
             if (variant instanceof ASMOpcode) {
                 appendUndeterminedChildren(node);
-                ASMOpcode opcode = (ASMOpcode)variant;
+                ASMOpcode opcode = (ASMOpcode) variant;
                 code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
             } else if (variant instanceof SimpleCodeGenerator) {
                 appendUndeterminedChildren(node);
-                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
+                SimpleCodeGenerator generator = (SimpleCodeGenerator) variant;
                 ASMCodeFragment fragment = generator.generate(node);
                 code.append(fragment);
                 if (fragment.isAddress()) {
                     code.markAsAddress();
                 }
             } else if (variant instanceof FullCodeGenerator) {
-                FullCodeGenerator generator = (FullCodeGenerator)variant;
+                FullCodeGenerator generator = (FullCodeGenerator) variant;
                 ASMCodeFragment[] args = getUndeterminedChildren(node);
                 ASMCodeFragment fragment = generator.generate(node, args);
                 code.append(fragment);
-                if(fragment.isAddress()) {
+                if (fragment.isAddress()) {
                     code.markAsAddress();
                 }
             } else {
@@ -428,8 +447,9 @@ public class ASMCodeGenerator {
                 assert false : "unimplemented operator in Operator";
             }
         }
+
         private void appendUndeterminedChildren(ParseNode node) {
-            for (int i=0; i<node.nChildren(); ++i) {
+            for (int i = 0; i < node.nChildren(); ++i) {
                 if (node.child(i) instanceof TypeNode) {
                     continue;
                 }
@@ -437,9 +457,10 @@ public class ASMCodeGenerator {
                 code.append(arg);
             }
         }
+
         private ASMCodeFragment[] getUndeterminedChildren(ParseNode node) {
             List<ASMCodeFragment> args = new ArrayList<>();
-            for (int i=0; i<node.nChildren(); ++i) {
+            for (int i = 0; i < node.nChildren(); ++i) {
                 if (node.child(i) instanceof TypeNode) {
                     continue;
                 }
@@ -522,7 +543,7 @@ public class ASMCodeGenerator {
 
         public void visit(CharacterConstantNode node) {
             newValueCode(node);
-            code.add(PushI, (int)node.getValue());
+            code.add(PushI, (int) node.getValue());
         }
 
         public void visit(StringConstantNode node) {

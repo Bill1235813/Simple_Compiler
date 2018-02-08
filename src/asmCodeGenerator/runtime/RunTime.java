@@ -14,6 +14,10 @@ public class RunTime {
     public static final String CHARACTER_PRINT_FORMAT = "$print-format-character";
     public static final String STRING_PRINT_FORMAT = "$print-format-string";
     public static final String BOOLEAN_PRINT_FORMAT = "$print-format-boolean";
+    public static final String RATIONAL_PRINT_ORIGINAL = "$print-format-rational-original";
+    public static final String RATIONAL_PRINT_NO_FRACTION = "$print-format-rational-no-frac";
+    public static final String RATIONAL_PRINT_NO_INTEGER_POS = "$print-format-rational-no-int-pos";
+    public static final String RATIONAL_PRINT_NO_INTEGER_NEG = "$print-format-rantional-no-int-neg";
     public static final String NEWLINE_PRINT_FORMAT = "$print-format-newline";
     public static final String TAB_PRINT_FORMAT = "$print-format-tab";
     public static final String SPACE_PRINT_FORMAT = "$print-format-space";
@@ -33,7 +37,8 @@ public class RunTime {
     public static final String RETURN_FOR_RUNTIME_FUNCTION = "$return-for-runtime-func";
     public static final String GCD_TEMP_NUMERATOR = "$gcd-temp-numerator";
     public static final String GCD_TEMP_DENOMINATOR = "$gcd-temp-denominator";
-    
+    public static final String PRINT_TEMP = "$print-temp";
+
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String GENERAL_RUNTIME_ERROR = "$$general-runtime-error";
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
@@ -50,7 +55,7 @@ public class RunTime {
         return result;
     }
 
-	private ASMCodeFragment jumpToMain() {
+    private ASMCodeFragment jumpToMain() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
         frag.add(Jump, MAIN_PROGRAM_LABEL);
         return frag;
@@ -70,6 +75,14 @@ public class RunTime {
         frag.add(DataS, "%s");
         frag.add(DLabel, BOOLEAN_PRINT_FORMAT);
         frag.add(DataS, "%s");
+        frag.add(DLabel, RATIONAL_PRINT_NO_FRACTION);
+        frag.add(DataS, "%d");
+        frag.add(DLabel, RATIONAL_PRINT_NO_INTEGER_POS);
+        frag.add(DataS, "_%d/%d");
+        frag.add(DLabel, RATIONAL_PRINT_NO_INTEGER_NEG);
+        frag.add(DataS, "-_%d/%d");
+        frag.add(DLabel, RATIONAL_PRINT_ORIGINAL);
+        frag.add(DataS, "%d_%d/%d");
         frag.add(DLabel, NEWLINE_PRINT_FORMAT);
         frag.add(DataS, "\n");
         frag.add(DLabel, TAB_PRINT_FORMAT);
@@ -130,55 +143,57 @@ public class RunTime {
         frag.add(Jump, GENERAL_RUNTIME_ERROR);
     }
 
-    private ASMCodeFragment temporaryVariables() { 
-    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); 
-    		Macros.declareI(frag, ARRAY_INDEXING_ARRAY); 
-    		Macros.declareI(frag, ARRAY_INDEXING_INDEX);
-    		Macros.declareI(frag, FIRST_NUMERATOR); 
-    		Macros.declareI(frag, SECOND_NUMERATOR);
-    		Macros.declareI(frag, FIRST_DENOMINATOR); 
-    		Macros.declareI(frag, SECOND_DENOMINATOR);
-    		Macros.declareI(frag, RETURN_FOR_RUNTIME_FUNCTION); 
-    		Macros.declareI(frag, GCD_TEMP_NUMERATOR);
-    		Macros.declareI(frag, GCD_TEMP_DENOMINATOR);
-    		return frag;
-    	}
-    
+    private ASMCodeFragment temporaryVariables() {
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
+        Macros.declareI(frag, ARRAY_INDEXING_ARRAY);
+        Macros.declareI(frag, ARRAY_INDEXING_INDEX);
+        Macros.declareI(frag, FIRST_NUMERATOR);
+        Macros.declareI(frag, SECOND_NUMERATOR);
+        Macros.declareI(frag, FIRST_DENOMINATOR);
+        Macros.declareI(frag, SECOND_DENOMINATOR);
+        Macros.declareI(frag, RETURN_FOR_RUNTIME_FUNCTION);
+        Macros.declareI(frag, GCD_TEMP_NUMERATOR);
+        Macros.declareI(frag, GCD_TEMP_DENOMINATOR);
+        Macros.declareI(frag, PRINT_TEMP);
+        return frag;
+    }
+
     private ASMCodeFragment lowestTermsConverter() {
-    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);  //	[... num denom returnAddr]
-    		Labeller labeller = new Labeller("$function");
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);  //	[... num denom returnAddr]
+        Labeller labeller = new Labeller("$function");
 //    		String trueflag = labeller.newLabel("compare-trueflag");
 //    		String endflag = labeller.newLabel("compare-endflag");
-    		String loopcontinue = labeller.newLabel("loop-continue");
-    		String loopend = labeller.newLabel("loop-end");
-    		
-    		// store return addr
-    		Macros.storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[... num denom]
-    		
-    		// check denominator not 0
+        String loopcontinue = labeller.newLabel("loop-continue");
+        String loopend = labeller.newLabel("loop-end");
+
+        frag.add(Label, LOWEST_TERMS);
+        // store return addr
+        Macros.storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[... num denom]
+
+        // check denominator not 0
         frag.add(Duplicate);  //	[... num denom denom]
         frag.add(JumpFalse, RunTime.INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR);  //	[... num denom denom]
-        
+
         // store arguments
         frag.add(Duplicate);
         Macros.storeITo(frag, FIRST_DENOMINATOR);
         Macros.storeITo(frag, GCD_TEMP_DENOMINATOR);  //		[... num]
         frag.add(Duplicate);
-        Macros.storeITo(frag, FIRST_NUMERATOR);	
+        Macros.storeITo(frag, FIRST_NUMERATOR);
         Macros.storeITo(frag, GCD_TEMP_NUMERATOR);  //	[...]
-        
+
         // find bigger as numerator, ensure num >= denom
-//        Macros.loadIFrom(frag, GCD_TEMP_NUMERATOR);  //	[... num]
-//        Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num denom]
-//        frag.add(Subtract);  //	[... num-denom]
-//        frag.add(JumpNeg, trueflag);  //	[...]
-//        frag.add(Jump, endflag);
-//        frag.add(DLabel, trueflag);  // num < denom need exchange
-//        Macros.swap(frag, GCD_TEMP_NUMERATOR, GCD_TEMP_DENOMINATOR);
-//        frag.add(DLabel, endflag);
-        
+        //        Macros.loadIFrom(frag, GCD_TEMP_NUMERATOR);  //	[... num]
+        //        Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num denom]
+        //        frag.add(Subtract);  //	[... num-denom]
+        //        frag.add(JumpNeg, trueflag);  //	[...]
+        //        frag.add(Jump, endflag);
+        //        frag.add(DLabel, trueflag);  // num < denom need exchange
+        //        Macros.swap(frag, GCD_TEMP_NUMERATOR, GCD_TEMP_DENOMINATOR);
+        //        frag.add(DLabel, endflag);
+
         // gcd
-        frag.add(DLabel, loopcontinue);
+        frag.add(Label, loopcontinue);
         Macros.loadIFrom(frag, GCD_TEMP_NUMERATOR);  //	[... num]
         Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num denom]
         frag.add(Remainder);  //	[... num%denom]
@@ -187,9 +202,9 @@ public class RunTime {
         Macros.moveIMemory(frag, GCD_TEMP_DENOMINATOR, GCD_TEMP_NUMERATOR); // [...num%denom] denom -> num
         Macros.storeITo(frag, GCD_TEMP_DENOMINATOR);  //	[...]
         frag.add(Jump, loopcontinue);
-        frag.add(DLabel, loopend);
+        frag.add(Label, loopend);
         frag.add(Pop);  //	[...]
-        
+
         //  perform lowest convert
         Macros.loadIFrom(frag, FIRST_NUMERATOR);
         Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num gcd]
@@ -199,9 +214,9 @@ public class RunTime {
         frag.add(Divide);  //	[.. num(lowest) denom(lowest)]
         Macros.loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[.. num(lowest) denom(lowest) return addr]
         frag.add(Return);  //	[.. num(lowest) denom(lowest)]
-		return frag;
-	}
-    
+        return frag;
+    }
+
     public static ASMCodeFragment getEnvironment() {
         RunTime rt = new RunTime();
         return rt.environmentASM();

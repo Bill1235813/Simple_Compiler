@@ -1,11 +1,5 @@
 package asmCodeGenerator;
 
-import static asmCodeGenerator.codeStorage.ASMOpcode.Jump;
-import static asmCodeGenerator.codeStorage.ASMOpcode.JumpTrue;
-import static asmCodeGenerator.codeStorage.ASMOpcode.Label;
-import static asmCodeGenerator.codeStorage.ASMOpcode.Printf;
-import static asmCodeGenerator.codeStorage.ASMOpcode.PushD;
-
 import parseTree.ParseNode;
 import parseTree.nodeTypes.NewlineNode;
 import parseTree.nodeTypes.PrintStatementNode;
@@ -16,6 +10,8 @@ import semanticAnalyzer.types.Type;
 import asmCodeGenerator.ASMCodeGenerator.CodeVisitor;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.runtime.RunTime;
+
+import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
 public class PrintStatementGenerator {
     ASMCodeFragment code;
@@ -46,7 +42,93 @@ public class PrintStatementGenerator {
 
         code.append(visitor.removeValueCode(node));
         convertToStringIfBoolean(node);
-        code.add(PushD, format);
+        if (node.getType() != PrimitiveType.RATIONAL) {
+            code.add(PushD, format);
+            code.add(Printf);
+        } else {
+            convertIfRational(node);
+        }
+    }
+
+    private void convertIfRational(ParseNode node) {
+        Labeller labeller = new Labeller("print-rational");
+        String endwith_nofraction = labeller.newLabel("end-with-no-fraction");
+        String endwith_noint = labeller.newLabel("end-with-no-int");
+        String endwith_nointpos = labeller.newLabel("end-with-no-int-pos");
+        String endwith_nointneg = labeller.newLabel("end-with-no-int-neg");
+        String endwith_original = labeller.newLabel("end-with-original");
+        String endjoin = labeller.newLabel("end-join");
+        String positive1 = labeller.newLabel("positive1");
+        String positive2 = labeller.newLabel("positive2");
+
+        // put the negative sign from denominator to numerator
+        code.add(Duplicate);    //  [... num denom denom]
+        code.add(JumpPos, positive2);   //  [... num denom]
+        code.add(Negate);   //  [... num (pos)denom]
+        code.add(Exchange);     //  [... (pos)denom num]
+        code.add(Negate);   //  [... (pos)denom -num]
+        code.add(Exchange);   //  [... -num (pos)denom]
+        code.add(Label, positive2);
+        Macros.storeITo(code, RunTime.FIRST_DENOMINATOR);
+        Macros.storeITo(code, RunTime.FIRST_NUMERATOR);
+        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);
+        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);
+        code.add(Divide);   //  [... int]
+        code.add(Duplicate);    //  [... int int]
+        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
+        code.add(Multiply); //  [... int int*denom]
+        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
+        code.add(Exchange); //  [... int num int*denom]
+        code.add(Subtract); //  [... int fact.num]
+        code.add(Duplicate);    //  [... int fact.num fact.num]
+        code.add(JumpFalse, endwith_nofraction);    //  [... int fact.num] if (fact.num==0) jump
+
+        // has faction
+        Macros.storeITo(code, RunTime.FIRST_NUMERATOR); //  [... int]
+        code.add(Duplicate);    //  [... int int]
+        Macros.storeITo(code, RunTime.PRINT_TEMP);  //  [... int]
+        code.add(JumpFalse, endwith_noint); //  [...]
+
+        // has int
+        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
+        code.add(Duplicate);    //  [... fact.num fact.num]
+        code.add(JumpPos, positive1);   //  [... fact.num]
+        code.add(Negate);   //  [... (pos)fact.num]
+        code.add(Label, positive1);    //  [... (pos)fact.num]
+        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
+        code.add(Exchange); //  [... (pos)denom (pos)fact.num]
+        Macros.loadIFrom(code, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
+        code.add(Jump, endwith_original);
+
+        // determine format
+        code.add(Label, endwith_nofraction);   //  [... int fact.num]
+        code.add(Pop);  //  [... int]
+        code.add(PushD, RunTime.RATIONAL_PRINT_NO_FRACTION);    //  [... int %d]
+        code.add(Jump, endjoin);
+
+        code.add(Label, endwith_noint);    //  [...] denom must be positive
+        Macros.loadIFrom(code, RunTime.FIRST_NUMERATOR);
+        code.add(Duplicate);    //  [... num num]
+        code.add(JumpPos, endwith_nointpos);    //  [... num]
+        code.add(Negate);   //  [... -num]
+        code.add(Jump, endwith_nointneg);
+        code.add(Label, endwith_nointpos);
+        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        code.add(Exchange);  //  [... denom num]
+        code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_POS);
+        code.add(Jump, endjoin);
+        code.add(Label, endwith_nointneg);
+        Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        code.add(Exchange); //  [... denom num]
+        code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_NEG);
+        code.add(Jump, endjoin);
+
+        code.add(Label, endwith_original);  //  [... (pos)denom (pos)fact.num int]
+        code.add(PushD, RunTime.RATIONAL_PRINT_ORIGINAL);
+        code.add(Jump, endjoin);
+
+        // join
+        code.add(Label, endjoin);
         code.add(Printf);
     }
 
@@ -75,13 +157,15 @@ public class PrintStatementGenerator {
             case INTEGER:
                 return RunTime.INTEGER_PRINT_FORMAT;
             case FLOATING:
-            		return RunTime.FLOATING_PRINT_FORMAT;
+                return RunTime.FLOATING_PRINT_FORMAT;
             case BOOLEAN:
                 return RunTime.BOOLEAN_PRINT_FORMAT;
             case CHARACTER:
                 return RunTime.CHARACTER_PRINT_FORMAT;
             case STRING:
                 return RunTime.STRING_PRINT_FORMAT;
+            case RATIONAL:
+                return RunTime.RATIONAL_PRINT_ORIGINAL;
             default:
                 assert false : "Type " + type + " unimplemented in PrintStatementGenerator.printFormat()";
                 return "";
