@@ -17,12 +17,14 @@ public class ParseNode {
     ParseNode parent;
 
     protected Token token;
-    Type type;                    // used for expressions
+    private Type type;                    // used for expressions
+    private Boolean targetable;
     private Scope scope;        // the scope created by this node, if any.
 
     public ParseNode(Token token) {
         this.token = token;
         this.type = PrimitiveType.NO_TYPE;
+        this.targetable = false;
         this.scope = null;
         this.parent = NO_PARENT;
         initChildren();
@@ -32,6 +34,7 @@ public class ParseNode {
     public ParseNode(ParseNode node) {
         this.token = node.token;
         this.type = node.type;
+        this.targetable = node.targetable;
         this.scope = node.scope;
     }
 
@@ -51,6 +54,13 @@ public class ParseNode {
         return type;
     }
 
+    public void setTargetable(Boolean targetable) {
+        this.targetable = targetable;
+    }
+
+    public Boolean getTargetable() {
+        return targetable;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////
 // scopes and bindings 

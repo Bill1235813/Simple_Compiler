@@ -149,6 +149,12 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 			}
 		}
 
+		// assignment
+        new FunctionSignatures(
+                Punctuator.ASSIGN,
+                new FunctionSignature(ASMOpcode.Nop, setS, S, S)
+        );
+
 		// casting
         new FunctionSignatures(
                 Punctuator.CASTING,

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeLiteral.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/input/Targetable.pika" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/input/Rational.pika" afterPath="$PROJECT_DIR$/input/Rational.pika" />
-      <change beforePath="$PROJECT_DIR$/output/Rational.asm" afterPath="$PROJECT_DIR$/output/Rational.asm" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNode.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
       <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
       <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
     </list>
@@ -25,8 +27,8 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6804">
-              <caret line="560" column="16" lean-forward="false" selection-start-line="560" selection-start-column="16" selection-end-line="560" selection-end-column="16" />
+            <state relative-caret-position="297">
+              <caret line="179" column="34" lean-forward="true" selection-start-line="179" selection-start-column="34" selection-end-line="179" selection-end-column="34" />
               <folding>
                 <element signature="e#4077#4078#0" expanded="true" />
                 <element signature="e#4130#4131#0" expanded="true" />
@@ -79,30 +81,62 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Targetable.pika" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input/Targetable.pika">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="28">
+              <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SemanticAnalysisVisitor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="98" column="79" lean-forward="true" selection-start-line="98" selection-start-column="79" selection-end-line="98" selection-end-column="79" />
               <folding>
-                <element signature="e#3282#3283#0" expanded="true" />
-                <element signature="e#3325#3326#0" expanded="true" />
-                <element signature="e#3394#3395#0" expanded="true" />
-                <element signature="e#3437#3438#0" expanded="true" />
-                <element signature="e#4974#4989#0" expanded="false" />
-                <element signature="e#6249#6250#0" expanded="true" />
-                <element signature="e#6300#6301#0" expanded="true" />
-                <element signature="e#6355#6356#0" expanded="true" />
-                <element signature="e#6404#6405#0" expanded="true" />
-                <element signature="e#6469#6470#0" expanded="true" />
-                <element signature="e#6520#6521#0" expanded="true" />
-                <element signature="e#6586#6587#0" expanded="true" />
-                <element signature="e#6638#6639#0" expanded="true" />
-                <element signature="e#6705#6706#0" expanded="true" />
-                <element signature="e#6758#6759#0" expanded="true" />
-                <element signature="e#6822#6823#0" expanded="true" />
-                <element signature="e#6872#6873#0" expanded="true" />
+                <element signature="e#3034#3040#0" expanded="true" />
+                <element signature="e#3532#3533#0" expanded="true" />
+                <element signature="e#3575#3576#0" expanded="true" />
+                <element signature="e#3644#3645#0" expanded="true" />
+                <element signature="e#3687#3688#0" expanded="true" />
+                <element signature="e#4223#4229#0" expanded="true" />
+                <element signature="e#5413#5428#0" expanded="false" />
+                <element signature="e#6688#6689#0" expanded="true" />
+                <element signature="e#6739#6740#0" expanded="true" />
+                <element signature="e#6794#6795#0" expanded="true" />
+                <element signature="e#6843#6844#0" expanded="true" />
+                <element signature="e#6908#6909#0" expanded="true" />
+                <element signature="e#6959#6960#0" expanded="true" />
+                <element signature="e#7025#7026#0" expanded="true" />
+                <element signature="e#7077#7078#0" expanded="true" />
+                <element signature="e#7144#7145#0" expanded="true" />
+                <element signature="e#7197#7198#0" expanded="true" />
+                <element signature="e#7261#7262#0" expanded="true" />
+                <element signature="e#7311#7312#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AssignmentStatementNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/AssignmentStatementNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="35" column="46" lean-forward="false" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Promotion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,8 +144,8 @@
       <file leaf-file-name="FunctionSignatures.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="206">
+              <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
               <folding>
                 <element signature="e#980#1008#0" expanded="true" />
                 <element signature="e#1333#1334#0" expanded="true" />
@@ -130,14 +164,14 @@
       <file leaf-file-name="ASMCodeGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="431" column="68" lean-forward="true" selection-start-line="431" selection-start-column="16" selection-end-line="431" selection-end-column="68" />
+            <state relative-caret-position="-791">
+              <caret line="424" column="62" lean-forward="true" selection-start-line="424" selection-start-column="62" selection-end-line="424" selection-end-column="62" />
               <folding>
                 <element signature="method#makeComparisonOperationMap#0;class#ASMCodeGenerator#0" expanded="false" />
                 <element signature="method#makeComparisonJumpMap#0;class#ASMCodeGenerator#0" expanded="false" />
                 <element signature="method#makeComparisonIndexMap#0;class#ASMCodeGenerator#0" expanded="false" />
                 <element signature="method#opcodeForOperator#0;class#CodeVisitor#0;class#ASMCodeGenerator#0" expanded="false" />
-                <element signature="e#18624#18676#0" expanded="false" />
+                <element signature="e#18685#18737#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -242,9 +276,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/input/printCSTest.pika" />
-        <option value="$PROJECT_DIR$/input/minestone1Test.pika" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/PunctuatorScanner.java" />
@@ -255,7 +286,6 @@
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/WhileStatement.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/BooleanConstantNode.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/IntegerConstantNode.java" />
-        <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/AssignmentStatementNode.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/WhileStatementNode.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/IfStatementNode.java" />
         <option value="$PROJECT_DIR$/input/ControlFlowTest.pika" />
@@ -266,14 +296,12 @@
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/TypeNode.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" />
-        <option value="$PROJECT_DIR$/src/parser/Parser.java" />
         <option value="$PROJECT_DIR$/input/Floatingagain.pika" />
         <option value="$PROJECT_DIR$/input/BoolexprTest.pika" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/FullCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitOrCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitAndCodeGenerator.java" />
-        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/RationalSubtractCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalToFloatingCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerToRationalCodeGenerator.java" />
@@ -289,10 +317,16 @@
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingRationalizeCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingToRationalCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
-        <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
-        <option value="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
         <option value="$PROJECT_DIR$/input/Rational.pika" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeLiteral.java" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+        <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" />
+        <option value="$PROJECT_DIR$/input/Targetable.pika" />
+        <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/AssignmentStatementNode.java" />
+        <option value="$PROJECT_DIR$/src/parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
+        <option value="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
       </list>
     </option>
   </component>
@@ -379,6 +413,12 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="parseTree" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -609,7 +649,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="applications.PikaCompiler" />
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/Rational.pika" />
+      <option name="PROGRAM_PARAMETERS" value="input/Targetable.pika" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -840,7 +880,7 @@
       <workItem from="1516943792574" duration="634000" />
       <workItem from="1517737051636" duration="1258000" />
       <workItem from="1517739450068" duration="28680000" />
-      <workItem from="1517955685358" duration="30756000" />
+      <workItem from="1517955685358" duration="36752000" />
     </task>
     <task id="LOCAL-00001" summary=":droplet: refactor">
       <created>1515742003980</created>
@@ -1031,7 +1071,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518085583661</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary=":beer: add typeliteral class, prepare for promotion">
+      <created>1518134231551</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1518134231551</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1067,7 +1114,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204094000" />
+    <option name="totallyTimeSpent" value="210090000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1101,7 +1148,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29424083" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29424083" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1765625" sideWeight="0.5054602" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1152,7 +1199,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=":droplet: refactor" />
     <MESSAGE value=":droplet: run several tests" />
     <MESSAGE value=":sparkles: update keywords" />
     <MESSAGE value=":sparkles: add comment and test" />
@@ -1177,11 +1223,12 @@
     <MESSAGE value=":sparkles: add short-circuit-or and short-circuit-and" />
     <MESSAGE value=":sparkles: add rational printing (finish)" />
     <MESSAGE value=":sparkles: :flags: finish rational part and improve the test" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: :flags: finish rational part and improve the test" />
+    <MESSAGE value=":beer: add typeliteral class, prepare for promotion" />
+    <option name="LAST_COMMIT_MESSAGE" value=":beer: add typeliteral class, prepare for promotion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="117" />
+      <option name="time" value="125" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1241,51 +1288,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tokens/LextantToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="36" column="15" lean-forward="false" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ParenthesesNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-1/currentTest.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/pika1/minestone1Result.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1359,7 +1361,7 @@
         <state relative-caret-position="224">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1393,8 +1395,8 @@
         <state relative-caret-position="208">
           <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
           <folding>
-            <element signature="e#1521#1522#0" expanded="true" />
-            <element signature="e#1567#1568#0" expanded="true" />
+            <element signature="e#1521#1522#0" expanded="false" />
+            <element signature="e#1567#1568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1570,14 +1572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="169" column="52" lean-forward="true" selection-start-line="169" selection-start-column="52" selection-end-line="169" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-140">
@@ -1614,10 +1608,133 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/Rational.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/TypeLiteral.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+          <folding>
+            <element signature="e#596#597#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#896#897#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+            <element signature="e#977#978#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#1085#1086#0" expanded="true" />
+            <element signature="e#1431#1432#0" expanded="true" />
+            <element signature="e#1483#1484#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="30" column="46" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="46" />
+          <folding>
+            <element signature="e#177#178#0" expanded="false" />
+            <element signature="e#206#207#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/Rational.pika">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="169" column="52" lean-forward="true" selection-start-line="169" selection-start-column="52" selection-end-line="169" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/ParseNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+          <folding>
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="e#1329#1330#0" expanded="true" />
+            <element signature="e#1358#1359#0" expanded="true" />
+            <element signature="e#1385#1386#0" expanded="true" />
+            <element signature="e#1438#1439#0" expanded="true" />
+            <element signature="e#1482#1483#0" expanded="true" />
+            <element signature="e#1520#1521#0" expanded="true" />
+            <element signature="e#1553#1554#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/symbolTable/Binding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="62" column="19" lean-forward="false" selection-start-line="62" selection-start-column="19" selection-end-line="62" selection-end-column="19" />
+          <folding>
+            <element signature="e#1679#1680#0" expanded="true" />
+            <element signature="e#1711#1712#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding>
+            <element signature="e#944#945#0" expanded="true" />
+            <element signature="e#982#983#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1305#1306#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tokens/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="6" column="18" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6804">
-          <caret line="560" column="16" lean-forward="false" selection-start-line="560" selection-start-column="16" selection-end-line="560" selection-end-column="16" />
+        <state relative-caret-position="297">
+          <caret line="179" column="34" lean-forward="true" selection-start-line="179" selection-start-column="34" selection-end-line="179" selection-end-column="34" />
           <folding>
             <element signature="e#4077#4078#0" expanded="true" />
             <element signature="e#4130#4131#0" expanded="true" />
@@ -1669,100 +1786,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseTree/ParseNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-          <folding>
-            <element signature="e#1181#1182#0" expanded="true" />
-            <element signature="e#1213#1214#0" expanded="true" />
-            <element signature="e#1242#1243#0" expanded="true" />
-            <element signature="e#1269#1270#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/Rational.asm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/Rational.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/TypeLiteral.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-          <folding>
-            <element signature="e#596#597#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#678#679#0" expanded="true" />
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#764#765#0" expanded="true" />
-            <element signature="e#810#811#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
-            <element signature="e#896#897#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-            <element signature="e#977#978#0" expanded="true" />
-            <element signature="e#1023#1024#0" expanded="true" />
-            <element signature="e#1085#1086#0" expanded="true" />
-            <element signature="e#1431#1432#0" expanded="true" />
-            <element signature="e#1483#1484#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="431" column="68" lean-forward="true" selection-start-line="431" selection-start-column="16" selection-end-line="431" selection-end-column="68" />
-          <folding>
-            <element signature="method#makeComparisonOperationMap#0;class#ASMCodeGenerator#0" expanded="false" />
-            <element signature="method#makeComparisonJumpMap#0;class#ASMCodeGenerator#0" expanded="false" />
-            <element signature="method#makeComparisonIndexMap#0;class#ASMCodeGenerator#0" expanded="false" />
-            <element signature="method#opcodeForOperator#0;class#CodeVisitor#0;class#ASMCodeGenerator#0" expanded="false" />
-            <element signature="e#18624#18676#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        <state relative-caret-position="215">
+          <caret line="70" column="19" lean-forward="false" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
+          <folding>
+            <element signature="e#2925#2926#0" expanded="true" />
+            <element signature="e#2969#2970#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="206">
+          <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
           <folding>
             <element signature="e#980#1008#0" expanded="true" />
             <element signature="e#1333#1334#0" expanded="true" />
@@ -1777,39 +1823,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java">
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="30" column="46" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="46" />
+        <state relative-caret-position="-791">
+          <caret line="424" column="62" lean-forward="true" selection-start-line="424" selection-start-column="62" selection-end-line="424" selection-end-column="62" />
           <folding>
-            <element signature="e#177#178#0" expanded="true" />
-            <element signature="e#206#207#0" expanded="true" />
+            <element signature="method#makeComparisonOperationMap#0;class#ASMCodeGenerator#0" expanded="false" />
+            <element signature="method#makeComparisonJumpMap#0;class#ASMCodeGenerator#0" expanded="false" />
+            <element signature="method#makeComparisonIndexMap#0;class#ASMCodeGenerator#0" expanded="false" />
+            <element signature="method#opcodeForOperator#0;class#CodeVisitor#0;class#ASMCodeGenerator#0" expanded="false" />
+            <element signature="e#18685#18737#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/AssignmentStatementNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="35" column="46" lean-forward="false" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/Targetable.pika">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="98" column="79" lean-forward="true" selection-start-line="98" selection-start-column="79" selection-end-line="98" selection-end-column="79" />
           <folding>
-            <element signature="e#3282#3283#0" expanded="true" />
-            <element signature="e#3325#3326#0" expanded="true" />
-            <element signature="e#3394#3395#0" expanded="true" />
-            <element signature="e#3437#3438#0" expanded="true" />
-            <element signature="e#4974#4989#0" expanded="false" />
-            <element signature="e#6249#6250#0" expanded="true" />
-            <element signature="e#6300#6301#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6404#6405#0" expanded="true" />
-            <element signature="e#6469#6470#0" expanded="true" />
-            <element signature="e#6520#6521#0" expanded="true" />
-            <element signature="e#6586#6587#0" expanded="true" />
-            <element signature="e#6638#6639#0" expanded="true" />
-            <element signature="e#6705#6706#0" expanded="true" />
-            <element signature="e#6758#6759#0" expanded="true" />
-            <element signature="e#6822#6823#0" expanded="true" />
-            <element signature="e#6872#6873#0" expanded="true" />
+            <element signature="e#3034#3040#0" expanded="true" />
+            <element signature="e#3532#3533#0" expanded="true" />
+            <element signature="e#3575#3576#0" expanded="true" />
+            <element signature="e#3644#3645#0" expanded="true" />
+            <element signature="e#3687#3688#0" expanded="true" />
+            <element signature="e#4223#4229#0" expanded="true" />
+            <element signature="e#5413#5428#0" expanded="false" />
+            <element signature="e#6688#6689#0" expanded="true" />
+            <element signature="e#6739#6740#0" expanded="true" />
+            <element signature="e#6794#6795#0" expanded="true" />
+            <element signature="e#6843#6844#0" expanded="true" />
+            <element signature="e#6908#6909#0" expanded="true" />
+            <element signature="e#6959#6960#0" expanded="true" />
+            <element signature="e#7025#7026#0" expanded="true" />
+            <element signature="e#7077#7078#0" expanded="true" />
+            <element signature="e#7144#7145#0" expanded="true" />
+            <element signature="e#7197#7198#0" expanded="true" />
+            <element signature="e#7261#7262#0" expanded="true" />
+            <element signature="e#7311#7312#0" expanded="true" />
           </folding>
         </state>
       </provider>

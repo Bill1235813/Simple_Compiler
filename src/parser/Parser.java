@@ -174,9 +174,9 @@ public class Parser {
         if (!startsAssignmentStatement(nowReading)) {
             return syntaxErrorNode("assignmentStatement");
         }
-        Token assignmentToken = nowReading;
 
         ParseNode target = parseTarget();
+        Token assignmentToken = nowReading;
         expect(Punctuator.ASSIGN);
         ParseNode initializer = parseExpression();
         expect(Punctuator.TERMINATOR);
@@ -193,11 +193,11 @@ public class Parser {
         if (!startsTarget(nowReading)) {
             return syntaxErrorNode("target");
         }
-        return parseIdentifier();
+        return parseExpression();
     }
 
     private boolean startsTarget(Token token) {
-        return startsIdentifier(token);
+        return startsExpression(token);
     }
     
     // printStmt -> PRINT printExpressionList .

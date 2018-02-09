@@ -86,19 +86,22 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     @Override
     public void visitLeave(AssignmentStatementNode node) {
-        IdentifierNode target = (IdentifierNode) node.child(0);
-        if (target.getConst()) {
-            constAssignError(node);
+        ParseNode target = node.child(0);
+        if (!target.getTargetable()) {
+            targetableAssignError(node);
             node.setType(PrimitiveType.ERROR);
             return;
         }
 
         ParseNode result = node.child(1);
-
         Type targetType = target.getType();
         Type resultType = result.getType();
-        if (targetType != resultType) {
-            typeAssignError(node, targetType, resultType);
+        List<Type> childTypes = new ArrayList<Type>(Arrays.asList(targetType));
+        FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.ASSIGN);
+        FunctionSignature signature = signatures.acceptingSignature(childTypes);
+
+        if (signature == FunctionSignature.nullInstance()) {
+            typeCheckError(node, childTypes);
             node.setType(PrimitiveType.ERROR);
         } else {
             node.setType(targetType);
@@ -138,11 +141,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
         Lextant operator = lextantFor(node);
         FunctionSignatures signatures = FunctionSignatures.signaturesOf(operator);
-        FunctionSignature signature = signatures.acceptingSignature(childTypes);
+        // promotion
+        FunctionSignature signature = signatures.acceptingSignature(childTypes); // promotion.getsignature
 
         if (signature.accepts(childTypes)) {
             node.setType(signature.resultType());
             node.setSignature(signature);
+            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
         } else {
             typeCheckError(node, childTypes);
             node.setType(PrimitiveType.ERROR);
@@ -155,6 +160,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         ParseNode expression = node.child(0);
         Type resultType = expression.getType();
         node.setType(resultType);
+        node.setTargetable(expression.getTargetable());
     }
 
 //    @Override
@@ -240,6 +246,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
             node.setType(binding.getType());
             node.setBinding(binding);
+            node.setTargetable(!node.getConst()); // const is not targetable
         }
         // else parent DeclarationNode does the processing.
     }
@@ -271,10 +278,10 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + " at " + token.getLocation());
     }
 
-    private void constAssignError(ParseNode node) {
+    private void targetableAssignError(ParseNode node) {
         Token token = node.getToken();
 
-        logError("assign to const variable " + token.getLexeme()
+        logError("assign to untargetable variable " + token.getLexeme()
                 + " at " + token.getLocation());
     }
 

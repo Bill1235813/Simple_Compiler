@@ -377,6 +377,7 @@ public class ASMCodeGenerator {
         private void visitComparisonOperatorNode(OperatorNode node,
                                                  Lextant operator) {
 
+            // comparison node must be boolean, no promotion
             ASMCodeFragment arg1 = removeValueCode(node.child(0));
             ASMCodeFragment arg2 = removeValueCode(node.child(1));
 
