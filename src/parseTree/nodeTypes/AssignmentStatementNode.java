@@ -4,10 +4,12 @@ import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Lextant;
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
+import semanticAnalyzer.signatures.Promotion;
 import tokens.LextantToken;
 import tokens.Token;
 
 public class AssignmentStatementNode extends ParseNode {
+    private Promotion promotion = Promotion.nullPromotion;
 
     public AssignmentStatementNode(Token token) {
         super(token);
@@ -49,5 +51,12 @@ public class AssignmentStatementNode extends ParseNode {
         visitChildren(visitor);
         visitor.visitLeave(this);
     }
-    
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 }

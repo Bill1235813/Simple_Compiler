@@ -48,6 +48,6 @@ public class TypeLiteral implements Type {
 
     @Override
     public Type getConcreteType() {
-        return literaltype.getConcreteType();
+        return new TypeLiteral(literaltype.getConcreteType());
     }
 }

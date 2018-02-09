@@ -25,14 +25,14 @@ public class FunctionSignature {
         this(whichVariant, new ArrayList<TypeVariable>(), types);
     }
 
-    public FunctionSignature(Object whichVariant, List<TypeVariable> typeVariables, Type ...types) {
-    		assert(types.length >= 1); 
-    		this.typeVariables = typeVariables; 
-    		storeParamTypes(types);
-    		resultType = types[types.length - 1]; 
-    		this.whichVariant = whichVariant;
+    public FunctionSignature(Object whichVariant, List<TypeVariable> typeVariables, Type... types) {
+        assert (types.length >= 1);
+        this.typeVariables = typeVariables;
+        storeParamTypes(types);
+        resultType = types[types.length - 1];
+        this.whichVariant = whichVariant;
     }
-    
+
     private void storeParamTypes(Type[] types) {
         paramTypes = new Type[types.length - 1];
         for (int i = 0; i < types.length - 1; i++) {
@@ -40,9 +40,20 @@ public class FunctionSignature {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////
     // accessors
+    public FunctionSignature getConcreteSignature() {
+        if (typeVariables.size() != 0) {
+            Type[] concreteparam = new Type[paramTypes.length + 1];
+            for (int i = 0; i < paramTypes.length; ++i) {
+                concreteparam[i] = paramTypes[i].getConcreteType();
+            }
+            concreteparam[paramTypes.length] = resultType();
+            return new FunctionSignature(whichVariant, concreteparam);
+        } else {
+            return this;
+        }
+    }
 
     public Object getVariant() {
         return whichVariant;
@@ -57,19 +68,22 @@ public class FunctionSignature {
     }
 
     public Type firstParamType() {
-    		if (paramTypes.length > 0) {
-    			return paramTypes[0];
-    		} else {
-    			assert false: "no parameter in this operation";
-    			return PrimitiveType.ERROR;
-    		}
+        if (paramTypes.length > 0) {
+            return paramTypes[0];
+        } else {
+            assert false : "no parameter in this operation";
+            return PrimitiveType.ERROR;
+        }
     }
 
+    public Type[] getParamTypes() {
+        return paramTypes;
+    }
     ///////////////////////////////////////////////////////////////
     // main query
 
     public boolean accepts(List<Type> types) {
-		resetTypeVariables();
+        resetTypeVariables();
         if (types.size() != paramTypes.length) {
             return false;
         }
@@ -83,11 +97,11 @@ public class FunctionSignature {
     }
 
     private void resetTypeVariables() {
-		for (TypeVariable T: typeVariables) {
-			T.reset();
-		}
+        for (TypeVariable T : typeVariables) {
+            T.reset();
+        }
     }
-    
+
     private boolean assignableTo(Type variableType, Type valueType) {
         if (valueType == PrimitiveType.ERROR && ALL_TYPES_ACCEPT_ERROR_TYPES) {
             return true;
@@ -108,33 +122,6 @@ public class FunctionSignature {
 
     public static FunctionSignature nullInstance() {
         return neverMatchedSignature;
-    }
-
-    ///////////////////////////////////////////////////////////////////
-    // Signatures for pika-0 operators
-    // this section will probably disappear in pika-1 (in favor of FunctionSignatures)
-    
-    private static FunctionSignature addSignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.INTEGER);
-    private static FunctionSignature multiplySignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.INTEGER);
-    private static FunctionSignature greaterSignature = new FunctionSignature(1, PrimitiveType.INTEGER, PrimitiveType.INTEGER, PrimitiveType.BOOLEAN);
-
-
-    // the switch here is ugly compared to polymorphism.  This should perhaps be a method on Lextant.
-    public static FunctionSignature signatureOf(Lextant lextant) {
-        assert (lextant instanceof Punctuator);
-        Punctuator punctuator = (Punctuator) lextant;
-
-        switch (punctuator) {
-            case ADD:
-                return addSignature;
-            case MULTIPLY:
-                return multiplySignature;
-            case GREATER:
-                return greaterSignature;
-
-            default:
-                return neverMatchedSignature;
-        }
     }
 
 }

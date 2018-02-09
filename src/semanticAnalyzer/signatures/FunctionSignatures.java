@@ -134,11 +134,11 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		
 		// comparison <. >, <=, >=, !=, ==
 		for (Punctuator comparison: Punctuator.comparisons) {
-			FunctionSignature iSignature = new FunctionSignature(1, INTEGER, INTEGER, BOOLEAN);
-			FunctionSignature cSignature = new FunctionSignature(1, CHARACTER, CHARACTER, BOOLEAN);
-			FunctionSignature fSignature = new FunctionSignature(1, FLOATING, FLOATING, BOOLEAN);
-			FunctionSignature bSignature = new FunctionSignature(1, BOOLEAN, BOOLEAN, BOOLEAN);
-			FunctionSignature sSignature = new FunctionSignature(1, STRING, STRING, BOOLEAN);
+			FunctionSignature iSignature = new FunctionSignature(new ComparisonCodeGenerator(), INTEGER, INTEGER, BOOLEAN);
+			FunctionSignature cSignature = new FunctionSignature(new ComparisonCodeGenerator(), CHARACTER, CHARACTER, BOOLEAN);
+			FunctionSignature fSignature = new FunctionSignature(new ComparisonCodeGenerator(), FLOATING, FLOATING, BOOLEAN);
+			FunctionSignature bSignature = new FunctionSignature(new ComparisonCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN);
+			FunctionSignature sSignature = new FunctionSignature(new ComparisonCodeGenerator(), STRING, STRING, BOOLEAN);
 			
 			if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
 				new FunctionSignatures(comparison, iSignature, 
@@ -152,7 +152,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 		// assignment
         new FunctionSignatures(
                 Punctuator.ASSIGN,
-                new FunctionSignature(ASMOpcode.Nop, setS, S, S)
+                new FunctionSignature(ASMOpcode.Nop, setS, S, S, S)
         );
 
 		// casting

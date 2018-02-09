@@ -13,6 +13,7 @@ import parseTree.ParseNodeVisitor;
 import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.FunctionSignature;
 import semanticAnalyzer.signatures.FunctionSignatures;
+import semanticAnalyzer.signatures.Promotion;
 import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
@@ -96,15 +97,19 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         ParseNode result = node.child(1);
         Type targetType = target.getType();
         Type resultType = result.getType();
-        List<Type> childTypes = new ArrayList<Type>(Arrays.asList(targetType));
+        List<Type> childTypes = new ArrayList<Type>(Arrays.asList(targetType, resultType));
         FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.ASSIGN);
-        FunctionSignature signature = signatures.acceptingSignature(childTypes);
+        Promotion promotion = Promotion.checkPromotion(childTypes, signatures, true);
 
-        if (signature == FunctionSignature.nullInstance()) {
+        if (promotion == Promotion.nullPromotion) {
             typeCheckError(node, childTypes);
+            node.setType(PrimitiveType.ERROR);
+        } else if (promotion == Promotion.overOnePromotion) {
+            overOnePromotionError(node, childTypes);
             node.setType(PrimitiveType.ERROR);
         } else {
             node.setType(targetType);
+            node.setPromotion(promotion);
         }
     }
 
@@ -141,16 +146,19 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
         Lextant operator = lextantFor(node);
         FunctionSignatures signatures = FunctionSignatures.signaturesOf(operator);
-        // promotion
-        FunctionSignature signature = signatures.acceptingSignature(childTypes); // promotion.getsignature
+        Promotion promotion = Promotion.checkPromotion(childTypes, signatures, false);
 
-        if (signature.accepts(childTypes)) {
-            node.setType(signature.resultType());
-            node.setSignature(signature);
-            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
-        } else {
+        if (promotion == Promotion.overOnePromotion) {
+            overOnePromotionError(node, childTypes);
+            node.setType(PrimitiveType.ERROR);
+        } else if (promotion == Promotion.nullPromotion) {
             typeCheckError(node, childTypes);
             node.setType(PrimitiveType.ERROR);
+        } else {
+            FunctionSignature signature = promotion.getSignature();
+            node.setType(signature.resultType());
+            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
+            node.setPromotion(promotion);
         }
     }
 
@@ -285,17 +293,10 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + " at " + token.getLocation());
     }
 
-    private void typeAssignError(ParseNode node, Type targetType, Type resultType) {
+    private void overOnePromotionError(ParseNode node, List<Type> operandTypes) {
         Token token = node.getToken();
 
-        logError("assign " + resultType + " to "
-                + targetType + " at " + token.getLocation());
-    }
-
-    private void typeCastError(ParseNode node, List<Type> operandTypes) {
-        Token token = node.getToken();
-
-        logError("cast not defined for types "
+        logError("operator " + token.getLexeme() + " have over one available promotions for "
                 + operandTypes + " at " + token.getLocation());
     }
 
