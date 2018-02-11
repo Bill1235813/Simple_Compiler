@@ -62,10 +62,10 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 			fragment.add(Exchange);
 			fragment.add(opcodeForStore(subType));
 		}
-		fragment.add(PushI, 0);
-		fragment.add(StoreI); // [... elemsPtr]
 		
 		decrementInteger(fragment, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
+		fragment.add(PushI, subType.getSize());
+        addITo(fragment, RunTime.INSERT_SIZE_TEMP); // location += subtype.size()
 		fragment.add(Jump, loopflag);
 		
 		fragment.add(Label, endflag);

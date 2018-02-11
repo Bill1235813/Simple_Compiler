@@ -8,6 +8,7 @@ import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Macros;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
+import semanticAnalyzer.types.PrimitiveType;
 
 public class RunTime {
     public static final String EAT_LOCATION_ZERO = "$eat-location-zero";        // helps us distinguish null pointers from real ones.
@@ -46,6 +47,9 @@ public class RunTime {
 	public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
 	public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
 	public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
+	public static final String CLONE_LOCATION_TEMP = "clone-location-temp";
+	public static final String CLONE_SIZE_TEMP = "clone-size-temp";
+	public static final String CLONE_NEW_LOCATION_TEMP = "clone-new-location-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
@@ -196,6 +200,9 @@ public class RunTime {
         declareI(frag, CLEANING_SIZE_TEMP);
         declareI(frag, INSERT_SIZE_TEMP);
         declareI(frag, INSERT_LOCATION_TEMP);
+        declareI(frag, CLONE_NEW_LOCATION_TEMP);
+        declareI(frag, CLONE_LOCATION_TEMP);
+        declareI(frag, CLONE_SIZE_TEMP);
         return frag;
     }
 
@@ -322,6 +329,46 @@ public class RunTime {
 				 Record.ARRAY_SUBTYPE_SIZE_OFFSET, subtypeSize); // [... length]
 		 writeIPtrOffset(code, RECORD_CREATION_TEMPORARY, 
 				 Record.ARRAY_LENGTH_OFFSET); // [...]
+	 }
+	 
+	 // [... addr] -> [... addr2]
+	 public static void cloneArray(ASMCodeFragment code) {
+		 Labeller labeller = new Labeller("clone-array");
+		 String loopflag = labeller.newLabel("loopflag");
+		 String endflag = labeller.newLabel("endflag");
+ 		
+ 		 // store location and size
+		 storeITo(code, CLONE_LOCATION_TEMP);
+		 loadIFrom(code, CLONE_LOCATION_TEMP);
+		 getLength(code); // [... length]
+		 loadIFrom(code, CLONE_LOCATION_TEMP);
+		 readIOffset(code, Record.ARRAY_SUBTYPE_SIZE_OFFSET); // [... length subsize]
+		 code.add(Multiply);
+		 code.add(PushI, Record.ARRAY_HEADER_SIZE);
+		 code.add(Add); // [... totalsize]
+		 storeITo(code, CLONE_SIZE_TEMP);
+		 loadIFrom(code, CLONE_SIZE_TEMP); 
+		 
+		 // allocate new location
+		 code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+		 storeITo(code, CLONE_NEW_LOCATION_TEMP);
+		 moveIMemory(code, CLONE_NEW_LOCATION_TEMP, RECORD_CREATION_TEMPORARY);
+		 
+		 // move char by char
+		 code.add(Label, loopflag);
+		 loadIFrom(code, CLONE_SIZE_TEMP); 
+		 code.add(JumpFalse, endflag);
+		 moveCMemory(code, CLONE_LOCATION_TEMP, CLONE_NEW_LOCATION_TEMP);
+		 decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
+		 incrementInteger(code, CLONE_LOCATION_TEMP);
+		 incrementInteger(code, CLONE_NEW_LOCATION_TEMP); // location += 1
+		 code.add(Jump, loopflag);		
+		 code.add(Label, endflag);
+	 }
+	 
+	 // [... addr] -> [... length]
+	 public static void getLength(ASMCodeFragment code) {
+		 readIOffset(code, Record.ARRAY_LENGTH_OFFSET);
 	 }
 	 
     public static ASMCodeFragment getEnvironment() {

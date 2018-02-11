@@ -215,13 +215,13 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // clone
         new FunctionSignatures(
     			Keyword.CLONE,
-    			new FunctionSignature(1, setS, arrayOfS, arrayOfS)
+    			new FunctionSignature(new CloneArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
         	);
         
         // length
         new FunctionSignatures(
         			Keyword.LENGTH,
-        			new FunctionSignature(1, setS, arrayOfS, INTEGER)
+        			new FunctionSignature(new LengthArrayCodeGenerator(), setS, arrayOfS, INTEGER)
         	);
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.

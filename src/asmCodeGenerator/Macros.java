@@ -27,12 +27,23 @@ public class Macros {
         frag.add(LoadI);
     }
 
+    public static void loadCFrom(ASMCodeFragment frag, String location) {
+        frag.add(PushD, location);
+        frag.add(LoadC);
+    }
+    
     public static void storeITo(ASMCodeFragment frag, String location) {
         frag.add(PushD, location);
         frag.add(Exchange);
         frag.add(StoreI);
     }
 
+    public static void storeCTo(ASMCodeFragment frag, String location) {
+        frag.add(PushD, location);
+        frag.add(Exchange);
+        frag.add(StoreC);
+    }
+    
     public static void declareI(ASMCodeFragment frag, String variableName) {
         frag.add(DLabel, variableName);
         frag.add(DataZ, 4);
@@ -41,6 +52,11 @@ public class Macros {
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
     		loadIFrom(frag, fromlocation);
     		storeITo(frag, tolocation);
+    }
+    
+    public static void moveCMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
+		loadCFrom(frag, fromlocation);
+		storeCTo(frag, tolocation);
     }
     
     public static void swap(ASMCodeFragment frag, String firstlocation, String secondlocation) {
