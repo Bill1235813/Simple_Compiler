@@ -2,9 +2,11 @@ package asmCodeGenerator.runtime;
 
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
+import static asmCodeGenerator.Macros.*;
 
 import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Macros;
+import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 
 public class RunTime {
@@ -39,12 +41,17 @@ public class RunTime {
     public static final String GCD_TEMP_DENOMINATOR = "$gcd-temp-denominator";
     public static final String PRINT_TEMP = "$print-temp";
     public static final String EXPRESS_OVER_DENOMINATOR = "$express-over-denominator";
+    public static final String RECORD_CREATION_TEMPORARY = "$record-creation-temporary";
+	public static final String ARRAY_DATASIZE_TEMPORARY = "$array-datasize-temporary";
+	public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
+    public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
     public static final String GENERAL_RUNTIME_ERROR = "$$general-runtime-error";
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
     public static final String RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$r-divide-by-zero";
+	public static final String NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR = "$$array-size-is-negative";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -52,7 +59,7 @@ public class RunTime {
         result.append(stringsForPrintf());
         result.append(runtimeErrors());
         result.append(temporaryVariables());
-        result.append(lowestTermsConverter());
+        result.append(subroutinesGenerator());
         result.add(DLabel, USABLE_MEMORY_START);
         return result;
     }
@@ -107,11 +114,11 @@ public class RunTime {
         integerDivideByZeroError(frag);
         floatingDivideByZeroError(frag);
         rationalDivideByZeroError(frag);
-
+        negativeArraySizeError(frag);
         return frag;
     }
 
-    private ASMCodeFragment generalRuntimeError(ASMCodeFragment frag) {
+	private ASMCodeFragment generalRuntimeError(ASMCodeFragment frag) {
         String generalErrorMessage = "$errors-general-message";
 
         frag.add(DLabel, generalErrorMessage);
@@ -124,6 +131,17 @@ public class RunTime {
         return frag;
     }
 
+    private void negativeArraySizeError(ASMCodeFragment frag) {
+		String negativeArraySizeMessage = "$errors-negative-array-size";
+		
+		frag.add(DLabel, negativeArraySizeMessage);
+		frag.add(DataS, "negative array size");
+		
+		frag.add(Label, NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR);
+		frag.add(PushD, negativeArraySizeMessage);
+		frag.add(Jump, GENERAL_RUNTIME_ERROR);
+	}
+    
     private void integerDivideByZeroError(ASMCodeFragment frag) {
         String intDivideByZeroMessage = "$errors-int-divide-by-zero";
 
@@ -159,29 +177,39 @@ public class RunTime {
     
     private ASMCodeFragment temporaryVariables() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
-        Macros.declareI(frag, ARRAY_INDEXING_ARRAY);
-        Macros.declareI(frag, ARRAY_INDEXING_INDEX);
-        Macros.declareI(frag, FIRST_NUMERATOR);
-        Macros.declareI(frag, SECOND_NUMERATOR);
-        Macros.declareI(frag, FIRST_DENOMINATOR);
-        Macros.declareI(frag, SECOND_DENOMINATOR);
-        Macros.declareI(frag, RETURN_FOR_RUNTIME_FUNCTION);
-        Macros.declareI(frag, GCD_TEMP_NUMERATOR);
-        Macros.declareI(frag, GCD_TEMP_DENOMINATOR);
-        Macros.declareI(frag, PRINT_TEMP);
-        Macros.declareI(frag, EXPRESS_OVER_DENOMINATOR);
+        declareI(frag, ARRAY_INDEXING_ARRAY);
+        declareI(frag, ARRAY_INDEXING_INDEX);
+        declareI(frag, FIRST_NUMERATOR);
+        declareI(frag, SECOND_NUMERATOR);
+        declareI(frag, FIRST_DENOMINATOR);
+        declareI(frag, SECOND_DENOMINATOR);
+        declareI(frag, RETURN_FOR_RUNTIME_FUNCTION);
+        declareI(frag, GCD_TEMP_NUMERATOR);
+        declareI(frag, GCD_TEMP_DENOMINATOR);
+        declareI(frag, PRINT_TEMP);
+        declareI(frag, EXPRESS_OVER_DENOMINATOR);
+        declareI(frag, RECORD_CREATION_TEMPORARY);
+        declareI(frag, ARRAY_DATASIZE_TEMPORARY);
+        declareI(frag, CLEANING_SIZE_TEMP);
         return frag;
     }
 
+    private ASMCodeFragment subroutinesGenerator() {
+    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
+    		frag.append(lowestTermsConverter());
+    		frag.append(clearNBytes());
+    		return frag;
+    }
+    
     private ASMCodeFragment lowestTermsConverter() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);  //	[... num denom returnAddr]
-        Labeller labeller = new Labeller("$function");
+        Labeller labeller = new Labeller("$function-lowest");
         String loopcontinue = labeller.newLabel("loop-continue");
         String loopend = labeller.newLabel("loop-end");
 
         frag.add(Label, LOWEST_TERMS);
         // store return addr
-        Macros.storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[... num denom]
+        storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[... num denom]
 
         // check denominator not 0
         frag.add(Duplicate);  //	[... num denom denom]
@@ -189,37 +217,107 @@ public class RunTime {
 
         // store arguments
         frag.add(Duplicate);
-        Macros.storeITo(frag, FIRST_DENOMINATOR);
-        Macros.storeITo(frag, GCD_TEMP_DENOMINATOR);  //		[... num]
+        storeITo(frag, FIRST_DENOMINATOR);
+        storeITo(frag, GCD_TEMP_DENOMINATOR);  //		[... num]
         frag.add(Duplicate);
-        Macros.storeITo(frag, FIRST_NUMERATOR);
-        Macros.storeITo(frag, GCD_TEMP_NUMERATOR);  //	[...]
+        storeITo(frag, FIRST_NUMERATOR);
+        storeITo(frag, GCD_TEMP_NUMERATOR);  //	[...]
 
         // gcd
         frag.add(Label, loopcontinue);
-        Macros.loadIFrom(frag, GCD_TEMP_NUMERATOR);  //	[... num]
-        Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num denom]
+        loadIFrom(frag, GCD_TEMP_NUMERATOR);  //	[... num]
+        loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num denom]
         frag.add(Remainder);  //	[... num%denom]
         frag.add(Duplicate);  //	[...	 num%denom num%denom]
         frag.add(JumpFalse, loopend);  //	[...num%denom]
-        Macros.moveIMemory(frag, GCD_TEMP_DENOMINATOR, GCD_TEMP_NUMERATOR); // [...num%denom] denom -> num
-        Macros.storeITo(frag, GCD_TEMP_DENOMINATOR);  //	[...]
+        moveIMemory(frag, GCD_TEMP_DENOMINATOR, GCD_TEMP_NUMERATOR); // [...num%denom] denom -> num
+        storeITo(frag, GCD_TEMP_DENOMINATOR);  //	[...]
         frag.add(Jump, loopcontinue);
         frag.add(Label, loopend);
         frag.add(Pop);  //	[...]
 
         //  perform lowest convert
-        Macros.loadIFrom(frag, FIRST_NUMERATOR);
-        Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num gcd]
+        loadIFrom(frag, FIRST_NUMERATOR);
+        loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num gcd]
         frag.add(Divide);  //		[... num(lowest)]
-        Macros.loadIFrom(frag, FIRST_DENOMINATOR);
-        Macros.loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num(lowest) denom gcd]
+        loadIFrom(frag, FIRST_DENOMINATOR);
+        loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num(lowest) denom gcd]
         frag.add(Divide);  //	[.. num(lowest) denom(lowest)]
-        Macros.loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[.. num(lowest) denom(lowest) return addr]
+        
+        loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[.. num(lowest) denom(lowest) return addr]       
         frag.add(Return);  //	[.. num(lowest) denom(lowest)]
         return frag;
     }
 
+	// set elemSize bytes start from elemsPtr 0	// [...elemsPtr elemSize (return)]
+    private ASMCodeFragment clearNBytes() {
+    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); 
+    		Labeller labeller = new Labeller("$function-clear");
+    		String loopflag = labeller.newLabel("loopflag");
+    		String endflag = labeller.newLabel("endflag");
+    		
+    		frag.add(Label, CLEAR_N_BYTES);
+        // store return addr
+    		storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION); // [...elemsPtr elemSize]
+    		// store size
+    		storeITo(frag, CLEANING_SIZE_TEMP);
+    		
+    		frag.add(Label, loopflag);
+    		loadIFrom(frag, CLEANING_SIZE_TEMP); // [... elemsPtr elemSize]
+    		frag.add(JumpFalse, endflag); // [... elemsPtr]
+    		frag.add(Duplicate); // [... elemsPtr elemsPtr]
+    		frag.add(PushI, 0);
+    		frag.add(StoreI); // [... elemsPtr]
+    		frag.add(PushI, 4); // [... elemsPtr+4]
+    		decrementInteger(frag, CLEANING_SIZE_TEMP); // elemsSize -= 1
+    		frag.add(Jump, loopflag);
+    		
+    		frag.add(Pop);
+    		loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);
+    		frag.add(Return);
+    		return frag;
+    }
+    
+	 // leaves new record in RECORD_CREATION_TEMPORARY
+	 // [... size] -> [...]
+	 public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
+		 code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+		 storeITo(code, RECORD_CREATION_TEMPORARY);
+		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
+				 Record.RECORD_TYPEID_OFFSET, typecode);
+		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
+				 Record.RECORD_STATUS_OFFSET, statusFlags);
+	 }
+	 
+	 // leaves new record in RECORD_CREATION_TEMPORARY // [... nElems] -> [...]
+	 public static void createEmptyArrayRecord(ASMCodeFragment code, 
+			 int statusFlags, int subtypeSize) { 
+		 final int typecode = Record.ARRAY_TYPE_ID;
+		 
+		 code.add(Duplicate); // [... nElems nElems] 
+		 code.add(JumpNeg, RunTime.NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR); // [... nElems]
+		 
+		 code.add(Duplicate); // [... nElems nElems] 
+		 code.add(PushI, subtypeSize); // [... nElems nElems subSize] 
+		 code.add(Multiply); // [... nElems elemsSize]
+		 code.add(Duplicate); // [... nElems elemsSize elemsSize]
+		 storeITo(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsSize]
+		 code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems elemsSize AHS]
+		 code.add(Add); // [... nElems totalRecordSize]
+		 
+		 createRecord(code, typecode, statusFlags); // [... nElems]
+		 loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... nElems ptr]
+		 code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems ptr AHS]
+		 code.add(Add); // [... nElems elemsPtr] 
+		 loadIFrom(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsPtr elemSize]
+		 code.add(Call, CLEAR_N_BYTES); // [...nElems]
+		 
+		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
+				 Record.ARRAY_SUBTYPE_SIZE_OFFSET, subtypeSize); // [... length]
+		 writeIPtrOffset(code, RECORD_CREATION_TEMPORARY, 
+				 Record.ARRAY_LENGTH_OFFSET); // [...]
+	 }
+	 
     public static ASMCodeFragment getEnvironment() {
         RunTime rt = new RunTime();
         return rt.environmentASM();

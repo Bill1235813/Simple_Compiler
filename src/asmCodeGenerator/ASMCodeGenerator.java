@@ -8,6 +8,7 @@ import java.util.Map;
 import asmCodeGenerator.FullCodeGenerator.FullCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.codeStorage.ASMOpcode;
+import asmCodeGenerator.runtime.MemoryManager;
 import asmCodeGenerator.runtime.RunTime;
 import asmCodeGenerator.simpleCodeGenerator.SimpleCodeGenerator;
 import lexicalAnalyzer.Lextant;
@@ -15,6 +16,7 @@ import lexicalAnalyzer.Punctuator;
 import parseTree.*;
 import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.Promotion;
+import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -43,7 +45,7 @@ public class ASMCodeGenerator {
         code.append(RunTime.getEnvironment());
         code.append(globalVariableBlockASM());
         code.append(programASM());
-//		code.append( MemoryManager.codeForAfterApplication() );
+		code.append(MemoryManager.codeForAfterApplication());
 
         return code;
     }
@@ -63,6 +65,7 @@ public class ASMCodeGenerator {
         ASMCodeFragment code = new ASMCodeFragment(GENERATES_VOID);
 
         code.add(Label, RunTime.MAIN_PROGRAM_LABEL);
+        code.append(MemoryManager.codeForInitialization());
         code.append(programCode());
         code.add(Halt);
 
@@ -144,7 +147,8 @@ public class ASMCodeGenerator {
 
         private void turnAddressIntoValue(ASMCodeFragment code, ParseNode node) {
             if (node.getType() == PrimitiveType.INTEGER ||
-                    node.getType() == PrimitiveType.STRING) {
+                    node.getType() == PrimitiveType.STRING ||
+                    node.getType() instanceof Array) {
                 code.add(LoadI);
             } else if (node.getType() == PrimitiveType.FLOATING) {
                 code.add(LoadF);
@@ -250,7 +254,8 @@ public class ASMCodeGenerator {
 
         private ASMOpcode opcodeForStore(Type type) {
             if (type == PrimitiveType.INTEGER ||
-                    type == PrimitiveType.STRING) {
+                    type == PrimitiveType.STRING || 
+                    type instanceof Array) {
                 return StoreI;
             }
             if (type == PrimitiveType.FLOATING) {

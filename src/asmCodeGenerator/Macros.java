@@ -100,7 +100,35 @@ public class Macros {
         frag.add(StoreC);            // []
     }
 
-
+    /**
+     * 
+     * @param frag	ASMCodeFragment to add code to
+     * @param location	the pointer stored location
+     * @param offset	amount to add to the base location before writing
+     * @param num	the number to be written
+     */
+    public static void writeIPBaseOffset(ASMCodeFragment frag, String location, int offset, int num) {
+    		loadIFrom(frag, location); // [...pointer at location]
+    		frag.add(PushI, offset);
+    		frag.add(Add); // [...pointer+offset]
+    		frag.add(PushI, num); // [...pointer+offset num]
+    		frag.add(StoreI);
+    }
+    
+    /**
+     * there should be one element on stack
+     * @param frag	ASMCodeFragment to add code to
+     * @param location	the pointer stored location
+     * @param offset	amount to add to the base location before writing
+     */
+    public static void writeIPtrOffset(ASMCodeFragment frag, String location, int offset) {
+    		loadIFrom(frag, location); // [...num pointer at location]
+		frag.add(PushI, offset);
+		frag.add(Add); // [...num pointer+offset]
+		frag.add(Exchange);
+		frag.add(StoreI);
+    }
+    
     ////////////////////////////////////////////////////////////////////
     // debugging aids
 
