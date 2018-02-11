@@ -31,6 +31,14 @@ public class Array implements Type{
 		return "[" + subtype.toString() + "]";
 	}
 
+    public boolean subtypeIsReference() {
+		if (subtype instanceof Array) {
+			return true;
+		} else {
+			return subtype.equivalent(PrimitiveType.STRING);
+		}
+    }
+    
 	@Override
 	public boolean equivalent(Type otherType) {
 		if (otherType instanceof Array) {

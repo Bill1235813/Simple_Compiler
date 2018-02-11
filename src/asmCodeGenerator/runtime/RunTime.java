@@ -44,9 +44,12 @@ public class RunTime {
     public static final String RECORD_CREATION_TEMPORARY = "$record-creation-temporary";
 	public static final String ARRAY_DATASIZE_TEMPORARY = "$array-datasize-temporary";
 	public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
+	public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
+	public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
+//    public static final String INSERT_EXPRESSION_LIST = "$$insert-expression-list";
     public static final String GENERAL_RUNTIME_ERROR = "$$general-runtime-error";
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
@@ -191,6 +194,8 @@ public class RunTime {
         declareI(frag, RECORD_CREATION_TEMPORARY);
         declareI(frag, ARRAY_DATASIZE_TEMPORARY);
         declareI(frag, CLEANING_SIZE_TEMP);
+        declareI(frag, INSERT_SIZE_TEMP);
+        declareI(frag, INSERT_LOCATION_TEMP);
         return frag;
     }
 
@@ -272,6 +277,7 @@ public class RunTime {
     		decrementInteger(frag, CLEANING_SIZE_TEMP); // elemsSize -= 1
     		frag.add(Jump, loopflag);
     		
+    		frag.add(Label, endflag);
     		frag.add(Pop);
     		loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);
     		frag.add(Return);

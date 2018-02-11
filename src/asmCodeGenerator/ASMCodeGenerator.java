@@ -232,6 +232,7 @@ public class ASMCodeGenerator {
             ASMCodeFragment rvalue = removeValueCode(node.child(1));
             return new ASMCodeFragment[] {lvalue, rvalue};
         }
+        
         private void setAndStore(ParseNode node, ASMCodeFragment [] args) {
             newVoidCode(node);
 
@@ -401,6 +402,21 @@ public class ASMCodeGenerator {
             return args.toArray(new ASMCodeFragment[args.size()]);
         }
 
+        public void visitLeave(ExpressionListNode node) {
+	    		newValueCode(node);
+	    		Type finaltype = ((Array) node.getType()).getSubtype();
+	    		ASMCodeFragment[] args = getUndeterminedChildren(node);
+	    		for (int i = 0; i < node.nChildren(); ++i) {
+	    			Object varient = Promotion.getMethod(node.child(i).getType(), finaltype);
+	    			if (varient == null) {
+	    				continue;
+	    			} else {
+	    				applyPromotionMethods(varient, node, args[i]);
+	    			}
+	    		}
+	    		appendUndeterminedChildren(args);
+	    }
+        
         ///////////////////////////////////////////////////////////////////////////
         // parentheses and casting nodes
         public void visitLeave(ParenthesesNode node) {

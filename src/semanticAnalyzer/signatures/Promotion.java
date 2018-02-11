@@ -68,8 +68,22 @@ public class Promotion {
         this.signature = signature;
     }
 
-    public static boolean promotable(Type child, Type father) {
-    		return existALinkInGraph(child, father);
+    public static Boolean promotable(Type type1, Type type2) {
+        for (Type[] types : PROMOTION_TYPES) {
+            if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static Object getMethod(Type type1, Type type2) {
+	    	for (Type[] types : PROMOTION_TYPES) {
+            if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
+            		return PROMOTION_METHODS.get(types);
+            }
+        }
+	    	return null;
     }
     
     // static flag is for assignment
@@ -213,12 +227,12 @@ public class Promotion {
             for (int i = 0; i < types1.length; ++i) {
                 if (types1[i].equivalent(types2[i])) {
                     continue;
-                } else if (existALinkInGraph(types1[i], types2[i])) {
+                } else if (promotable(types1[i], types2[i])) {
                     if (fatherflag == 2) {
                         return false;
                     }
                     fatherflag = 1;
-                } else if (existALinkInGraph(types2[i], types1[i])) {
+                } else if (promotable(types2[i], types1[i])) {
                     if (fatherflag == 1) {
                         return false;
                     }
@@ -235,16 +249,6 @@ public class Promotion {
         }
         return true;
     }
-
-    private static Boolean existALinkInGraph(Type type1, Type type2) {
-        for (Type[] types : PROMOTION_TYPES) {
-            if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     ///////////////////////////////////////////////////////////////////////
     // the error promotion condition

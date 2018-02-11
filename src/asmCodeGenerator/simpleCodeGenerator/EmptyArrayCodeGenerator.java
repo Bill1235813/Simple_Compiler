@@ -19,26 +19,17 @@ public class EmptyArrayCodeGenerator implements SimpleCodeGenerator {
 	
 	@Override
 	public ASMCodeFragment generate(ParseNode node) {
-		ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_ADDRESS);
+		ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
 		
 		assert node.getType() instanceof Array;
-		Array arrayType = (Array) node.getType();
-		Type subType = arrayType.getSubtype();		
-		if (isReference(subType)) {
+		Array arrayType = (Array) node.getType();		
+		if (arrayType.subtypeIsReference()) {
 			statusFlag = 1 << Record.SUBTYPE_REFERENCE_SHIFT;
 		}
 		
-		RunTime.createEmptyArrayRecord(fragment, statusFlag, subType.getSize());
+		RunTime.createEmptyArrayRecord(fragment, statusFlag, arrayType.getSubtype().getSize());
 		loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
 		
 		return fragment;
 	}
-
-    public static boolean isReference(Type type) {
-		if (type instanceof Array) {
-			return true;
-		} else {
-			return type.equivalent(PrimitiveType.STRING);
-		}
-    }
 }

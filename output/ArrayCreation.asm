@@ -233,6 +233,10 @@
         DataZ        4                         
         DLabel       $clear-size-temp          
         DataZ        4                         
+        DLabel       $insert-size-temp         
+        DataZ        4                         
+        DLabel       insert-location-temp      
+        DataZ        4                         
         Label        $$convert-to-lowest-terms 
         PushD        $return-for-runtime-func  
         Exchange                               
@@ -308,13 +312,14 @@
         Exchange                               
         StoreI                                 
         Jump         -$function-clear-2-loopflag 
+        Label        -$function-clear-2-endflag 
         Pop                                    
         PushD        $return-for-runtime-func  
         LoadI                                  
         Return                                 
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
-        DataZ        24                        
+        DataZ        32                        
         Label        $$main                    
         Label        -mem-manager-initialize   
         DLabel       $heap-start-ptr           
@@ -347,19 +352,475 @@
         StoreF                                 
         PushD        $global-memory-block      
         PushI        8                         
+        Add                                    %% a2
+        PushI        1                         
+        PushI        1                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        0                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        1                         
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        PushD        insert-location-temp      
+        Exchange                               
+        StoreI                                 
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Label        -function-insert-3-loopflag 
+        PushD        $insert-size-temp         
+        LoadI                                  
+        JumpFalse    -function-insert-3-endflag 
+        PushD        insert-location-temp      
+        LoadI                                  
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        StoreI                                 
+        PushI        -1                        
+        PushD        $insert-size-temp         
+        LoadI                                  
+        Add                                    
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Jump         -function-insert-3-loopflag 
+        Label        -function-insert-3-endflag 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
+        PushI        12                        
+        Add                                    %% numSets
+        PushI        1                         
+        PushI        2                         
+        PushI        3                         
+        PushI        3                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        0                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        3                         
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        PushD        insert-location-temp      
+        Exchange                               
+        StoreI                                 
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Label        -function-insert-4-loopflag 
+        PushD        $insert-size-temp         
+        LoadI                                  
+        JumpFalse    -function-insert-4-endflag 
+        PushD        insert-location-temp      
+        LoadI                                  
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        StoreI                                 
+        PushI        -1                        
+        PushD        $insert-size-temp         
+        LoadI                                  
+        Add                                    
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Jump         -function-insert-4-loopflag 
+        Label        -function-insert-4-endflag 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        PushI        5                         
+        PushI        2                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        0                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        2                         
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        PushD        insert-location-temp      
+        Exchange                               
+        StoreI                                 
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Label        -function-insert-5-loopflag 
+        PushD        $insert-size-temp         
+        LoadI                                  
+        JumpFalse    -function-insert-5-endflag 
+        PushD        insert-location-temp      
+        LoadI                                  
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        StoreI                                 
+        PushI        -1                        
+        PushD        $insert-size-temp         
+        LoadI                                  
+        Add                                    
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Jump         -function-insert-5-loopflag 
+        Label        -function-insert-5-endflag 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        6                         
+        PushI        7                         
+        PushI        8                         
+        PushI        3                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        0                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        3                         
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        PushD        insert-location-temp      
+        Exchange                               
+        StoreI                                 
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Label        -function-insert-6-loopflag 
+        PushD        $insert-size-temp         
+        LoadI                                  
+        JumpFalse    -function-insert-6-endflag 
+        PushD        insert-location-temp      
+        LoadI                                  
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        StoreI                                 
+        PushI        -1                        
+        PushD        $insert-size-temp         
+        LoadI                                  
+        Add                                    
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Jump         -function-insert-6-loopflag 
+        Label        -function-insert-6-endflag 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        0                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Duplicate                              
+        JumpNeg      $$array-size-is-negative  
+        Duplicate                              
+        PushI        4                         
+        Multiply                               
+        Duplicate                              
+        PushD        $array-datasize-temporary 
+        Exchange                               
+        StoreI                                 
+        PushI        16                        
+        Add                                    
+        Call         -mem-manager-allocate     
+        PushD        $record-creation-temporary 
+        Exchange                               
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        PushI        7                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        PushI        65536                     
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        Add                                    
+        PushD        $array-datasize-temporary 
+        LoadI                                  
+        Call         $$clear-n-bytes           
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        PushI        4                         
+        StoreI                                 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        12                        
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        4                         
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        PushI        16                        
+        PushD        insert-location-temp      
+        Exchange                               
+        StoreI                                 
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Label        -function-insert-7-loopflag 
+        PushD        $insert-size-temp         
+        LoadI                                  
+        JumpFalse    -function-insert-7-endflag 
+        PushD        insert-location-temp      
+        LoadI                                  
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        StoreI                                 
+        PushI        -1                        
+        PushD        $insert-size-temp         
+        LoadI                                  
+        Add                                    
+        PushD        $insert-size-temp         
+        Exchange                               
+        StoreI                                 
+        Jump         -function-insert-7-loopflag 
+        Label        -function-insert-7-endflag 
+        PushD        $record-creation-temporary 
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
+        PushI        16                        
         Add                                    %% width
         PushI        4                         
         StoreI                                 
         PushD        $global-memory-block      
-        PushI        12                        
+        PushI        20                        
         Add                                    %% height
         PushI        7                         
         StoreI                                 
         PushD        $global-memory-block      
-        PushI        16                        
+        PushI        24                        
         Add                                    %% matrix
         PushD        $global-memory-block      
-        PushI        8                         
+        PushI        16                        
         Add                                    %% width
         LoadI                                  
         Duplicate                              
@@ -410,47 +871,46 @@
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
-        LoadI                                  
         StoreI                                 
         PushD        $global-memory-block      
-        PushI        20                        
+        PushI        28                        
         Add                                    %% x
         PushI        0                         
         StoreI                                 
-        Label        -while-4-condition        
+        Label        -while-9-condition        
         PushD        $global-memory-block      
-        PushI        20                        
+        PushI        28                        
         Add                                    %% x
         LoadI                                  
         PushD        $global-memory-block      
-        PushI        8                         
+        PushI        16                        
         Add                                    %% width
         LoadI                                  
-        Label        -compare-3-sub            
+        Label        -compare-8-sub            
         Subtract                               
-        JumpNeg      -compare-3-true           
-        Jump         -compare-3-false          
-        Label        -compare-3-true           
+        JumpNeg      -compare-8-true           
+        Jump         -compare-8-false          
+        Label        -compare-8-true           
         PushI        1                         
-        Jump         -compare-3-join           
-        Label        -compare-3-false          
+        Jump         -compare-8-join           
+        Label        -compare-8-false          
         PushI        0                         
-        Jump         -compare-3-join           
-        Label        -compare-3-join           
-        JumpFalse    -while-4-ends             
-        Label        -while-4-starts           
+        Jump         -compare-8-join           
+        Label        -compare-8-join           
+        JumpFalse    -while-9-ends             
+        Label        -while-9-starts           
         PushD        $global-memory-block      
-        PushI        20                        
+        PushI        28                        
         Add                                    %% x
         PushD        $global-memory-block      
-        PushI        20                        
+        PushI        28                        
         Add                                    %% x
         LoadI                                  
         PushI        1                         
         Add                                    
         StoreI                                 
-        Jump         -while-4-condition        
-        Label        -while-4-ends             
+        Jump         -while-9-condition        
+        Label        -while-9-ends             
         Halt                                   
         Label        -mem-manager-make-tags    
         DLabel       $mmgr-tags-size           
