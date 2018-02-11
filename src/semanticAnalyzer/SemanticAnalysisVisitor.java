@@ -102,7 +102,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         Promotion promotion = Promotion.checkPromotion(childTypes, signatures, true);
 
         if (promotion == Promotion.nullPromotion) {
-            typeCheckError(node, childTypes);
+            typeCheckError(node, Arrays.asList(targetType, resultType));
             node.setType(PrimitiveType.ERROR);
         } else if (promotion == Promotion.overOnePromotion) {
             overOnePromotionError(node, childTypes);
@@ -171,25 +171,6 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         node.setTargetable(expression.getTargetable());
     }
 
-//    @Override
-//    public void visitLeave(CastingNode node) {
-//        assert node.nChildren() == 2;
-//        ParseNode before = node.child(0);
-//        ParseNode after = node.child(1);
-//        List<Type> childTypes = Arrays.asList(before.getType(), after.getType());
-//
-//        FunctionSignatures signatures = FunctionSignatures.signaturesOf(Punctuator.VERTICAL_LINE);
-//        FunctionSignature signature = signatures.acceptingSignature(childTypes);
-//
-//        if (signature.accepts(childTypes)) {
-//            node.setType(signature.resultType());
-//            node.setSignature(signature);
-//        } else {
-//            typeCastError(node, childTypes);
-//            node.setType(PrimitiveType.ERROR);
-//        }
-//    }
-
     @Override
     public void visitLeave(TypeNode node) {
         assert node.getToken() instanceof LextantToken;
@@ -201,6 +182,24 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         }
     }
 
+    @Override
+    public void visitLeave(ExpressionListNode node) {
+    		assert node.nChildren() >= 1;
+    		Type temptype = node.child(0).getType();
+    		for (int i=0;i<node.nChildren();++i) {
+    			Type nexttype = node.child(i).getType();
+    			if (nexttype.equivalent(temptype) || Promotion.promotable(nexttype, temptype)) {
+    				continue;
+    			} else if (Promotion.promotable(temptype, nexttype)) {
+    				temptype = nexttype;
+    			} else {
+    				expressionListPromotionError(node, i+1);
+    				node.setType(PrimitiveType.ERROR);
+    			}
+    		}
+    		node.setType(new Array(temptype));
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes
     @Override
@@ -291,6 +290,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
         logError("assign to untargetable variable " + token.getLexeme()
                 + " at " + token.getLocation());
+    }
+    
+    private void expressionListPromotionError(ParseNode node, int child) {
+    		Token token = node.getToken();
+    		
+    		logError("expression " + child + " in expressionList cannot get legal promotion at " 
+    				+ token.getLocation());
     }
 
     private void overOnePromotionError(ParseNode node, List<Type> operandTypes) {

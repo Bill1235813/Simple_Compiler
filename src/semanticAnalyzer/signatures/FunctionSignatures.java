@@ -11,6 +11,8 @@ import asmCodeGenerator.FullCodeGenerator.ShortCircuitOrCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.simpleCodeGenerator.*;
 import com.sun.org.apache.bcel.internal.generic.NOP;
+
+import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Punctuator;
 import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.Type;
@@ -84,6 +86,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
         TypeVariable S = new TypeVariable("S");
+        Array arrayOfS = new Array(S);
         List<TypeVariable> setS = Arrays.asList(S);
 
         // arithmetic +, -, *, /, //, ///, ////
@@ -139,10 +142,11 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 			FunctionSignature fSignature = new FunctionSignature(new ComparisonCodeGenerator(), FLOATING, FLOATING, BOOLEAN);
 			FunctionSignature bSignature = new FunctionSignature(new ComparisonCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN);
 			FunctionSignature sSignature = new FunctionSignature(new ComparisonCodeGenerator(), STRING, STRING, BOOLEAN);
+			FunctionSignature aSignature = new FunctionSignature(new ComparisonCodeGenerator(), setS, arrayOfS, arrayOfS, BOOLEAN);
 			
 			if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
-				new FunctionSignatures(comparison, iSignature, 
-						cSignature, fSignature, bSignature, sSignature);
+				new FunctionSignatures(comparison, iSignature, cSignature, 
+						fSignature, bSignature, sSignature, aSignature);
 			} else {
 				new FunctionSignatures(comparison, iSignature, 
 						cSignature, fSignature);
@@ -188,11 +192,37 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(ASMOpcode.BNegate, BOOLEAN, BOOLEAN)
         );
 
+        // populated array creation
+        new FunctionSignatures(
+        			Punctuator.POPULATED_ARRAY,
+        			new FunctionSignature(ASMOpcode.Nop, setS, arrayOfS, arrayOfS)
+        	);
+        
+        // empty array creation
+        new FunctionSignatures(
+        			Punctuator.EMPTY_ARRAY,
+        			new FunctionSignature(1, setS, Type(arrayOfS), INTEGER, arrayOfS)
+        	);
+
         // array-indexing []
-//        new FunctionSignatures(
-//        			Punctuator.OPEN_BRACKET,
-//        			new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, new Array(S), INTEGER, S)
-//        	);
+        new FunctionSignatures(
+        			Punctuator.ARRAY_INDEXING,
+        			new FunctionSignature(
+        					//new ArrayIndexingCodeGenerator()
+        					1, setS, arrayOfS, INTEGER, S)
+        	);
+        
+        // clone
+        new FunctionSignatures(
+    			Keyword.CLONE,
+    			new FunctionSignature(1, setS, arrayOfS, arrayOfS)
+        	);
+        
+        // length
+        new FunctionSignatures(
+        			Keyword.LENGTH,
+        			new FunctionSignature(1, setS, arrayOfS, INTEGER)
+        	);
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
         // Then, we give that key two signatures: one an (INT x INT -> INT) and the other

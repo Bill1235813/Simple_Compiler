@@ -68,6 +68,10 @@ public class Promotion {
         this.signature = signature;
     }
 
+    public static boolean promotable(Type child, Type father) {
+    		return existALinkInGraph(child, father);
+    }
+    
     // static flag is for assignment
     public static Promotion checkPromotion(List<Type> checktypes,
                                            FunctionSignatures signatures,
@@ -141,7 +145,7 @@ public class Promotion {
     private static Promotion onePromotion(List<Type> checktypes, FunctionSignatures signatures, int index) {
         List<Promotion> promotions = new ArrayList<>();
         for (Type[] type_pro : PROMOTION_TYPES) {
-            if (checktypes.get(index) != type_pro[0]) {
+            if (checktypes.get(index).equivalent(type_pro[0])) {
                 continue;
             }
             checktypes.set(index, type_pro[1]);
@@ -161,12 +165,12 @@ public class Promotion {
     private static Promotion bothPromotion(List<Type> checktypes, FunctionSignatures signatures) {
         List<Promotion> promotions = new ArrayList<>();
         for (Type[] type_pro : PROMOTION_TYPES) {
-            if (checktypes.get(0) != type_pro[0]) {
+            if (checktypes.get(0).equivalent(type_pro[0])) {
                 continue;
             }
             checktypes.set(0, type_pro[1]);
             for (Type[] type_pro2 : PROMOTION_TYPES) {
-                if (checktypes.get(1) != type_pro2[0]) {
+                if (checktypes.get(1).equivalent(type_pro2[0])) {
                     continue;
                 }
                 checktypes.set(1, type_pro2[1]);
@@ -234,7 +238,7 @@ public class Promotion {
 
     private static Boolean existALinkInGraph(Type type1, Type type2) {
         for (Type[] types : PROMOTION_TYPES) {
-            if (type1 == types[0] && type2 == types[1]) {
+            if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
                 return true;
             }
         }
