@@ -40,6 +40,7 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 		fragment.add(PushI, node.child(0).nChildren()); // number of the child [... exprList nElems]
 		loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
 		fragment.add(PushI, Record.ARRAY_HEADER_SIZE);
+		fragment.add(Add);
 		storeITo(fragment, RunTime.INSERT_LOCATION_TEMP);
 		storeITo(fragment, RunTime.INSERT_SIZE_TEMP); // [... exprList]
 		
@@ -65,7 +66,7 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 		
 		decrementInteger(fragment, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
 		fragment.add(PushI, subType.getSize());
-        addITo(fragment, RunTime.INSERT_SIZE_TEMP); // location += subtype.size()
+        addITo(fragment, RunTime.INSERT_LOCATION_TEMP); // location += subtype.size()
 		fragment.add(Jump, loopflag);
 		
 		fragment.add(Label, endflag);

@@ -1,5 +1,6 @@
 package asmCodeGenerator.runtime;
 
+import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 import static asmCodeGenerator.Macros.*;
@@ -279,8 +280,9 @@ public class RunTime {
     		frag.add(JumpFalse, endflag); // [... elemsPtr]
     		frag.add(Duplicate); // [... elemsPtr elemsPtr]
     		frag.add(PushI, 0);
-    		frag.add(StoreI); // [... elemsPtr]
-    		frag.add(PushI, 4); // [... elemsPtr+4]
+    		frag.add(StoreC); // [... elemsPtr]
+    		frag.add(PushI, 1); // [... elemsPtr 1]
+            frag.add(Add); // [... elemsPtr+1]
     		decrementInteger(frag, CLEANING_SIZE_TEMP); // elemsSize -= 1
     		frag.add(Jump, loopflag);
     		
@@ -358,7 +360,11 @@ public class RunTime {
 		 code.add(Label, loopflag);
 		 loadIFrom(code, CLONE_SIZE_TEMP); 
 		 code.add(JumpFalse, endflag);
-		 moveCMemory(code, CLONE_LOCATION_TEMP, CLONE_NEW_LOCATION_TEMP);
+         loadIFrom(code, CLONE_LOCATION_TEMP);
+         code.add(LoadC);
+         loadIFrom(code, CLONE_NEW_LOCATION_TEMP);
+         code.add(Exchange);
+         code.add(StoreC);
 		 decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
 		 incrementInteger(code, CLONE_LOCATION_TEMP);
 		 incrementInteger(code, CLONE_NEW_LOCATION_TEMP); // location += 1
