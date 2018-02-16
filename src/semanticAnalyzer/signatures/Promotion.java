@@ -159,7 +159,7 @@ public class Promotion {
     private static Promotion onePromotion(List<Type> checktypes, FunctionSignatures signatures, int index) {
         List<Promotion> promotions = new ArrayList<>();
         for (Type[] type_pro : PROMOTION_TYPES) {
-            if (checktypes.get(index).equivalent(type_pro[0])) {
+            if (!checktypes.get(index).equivalent(type_pro[0])) {
                 continue;
             }
             checktypes.set(index, type_pro[1]);
@@ -179,12 +179,12 @@ public class Promotion {
     private static Promotion bothPromotion(List<Type> checktypes, FunctionSignatures signatures) {
         List<Promotion> promotions = new ArrayList<>();
         for (Type[] type_pro : PROMOTION_TYPES) {
-            if (checktypes.get(0).equivalent(type_pro[0])) {
+            if (!checktypes.get(0).equivalent(type_pro[0])) {
                 continue;
             }
             checktypes.set(0, type_pro[1]);
             for (Type[] type_pro2 : PROMOTION_TYPES) {
-                if (checktypes.get(1).equivalent(type_pro2[0])) {
+                if (!checktypes.get(1).equivalent(type_pro2[0])) {
                     continue;
                 }
                 checktypes.set(1, type_pro2[1]);

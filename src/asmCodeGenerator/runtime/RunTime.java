@@ -9,6 +9,7 @@ import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Macros;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
+import parseTree.ParseNode;
 import semanticAnalyzer.types.PrimitiveType;
 
 public class RunTime {
@@ -22,6 +23,9 @@ public class RunTime {
     public static final String RATIONAL_PRINT_NO_FRACTION = "$print-format-rational-no-frac";
     public static final String RATIONAL_PRINT_NO_INTEGER_POS = "$print-format-rational-no-int-pos";
     public static final String RATIONAL_PRINT_NO_INTEGER_NEG = "$print-format-rantional-no-int-neg";
+    public static final String ARRAY_PRINT_START = "$array-print-start";
+    public static final String ARRAY_PRINT_END = "$array-print-end";
+    public static final String ARRAY_PRINT_MIDDLE = "$array-print-middle";
     public static final String NEWLINE_PRINT_FORMAT = "$print-format-newline";
     public static final String TAB_PRINT_FORMAT = "$print-format-tab";
     public static final String SPACE_PRINT_FORMAT = "$print-format-space";
@@ -54,7 +58,7 @@ public class RunTime {
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
-//    public static final String INSERT_EXPRESSION_LIST = "$$insert-expression-list";
+    public static final String PRINT_RATIONAL = "$$print-rational";
     public static final String GENERAL_RUNTIME_ERROR = "$$general-runtime-error";
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
@@ -110,6 +114,12 @@ public class RunTime {
         frag.add(DataS, "true");
         frag.add(DLabel, BOOLEAN_FALSE_STRING);
         frag.add(DataS, "false");
+        frag.add(DLabel, ARRAY_PRINT_START);
+        frag.add(DataS, "[");
+        frag.add(DLabel, ARRAY_PRINT_END);
+        frag.add(DataS, "]");
+        frag.add(DLabel, ARRAY_PRINT_MIDDLE);
+        frag.add(DataS, ", ");
 
         return frag;
     }
@@ -211,6 +221,7 @@ public class RunTime {
     		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
     		frag.append(lowestTermsConverter());
     		frag.append(clearNBytes());
+    		frag.append(printRational());
     		return frag;
     }
     
@@ -264,35 +275,128 @@ public class RunTime {
 
 	// set elemSize bytes start from elemsPtr 0	// [...elemsPtr elemSize (return)]
     private ASMCodeFragment clearNBytes() {
-    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); 
-    		Labeller labeller = new Labeller("$function-clear");
-    		String loopflag = labeller.newLabel("loopflag");
-    		String endflag = labeller.newLabel("endflag");
-    		
-    		frag.add(Label, CLEAR_N_BYTES);
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
+        Labeller labeller = new Labeller("$function-clear");
+        String loopflag = labeller.newLabel("loopflag");
+        String endflag = labeller.newLabel("endflag");
+
+        frag.add(Label, CLEAR_N_BYTES);
         // store return addr
-    		storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION); // [...elemsPtr elemSize]
-    		// store size
-    		storeITo(frag, CLEANING_SIZE_TEMP);
-    		
-    		frag.add(Label, loopflag);
-    		loadIFrom(frag, CLEANING_SIZE_TEMP); // [... elemsPtr elemSize]
-    		frag.add(JumpFalse, endflag); // [... elemsPtr]
-    		frag.add(Duplicate); // [... elemsPtr elemsPtr]
-    		frag.add(PushI, 0);
-    		frag.add(StoreC); // [... elemsPtr]
-    		frag.add(PushI, 1); // [... elemsPtr 1]
-            frag.add(Add); // [... elemsPtr+1]
-    		decrementInteger(frag, CLEANING_SIZE_TEMP); // elemsSize -= 1
-    		frag.add(Jump, loopflag);
-    		
-    		frag.add(Label, endflag);
-    		frag.add(Pop);
-    		loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);
-    		frag.add(Return);
-    		return frag;
+        storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION); // [...elemsPtr elemSize]
+        // store size
+        storeITo(frag, CLEANING_SIZE_TEMP);
+
+        frag.add(Label, loopflag);
+        loadIFrom(frag, CLEANING_SIZE_TEMP); // [... elemsPtr elemSize]
+        frag.add(JumpFalse, endflag); // [... elemsPtr]
+        frag.add(Duplicate); // [... elemsPtr elemsPtr]
+        frag.add(PushI, 0);
+        frag.add(StoreC); // [... elemsPtr]
+        frag.add(PushI, 1); // [... elemsPtr 1]
+        frag.add(Add); // [... elemsPtr+1]
+        decrementInteger(frag, CLEANING_SIZE_TEMP); // elemsSize -= 1
+        frag.add(Jump, loopflag);
+
+        frag.add(Label, endflag);
+        frag.add(Pop);
+        loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);
+        frag.add(Return);
+        return frag;
     }
-    
+
+    // print rational numbers [... num denom (return)] -> print num/denom
+    private ASMCodeFragment printRational() {
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
+        // set label
+        Labeller labeller = new Labeller("$print-rational");
+        String endwith_nofraction = labeller.newLabel("end-with-no-fraction");
+        String endwith_noint = labeller.newLabel("end-with-no-int");
+        String endwith_nointpos = labeller.newLabel("end-with-no-int-pos");
+        String endwith_nointneg = labeller.newLabel("end-with-no-int-neg");
+        String endwith_original = labeller.newLabel("end-with-original");
+        String endjoin = labeller.newLabel("end-join");
+        String positive1 = labeller.newLabel("positive1");
+        String positive2 = labeller.newLabel("positive2");
+
+        frag.add(Label, PRINT_RATIONAL);
+        // store return addr
+        storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);
+
+        // put the negative sign from denominator to numerator
+        frag.add(Duplicate);    //  [... num denom denom]
+        frag.add(JumpPos, positive2);   //  [... num denom]
+        frag.add(Negate);   //  [... num (pos)denom]
+        frag.add(Exchange);     //  [... (pos)denom num]
+        frag.add(Negate);   //  [... (pos)denom -num]
+        frag.add(Exchange);   //  [... -num (pos)denom]
+        frag.add(Label, positive2);
+        storeITo(frag, RunTime.FIRST_DENOMINATOR);
+        storeITo(frag, RunTime.FIRST_NUMERATOR);
+        loadIFrom(frag, RunTime.FIRST_NUMERATOR);
+        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);
+        frag.add(Divide);   //  [... int]
+        frag.add(Duplicate);    //  [... int int]
+        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
+        frag.add(Multiply); //  [... int int*denom]
+        loadIFrom(frag, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
+        frag.add(Exchange); //  [... int num int*denom]
+        frag.add(Subtract); //  [... int fact.num]
+        frag.add(Duplicate);    //  [... int fact.num fact.num]
+        frag.add(JumpFalse, endwith_nofraction);    //  [... int fact.num] if (fact.num==0) jump
+
+        // has faction
+        storeITo(frag, RunTime.FIRST_NUMERATOR); //  [... int]
+        frag.add(Duplicate);    //  [... int int]
+        storeITo(frag, RunTime.PRINT_TEMP);  //  [... int]
+        frag.add(JumpFalse, endwith_noint); //  [...]
+
+        // has int
+        loadIFrom(frag, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
+        frag.add(Duplicate);    //  [... fact.num fact.num]
+        frag.add(JumpPos, positive1);   //  [... fact.num]
+        frag.add(Negate);   //  [... (pos)fact.num]
+        frag.add(Label, positive1);    //  [... (pos)fact.num]
+        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
+        frag.add(Exchange); //  [... (pos)denom (pos)fact.num]
+        loadIFrom(frag, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
+        frag.add(Jump, endwith_original);
+
+        // determine format
+        frag.add(Label, endwith_nofraction);   //  [... int fact.num]
+        frag.add(Pop);  //  [... int]
+        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_FRACTION);    //  [... int %d]
+        frag.add(Jump, endjoin);
+
+        frag.add(Label, endwith_noint);    //  [...] denom must be positive
+        loadIFrom(frag, RunTime.FIRST_NUMERATOR);
+        frag.add(Duplicate);    //  [... num num]
+        frag.add(JumpPos, endwith_nointpos);    //  [... num]
+        frag.add(Negate);   //  [... -num]
+        frag.add(Jump, endwith_nointneg);
+        frag.add(Label, endwith_nointpos);
+        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        frag.add(Exchange);  //  [... denom num]
+        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_POS);
+        frag.add(Jump, endjoin);
+        frag.add(Label, endwith_nointneg);
+        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        frag.add(Exchange); //  [... denom num]
+        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_NEG);
+        frag.add(Jump, endjoin);
+
+        frag.add(Label, endwith_original);  //  [... (pos)denom (pos)fact.num int]
+        frag.add(PushD, RunTime.RATIONAL_PRINT_ORIGINAL);
+        frag.add(Jump, endjoin);
+
+        // join
+        frag.add(Label, endjoin);
+        frag.add(Printf);
+
+        loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);
+        frag.add(Return);
+        return frag;
+    }
+
 	 // leaves new record in RECORD_CREATION_TEMPORARY
 	 // [... size] -> [...]
 	 public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {

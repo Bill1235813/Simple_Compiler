@@ -3,6 +3,7 @@ package asmCodeGenerator.simpleCodeGenerator;
 import static asmCodeGenerator.Macros.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
+import asmCodeGenerator.ASMCodeGenerator;
 import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
@@ -61,7 +62,7 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 		} else {
 			loadIFrom(fragment, RunTime.INSERT_LOCATION_TEMP);
 			fragment.add(Exchange);
-			fragment.add(opcodeForStore(subType));
+			fragment.add(ASMCodeGenerator.opcodeForStore(subType));
 		}
 		
 		decrementInteger(fragment, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
@@ -73,22 +74,5 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 		loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
 		return fragment;
 	}
-	
-    private ASMOpcode opcodeForStore(Type type) {
-        if (type == PrimitiveType.INTEGER ||
-                type == PrimitiveType.STRING || 
-                type instanceof Array) {
-            return StoreI;
-        }
-        if (type == PrimitiveType.FLOATING) {
-            return StoreF;
-        }
-        if (type == PrimitiveType.BOOLEAN ||
-                type == PrimitiveType.CHARACTER) {
-            return StoreC;
-        }
-        assert false : "Type " + type + " unimplemented in opcodeForStore()";
-        return null;
-    }
 
 }

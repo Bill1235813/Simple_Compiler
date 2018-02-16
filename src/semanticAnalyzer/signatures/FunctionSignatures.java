@@ -207,9 +207,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // array-indexing []
         new FunctionSignatures(
         			Punctuator.ARRAY_INDEXING,
-        			new FunctionSignature(
-        					//new ArrayIndexingCodeGenerator()
-        					1, setS, arrayOfS, INTEGER, S)
+        			new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, arrayOfS, INTEGER, S)
         	);
         
         // clone

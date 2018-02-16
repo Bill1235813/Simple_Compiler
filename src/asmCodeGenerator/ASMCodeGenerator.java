@@ -78,6 +78,45 @@ public class ASMCodeGenerator {
         return visitor.removeRootCode(root);
     }
 
+    ////////////////////////////////////////////////////////////
+    // Some static functions for other code generator
+    public static ASMOpcode opcodeForStore(Type type) {
+        if (type == PrimitiveType.INTEGER ||
+                type == PrimitiveType.STRING ||
+                type instanceof Array) {
+            return StoreI;
+        }
+        if (type == PrimitiveType.FLOATING) {
+            return StoreF;
+        }
+        if (type == PrimitiveType.BOOLEAN ||
+                type == PrimitiveType.CHARACTER) {
+            return StoreC;
+        }
+        assert false : "Type " + type + " unimplemented in opcodeForStore()";
+        return null;
+    }
+
+    public static void turnAddressIntoValue(ASMCodeFragment code, Type type) {
+        if (type == PrimitiveType.INTEGER ||
+                type == PrimitiveType.STRING ||
+                type instanceof Array) {
+            code.add(LoadI);
+        } else if (type == PrimitiveType.FLOATING) {
+            code.add(LoadF);
+        } else if (type == PrimitiveType.BOOLEAN ||
+                type == PrimitiveType.CHARACTER) {
+            code.add(LoadC);
+        } else if (type == PrimitiveType.RATIONAL) {
+            code.add(Duplicate);
+            code.add(LoadI);
+            code.add(Exchange);
+            Macros.readIOffset(code, 4);
+        } else {
+            assert false : "node type" + type;
+        }
+        code.markAsValue();
+    }
 
     protected class CodeVisitor extends ParseNodeVisitor.Default {
         private Map<ParseNode, ASMCodeFragment> codeMap;
@@ -141,29 +180,8 @@ public class ASMCodeGenerator {
             assert !code.isVoid();
 
             if (code.isAddress()) {
-                turnAddressIntoValue(code, node);
+                turnAddressIntoValue(code, node.getType());
             }
-        }
-
-        private void turnAddressIntoValue(ASMCodeFragment code, ParseNode node) {
-            if (node.getType() == PrimitiveType.INTEGER ||
-                    node.getType() == PrimitiveType.STRING ||
-                    node.getType() instanceof Array) {
-                code.add(LoadI);
-            } else if (node.getType() == PrimitiveType.FLOATING) {
-                code.add(LoadF);
-            } else if (node.getType() == PrimitiveType.BOOLEAN ||
-                    node.getType() == PrimitiveType.CHARACTER) {
-                code.add(LoadC);
-            } else if (node.getType() == PrimitiveType.RATIONAL) {
-                code.add(Duplicate);
-                code.add(LoadI);
-                code.add(Exchange);
-                Macros.readIOffset(code, 4);
-            } else {
-                assert false : "node " + node;
-            }
-            code.markAsValue();
         }
 
         ////////////////////////////////////////////////////////////////////
@@ -251,23 +269,6 @@ public class ASMCodeGenerator {
                 appendUndeterminedChildren(args);
                 code.add(opcodeForStore(type));
             }
-        }
-
-        private ASMOpcode opcodeForStore(Type type) {
-            if (type == PrimitiveType.INTEGER ||
-                    type == PrimitiveType.STRING || 
-                    type instanceof Array) {
-                return StoreI;
-            }
-            if (type == PrimitiveType.FLOATING) {
-                return StoreF;
-            }
-            if (type == PrimitiveType.BOOLEAN ||
-                    type == PrimitiveType.CHARACTER) {
-                return StoreC;
-            }
-            assert false : "Type " + type + " unimplemented in opcodeForStore()";
-            return null;
         }
 
         public void visitLeave(IfStatementNode node) {
@@ -406,15 +407,13 @@ public class ASMCodeGenerator {
 	    		newValueCode(node);
 	    		Type finaltype = ((Array) node.getType()).getSubtype();
 	    		ASMCodeFragment[] args = getUndeterminedChildren(node);
-	    		for (int i = 0; i < node.nChildren(); ++i) {
+	    		for (int i = node.nChildren() - 1; i >= 0; --i) {
 	    			Object varient = Promotion.getMethod(node.child(i).getType(), finaltype);
-	    			if (varient == null) {
-	    				continue;
-	    			} else {
+	    			if (varient != null) {
 	    				applyPromotionMethods(varient, node, args[i]);
 	    			}
+                    code.append(args[i]);
 	    		}
-	    		appendUndeterminedChildren(args);
 	    }
         
         ///////////////////////////////////////////////////////////////////////////
@@ -427,28 +426,6 @@ public class ASMCodeGenerator {
 
         public void visitLeave(TypeNode node) {
         }
-
-//        public void visitLeave(CastingNode node) {
-//            newValueCode(node);
-//            ASMCodeFragment child = removeValueCode(node.child(0));
-//            code.append(child);
-//
-//            Object variant = node.getSignature().getVariant();
-//            if (variant instanceof ASMOpcode) {
-//                ASMOpcode opcode = (ASMOpcode) variant;
-//                code.add(opcode);
-//            } else if (variant instanceof SimpleCodeGenerator) {
-//                SimpleCodeGenerator generator = (SimpleCodeGenerator)variant;
-//                ASMCodeFragment fragment = generator.generate(node);
-//                code.append(fragment);
-//
-//                if (fragment.isAddress()) {
-//                    code.markAsAddress();
-//                }
-//            } else {
-//                assert false : "unimplemented type in Casting";
-//            }
-//        }
 
         ///////////////////////////////////////////////////////////////////////////
         // leaf nodes (TypeNode and ErrorNode not necessary)

@@ -5,6 +5,7 @@ import parseTree.nodeTypes.NewlineNode;
 import parseTree.nodeTypes.PrintStatementNode;
 import parseTree.nodeTypes.SpaceNode;
 import parseTree.nodeTypes.TabNode;
+import semanticAnalyzer.types.Array;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import asmCodeGenerator.ASMCodeGenerator.CodeVisitor;
@@ -37,105 +38,79 @@ public class PrintStatementGenerator {
                 appendPrintCode(child);
             }
         }
+        code.markAsVoid();
     }
 
     private void appendPrintCode(ParseNode node) {
-        String format = printFormat(node.getType());
-
         code.append(visitor.removeValueCode(node));
-        convertToStringIfBoolean(node);
-        if (node.getType() != PrimitiveType.RATIONAL) {
+        appendPrintCode(node.getType());
+    }
+
+    private void appendPrintCode(Type type) {
+        convertToStringIfBoolean(type);
+        if (type == PrimitiveType.RATIONAL) {
+            code.add(Call, RunTime.PRINT_RATIONAL);
+        } else if (type instanceof Array) {
+            recursiveAppendPrintCode((Array)type);
+        } else {
+            String format = printFormat(type);
             code.add(PushD, format);
             code.add(Printf);
-        } else {
-            convertIfRational(node);
         }
     }
 
-    private void convertIfRational(ParseNode node) {
-        Labeller labeller = new Labeller("print-rational");
-        String endwith_nofraction = labeller.newLabel("end-with-no-fraction");
-        String endwith_noint = labeller.newLabel("end-with-no-int");
-        String endwith_nointpos = labeller.newLabel("end-with-no-int-pos");
-        String endwith_nointneg = labeller.newLabel("end-with-no-int-neg");
-        String endwith_original = labeller.newLabel("end-with-original");
-        String endjoin = labeller.newLabel("end-join");
-        String positive1 = labeller.newLabel("positive1");
-        String positive2 = labeller.newLabel("positive2");
+    // [... array_addr]
+    private void recursiveAppendPrintCode(Array type) {
+        Type subtype = type.getSubtype();
 
-        // put the negative sign from denominator to numerator
-        code.add(Duplicate);    //  [... num denom denom]
-        code.add(JumpPos, positive2);   //  [... num denom]
-        code.add(Negate);   //  [... num (pos)denom]
-        code.add(Exchange);     //  [... (pos)denom num]
-        code.add(Negate);   //  [... (pos)denom -num]
-        code.add(Exchange);   //  [... -num (pos)denom]
-        code.add(Label, positive2);
-        storeITo(code, RunTime.FIRST_DENOMINATOR);
-        storeITo(code, RunTime.FIRST_NUMERATOR);
-        loadIFrom(code, RunTime.FIRST_NUMERATOR);
-        loadIFrom(code, RunTime.FIRST_DENOMINATOR);
-        code.add(Divide);   //  [... int]
-        code.add(Duplicate);    //  [... int int]
-        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
-        code.add(Multiply); //  [... int int*denom]
-        loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
-        code.add(Exchange); //  [... int num int*denom]
-        code.add(Subtract); //  [... int fact.num]
-        code.add(Duplicate);    //  [... int fact.num fact.num]
-        code.add(JumpFalse, endwith_nofraction);    //  [... int fact.num] if (fact.num==0) jump
+        Labeller labeller = new Labeller("recursive-print-array");
+        String startflag = labeller.newLabel("startflag");
+        String loopflag = labeller.newLabel("loopflag");
+        String endflag = labeller.newLabel("endflag");
 
-        // has faction
-        storeITo(code, RunTime.FIRST_NUMERATOR); //  [... int]
-        code.add(Duplicate);    //  [... int int]
-        storeITo(code, RunTime.PRINT_TEMP);  //  [... int]
-        code.add(JumpFalse, endwith_noint); //  [...]
+        code.add(PushD, RunTime.ARRAY_PRINT_START);
+        code.add(Printf);
 
-        // has int
-        loadIFrom(code, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
-        code.add(Duplicate);    //  [... fact.num fact.num]
-        code.add(JumpPos, positive1);   //  [... fact.num]
-        code.add(Negate);   //  [... (pos)fact.num]
-        code.add(Label, positive1);    //  [... (pos)fact.num]
-        loadIFrom(code, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
-        code.add(Exchange); //  [... (pos)denom (pos)fact.num]
-        loadIFrom(code, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
-        code.add(Jump, endwith_original);
+        code.add(Duplicate); // [... array_addr array_addr]
+        RunTime.getLength(code); // [... array_addr length]
+        code.add(Exchange); // [... length array_addr]
+        code.add(PushI, Record.ARRAY_HEADER_SIZE);
+        code.add(Add); // [... length start_addr]
+        code.add(Exchange); // [... addr length]
 
-        // determine format
-        code.add(Label, endwith_nofraction);   //  [... int fact.num]
-        code.add(Pop);  //  [... int]
-        code.add(PushD, RunTime.RATIONAL_PRINT_NO_FRACTION);    //  [... int %d]
-        code.add(Jump, endjoin);
+        // begin check
+        code.add(Label,startflag);
+        code.add(Duplicate); // [... addr length length]
+        code.add(JumpFalse, endflag); // [... addr length]
 
-        code.add(Label, endwith_noint);    //  [...] denom must be positive
-        loadIFrom(code, RunTime.FIRST_NUMERATOR);
-        code.add(Duplicate);    //  [... num num]
-        code.add(JumpPos, endwith_nointpos);    //  [... num]
-        code.add(Negate);   //  [... -num]
-        code.add(Jump, endwith_nointneg);
-        code.add(Label, endwith_nointpos);
-        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
-        code.add(Exchange);  //  [... denom num]
-        code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_POS);
-        code.add(Jump, endjoin);
-        code.add(Label, endwith_nointneg);
-        loadIFrom(code, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
-        code.add(Exchange); //  [... denom num]
-        code.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_NEG);
-        code.add(Jump, endjoin);
+        // start to loop
+        code.add(Label, loopflag);
+        code.add(Exchange); // [... length addr]
+        code.add(Duplicate); // [... length addr addr]
+        ASMCodeGenerator.turnAddressIntoValue(code, subtype); // [... length addr value]
+        appendPrintCode(subtype); // [... length addr]
+        code.add(PushI, subtype.getSize());
+        code.add(Add); // [... length next_addr]
+        code.add(Exchange); // [... next_addr length]
+        code.add(PushI, -1);
+        code.add(Add); // [... next_addr new_length]
+        code.add(Duplicate);
+        code.add(JumpFalse, endflag); // [... next_addr new_length]
+        code.add(PushD, RunTime.ARRAY_PRINT_MIDDLE);
+        code.add(Printf);
+        code.add(Jump, loopflag);
 
-        code.add(Label, endwith_original);  //  [... (pos)denom (pos)fact.num int]
-        code.add(PushD, RunTime.RATIONAL_PRINT_ORIGINAL);
-        code.add(Jump, endjoin);
+        // end of loop
+        code.add(Label, endflag);
+        code.add(Pop);
+        code.add(Pop); // [...]
 
-        // join
-        code.add(Label, endjoin);
+        code.add(PushD, RunTime.ARRAY_PRINT_END);
         code.add(Printf);
     }
 
-    private void convertToStringIfBoolean(ParseNode node) {
-        if (node.getType() != PrimitiveType.BOOLEAN) {
+    private void convertToStringIfBoolean(Type type) {
+        if (type != PrimitiveType.BOOLEAN) {
             return;
         }
 

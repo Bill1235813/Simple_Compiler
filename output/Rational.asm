@@ -181,6 +181,30 @@
         Label        $$r-divide-by-zero        
         PushD        $errors-rat-divide-by-zero 
         Jump         $$general-runtime-error   
+        DLabel       $errors-negative-array-size 
+        DataC        110                       %% "negative array size"
+        DataC        101                       
+        DataC        103                       
+        DataC        97                        
+        DataC        116                       
+        DataC        105                       
+        DataC        118                       
+        DataC        101                       
+        DataC        32                        
+        DataC        97                        
+        DataC        114                       
+        DataC        114                       
+        DataC        97                        
+        DataC        121                       
+        DataC        32                        
+        DataC        115                       
+        DataC        105                       
+        DataC        122                       
+        DataC        101                       
+        DataC        0                         
+        Label        $$array-size-is-negative  
+        PushD        $errors-negative-array-size 
+        Jump         $$general-runtime-error   
         DLabel       $a-indexing-array         
         DataZ        4                         
         DLabel       $a-indexing-index         
@@ -203,6 +227,22 @@
         DataZ        4                         
         DLabel       $express-over-denominator 
         DataZ        4                         
+        DLabel       $record-creation-temporary 
+        DataZ        4                         
+        DLabel       $array-datasize-temporary 
+        DataZ        4                         
+        DLabel       $clear-size-temp          
+        DataZ        4                         
+        DLabel       $insert-size-temp         
+        DataZ        4                         
+        DLabel       insert-location-temp      
+        DataZ        4                         
+        DLabel       clone-new-location-temp   
+        DataZ        4                         
+        DLabel       clone-location-temp       
+        DataZ        4                         
+        DLabel       clone-size-temp           
+        DataZ        4                         
         Label        $$convert-to-lowest-terms 
         PushD        $return-for-runtime-func  
         Exchange                               
@@ -223,14 +263,14 @@
         PushD        $gcd-temp-numerator       
         Exchange                               
         StoreI                                 
-        Label        -$function-1-loop-continue 
+        Label        -$function-lowest-1-loop-continue 
         PushD        $gcd-temp-numerator       
         LoadI                                  
         PushD        $gcd-temp-denominator     
         LoadI                                  
         Remainder                              
         Duplicate                              
-        JumpFalse    -$function-1-loop-end     
+        JumpFalse    -$function-lowest-1-loop-end 
         PushD        $gcd-temp-denominator     
         LoadI                                  
         PushD        $gcd-temp-numerator       
@@ -239,8 +279,8 @@
         PushD        $gcd-temp-denominator     
         Exchange                               
         StoreI                                 
-        Jump         -$function-1-loop-continue 
-        Label        -$function-1-loop-end     
+        Jump         -$function-lowest-1-loop-continue 
+        Label        -$function-lowest-1-loop-end 
         Pop                                    
         PushD        $first-numerator          
         LoadI                                  
@@ -255,10 +295,145 @@
         PushD        $return-for-runtime-func  
         LoadI                                  
         Return                                 
+        Label        $$clear-n-bytes           
+        PushD        $return-for-runtime-func  
+        Exchange                               
+        StoreI                                 
+        PushD        $clear-size-temp          
+        Exchange                               
+        StoreI                                 
+        Label        -$function-clear-2-loopflag 
+        PushD        $clear-size-temp          
+        LoadI                                  
+        JumpFalse    -$function-clear-2-endflag 
+        Duplicate                              
+        PushI        0                         
+        StoreC                                 
+        PushI        1                         
+        Add                                    
+        PushI        -1                        
+        PushD        $clear-size-temp          
+        LoadI                                  
+        Add                                    
+        PushD        $clear-size-temp          
+        Exchange                               
+        StoreI                                 
+        Jump         -$function-clear-2-loopflag 
+        Label        -$function-clear-2-endflag 
+        Pop                                    
+        PushD        $return-for-runtime-func  
+        LoadI                                  
+        Return                                 
+        Label        $$print-rational          
+        PushD        $return-for-runtime-func  
+        Exchange                               
+        StoreI                                 
+        Duplicate                              
+        JumpPos      -$print-rational-3-positive2 
+        Negate                                 
+        Exchange                               
+        Negate                                 
+        Exchange                               
+        Label        -$print-rational-3-positive2 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $first-denominator        
+        LoadI                                  
+        Divide                                 
+        Duplicate                              
+        PushD        $first-denominator        
+        LoadI                                  
+        Multiply                               
+        PushD        $first-numerator          
+        LoadI                                  
+        Exchange                               
+        Subtract                               
+        Duplicate                              
+        JumpFalse    -$print-rational-3-end-with-no-fraction 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        Duplicate                              
+        PushD        $print-temp               
+        Exchange                               
+        StoreI                                 
+        JumpFalse    -$print-rational-3-end-with-no-int 
+        PushD        $first-numerator          
+        LoadI                                  
+        Duplicate                              
+        JumpPos      -$print-rational-3-positive1 
+        Negate                                 
+        Label        -$print-rational-3-positive1 
+        PushD        $first-denominator        
+        LoadI                                  
+        Exchange                               
+        PushD        $print-temp               
+        LoadI                                  
+        Jump         -$print-rational-3-end-with-original 
+        Label        -$print-rational-3-end-with-no-fraction 
+        Pop                                    
+        PushD        $print-format-rational-no-frac 
+        Jump         -$print-rational-3-end-join 
+        Label        -$print-rational-3-end-with-no-int 
+        PushD        $first-numerator          
+        LoadI                                  
+        Duplicate                              
+        JumpPos      -$print-rational-3-end-with-no-int-pos 
+        Negate                                 
+        Jump         -$print-rational-3-end-with-no-int-neg 
+        Label        -$print-rational-3-end-with-no-int-pos 
+        PushD        $first-denominator        
+        LoadI                                  
+        Exchange                               
+        PushD        $print-format-rational-no-int-pos 
+        Jump         -$print-rational-3-end-join 
+        Label        -$print-rational-3-end-with-no-int-neg 
+        PushD        $first-denominator        
+        LoadI                                  
+        Exchange                               
+        PushD        $print-format-rantional-no-int-neg 
+        Jump         -$print-rational-3-end-join 
+        Label        -$print-rational-3-end-with-original 
+        PushD        $print-format-rational-original 
+        Jump         -$print-rational-3-end-join 
+        Label        -$print-rational-3-end-join 
+        Printf                                 
+        PushD        $return-for-runtime-func  
+        LoadI                                  
+        Return                                 
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
         DataZ        160                       
         Label        $$main                    
+        Label        -mem-manager-initialize   
+        DLabel       $heap-start-ptr           
+        DataZ        4                         
+        DLabel       $heap-after-ptr           
+        DataZ        4                         
+        DLabel       $heap-first-free          
+        DataZ        4                         
+        DLabel       $mmgr-newblock-block      
+        DataZ        4                         
+        DLabel       $mmgr-newblock-size       
+        DataZ        4                         
+        PushD        $heap-memory              
+        Duplicate                              
+        PushD        $heap-start-ptr           
+        Exchange                               
+        StoreI                                 
+        PushD        $heap-after-ptr           
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        PushD        $heap-first-free          
+        Exchange                               
+        StoreI                                 
         PushD        $global-memory-block      
         PushI        0                         
         Add                                    %% r
@@ -847,1733 +1022,383 @@
         PushD        $express-over-denominator 
         LoadI                                  
         Call         $$convert-to-lowest-terms 
-        Nop
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        StoreI
-        PushI        4
-        Add
-        PushD        $first-denominator
-        LoadI
-        StoreI
-        PushD        $global-memory-block
-        PushI        144
+        Nop                                    
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        StoreI                                 
+        PushI        4                         
+        Add                                    
+        PushD        $first-denominator        
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
+        PushI        144                       
         Add                                    %% r18
-        Duplicate
-        PushF        0.400000
-        PushI        3
-        Duplicate
-        JumpFalse    $$f-divide-by-zero
-        Duplicate
-        PushD        $express-over-denominator
-        Exchange
-        StoreI
-        ConvertF
-        FMultiply
-        ConvertI
-        PushD        $express-over-denominator
-        LoadI
-        Call         $$convert-to-lowest-terms
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        StoreI
-        PushI        4
-        Add
-        PushD        $first-denominator
-        LoadI
-        StoreI
-        PushD        $global-memory-block
-        PushI        0
-        Add                                    %% r
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-2-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-2-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-2-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-2-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-2-positive1
-        Negate
-        Label        -print-rational-2-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-2-end-with-original
-        Label        -print-rational-2-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-2-end-join
-        Label        -print-rational-2-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-2-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-2-end-with-no-int-neg
-        Label        -print-rational-2-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-2-end-join
-        Label        -print-rational-2-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-2-end-join
-        Label        -print-rational-2-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-2-end-join
-        Label        -print-rational-2-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        8
-        Add                                    %% r2
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-3-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-3-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-3-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-3-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-3-positive1
-        Negate
-        Label        -print-rational-3-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-3-end-with-original
-        Label        -print-rational-3-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-3-end-join
-        Label        -print-rational-3-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-3-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-3-end-with-no-int-neg
-        Label        -print-rational-3-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-3-end-join
-        Label        -print-rational-3-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-3-end-join
-        Label        -print-rational-3-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-3-end-join
-        Label        -print-rational-3-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        16
-        Add                                    %% r3
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-4-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-4-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-4-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-4-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-4-positive1
-        Negate
-        Label        -print-rational-4-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-4-end-with-original
-        Label        -print-rational-4-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-4-end-join
-        Label        -print-rational-4-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-4-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-4-end-with-no-int-neg
-        Label        -print-rational-4-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-4-end-join
-        Label        -print-rational-4-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-4-end-join
-        Label        -print-rational-4-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-4-end-join
-        Label        -print-rational-4-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        24
-        Add                                    %% r4
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-5-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-5-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-5-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-5-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-5-positive1
-        Negate
-        Label        -print-rational-5-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-5-end-with-original
-        Label        -print-rational-5-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-5-end-join
-        Label        -print-rational-5-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-5-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-5-end-with-no-int-neg
-        Label        -print-rational-5-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-5-end-join
-        Label        -print-rational-5-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-5-end-join
-        Label        -print-rational-5-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-5-end-join
-        Label        -print-rational-5-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        32
-        Add                                    %% r5
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-6-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-6-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-6-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-6-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-6-positive1
-        Negate
-        Label        -print-rational-6-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-6-end-with-original
-        Label        -print-rational-6-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-6-end-join
-        Label        -print-rational-6-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-6-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-6-end-with-no-int-neg
-        Label        -print-rational-6-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-6-end-join
-        Label        -print-rational-6-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-6-end-join
-        Label        -print-rational-6-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-6-end-join
-        Label        -print-rational-6-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        40
-        Add                                    %% r6
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-7-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-7-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-7-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-7-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-7-positive1
-        Negate
-        Label        -print-rational-7-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-7-end-with-original
-        Label        -print-rational-7-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-7-end-join
-        Label        -print-rational-7-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-7-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-7-end-with-no-int-neg
-        Label        -print-rational-7-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-7-end-join
-        Label        -print-rational-7-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-7-end-join
-        Label        -print-rational-7-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-7-end-join
-        Label        -print-rational-7-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        48
-        Add                                    %% r7
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-8-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-8-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-8-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-8-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-8-positive1
-        Negate
-        Label        -print-rational-8-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-8-end-with-original
-        Label        -print-rational-8-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-8-end-join
-        Label        -print-rational-8-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-8-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-8-end-with-no-int-neg
-        Label        -print-rational-8-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-8-end-join
-        Label        -print-rational-8-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-8-end-join
-        Label        -print-rational-8-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-8-end-join
-        Label        -print-rational-8-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        56
-        Add                                    %% r8
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-9-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-9-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-9-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-9-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-9-positive1
-        Negate
-        Label        -print-rational-9-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-9-end-with-original
-        Label        -print-rational-9-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-9-end-join
-        Label        -print-rational-9-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-9-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-9-end-with-no-int-neg
-        Label        -print-rational-9-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-9-end-join
-        Label        -print-rational-9-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-9-end-join
-        Label        -print-rational-9-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-9-end-join
-        Label        -print-rational-9-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        64
-        Add                                    %% r9
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-10-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-10-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-10-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-10-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-10-positive1
-        Negate
-        Label        -print-rational-10-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-10-end-with-original
-        Label        -print-rational-10-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-10-end-join
-        Label        -print-rational-10-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-10-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-10-end-with-no-int-neg
-        Label        -print-rational-10-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-10-end-join
-        Label        -print-rational-10-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-10-end-join
-        Label        -print-rational-10-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-10-end-join
-        Label        -print-rational-10-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        72
-        Add                                    %% r10
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-11-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-11-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-11-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-11-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-11-positive1
-        Negate
-        Label        -print-rational-11-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-11-end-with-original
-        Label        -print-rational-11-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-11-end-join
-        Label        -print-rational-11-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-11-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-11-end-with-no-int-neg
-        Label        -print-rational-11-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-11-end-join
-        Label        -print-rational-11-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-11-end-join
-        Label        -print-rational-11-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-11-end-join
-        Label        -print-rational-11-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        80
-        Add                                    %% r11
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-12-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-12-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-12-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-12-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-12-positive1
-        Negate
-        Label        -print-rational-12-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-12-end-with-original
-        Label        -print-rational-12-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-12-end-join
-        Label        -print-rational-12-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-12-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-12-end-with-no-int-neg
-        Label        -print-rational-12-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-12-end-join
-        Label        -print-rational-12-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-12-end-join
-        Label        -print-rational-12-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-12-end-join
-        Label        -print-rational-12-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        88
-        Add                                    %% r12
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-13-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-13-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-13-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-13-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-13-positive1
-        Negate
-        Label        -print-rational-13-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-13-end-with-original
-        Label        -print-rational-13-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-13-end-join
-        Label        -print-rational-13-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-13-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-13-end-with-no-int-neg
-        Label        -print-rational-13-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-13-end-join
-        Label        -print-rational-13-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-13-end-join
-        Label        -print-rational-13-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-13-end-join
-        Label        -print-rational-13-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        96
-        Add                                    %% r13
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-14-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-14-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-14-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-14-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-14-positive1
-        Negate
-        Label        -print-rational-14-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-14-end-with-original
-        Label        -print-rational-14-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-14-end-join
-        Label        -print-rational-14-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-14-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-14-end-with-no-int-neg
-        Label        -print-rational-14-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-14-end-join
-        Label        -print-rational-14-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-14-end-join
-        Label        -print-rational-14-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-14-end-join
-        Label        -print-rational-14-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        104
-        Add                                    %% r14
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-15-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-15-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-15-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-15-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-15-positive1
-        Negate
-        Label        -print-rational-15-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-15-end-with-original
-        Label        -print-rational-15-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-15-end-join
-        Label        -print-rational-15-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-15-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-15-end-with-no-int-neg
-        Label        -print-rational-15-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-15-end-join
-        Label        -print-rational-15-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-15-end-join
-        Label        -print-rational-15-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-15-end-join
-        Label        -print-rational-15-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        120
-        Add                                    %% r15
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-16-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-16-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-16-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-16-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-16-positive1
-        Negate
-        Label        -print-rational-16-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-16-end-with-original
-        Label        -print-rational-16-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-16-end-join
-        Label        -print-rational-16-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-16-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-16-end-with-no-int-neg
-        Label        -print-rational-16-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-16-end-join
-        Label        -print-rational-16-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-16-end-join
-        Label        -print-rational-16-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-16-end-join
-        Label        -print-rational-16-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        128
-        Add                                    %% r16
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-17-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-17-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-17-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-17-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-17-positive1
-        Negate
-        Label        -print-rational-17-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-17-end-with-original
-        Label        -print-rational-17-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-17-end-join
-        Label        -print-rational-17-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-17-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-17-end-with-no-int-neg
-        Label        -print-rational-17-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-17-end-join
-        Label        -print-rational-17-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-17-end-join
-        Label        -print-rational-17-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-17-end-join
-        Label        -print-rational-17-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        136
-        Add                                    %% r17
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-18-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-18-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-18-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-18-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-18-positive1
-        Negate
-        Label        -print-rational-18-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-18-end-with-original
-        Label        -print-rational-18-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-18-end-join
-        Label        -print-rational-18-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-18-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-18-end-with-no-int-neg
-        Label        -print-rational-18-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-18-end-join
-        Label        -print-rational-18-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-18-end-join
-        Label        -print-rational-18-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-18-end-join
-        Label        -print-rational-18-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        144
-        Add                                    %% r18
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-19-positive2
-        Negate
-        Exchange
-        Negate
-        Exchange
-        Label        -print-rational-19-positive2
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $first-denominator
-        LoadI
-        Divide
-        Duplicate
-        PushD        $first-denominator
-        LoadI
-        Multiply
-        PushD        $first-numerator
-        LoadI
-        Exchange
-        Subtract
-        Duplicate
-        JumpFalse    -print-rational-19-end-with-no-fraction
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        Duplicate
-        PushD        $print-temp
-        Exchange
-        StoreI
-        JumpFalse    -print-rational-19-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-19-positive1
-        Negate
-        Label        -print-rational-19-positive1
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-temp
-        LoadI
-        Jump         -print-rational-19-end-with-original
-        Label        -print-rational-19-end-with-no-fraction
-        Pop
-        PushD        $print-format-rational-no-frac
-        Jump         -print-rational-19-end-join
-        Label        -print-rational-19-end-with-no-int
-        PushD        $first-numerator
-        LoadI
-        Duplicate
-        JumpPos      -print-rational-19-end-with-no-int-pos
-        Negate
-        Jump         -print-rational-19-end-with-no-int-neg
-        Label        -print-rational-19-end-with-no-int-pos
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rational-no-int-pos
-        Jump         -print-rational-19-end-join
-        Label        -print-rational-19-end-with-no-int-neg
-        PushD        $first-denominator
-        LoadI
-        Exchange
-        PushD        $print-format-rantional-no-int-neg
-        Jump         -print-rational-19-end-join
-        Label        -print-rational-19-end-with-original
-        PushD        $print-format-rational-original
-        Jump         -print-rational-19-end-join
-        Label        -print-rational-19-end-join
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $print-format-newline
-        Printf
-        PushD        $global-memory-block
-        PushI        112
-        Add                                    %% i1
-        LoadI
-        PushD        $print-format-integer
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        116
-        Add                                    %% i2
-        LoadI
-        PushD        $print-format-integer
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $print-format-newline
-        Printf
-        PushD        $global-memory-block
-        PushI        48
-        Add                                    %% r7
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        PushD        $global-memory-block
-        PushI        56
-        Add                                    %% r8
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        PushD        $second-denominator
-        Exchange
-        StoreI
-        PushD        $second-numerator
-        Exchange
-        StoreI
-        PushD        $first-denominator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        Exchange
-        StoreI
-        PushD        $first-numerator
-        LoadI
-        PushD        $second-denominator
-        LoadI
-        Multiply
-        PushD        $first-denominator
-        LoadI
-        PushD        $second-numerator
-        LoadI
-        Multiply
-        Add
-        PushD        $first-denominator
-        LoadI
-        PushD        $second-denominator
-        LoadI
-        Multiply
-        Call         $$convert-to-lowest-terms
-        Divide
-        Nop
-        PushI        0
-        Label        -compare-20-sub
-        Subtract
-        JumpFalse    -compare-20-true
-        Jump         -compare-20-false
-        Label        -compare-20-true
-        PushI        1
-        Jump         -compare-20-join
-        Label        -compare-20-false
-        PushI        0
-        Jump         -compare-20-join
-        Label        -compare-20-join
-        JumpTrue     -print-boolean-22-true
-        PushD        $boolean-false-string
-        Jump         -print-boolean-22-join
-        Label        -print-boolean-22-true
-        PushD        $boolean-true-string
-        Label        -print-boolean-22-join
-        PushD        $print-format-boolean
-        Printf
-        PushD        $print-format-space
-        Printf
-        PushD        $global-memory-block
-        PushI        80
-        Add                                    %% r11
-        Duplicate
-        LoadI
-        Exchange
-        PushI        4
-        Add
-        LoadI
-        ConvertF
-        Exchange
-        ConvertF
-        Exchange
-        FDivide
-        Nop
-        PushF        -1.750000                 
-        Label        -compare-21-sub           
-        FSubtract                              
-        JumpFZero    -compare-21-true          
-        Jump         -compare-21-false         
-        Label        -compare-21-true          
-        PushI        1                         
-        Jump         -compare-21-join          
-        Label        -compare-21-false         
+        Duplicate                              
+        PushF        0.400000                  
+        PushI        3                         
+        Duplicate                              
+        JumpFalse    $$f-divide-by-zero        
+        Duplicate                              
+        PushD        $express-over-denominator 
+        Exchange                               
+        StoreI                                 
+        ConvertF                               
+        FMultiply                              
+        ConvertI                               
+        PushD        $express-over-denominator 
+        LoadI                                  
+        Call         $$convert-to-lowest-terms 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        StoreI                                 
+        PushI        4                         
+        Add                                    
+        PushD        $first-denominator        
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
         PushI        0                         
-        Jump         -compare-21-join          
-        Label        -compare-21-join          
-        JumpTrue     -print-boolean-23-true    
+        Add                                    %% r
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        8                         
+        Add                                    %% r2
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        16                        
+        Add                                    %% r3
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        24                        
+        Add                                    %% r4
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        32                        
+        Add                                    %% r5
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        40                        
+        Add                                    %% r6
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        48                        
+        Add                                    %% r7
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        56                        
+        Add                                    %% r8
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        64                        
+        Add                                    %% r9
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        72                        
+        Add                                    %% r10
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        80                        
+        Add                                    %% r11
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        88                        
+        Add                                    %% r12
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        96                        
+        Add                                    %% r13
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        104                       
+        Add                                    %% r14
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        120                       
+        Add                                    %% r15
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        128                       
+        Add                                    %% r16
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        136                       
+        Add                                    %% r17
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        144                       
+        Add                                    %% r18
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        112                       
+        Add                                    %% i1
+        LoadI                                  
+        PushD        $print-format-integer     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        116                       
+        Add                                    %% i2
+        LoadI                                  
+        PushD        $print-format-integer     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        48                        
+        Add                                    %% r7
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $global-memory-block      
+        PushI        56                        
+        Add                                    %% r8
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Add                                    
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        Divide                                 
+        Nop                                    
+        PushI        0                         
+        Label        -compare-4-sub            
+        Subtract                               
+        JumpFalse    -compare-4-true           
+        Jump         -compare-4-false          
+        Label        -compare-4-true           
+        PushI        1                         
+        Jump         -compare-4-join           
+        Label        -compare-4-false          
+        PushI        0                         
+        Jump         -compare-4-join           
+        Label        -compare-4-join           
+        JumpTrue     -print-boolean-6-true     
         PushD        $boolean-false-string     
-        Jump         -print-boolean-23-join    
-        Label        -print-boolean-23-true    
+        Jump         -print-boolean-6-join     
+        Label        -print-boolean-6-true     
         PushD        $boolean-true-string      
-        Label        -print-boolean-23-join    
+        Label        -print-boolean-6-join     
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        80                        
+        Add                                    %% r11
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        ConvertF                               
+        Exchange                               
+        ConvertF                               
+        Exchange                               
+        FDivide                                
+        Nop                                    
+        PushF        -1.750000                 
+        Label        -compare-5-sub            
+        FSubtract                              
+        JumpFZero    -compare-5-true           
+        Jump         -compare-5-false          
+        Label        -compare-5-true           
+        PushI        1                         
+        Jump         -compare-5-join           
+        Label        -compare-5-false          
+        PushI        0                         
+        Jump         -compare-5-join           
+        Label        -compare-5-join           
+        JumpTrue     -print-boolean-7-true     
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-7-join     
+        Label        -print-boolean-7-true     
+        PushD        $boolean-true-string      
+        Label        -print-boolean-7-join     
         PushD        $print-format-boolean     
         Printf                                 
         PushD        $print-format-space       
@@ -2592,242 +1417,17 @@
         PushD        $express-over-denominator 
         LoadI                                  
         Call         $$convert-to-lowest-terms 
-        Duplicate                              
-        JumpPos      -print-rational-24-positive2 
-        Negate                                 
-        Exchange                               
-        Negate                                 
-        Exchange                               
-        Label        -print-rational-24-positive2 
-        PushD        $first-denominator        
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        LoadI                                  
-        PushD        $first-denominator        
-        LoadI                                  
-        Divide                                 
-        Duplicate                              
-        PushD        $first-denominator        
-        LoadI                                  
-        Multiply                               
-        PushD        $first-numerator          
-        LoadI                                  
-        Exchange                               
-        Subtract                               
-        Duplicate                              
-        JumpFalse    -print-rational-24-end-with-no-fraction 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        Duplicate                              
-        PushD        $print-temp               
-        Exchange                               
-        StoreI                                 
-        JumpFalse    -print-rational-24-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-24-positive1 
-        Negate                                 
-        Label        -print-rational-24-positive1 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-temp               
-        LoadI                                  
-        Jump         -print-rational-24-end-with-original 
-        Label        -print-rational-24-end-with-no-fraction 
-        Pop                                    
-        PushD        $print-format-rational-no-frac 
-        Jump         -print-rational-24-end-join 
-        Label        -print-rational-24-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-24-end-with-no-int-pos 
-        Negate                                 
-        Jump         -print-rational-24-end-with-no-int-neg 
-        Label        -print-rational-24-end-with-no-int-pos 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rational-no-int-pos 
-        Jump         -print-rational-24-end-join 
-        Label        -print-rational-24-end-with-no-int-neg 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rantional-no-int-neg 
-        Jump         -print-rational-24-end-join 
-        Label        -print-rational-24-end-with-original 
-        PushD        $print-format-rational-original 
-        Jump         -print-rational-24-end-join 
-        Label        -print-rational-24-end-join 
-        Printf                                 
+        Call         $$print-rational          
         PushD        $print-format-space       
         Printf                                 
         PushI        2                         
         PushI        1                         
-        Duplicate                              
-        JumpPos      -print-rational-25-positive2 
-        Negate                                 
-        Exchange                               
-        Negate                                 
-        Exchange                               
-        Label        -print-rational-25-positive2 
-        PushD        $first-denominator        
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        LoadI                                  
-        PushD        $first-denominator        
-        LoadI                                  
-        Divide                                 
-        Duplicate                              
-        PushD        $first-denominator        
-        LoadI                                  
-        Multiply                               
-        PushD        $first-numerator          
-        LoadI                                  
-        Exchange                               
-        Subtract                               
-        Duplicate                              
-        JumpFalse    -print-rational-25-end-with-no-fraction 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        Duplicate                              
-        PushD        $print-temp               
-        Exchange                               
-        StoreI                                 
-        JumpFalse    -print-rational-25-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-25-positive1 
-        Negate                                 
-        Label        -print-rational-25-positive1 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-temp               
-        LoadI                                  
-        Jump         -print-rational-25-end-with-original 
-        Label        -print-rational-25-end-with-no-fraction 
-        Pop                                    
-        PushD        $print-format-rational-no-frac 
-        Jump         -print-rational-25-end-join 
-        Label        -print-rational-25-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-25-end-with-no-int-pos 
-        Negate                                 
-        Jump         -print-rational-25-end-with-no-int-neg 
-        Label        -print-rational-25-end-with-no-int-pos 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rational-no-int-pos 
-        Jump         -print-rational-25-end-join 
-        Label        -print-rational-25-end-with-no-int-neg 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rantional-no-int-neg 
-        Jump         -print-rational-25-end-join 
-        Label        -print-rational-25-end-with-original 
-        PushD        $print-format-rational-original 
-        Jump         -print-rational-25-end-join 
-        Label        -print-rational-25-end-join 
-        Printf                                 
+        Call         $$print-rational          
         PushD        $print-format-space       
         Printf                                 
         PushI        99                        
         PushI        1                         
-        Duplicate                              
-        JumpPos      -print-rational-26-positive2 
-        Negate                                 
-        Exchange                               
-        Negate                                 
-        Exchange                               
-        Label        -print-rational-26-positive2 
-        PushD        $first-denominator        
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        PushD        $first-numerator          
-        LoadI                                  
-        PushD        $first-denominator        
-        LoadI                                  
-        Divide                                 
-        Duplicate                              
-        PushD        $first-denominator        
-        LoadI                                  
-        Multiply                               
-        PushD        $first-numerator          
-        LoadI                                  
-        Exchange                               
-        Subtract                               
-        Duplicate                              
-        JumpFalse    -print-rational-26-end-with-no-fraction 
-        PushD        $first-numerator          
-        Exchange                               
-        StoreI                                 
-        Duplicate                              
-        PushD        $print-temp               
-        Exchange                               
-        StoreI                                 
-        JumpFalse    -print-rational-26-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-26-positive1 
-        Negate                                 
-        Label        -print-rational-26-positive1 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-temp               
-        LoadI                                  
-        Jump         -print-rational-26-end-with-original 
-        Label        -print-rational-26-end-with-no-fraction 
-        Pop                                    
-        PushD        $print-format-rational-no-frac 
-        Jump         -print-rational-26-end-join 
-        Label        -print-rational-26-end-with-no-int 
-        PushD        $first-numerator          
-        LoadI                                  
-        Duplicate                              
-        JumpPos      -print-rational-26-end-with-no-int-pos 
-        Negate                                 
-        Jump         -print-rational-26-end-with-no-int-neg 
-        Label        -print-rational-26-end-with-no-int-pos 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rational-no-int-pos 
-        Jump         -print-rational-26-end-join 
-        Label        -print-rational-26-end-with-no-int-neg 
-        PushD        $first-denominator        
-        LoadI                                  
-        Exchange                               
-        PushD        $print-format-rantional-no-int-neg 
-        Jump         -print-rational-26-end-join 
-        Label        -print-rational-26-end-with-original 
-        PushD        $print-format-rational-original 
-        Jump         -print-rational-26-end-join 
-        Label        -print-rational-26-end-join 
-        Printf                                 
+        Call         $$print-rational          
         PushD        $print-format-space       
         Printf                                 
         PushD        $print-format-newline     
@@ -2851,3 +1451,420 @@
         LoadI                                  
         StoreI                                 
         Halt                                   
+        Label        -mem-manager-make-tags    
+        DLabel       $mmgr-tags-size           
+        DataZ        4                         
+        DLabel       $mmgr-tags-start          
+        DataZ        4                         
+        DLabel       $mmgr-tags-available      
+        DataZ        4                         
+        DLabel       $mmgr-tags-nextptr        
+        DataZ        4                         
+        DLabel       $mmgr-tags-prevptr        
+        DataZ        4                         
+        DLabel       $mmgr-tags-return         
+        DataZ        4                         
+        PushD        $mmgr-tags-return         
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-size           
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-start          
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-available      
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-nextptr        
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-prevptr        
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-tags-prevptr        
+        LoadI                                  
+        PushD        $mmgr-tags-size           
+        LoadI                                  
+        PushD        $mmgr-tags-available      
+        LoadI                                  
+        PushD        $mmgr-tags-start          
+        LoadI                                  
+        Call         -mem-manager-one-tag      
+        PushD        $mmgr-tags-nextptr        
+        LoadI                                  
+        PushD        $mmgr-tags-size           
+        LoadI                                  
+        PushD        $mmgr-tags-available      
+        LoadI                                  
+        PushD        $mmgr-tags-start          
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        Call         -mem-manager-one-tag      
+        PushD        $mmgr-tags-return         
+        LoadI                                  
+        Return                                 
+        Label        -mem-manager-one-tag      
+        DLabel       $mmgr-onetag-return       
+        DataZ        4                         
+        DLabel       $mmgr-onetag-location     
+        DataZ        4                         
+        DLabel       $mmgr-onetag-available    
+        DataZ        4                         
+        DLabel       $mmgr-onetag-size         
+        DataZ        4                         
+        DLabel       $mmgr-onetag-pointer      
+        DataZ        4                         
+        PushD        $mmgr-onetag-return       
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-location     
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-available    
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-size         
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-location     
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-size         
+        LoadI                                  
+        PushD        $mmgr-onetag-location     
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-onetag-available    
+        LoadI                                  
+        PushD        $mmgr-onetag-location     
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        Exchange                               
+        StoreC                                 
+        PushD        $mmgr-onetag-return       
+        LoadI                                  
+        Return                                 
+        Label        -mem-manager-allocate     
+        DLabel       $mmgr-alloc-return        
+        DataZ        4                         
+        DLabel       $mmgr-alloc-size          
+        DataZ        4                         
+        DLabel       $mmgr-alloc-current-block 
+        DataZ        4                         
+        DLabel       $mmgr-alloc-remainder-block 
+        DataZ        4                         
+        DLabel       $mmgr-alloc-remainder-size 
+        DataZ        4                         
+        PushD        $mmgr-alloc-return        
+        Exchange                               
+        StoreI                                 
+        PushI        18                        
+        Add                                    
+        PushD        $mmgr-alloc-size          
+        Exchange                               
+        StoreI                                 
+        PushD        $heap-first-free          
+        LoadI                                  
+        PushD        $mmgr-alloc-current-block 
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-alloc-process-current 
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        JumpFalse    -mmgr-alloc-no-block-works 
+        Label        -mmgr-alloc-test-block    
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        Subtract                               
+        PushI        1                         
+        Add                                    
+        JumpPos      -mmgr-alloc-found-block   
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        PushI        0                         
+        Add                                    
+        LoadI                                  
+        PushD        $mmgr-alloc-current-block 
+        Exchange                               
+        StoreI                                 
+        Jump         -mmgr-alloc-process-current 
+        Label        -mmgr-alloc-found-block   
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        Call         -mem-manager-remove-block 
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        Subtract                               
+        PushI        26                        
+        Subtract                               
+        JumpNeg      -mmgr-alloc-return-userblock 
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        Add                                    
+        PushD        $mmgr-alloc-remainder-block 
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Exchange                               
+        Subtract                               
+        PushD        $mmgr-alloc-remainder-size 
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        PushI        0                         
+        PushI        0                         
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        Call         -mem-manager-make-tags    
+        PushI        0                         
+        PushI        0                         
+        PushI        1                         
+        PushD        $mmgr-alloc-remainder-block 
+        LoadI                                  
+        PushD        $mmgr-alloc-remainder-size 
+        LoadI                                  
+        Call         -mem-manager-make-tags    
+        PushD        $mmgr-alloc-remainder-block 
+        LoadI                                  
+        PushI        9                         
+        Add                                    
+        Call         -mem-manager-deallocate   
+        Jump         -mmgr-alloc-return-userblock 
+        Label        -mmgr-alloc-no-block-works 
+        PushD        $mmgr-alloc-size          
+        LoadI                                  
+        PushD        $mmgr-newblock-size       
+        Exchange                               
+        StoreI                                 
+        PushD        $heap-after-ptr           
+        LoadI                                  
+        PushD        $mmgr-newblock-block      
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-newblock-size       
+        LoadI                                  
+        PushD        $heap-after-ptr           
+        LoadI                                  
+        Add                                    
+        PushD        $heap-after-ptr           
+        Exchange                               
+        StoreI                                 
+        PushI        0                         
+        PushI        0                         
+        PushI        0                         
+        PushD        $mmgr-newblock-block      
+        LoadI                                  
+        PushD        $mmgr-newblock-size       
+        LoadI                                  
+        Call         -mem-manager-make-tags    
+        PushD        $mmgr-newblock-block      
+        LoadI                                  
+        PushD        $mmgr-alloc-current-block 
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-alloc-return-userblock 
+        PushD        $mmgr-alloc-current-block 
+        LoadI                                  
+        PushI        9                         
+        Add                                    
+        PushD        $mmgr-alloc-return        
+        LoadI                                  
+        Return                                 
+        Label        -mem-manager-deallocate   
+        DLabel       $mmgr-dealloc-return      
+        DataZ        4                         
+        DLabel       $mmgr-dealloc-block       
+        DataZ        4                         
+        PushD        $mmgr-dealloc-return      
+        Exchange                               
+        StoreI                                 
+        PushI        9                         
+        Subtract                               
+        PushD        $mmgr-dealloc-block       
+        Exchange                               
+        StoreI                                 
+        PushD        $heap-first-free          
+        LoadI                                  
+        JumpFalse    -mmgr-bypass-firstFree    
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        PushD        $heap-first-free          
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-bypass-firstFree    
+        PushI        0                         
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushD        $heap-first-free          
+        LoadI                                  
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        PushI        1                         
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        PushI        8                         
+        Add                                    
+        Exchange                               
+        StoreC                                 
+        PushI        1                         
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        PushI        8                         
+        Add                                    
+        Exchange                               
+        StoreC                                 
+        PushD        $mmgr-dealloc-block       
+        LoadI                                  
+        PushD        $heap-first-free          
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-dealloc-return      
+        LoadI                                  
+        Return                                 
+        Label        -mem-manager-remove-block 
+        DLabel       $mmgr-remove-return       
+        DataZ        4                         
+        DLabel       $mmgr-remove-block        
+        DataZ        4                         
+        DLabel       $mmgr-remove-prev         
+        DataZ        4                         
+        DLabel       $mmgr-remove-next         
+        DataZ        4                         
+        PushD        $mmgr-remove-return       
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-remove-block        
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-remove-block        
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        LoadI                                  
+        PushD        $mmgr-remove-prev         
+        Exchange                               
+        StoreI                                 
+        PushD        $mmgr-remove-block        
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        PushI        0                         
+        Add                                    
+        LoadI                                  
+        PushD        $mmgr-remove-next         
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-remove-process-prev 
+        PushD        $mmgr-remove-prev         
+        LoadI                                  
+        JumpFalse    -mmgr-remove-no-prev      
+        PushD        $mmgr-remove-next         
+        LoadI                                  
+        PushD        $mmgr-remove-prev         
+        LoadI                                  
+        Duplicate                              
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Add                                    
+        PushI        9                         
+        Subtract                               
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        Jump         -mmgr-remove-process-next 
+        Label        -mmgr-remove-no-prev      
+        PushD        $mmgr-remove-next         
+        LoadI                                  
+        PushD        $heap-first-free          
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-remove-process-next 
+        PushD        $mmgr-remove-next         
+        LoadI                                  
+        JumpFalse    -mmgr-remove-done         
+        PushD        $mmgr-remove-prev         
+        LoadI                                  
+        PushD        $mmgr-remove-next         
+        LoadI                                  
+        PushI        0                         
+        Add                                    
+        Exchange                               
+        StoreI                                 
+        Label        -mmgr-remove-done         
+        PushD        $mmgr-remove-return       
+        LoadI                                  
+        Return                                 
+        DLabel       $heap-memory              
