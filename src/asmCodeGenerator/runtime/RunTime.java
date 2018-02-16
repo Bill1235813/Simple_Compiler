@@ -64,6 +64,8 @@ public class RunTime {
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
     public static final String RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$r-divide-by-zero";
 	public static final String NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR = "$$array-size-is-negative";
+	public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
+	public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -133,6 +135,8 @@ public class RunTime {
         floatingDivideByZeroError(frag);
         rationalDivideByZeroError(frag);
         negativeArraySizeError(frag);
+        nullArrayError(frag);
+        overflowArraySizeError(frag);
         return frag;
     }
 
@@ -157,6 +161,28 @@ public class RunTime {
 		
 		frag.add(Label, NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR);
 		frag.add(PushD, negativeArraySizeMessage);
+		frag.add(Jump, GENERAL_RUNTIME_ERROR);
+	}
+    
+    private void nullArrayError(ASMCodeFragment frag) {
+		String nullArrayMessage = "$errors-null-array-size";
+		
+		frag.add(DLabel, nullArrayMessage);
+		frag.add(DataS, "array is null");
+		
+		frag.add(Label, NULL_ARRAY_RUNTIME_ERROR);
+		frag.add(PushD, nullArrayMessage);
+		frag.add(Jump, GENERAL_RUNTIME_ERROR);
+	}
+    
+    private void overflowArraySizeError(ASMCodeFragment frag) {
+		String overflowArraySizeMessage = "$errors-overflow-array-size";
+		
+		frag.add(DLabel, overflowArraySizeMessage);
+		frag.add(DataS, "overflow array size");
+		
+		frag.add(Label, OVERFLOW_ARRAY_RUNTIME_ERROR);
+		frag.add(PushD, overflowArraySizeMessage);
 		frag.add(Jump, GENERAL_RUNTIME_ERROR);
 	}
     
