@@ -200,6 +200,17 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     		node.setType(new Array(temptype));
     }
     
+    @Override
+    public void visitLeave(ReleaseStatementNode node) {
+    		assert node.nChildren() == 1;
+    		Type referencetype = node.child(0).getType();
+    		if (Array.typeIsReference(referencetype)) {
+    			node.setType(referencetype);
+    		} else {
+    			notReferenceTypeError(node);
+    		}
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes
     @Override
@@ -278,6 +289,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // error logging/printing
+    private void notReferenceTypeError(ParseNode node) {
+    		Token token = node.getToken();
+
+        logError("ReleaseStatement must have reference type"
+                + " at " + token.getLocation());
+    }
+    
     private void notBooleanConditionError(ParseNode node) {
         Token token = node.getToken();
 

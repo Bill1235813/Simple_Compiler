@@ -326,6 +326,13 @@ public class ASMCodeGenerator {
 
             code.add(Label, endsLabel);
         }
+        
+        public void visitLeave(ReleaseStatementNode node) {
+        		
+        		ASMCodeFragment ref = removeValueCode(node.child(0));
+        		newVoidCode(node);
+        		code.add(Call, RunTime.RELEASE_REFERENCE);
+        }
 
         ///////////////////////////////////////////////////////////////////////////
         // expressions

@@ -39,6 +39,14 @@ public class Array implements Type{
 		}
     }
     
+    public static boolean typeIsReference(Type type) {
+    		if (type instanceof Array) {
+    			return true;
+    		} else {
+    			return type.equivalent(PrimitiveType.STRING);
+    		}
+    }
+    
 	@Override
 	public boolean equivalent(Type otherType) {
 		if (otherType instanceof Array) {

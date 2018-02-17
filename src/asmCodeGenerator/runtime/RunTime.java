@@ -61,6 +61,7 @@ public class RunTime {
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
     public static final String PRINT_RATIONAL = "$$print-rational";
+    public static final String RELEASE_REFERENCE = "$$release-reference";
     public static final String GENERAL_RUNTIME_ERROR = "$$general-runtime-error";
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
@@ -250,6 +251,7 @@ public class RunTime {
     		frag.append(lowestTermsConverter());
     		frag.append(clearNBytes());
     		frag.append(printRational());
+    		frag.append(releaseReference());
     		return frag;
     }
     
@@ -425,6 +427,87 @@ public class RunTime {
         return frag;
     }
 
+    // [... ref_addr] -> [...] release
+    private ASMCodeFragment releaseReference() {
+    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); // [... ref_addr (return)]
+        // set label
+        Labeller labeller = new Labeller("$release-reference");
+        String endflag = labeller.newLabel("endflag");
+        String subtypeIsRefflag = labeller.newLabel("subtypeIsRefflag");
+        String returnflag = labeller.newLabel("returnflag");
+        
+        frag.add(Label, RELEASE_REFERENCE);
+        frag.add(Exchange); // [... (return) ref_addr]
+        // check permanent
+        frag.add(Duplicate);
+        frag.add(PushI, Record.RECORD_PERMANENT_OFFSET); 
+        frag.add(Add);
+        frag.add(LoadC); // [... (return) ref_addr permanent]
+        frag.add(JumpTrue, endflag);
+        // check is_deleted
+        frag.add(Duplicate);
+        frag.add(PushI, Record.RECORD_IS_DELETED_OFFSET);
+        frag.add(Add);
+        frag.add(LoadC); // [... (return) ref_addr deleted]
+        frag.add(JumpTrue, endflag);
+        // check subtype_is_ref
+        frag.add(Duplicate);
+        frag.add(PushI, Record.RECORD_SUBTYPE_IS_REF_OFFSET);
+        frag.add(Add);
+        frag.add(LoadC); // [... (return) ref_addr subtype]
+        frag.add(JumpTrue, subtypeIsRefflag); // [... (return) ref_addr]
+        // deal with subtype not ref
+        frag.add(Duplicate);
+        frag.add(PushI, Record.RECORD_IS_DELETED_OFFSET);
+        frag.add(Add);
+        frag.add(PushI, 1);
+        frag.add(StoreC); // [... (return) ref_addr] set deleted bit
+        frag.add(Call, MemoryManager.MEM_MANAGER_DEALLOCATE);
+        frag.add(Jump, returnflag); // [... (return)]
+        // deal with subtype is ref
+        frag.add(Label, subtypeIsRefflag);
+        releaseSubtype(frag); // [... (return) ref_addr_bottom]
+        
+        // end
+        frag.add(Label, endflag); // [... (return) ref_addr]
+        frag.add(Pop);
+        frag.add(Label, returnflag); // [... (return)]
+        frag.add(Return);
+        return frag;
+    }
+    
+    // subtype reference release [... ref_addr] -> [... ref_addr_bottom]
+    private static void releaseSubtype(ASMCodeFragment code) {
+    		Labeller labeller = new Labeller("$release-subtype-reference");
+        String endflag = labeller.newLabel("endflag");
+        String loopflag = labeller.newLabel("loopflag");
+        
+    		code.add(Duplicate);
+    		getLength(code); // [... ref_addr length]
+    		code.add(Exchange); // [... length ref_addr]
+    		code.add(PushI, Record.ARRAY_HEADER_SIZE);
+    		code.add(Add); // [... length ref_addr_start]
+    		code.add(Exchange); // [... ref_addr length]
+    	
+    		code.add(Label, loopflag);
+    		code.add(Duplicate); // [... ref_addr length length]
+    		code.add(JumpFalse, endflag); // [... ref_addr length]
+    		code.add(Exchange);
+    		code.add(Duplicate); // [... length ref_addr ref_addr]
+    		code.add(LoadI); // [... length ref_addr sub_addr]
+    		code.add(Call, RELEASE_REFERENCE); // [... length ref_addr]
+    		code.add(PushI, PrimitiveType.INTEGER.getSize());
+    		code.add(Add); // [... length next_ref_addr]
+    		code.add(Exchange); // [... next_ref_addr length]
+    		code.add(PushI, -1);
+    		code.add(Add); // [... next_ref_addr length-1] 
+    		code.add(Jump, loopflag);
+    		
+    		code.add(Label, endflag); // [... ref_addr length]
+    		code.add(Pop); // [... ref_addr]
+    		
+    }
+    
     // insert exprList to the specific location [... exprList nElems location]
     public static void insertToRecord(ASMCodeFragment code, Type subType) {
 

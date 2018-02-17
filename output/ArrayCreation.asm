@@ -459,6 +459,58 @@
         PushD        $return-for-runtime-func  
         LoadI                                  
         Return                                 
+        Label        $$release-reference       
+        Exchange                               
+        Duplicate                              
+        PushI        7                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-endflag 
+        Duplicate                              
+        PushI        6                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-endflag 
+        Duplicate                              
+        PushI        5                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-subtypeIsRefflag 
+        Duplicate                              
+        PushI        6                         
+        Add                                    
+        PushI        1                         
+        StoreC                                 
+        Call         -mem-manager-deallocate   
+        Jump         -$release-reference-4-returnflag 
+        Label        -$release-reference-4-subtypeIsRefflag 
+        Duplicate                              
+        PushI        12                        
+        Add                                    
+        LoadI                                  
+        Exchange                               
+        PushI        16                        
+        Add                                    
+        Exchange                               
+        Label        -$release-subtype-reference-5-loopflag 
+        Duplicate                              
+        JumpFalse    -$release-subtype-reference-5-endflag 
+        Exchange                               
+        Duplicate                              
+        LoadI                                  
+        Call         $$release-reference       
+        PushI        4                         
+        Add                                    
+        Exchange                               
+        PushI        -1                        
+        Add                                    
+        Jump         -$release-subtype-reference-5-loopflag 
+        Label        -$release-subtype-reference-5-endflag 
+        Pop                                    
+        Label        -$release-reference-4-endflag 
+        Pop                                    
+        Label        -$release-reference-4-returnflag 
+        Return                                 
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
         DataZ        56                        
@@ -562,10 +614,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-4-loopflag 
+        Label        -function-insert-6-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-4-endflag 
+        JumpFalse    -function-insert-6-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -584,8 +636,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-4-loopflag 
-        Label        -function-insert-4-endflag 
+        Jump         -function-insert-6-loopflag 
+        Label        -function-insert-6-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         PushI        1                         
@@ -609,9 +661,9 @@
         Add                                    
         LoadI                                  
         Subtract                               
-        JumpNeg      -array-indexing-5-startflag 
+        JumpNeg      -array-indexing-7-startflag 
         Jump         $$array-size-is-out-of-bound 
-        Label        -array-indexing-5-startflag 
+        Label        -array-indexing-7-startflag 
         PushD        $a-indexing-array         
         LoadI                                  
         PushI        16                        
@@ -690,10 +742,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-6-loopflag 
+        Label        -function-insert-8-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-6-endflag 
+        JumpFalse    -function-insert-8-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         PushI        4                         
@@ -720,8 +772,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-6-loopflag 
-        Label        -function-insert-6-endflag 
+        Jump         -function-insert-8-loopflag 
+        Label        -function-insert-8-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         Nop                                    
@@ -796,9 +848,9 @@
         Add                                    
         LoadI                                  
         Subtract                               
-        JumpNeg      -array-indexing-7-startflag 
+        JumpNeg      -array-indexing-9-startflag 
         Jump         $$array-size-is-out-of-bound 
-        Label        -array-indexing-7-startflag 
+        Label        -array-indexing-9-startflag 
         PushD        $a-indexing-array         
         LoadI                                  
         PushI        16                        
@@ -847,10 +899,10 @@
         PushD        $record-creation-temporary 
         Exchange                               
         StoreI                                 
-        Label        -clone-array-8-loopflag   
+        Label        -clone-array-10-loopflag  
         PushD        clone-size-temp           
         LoadI                                  
-        JumpFalse    -clone-array-8-endflag    
+        JumpFalse    -clone-array-10-endflag   
         PushD        clone-location-temp       
         LoadI                                  
         LoadC                                  
@@ -879,8 +931,8 @@
         PushD        clone-new-location-temp   
         Exchange                               
         StoreI                                 
-        Jump         -clone-array-8-loopflag   
-        Label        -clone-array-8-endflag    
+        Jump         -clone-array-10-loopflag  
+        Label        -clone-array-10-endflag   
         PushD        $record-creation-temporary 
         LoadI                                  
         StoreI                                 
@@ -1008,10 +1060,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-11-loopflag 
+        Label        -function-insert-13-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-11-endflag 
+        JumpFalse    -function-insert-13-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1030,8 +1082,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-11-loopflag 
-        Label        -function-insert-11-endflag 
+        Jump         -function-insert-13-loopflag 
+        Label        -function-insert-13-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         PushI        5                         
@@ -1094,10 +1146,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-10-loopflag 
+        Label        -function-insert-12-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-10-endflag 
+        JumpFalse    -function-insert-12-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1116,8 +1168,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-10-loopflag 
-        Label        -function-insert-10-endflag 
+        Jump         -function-insert-12-loopflag 
+        Label        -function-insert-12-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         PushI        3                         
@@ -1181,10 +1233,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-9-loopflag 
+        Label        -function-insert-11-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-9-endflag 
+        JumpFalse    -function-insert-11-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1203,8 +1255,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-9-loopflag 
-        Label        -function-insert-9-endflag 
+        Jump         -function-insert-11-loopflag 
+        Label        -function-insert-11-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         PushI        4                         
@@ -1265,10 +1317,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-12-loopflag 
+        Label        -function-insert-14-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-12-endflag 
+        JumpFalse    -function-insert-14-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1287,8 +1339,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-12-loopflag 
-        Label        -function-insert-12-endflag 
+        Jump         -function-insert-14-loopflag 
+        Label        -function-insert-14-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         StoreI                                 
@@ -1365,30 +1417,30 @@
         PushI        1                         
         PushI        3                         
         PushI        3                         
-        Label        -compare-14-sub           
+        Label        -compare-16-sub           
         Subtract                               
-        JumpFalse    -compare-14-true          
-        Jump         -compare-14-false         
-        Label        -compare-14-true          
+        JumpFalse    -compare-16-true          
+        Jump         -compare-16-false         
+        Label        -compare-16-true          
         PushI        1                         
-        Jump         -compare-14-join          
-        Label        -compare-14-false         
+        Jump         -compare-16-join          
+        Label        -compare-16-false         
         PushI        0                         
-        Jump         -compare-14-join          
-        Label        -compare-14-join          
+        Jump         -compare-16-join          
+        Label        -compare-16-join          
         PushI        2                         
         PushI        3                         
-        Label        -compare-13-sub           
+        Label        -compare-15-sub           
         Subtract                               
-        JumpFalse    -compare-13-true          
-        Jump         -compare-13-false         
-        Label        -compare-13-true          
+        JumpFalse    -compare-15-true          
+        Jump         -compare-15-false         
+        Label        -compare-15-true          
         PushI        1                         
-        Jump         -compare-13-join          
-        Label        -compare-13-false         
+        Jump         -compare-15-join          
+        Label        -compare-15-false         
         PushI        0                         
-        Jump         -compare-13-join          
-        Label        -compare-13-join          
+        Jump         -compare-15-join          
+        Label        -compare-15-join          
         PushI        4                         
         Duplicate                              
         JumpNeg      $$array-size-is-negative  
@@ -1447,10 +1499,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-15-loopflag 
+        Label        -function-insert-17-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-15-endflag 
+        JumpFalse    -function-insert-17-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1469,8 +1521,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-15-loopflag 
-        Label        -function-insert-15-endflag 
+        Jump         -function-insert-17-loopflag 
+        Label        -function-insert-17-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         StoreI                                 
@@ -1539,10 +1591,10 @@
         PushD        $insert-size-temp         
         Exchange                               
         StoreI                                 
-        Label        -function-insert-16-loopflag 
+        Label        -function-insert-18-loopflag 
         PushD        $insert-size-temp         
         LoadI                                  
-        JumpFalse    -function-insert-16-endflag 
+        JumpFalse    -function-insert-18-endflag 
         PushD        insert-location-temp      
         LoadI                                  
         Exchange                               
@@ -1561,8 +1613,8 @@
         PushD        insert-location-temp      
         Exchange                               
         StoreI                                 
-        Jump         -function-insert-16-loopflag 
-        Label        -function-insert-16-endflag 
+        Jump         -function-insert-18-loopflag 
+        Label        -function-insert-18-endflag 
         PushD        $record-creation-temporary 
         LoadI                                  
         StoreI                                 
@@ -1571,7 +1623,7 @@
         Add                                    %% x
         PushI        0                         
         StoreI                                 
-        Label        -while-19-condition       
+        Label        -while-21-condition       
         PushD        $global-memory-block      
         PushI        52                        
         Add                                    %% x
@@ -1580,19 +1632,19 @@
         PushI        32                        
         Add                                    %% width
         LoadI                                  
-        Label        -compare-17-sub           
+        Label        -compare-19-sub           
         Subtract                               
-        JumpNeg      -compare-17-true          
-        Jump         -compare-17-false         
-        Label        -compare-17-true          
+        JumpNeg      -compare-19-true          
+        Jump         -compare-19-false         
+        Label        -compare-19-true          
         PushI        1                         
-        Jump         -compare-17-join          
-        Label        -compare-17-false         
+        Jump         -compare-19-join          
+        Label        -compare-19-false         
         PushI        0                         
-        Jump         -compare-17-join          
-        Label        -compare-17-join          
-        JumpFalse    -while-19-ends            
-        Label        -while-19-starts          
+        Jump         -compare-19-join          
+        Label        -compare-19-join          
+        JumpFalse    -while-21-ends            
+        Label        -while-21-starts          
         PushD        $global-memory-block      
         PushI        40                        
         Add                                    %% matrix
@@ -1621,9 +1673,9 @@
         Add                                    
         LoadI                                  
         Subtract                               
-        JumpNeg      -array-indexing-18-startflag 
+        JumpNeg      -array-indexing-20-startflag 
         Jump         $$array-size-is-out-of-bound 
-        Label        -array-indexing-18-startflag 
+        Label        -array-indexing-20-startflag 
         PushD        $a-indexing-array         
         LoadI                                  
         PushI        16                        
@@ -1696,8 +1748,8 @@
         PushI        1                         
         Add                                    
         StoreI                                 
-        Jump         -while-19-condition       
-        Label        -while-19-ends            
+        Jump         -while-21-condition       
+        Label        -while-21-ends            
         PushD        $global-memory-block      
         PushI        24                        
         Add                                    %% a5
@@ -1720,10 +1772,10 @@
         PushI        16                        
         Add                                    
         Exchange                               
-        Label        -recursive-print-array-20-startflag 
+        Label        -recursive-print-array-22-startflag 
         Duplicate                              
-        JumpFalse    -recursive-print-array-20-endflag 
-        Label        -recursive-print-array-20-loopflag 
+        JumpFalse    -recursive-print-array-22-endflag 
+        Label        -recursive-print-array-22-loopflag 
         Exchange                               
         Duplicate                              
         Duplicate                              
@@ -1739,11 +1791,11 @@
         PushI        -1                        
         Add                                    
         Duplicate                              
-        JumpFalse    -recursive-print-array-20-endflag 
+        JumpFalse    -recursive-print-array-22-endflag 
         PushD        $array-print-middle       
         Printf                                 
-        Jump         -recursive-print-array-20-loopflag 
-        Label        -recursive-print-array-20-endflag 
+        Jump         -recursive-print-array-22-loopflag 
+        Label        -recursive-print-array-22-endflag 
         Pop                                    
         Pop                                    
         PushD        $array-print-end          
@@ -1764,10 +1816,10 @@
         PushI        16                        
         Add                                    
         Exchange                               
-        Label        -recursive-print-array-21-startflag 
+        Label        -recursive-print-array-23-startflag 
         Duplicate                              
-        JumpFalse    -recursive-print-array-21-endflag 
-        Label        -recursive-print-array-21-loopflag 
+        JumpFalse    -recursive-print-array-23-endflag 
+        Label        -recursive-print-array-23-loopflag 
         Exchange                               
         Duplicate                              
         Duplicate                              
@@ -1783,63 +1835,6 @@
         PushI        -1                        
         Add                                    
         Duplicate                              
-        JumpFalse    -recursive-print-array-21-endflag 
-        PushD        $array-print-middle       
-        Printf                                 
-        Jump         -recursive-print-array-21-loopflag 
-        Label        -recursive-print-array-21-endflag 
-        Pop                                    
-        Pop                                    
-        PushD        $array-print-end          
-        Printf                                 
-        PushD        $print-format-space       
-        Printf                                 
-        PushD        $global-memory-block      
-        PushI        28                        
-        Add                                    %% numSets
-        LoadI                                  
-        PushD        $array-print-start        
-        Printf                                 
-        Duplicate                              
-        PushI        12                        
-        Add                                    
-        LoadI                                  
-        Exchange                               
-        PushI        16                        
-        Add                                    
-        Exchange                               
-        Label        -recursive-print-array-22-startflag 
-        Duplicate                              
-        JumpFalse    -recursive-print-array-22-endflag 
-        Label        -recursive-print-array-22-loopflag 
-        Exchange                               
-        Duplicate                              
-        LoadI                                  
-        PushD        $array-print-start        
-        Printf                                 
-        Duplicate                              
-        PushI        12                        
-        Add                                    
-        LoadI                                  
-        Exchange                               
-        PushI        16                        
-        Add                                    
-        Exchange                               
-        Label        -recursive-print-array-23-startflag 
-        Duplicate                              
-        JumpFalse    -recursive-print-array-23-endflag 
-        Label        -recursive-print-array-23-loopflag 
-        Exchange                               
-        Duplicate                              
-        LoadI                                  
-        PushD        $print-format-integer     
-        Printf                                 
-        PushI        4                         
-        Add                                    
-        Exchange                               
-        PushI        -1                        
-        Add                                    
-        Duplicate                              
         JumpFalse    -recursive-print-array-23-endflag 
         PushD        $array-print-middle       
         Printf                                 
@@ -1849,34 +1844,11 @@
         Pop                                    
         PushD        $array-print-end          
         Printf                                 
-        PushI        4                         
-        Add                                    
-        Exchange                               
-        PushI        -1                        
-        Add                                    
-        Duplicate                              
-        JumpFalse    -recursive-print-array-22-endflag 
-        PushD        $array-print-middle       
-        Printf                                 
-        Jump         -recursive-print-array-22-loopflag 
-        Label        -recursive-print-array-22-endflag 
-        Pop                                    
-        Pop                                    
-        PushD        $array-print-end          
-        Printf                                 
         PushD        $print-format-space       
         Printf                                 
         PushD        $global-memory-block      
-        PushI        8                         
-        Add                                    %% a1
-        LoadF                                  
-        PushD        $print-format-floating    
-        Printf                                 
-        PushD        $print-format-space       
-        Printf                                 
-        PushD        $global-memory-block      
-        PushI        40                        
-        Add                                    %% matrix
+        PushI        28                        
+        Add                                    %% numSets
         LoadI                                  
         PushD        $array-print-start        
         Printf                                 
@@ -1911,10 +1883,10 @@
         Label        -recursive-print-array-25-loopflag 
         Exchange                               
         Duplicate                              
-        LoadF                                  
-        PushD        $print-format-floating    
+        LoadI                                  
+        PushD        $print-format-integer     
         Printf                                 
-        PushI        8                         
+        PushI        4                         
         Add                                    
         Exchange                               
         PushI        -1                        
@@ -1947,8 +1919,16 @@
         PushD        $print-format-space       
         Printf                                 
         PushD        $global-memory-block      
-        PushI        44                        
-        Add                                    %% a6
+        PushI        8                         
+        Add                                    %% a1
+        LoadF                                  
+        PushD        $print-format-floating    
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        40                        
+        Add                                    %% matrix
         LoadI                                  
         PushD        $array-print-start        
         Printf                                 
@@ -1966,16 +1946,42 @@
         Label        -recursive-print-array-26-loopflag 
         Exchange                               
         Duplicate                              
-        LoadC                                  
-        JumpTrue     -print-boolean-27-true    
-        PushD        $boolean-false-string     
-        Jump         -print-boolean-27-join    
-        Label        -print-boolean-27-true    
-        PushD        $boolean-true-string      
-        Label        -print-boolean-27-join    
-        PushD        $print-format-boolean     
+        LoadI                                  
+        PushD        $array-print-start        
         Printf                                 
-        PushI        1                         
+        Duplicate                              
+        PushI        12                        
+        Add                                    
+        LoadI                                  
+        Exchange                               
+        PushI        16                        
+        Add                                    
+        Exchange                               
+        Label        -recursive-print-array-27-startflag 
+        Duplicate                              
+        JumpFalse    -recursive-print-array-27-endflag 
+        Label        -recursive-print-array-27-loopflag 
+        Exchange                               
+        Duplicate                              
+        LoadF                                  
+        PushD        $print-format-floating    
+        Printf                                 
+        PushI        8                         
+        Add                                    
+        Exchange                               
+        PushI        -1                        
+        Add                                    
+        Duplicate                              
+        JumpFalse    -recursive-print-array-27-endflag 
+        PushD        $array-print-middle       
+        Printf                                 
+        Jump         -recursive-print-array-27-loopflag 
+        Label        -recursive-print-array-27-endflag 
+        Pop                                    
+        Pop                                    
+        PushD        $array-print-end          
+        Printf                                 
+        PushI        4                         
         Add                                    
         Exchange                               
         PushI        -1                        
@@ -1986,6 +1992,52 @@
         Printf                                 
         Jump         -recursive-print-array-26-loopflag 
         Label        -recursive-print-array-26-endflag 
+        Pop                                    
+        Pop                                    
+        PushD        $array-print-end          
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        44                        
+        Add                                    %% a6
+        LoadI                                  
+        PushD        $array-print-start        
+        Printf                                 
+        Duplicate                              
+        PushI        12                        
+        Add                                    
+        LoadI                                  
+        Exchange                               
+        PushI        16                        
+        Add                                    
+        Exchange                               
+        Label        -recursive-print-array-28-startflag 
+        Duplicate                              
+        JumpFalse    -recursive-print-array-28-endflag 
+        Label        -recursive-print-array-28-loopflag 
+        Exchange                               
+        Duplicate                              
+        LoadC                                  
+        JumpTrue     -print-boolean-29-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-29-join    
+        Label        -print-boolean-29-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-29-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushI        1                         
+        Add                                    
+        Exchange                               
+        PushI        -1                        
+        Add                                    
+        Duplicate                              
+        JumpFalse    -recursive-print-array-28-endflag 
+        PushD        $array-print-middle       
+        Printf                                 
+        Jump         -recursive-print-array-28-loopflag 
+        Label        -recursive-print-array-28-endflag 
         Pop                                    
         Pop                                    
         PushD        $array-print-end          
@@ -2006,10 +2058,10 @@
         PushI        16                        
         Add                                    
         Exchange                               
-        Label        -recursive-print-array-28-startflag 
+        Label        -recursive-print-array-30-startflag 
         Duplicate                              
-        JumpFalse    -recursive-print-array-28-endflag 
-        Label        -recursive-print-array-28-loopflag 
+        JumpFalse    -recursive-print-array-30-endflag 
+        Label        -recursive-print-array-30-loopflag 
         Exchange                               
         Duplicate                              
         LoadC                                  
@@ -2021,11 +2073,11 @@
         PushI        -1                        
         Add                                    
         Duplicate                              
-        JumpFalse    -recursive-print-array-28-endflag 
+        JumpFalse    -recursive-print-array-30-endflag 
         PushD        $array-print-middle       
         Printf                                 
-        Jump         -recursive-print-array-28-loopflag 
-        Label        -recursive-print-array-28-endflag 
+        Jump         -recursive-print-array-30-loopflag 
+        Label        -recursive-print-array-30-endflag 
         Pop                                    
         Pop                                    
         PushD        $array-print-end          
@@ -2034,6 +2086,7 @@
         Printf                                 
         PushD        $print-format-newline     
         Printf                                 
+        Call         $$release-reference       
         Halt                                   
         Label        -mem-manager-make-tags    
         DLabel       $mmgr-tags-size           

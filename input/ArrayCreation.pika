@@ -20,5 +20,6 @@ exec {
 		x:=x+ 1.
 	}
 	print a5;a2;a4;numSets;a1;matrix;a6;a7;_n_.
+	release numSets.
 	
 }

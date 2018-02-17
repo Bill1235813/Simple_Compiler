@@ -110,6 +110,9 @@ public class Parser {
         if (startsWhileStatement(nowReading)) {
             return parseWhileStatement();
         }
+        if (startsReleaseStatement(nowReading)) {
+        		return parseReleaseStatement();
+        }
         return syntaxErrorNode("statement");
     }
 
@@ -119,9 +122,27 @@ public class Parser {
                 startsBlockStatement(token) ||
                 startsAssignmentStatement(token) ||
                 startsIfStatement(token) ||
-                startsWhileStatement(token);
+                startsWhileStatement(token) ||
+                startsReleaseStatement(token);
     }
 
+    // releaseStmt -> release expr.
+    private ParseNode parseReleaseStatement() {
+    		if (!startsReleaseStatement(nowReading)) {
+    			return syntaxErrorNode("releaseStatement");
+    		}
+    		Token releaseToken = nowReading;
+    		
+    		expect(Keyword.RELEASE);
+    		ParseNode expression = parseExpression();
+    		expect(Punctuator.TERMINATOR);
+    		return ReleaseStatementNode.withChildren(releaseToken, expression);
+    }
+    
+    private boolean startsReleaseStatement(Token token) {
+    		return token.isLextant(Keyword.RELEASE);
+    }
+    
     // whileStmt -> while (expr) blockStmt
     private ParseNode parseWhileStatement() {
         if (!startsWhileStatement(nowReading)) {
