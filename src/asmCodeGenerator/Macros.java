@@ -139,10 +139,10 @@ public class Macros {
      */
     public static void writeIPtrOffset(ASMCodeFragment frag, String location, int offset) {
     		loadIFrom(frag, location); // [...num pointer at location]
-		frag.add(PushI, offset);
-		frag.add(Add); // [...num pointer+offset]
-		frag.add(Exchange);
-		frag.add(StoreI);
+            frag.add(PushI, offset);
+            frag.add(Add); // [...num pointer+offset]
+            frag.add(Exchange);
+            frag.add(StoreI);
     }
     
     ////////////////////////////////////////////////////////////////////

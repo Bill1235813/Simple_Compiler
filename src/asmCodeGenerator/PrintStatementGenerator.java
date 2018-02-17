@@ -48,6 +48,8 @@ public class PrintStatementGenerator {
 
     private void appendPrintCode(Type type) {
         convertToStringIfBoolean(type);
+        applyOffsetifString(type);
+
         if (type == PrimitiveType.RATIONAL) {
             code.add(Call, RunTime.PRINT_RATIONAL);
         } else if (type instanceof Array) {
@@ -107,6 +109,16 @@ public class PrintStatementGenerator {
 
         code.add(PushD, RunTime.ARRAY_PRINT_END);
         code.add(Printf);
+    }
+
+    // [... string_addr]
+    private void applyOffsetifString(Type type) {
+        if (type != PrimitiveType.STRING) {
+            return;
+        }
+
+        code.add(PushI, Record.STRING_HEADER_SIZE);
+        code.add(Add);
     }
 
     private void convertToStringIfBoolean(Type type) {

@@ -41,37 +41,11 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
 		fragment.add(PushI, node.child(0).nChildren()); // number of the child [... exprList nElems]
 		loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
 		fragment.add(PushI, Record.ARRAY_HEADER_SIZE);
-		fragment.add(Add);
-		storeITo(fragment, RunTime.INSERT_LOCATION_TEMP);
-		storeITo(fragment, RunTime.INSERT_SIZE_TEMP); // [... exprList]
-		
-		Labeller labeller = new Labeller("function-insert");
-		String loopflag = labeller.newLabel("loopflag");
-		String endflag = labeller.newLabel("endflag");
-		
-		fragment.add(Label, loopflag);
-		loadIFrom(fragment, RunTime.INSERT_SIZE_TEMP); // [... exprList nElems]
-		fragment.add(JumpFalse, endflag); // [... exprList]
-		
-		// store one element
-		if (subType.equivalent(PrimitiveType.RATIONAL)) {
-			loadIFrom(fragment, RunTime.INSERT_LOCATION_TEMP);
-			writeIOffset(fragment, 4);
-			loadIFrom(fragment, RunTime.INSERT_LOCATION_TEMP);
-			writeIOffset(fragment, 0);
-		} else {
-			loadIFrom(fragment, RunTime.INSERT_LOCATION_TEMP);
-			fragment.add(Exchange);
-			fragment.add(ASMCodeGenerator.opcodeForStore(subType));
-		}
-		
-		decrementInteger(fragment, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
-		fragment.add(PushI, subType.getSize());
-        addITo(fragment, RunTime.INSERT_LOCATION_TEMP); // location += subtype.size()
-		fragment.add(Jump, loopflag);
-		
-		fragment.add(Label, endflag);
+		fragment.add(Add); // [... exprList nElems location]
+
+		RunTime.insertToRecord(fragment, subType);
 		loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
+
 		return fragment;
 	}
 

@@ -459,12 +459,14 @@ public class ASMCodeGenerator {
         public void visit(StringConstantNode node) {
             newValueCode(node);
 
-            Labeller labeller = new Labeller("string");
-            String stringlabel = labeller.newLabel("constant");
-
-            code.add(DLabel, stringlabel);
-            code.add(DataS, node.getValue());
-            code.add(PushD, stringlabel);
+            int length = node.getValue().length();
+            code.add(PushI, 0);
+            for (int i = length - 1; i >= 0; --i) {
+                code.add(PushI, (int) node.getValue().charAt(i));
+            }
+            code.add(PushI, length + 1);
+            RunTime.createStringRecord(code, length);
+            Macros.loadIFrom(code, RunTime.RECORD_CREATION_TEMPORARY);
         }
     }
 

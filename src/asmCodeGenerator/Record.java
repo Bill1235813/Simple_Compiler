@@ -17,4 +17,6 @@ public class Record {
 	public static final int STRING_HEADER_SIZE = 12;
 	public static final int STRING_TAIL_SIZE = 1;
 	public static final int STRING_EXTRA_SIZE = 13;
+
+	public static final int STRING_STATUSFLAG = (1 << 24) + 1;
 }

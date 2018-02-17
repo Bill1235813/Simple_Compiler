@@ -5,12 +5,14 @@ import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 import static asmCodeGenerator.Macros.*;
 
+import asmCodeGenerator.ASMCodeGenerator;
 import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Macros;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import parseTree.ParseNode;
 import semanticAnalyzer.types.PrimitiveType;
+import semanticAnalyzer.types.Type;
 
 public class RunTime {
     public static final String EAT_LOCATION_ZERO = "$eat-location-zero";        // helps us distinguish null pointers from real ones.
@@ -423,16 +425,69 @@ public class RunTime {
         return frag;
     }
 
-	 // leaves new record in RECORD_CREATION_TEMPORARY
-	 // [... size] -> [...]
-	 public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
-		 code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
-		 storeITo(code, RECORD_CREATION_TEMPORARY);
-		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
-				 Record.RECORD_TYPEID_OFFSET, typecode);
-		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
-				 Record.RECORD_STATUS_OFFSET, statusFlags);
-	 }
+    // insert exprList to the specific location [... exprList nElems location]
+    public static void insertToRecord(ASMCodeFragment code, Type subType) {
+
+        storeITo(code, RunTime.INSERT_LOCATION_TEMP);
+        storeITo(code, RunTime.INSERT_SIZE_TEMP); // [... exprList]
+
+        Labeller labeller = new Labeller("function-insert");
+        String loopflag = labeller.newLabel("loopflag");
+        String endflag = labeller.newLabel("endflag");
+
+        code.add(Label, loopflag);
+        loadIFrom(code, RunTime.INSERT_SIZE_TEMP); // [... exprList nElems]
+        code.add(JumpFalse, endflag); // [... exprList]
+
+        // store one element
+        if (subType.equivalent(PrimitiveType.RATIONAL)) {
+            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            writeIOffset(code, 4);
+            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            writeIOffset(code, 0);
+        } else {
+            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            code.add(Exchange);
+            code.add(ASMCodeGenerator.opcodeForStore(subType));
+        }
+
+        decrementInteger(code, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
+        code.add(PushI, subType.getSize());
+        addITo(code, RunTime.INSERT_LOCATION_TEMP); // location += subtype.size()
+        code.add(Jump, loopflag);
+
+        code.add(Label, endflag);    
+    }
+
+    // leaves new record in RECORD_CREATION_TEMPORARY // [... stringExprList length+1]
+    public static void createStringRecord(ASMCodeFragment code, int length) {
+        final int typecode = Record.STRING_TYPE_ID;
+        final int statusFlags = Record.STRING_STATUSFLAG;
+
+        code.add(Duplicate);
+        code.add(PushI, Record.STRING_HEADER_SIZE);
+        code.add(Add); // [... stringExprList length+1 total]
+
+        createRecord(code, typecode, statusFlags);
+        loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... stringExprList length+1 addr]
+        code.add(PushI, Record.STRING_HEADER_SIZE);
+        code.add(Add); // [... stringExprList length+1 start_addr]
+
+        insertToRecord(code, PrimitiveType.CHARACTER); // [...]
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.STRING_LENGTH_OFFSET, length); // [...]
+    }
+
+     // leaves new record in RECORD_CREATION_TEMPORARY
+     // [... size] -> [...]
+     public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
+         code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+         storeITo(code, RECORD_CREATION_TEMPORARY);
+         writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
+                 Record.RECORD_TYPEID_OFFSET, typecode);
+         writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
+                 Record.RECORD_STATUS_OFFSET, statusFlags);
+     }
 	 
 	 // leaves new record in RECORD_CREATION_TEMPORARY // [... nElems] -> [...]
 	 public static void createEmptyArrayRecord(ASMCodeFragment code, 
