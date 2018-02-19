@@ -1,10 +1,16 @@
 exec {
     const i:=3.
+    const c:=^a^.
+    const b:=_true_.
+    const s:="abcd".
     const f:=3.5.
+    const a:=[[1,2,3],[2,3,4],[3,4,5],[4,5,6]].
     const r:=5//10.
     var v1:= i+^c^.
-    var v2:= i*r.
-    var v3:= ^c^//^c^.
+    var v2:= v1*r.
+    var v2_:= v1+f.
+    var v3:= c//c.
+    var v3_:= c/f.
     var v4:= [[^c^ | float] + i |  int] / r.
     #   var v5:= [f | char].
     var v6:= ^c^ > 127.
@@ -15,7 +21,9 @@ exec {
     var v10:= 3.5.
     v10:= ^c^ + 3.
     #   v10:= ^c^ + 3 + 5//3.
-    #   var v11:= ^c^////i.
-
-    print v1;v2;v3;v4;v6;v7;v8;v10;_n_.
+    #	var v11:= ^c^////i.
+	var v12:= f///^c^.
+	var v13:= [a|[[int]]].
+	
+    print v1;v2;v2_;v3;v3_;v4;v6;v7;v8;v10;v12;v13;_n_.
 }

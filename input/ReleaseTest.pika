@@ -1,0 +1,9 @@
+exec {
+	const numSets := [ [1,2,3], [4,5], [6,7,8], new[int](0)].
+	var numSets2 := numSets.
+	release numSets.
+	print numSets2;_n_.
+	
+	const numSets3 := [[4,5,6], [7,8], [9,10,1], new[int](0)].
+	print numSets2;_n_.
+}

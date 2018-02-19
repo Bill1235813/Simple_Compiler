@@ -1,7 +1,7 @@
 exec {
     var Bill:=7.
     if (Bill<=8) {
-        if (!!(Bill>=6)) {
+        if (!!(Bill>=6) || (Bill<=1/0)) {
             print Bill;_n_.
         }
         print Bill+ 1;_n_.

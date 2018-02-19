@@ -429,8 +429,11 @@ public class ASMCodeGenerator {
         // parentheses and casting nodes
         public void visitLeave(ParenthesesNode node) {
             newValueCode(node);
-            ASMCodeFragment child = removeValueCode(node.child(0));
+            ASMCodeFragment child = getAndRemoveCode(node.child(0));
             code.append(child);
+            if (child.isAddress()) {
+            		code.markAsAddress();
+            }
         }
 
         public void visitLeave(TypeNode node) {

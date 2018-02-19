@@ -1,8 +1,12 @@
 exec {
     const a:= _true_.
     const b:= _false_.
-    var c:= a || b && b && [ 1/0 | bool ] .
-    var d:= ! b && a.
-    var e:= ! ! b.
-    print c;d;e;_n_.
+    var c:= a || [ 1/0 | bool ]. # true
+    var c2:= b && [1/0 | bool ]. # false
+    var d:= !b && a. # true
+    var e:= !!b. # false
+    var f:= ! a || b. # false
+    var g:= !a || b && b || a. # true
+    var g2:= !a || b && (b||a). # false
+    print c;c2;d;e;f;g;g2;_n_.
 }

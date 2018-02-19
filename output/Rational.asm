@@ -74,6 +74,16 @@
         DataC        115                       
         DataC        101                       
         DataC        0                         
+        DLabel       $array-print-start        
+        DataC        91                        %% "["
+        DataC        0                         
+        DLabel       $array-print-end          
+        DataC        93                        %% "]"
+        DataC        0                         
+        DLabel       $array-print-middle       
+        DataC        44                        %% ", "
+        DataC        32                        
+        DataC        0                         
         DLabel       $errors-general-message   
         DataC        82                        %% "Runtime error: %s\n"
         DataC        117                       
@@ -204,6 +214,48 @@
         DataC        0                         
         Label        $$array-size-is-negative  
         PushD        $errors-negative-array-size 
+        Jump         $$general-runtime-error   
+        DLabel       $errors-null-array-size   
+        DataC        97                        %% "array is null"
+        DataC        114                       
+        DataC        114                       
+        DataC        97                        
+        DataC        121                       
+        DataC        32                        
+        DataC        105                       
+        DataC        115                       
+        DataC        32                        
+        DataC        110                       
+        DataC        117                       
+        DataC        108                       
+        DataC        108                       
+        DataC        0                         
+        Label        $$array-is-null           
+        PushD        $errors-null-array-size   
+        Jump         $$general-runtime-error   
+        DLabel       $errors-overflow-array-size 
+        DataC        111                       %% "overflow array size"
+        DataC        118                       
+        DataC        101                       
+        DataC        114                       
+        DataC        102                       
+        DataC        108                       
+        DataC        111                       
+        DataC        119                       
+        DataC        32                        
+        DataC        97                        
+        DataC        114                       
+        DataC        114                       
+        DataC        97                        
+        DataC        121                       
+        DataC        32                        
+        DataC        115                       
+        DataC        105                       
+        DataC        122                       
+        DataC        101                       
+        DataC        0                         
+        Label        $$array-size-is-out-of-bound 
+        PushD        $errors-overflow-array-size 
         Jump         $$general-runtime-error   
         DLabel       $a-indexing-array         
         DataZ        4                         
@@ -407,9 +459,61 @@
         PushD        $return-for-runtime-func  
         LoadI                                  
         Return                                 
+        Label        $$release-reference       
+        Exchange                               
+        Duplicate                              
+        PushI        7                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-endflag 
+        Duplicate                              
+        PushI        6                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-endflag 
+        Duplicate                              
+        PushI        5                         
+        Add                                    
+        LoadC                                  
+        JumpTrue     -$release-reference-4-subtypeIsRefflag 
+        Duplicate                              
+        PushI        6                         
+        Add                                    
+        PushI        1                         
+        StoreC                                 
+        Call         -mem-manager-deallocate   
+        Jump         -$release-reference-4-returnflag 
+        Label        -$release-reference-4-subtypeIsRefflag 
+        Duplicate                              
+        PushI        12                        
+        Add                                    
+        LoadI                                  
+        Exchange                               
+        PushI        16                        
+        Add                                    
+        Exchange                               
+        Label        -$release-subtype-reference-5-loopflag 
+        Duplicate                              
+        JumpFalse    -$release-subtype-reference-5-endflag 
+        Exchange                               
+        Duplicate                              
+        LoadI                                  
+        Call         $$release-reference       
+        PushI        4                         
+        Add                                    
+        Exchange                               
+        PushI        -1                        
+        Add                                    
+        Jump         -$release-subtype-reference-5-loopflag 
+        Label        -$release-subtype-reference-5-endflag 
+        Pop                                    
+        Label        -$release-reference-4-endflag 
+        Pop                                    
+        Label        -$release-reference-4-returnflag 
+        Return                                 
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
-        DataZ        160                       
+        DataZ        176                       
         Label        $$main                    
         Label        -mem-manager-initialize   
         DLabel       $heap-start-ptr           
@@ -1060,6 +1164,63 @@
         LoadI                                  
         StoreI                                 
         PushD        $global-memory-block      
+        PushI        152                       
+        Add                                    %% r19
+        Duplicate                              
+        PushI        28                        
+        PushI        -35                       
+        Call         $$convert-to-lowest-terms 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        StoreI                                 
+        PushI        4                         
+        Add                                    
+        PushD        $first-denominator        
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
+        PushI        160                       
+        Add                                    %% r20
+        Duplicate                              
+        PushI        -20                       
+        PushI        -35                       
+        Call         $$convert-to-lowest-terms 
+        PushI        4                         
+        PushI        1                         
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        StoreI                                 
+        PushI        4                         
+        Add                                    
+        PushD        $first-denominator        
+        LoadI                                  
+        StoreI                                 
+        PushD        $global-memory-block      
         PushI        0                         
         Add                                    %% r
         Duplicate                              
@@ -1275,6 +1436,30 @@
         Call         $$print-rational          
         PushD        $print-format-space       
         Printf                                 
+        PushD        $global-memory-block      
+        PushI        152                       
+        Add                                    %% r19
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        160                       
+        Add                                    %% r20
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Call         $$print-rational          
+        PushD        $print-format-space       
+        Printf                                 
         PushD        $print-format-newline     
         Printf                                 
         PushD        $global-memory-block      
@@ -1345,23 +1530,23 @@
         Divide                                 
         Nop                                    
         PushI        0                         
-        Label        -compare-4-sub            
+        Label        -compare-6-sub            
         Subtract                               
-        JumpFalse    -compare-4-true           
-        Jump         -compare-4-false          
-        Label        -compare-4-true           
+        JumpFalse    -compare-6-true           
+        Jump         -compare-6-false          
+        Label        -compare-6-true           
         PushI        1                         
-        Jump         -compare-4-join           
-        Label        -compare-4-false          
+        Jump         -compare-6-join           
+        Label        -compare-6-false          
         PushI        0                         
-        Jump         -compare-4-join           
-        Label        -compare-4-join           
-        JumpTrue     -print-boolean-6-true     
+        Jump         -compare-6-join           
+        Label        -compare-6-join           
+        JumpTrue     -print-boolean-8-true     
         PushD        $boolean-false-string     
-        Jump         -print-boolean-6-join     
-        Label        -print-boolean-6-true     
+        Jump         -print-boolean-8-join     
+        Label        -print-boolean-8-true     
         PushD        $boolean-true-string      
-        Label        -print-boolean-6-join     
+        Label        -print-boolean-8-join     
         PushD        $print-format-boolean     
         Printf                                 
         PushD        $print-format-space       
@@ -1382,23 +1567,23 @@
         FDivide                                
         Nop                                    
         PushF        -1.750000                 
-        Label        -compare-5-sub            
+        Label        -compare-7-sub            
         FSubtract                              
-        JumpFZero    -compare-5-true           
-        Jump         -compare-5-false          
-        Label        -compare-5-true           
+        JumpFZero    -compare-7-true           
+        Jump         -compare-7-false          
+        Label        -compare-7-true           
         PushI        1                         
-        Jump         -compare-5-join           
-        Label        -compare-5-false          
+        Jump         -compare-7-join           
+        Label        -compare-7-false          
         PushI        0                         
-        Jump         -compare-5-join           
-        Label        -compare-5-join           
-        JumpTrue     -print-boolean-7-true     
+        Jump         -compare-7-join           
+        Label        -compare-7-join           
+        JumpTrue     -print-boolean-9-true     
         PushD        $boolean-false-string     
-        Jump         -print-boolean-7-join     
-        Label        -print-boolean-7-true     
+        Jump         -print-boolean-9-join     
+        Label        -print-boolean-9-true     
         PushD        $boolean-true-string      
-        Label        -print-boolean-7-join     
+        Label        -print-boolean-9-join     
         PushD        $print-format-boolean     
         Printf                                 
         PushD        $print-format-space       
@@ -1433,7 +1618,7 @@
         PushD        $print-format-newline     
         Printf                                 
         PushD        $global-memory-block      
-        PushI        152                       
+        PushI        168                       
         Add                                    %% r100
         Duplicate                              
         PushI        10                        

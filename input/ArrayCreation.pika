@@ -1,25 +1,44 @@
 exec {
 	const f:= [5 | float].
 	var a1:= [1,3.5,4,6,^a^][1] + 2.
-	var a2:= [[1//2] | [rat]].
+	var a2:= [[1//2, 3, 4, ^1^] | [rat]].
+	print a1;_n_.
+	
+	# this is wrong
 	# const a3:= [].
 	# a2:= [^a^].  not very sure?
 	new[int](14)[2] := 2.  # not very sure?
+	
 	const a4 := clone a2.
 	const a5 := length a4.
 	const numSets := [ [1,2,3], [4,5], [6,7,8], new[int](0)].
+	var hardClone := clone numSets.
+	const check1 := hardClone == numSets.
+	const check2 := hardClone[1] == numSets[1].
+	print a5;a2;a4;numSets;check1;check2;_n_.
+	
 	const width:=4.
 	const height:=7.
-	const matrix := new [[float]] (width).
-	const a6:= [2==3, 3==3, _true_, _false_].
-	const a7:= [^a^, ^b^, ^c^, ^d^].
-	
+	const matrix := new [[float]] (width).	
 	var x:=0.
 	while (x< width) {
 		matrix[x]:=new[float](height).
 		x:=x+ 1.
+		var y:=0.
+		while (y<height) {
+			if (x==0 || y==0) {
+				matrix[x][y]:=1.
+			} else {
+				matrix[x][y]:=matrix[x- 1][y- 1]+matrix[x- 1][y]+matrix[x][y- 1].
+			}
+		}
 	}
-	print a5;a2;a4;numSets;a1;matrix;a6;a7;_n_.
+	print matrix;_n_.
+	
+	const a6:= [2==3, 3==3, _true_, _false_].
+	const a7:= [^a^, ^b^, ^c^, ^d^].
+	print a6;a7;_n_.
+	
 	release numSets.
 	release numSets.
 	release a4.
