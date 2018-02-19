@@ -331,6 +331,8 @@ public class ASMCodeGenerator {
 
             ASMCodeFragment ref = removeValueCode(node.child(0));
             newVoidCode(node);
+
+            code.append(ref);
             code.add(Call, RunTime.RELEASE_REFERENCE);
         }
 

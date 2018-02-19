@@ -21,5 +21,8 @@ exec {
 	}
 	print a5;a2;a4;numSets;a1;matrix;a6;a7;_n_.
 	release numSets.
-	
+	release numSets.
+	release a4.
+	release a2.
+	release matrix.
 }

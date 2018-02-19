@@ -3,60 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/input/ArrayCreation.pika" afterPath="$PROJECT_DIR$/input/ArrayCreation.pika" />
+      <change beforePath="$PROJECT_DIR$/output/ArrayCreation.asm" afterPath="$PROJECT_DIR$/output/ArrayCreation.asm" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/coins.asmo" afterPath="$PROJECT_DIR$/output/pika-1/coins.asmo" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/currentTest.asm" afterPath="$PROJECT_DIR$/output/pika-1/currentTest.asm" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/currentTest.asmo" afterPath="$PROJECT_DIR$/output/pika-1/currentTest.asmo" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/floatingComplete.asm" afterPath="$PROJECT_DIR$/output/pika-1/floatingComplete.asm" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/minestone1Result.txt" afterPath="$PROJECT_DIR$/output/pika-1/minestone1Result.txt" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/minestone1Test.asm" afterPath="$PROJECT_DIR$/output/pika-1/minestone1Test.asm" />
+      <change beforePath="$PROJECT_DIR$/output/pika1/printCSTest.asm" afterPath="$PROJECT_DIR$/output/pika-1/printCSTest.asm" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitAndCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitAndCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitOrCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitOrCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CloneArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CloneArrayCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ComparisonCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ComparisonCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/EmptyArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/EmptyArrayCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingExpressOverCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingExpressOverCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingRationalizeCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingRationalizeCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingToRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingToRationalCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FormRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FormRationalCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerToRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerToRationalCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/LengthArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/LengthArrayCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/PopulatedArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/PopulatedArrayCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalAddCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalAddCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalDivideCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalDivideCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalExpressOverCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalExpressOverCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalMultiplyCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalMultiplyCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalRationalizeCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalRationalizeCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalSubtractCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalSubtractCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalToFloatingCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalToFloatingCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNode.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/CharacterConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/CharacterConstantNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/FloatingConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/FloatingConstantNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/IfStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IfStatementNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ReleaseStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ReleaseStatementNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/StringConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/StringConstantNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/TabNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/TabNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
-      <change beforePath="$PROJECT_DIR$/src/parser/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/parser/tests/FixtureDefinitions.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java" />
-      <change beforePath="$PROJECT_DIR$/src/tokens/IntegerToken.java" afterPath="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
-      <change beforePath="$PROJECT_DIR$/src/tokens/LextantToken.java" afterPath="$PROJECT_DIR$/src/tokens/LextantToken.java" />
-      <change beforePath="$PROJECT_DIR$/src/tokens/StringToken.java" afterPath="$PROJECT_DIR$/src/tokens/StringToken.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,7 +30,7 @@
       <file leaf-file-name="SemanticAnalysisVisitor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-112">
+            <state relative-caret-position="1418">
               <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding />
             </state>
@@ -84,8 +40,8 @@
       <file leaf-file-name="RunTime.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="787">
-              <caret line="478" column="5" lean-forward="false" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
+            <state relative-caret-position="-109">
+              <caret line="350" column="31" lean-forward="false" selection-start-line="350" selection-start-column="31" selection-end-line="350" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -94,8 +50,8 @@
       <file leaf-file-name="ASMCodeGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="362" column="30" lean-forward="false" selection-start-line="362" selection-start-column="30" selection-end-line="362" selection-end-column="30" />
+            <state relative-caret-position="224">
+              <caret line="267" column="20" lean-forward="true" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -113,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mainblock</find>
       <find>else</find>
       <find>Integer</find>
       <find>turnA</find>
@@ -139,10 +94,11 @@
       <find>unary</find>
       <find>int</find>
       <find>float</find>
-      <find>Nop</find>
       <find>code</find>
       <find>ParseNode node</find>
       <find>fragment</find>
+      <find>Nop</find>
+      <find>Printf</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -193,7 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/input/ControlFlowTest.pika" />
         <option value="$PROJECT_DIR$/output/Floatingagain.asm" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java" />
         <option value="$PROJECT_DIR$/src/tryjava.java" />
@@ -237,13 +192,14 @@
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" />
         <option value="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" />
-        <option value="$PROJECT_DIR$/input/ArrayCreation.pika" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/PopulatedArrayCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+        <option value="$PROJECT_DIR$/output/ArrayCreation.asm" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/input/ArrayCreation.pika" />
       </list>
     </option>
   </component>
@@ -299,20 +255,17 @@
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="output" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
-              <item name="runtime" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1179,7 +1132,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="applications.PikaCompiler" />
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/pika-1/minestone1Test.pika" />
+      <option name="PROGRAM_PARAMETERS" value="input/ArrayCreation.pika" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1361,13 +1314,13 @@
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="External Tools.ASMEmu_coins" />
-      <item index="1" class="java.lang.String" itemvalue="External Tools.ASMEmu_currentTest" />
-      <item index="2" class="java.lang.String" itemvalue="Application.PikaStandaloneOptimizer" />
-      <item index="3" class="java.lang.String" itemvalue="Application.PikaCompiler" />
-      <item index="4" class="java.lang.String" itemvalue="Application.PikaAbstractSyntaxTree" />
-      <item index="5" class="java.lang.String" itemvalue="Application.PikaSemanticChecker" />
-      <item index="6" class="java.lang.String" itemvalue="Application.tryjava" />
+      <item index="0" class="java.lang.String" itemvalue="Application.PikaStandaloneOptimizer" />
+      <item index="1" class="java.lang.String" itemvalue="Application.PikaCompiler" />
+      <item index="2" class="java.lang.String" itemvalue="Application.PikaAbstractSyntaxTree" />
+      <item index="3" class="java.lang.String" itemvalue="Application.PikaSemanticChecker" />
+      <item index="4" class="java.lang.String" itemvalue="Application.tryjava" />
+      <item index="5" class="java.lang.String" itemvalue="External Tools.ASMEmu_coins" />
+      <item index="6" class="java.lang.String" itemvalue="External Tools.ASMEmu_currentTest" />
       <item index="7" class="java.lang.String" itemvalue="JUnit.applications.tests in pika" />
       <item index="8" class="java.lang.String" itemvalue="JUnit.TestSemanticChecker" />
     </list>
@@ -1639,7 +1592,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518806394300</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary=":droplet: reformat code">
+      <created>1519032827707</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1519032827707</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1675,7 +1635,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="257310000" />
+    <option name="totallyTimeSpent" value="258106000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1688,20 +1648,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14659686" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1329843" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31623036" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18848167" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1725,7 +1687,6 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29358718" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14659686" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1779,7 +1740,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=":sparkles: fix some bug of integer and add floating number in LA" />
     <MESSAGE value=":droplet: reformat" />
     <MESSAGE value=":beer: add floating number asm without operation" />
     <MESSAGE value=":beer: floating number done" />
@@ -1804,7 +1764,8 @@
     <MESSAGE value=":sparkles: :test: sigh... finish promotion and a rather complete test" />
     <MESSAGE value=":beer: fix bugs of array creation and clone" />
     <MESSAGE value=":beer: :sparkles: fix bug in promotion and implement print array" />
-    <option name="LAST_COMMIT_MESSAGE" value=":beer: :sparkles: fix bug in promotion and implement print array" />
+    <MESSAGE value=":droplet: reformat code" />
+    <option name="LAST_COMMIT_MESSAGE" value=":droplet: reformat code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2137,13 +2098,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/ArrayCreation.asm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/BlockStatementNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="498">
@@ -2167,13 +2121,6 @@
           <folding>
             <element signature="e#1386#1387#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/ArrayCreation.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -2223,7 +2170,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/pika1/minestone1Result.txt">
+    <entry file="file://$PROJECT_DIR$/output/pika-1/minestone1Result.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2238,26 +2185,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/output/ArrayCreation.asm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="362" column="30" lean-forward="false" selection-start-line="362" selection-start-column="30" selection-end-line="362" selection-end-column="30" />
+        <state relative-caret-position="126">
+          <caret line="2080" column="30" lean-forward="false" selection-start-line="2080" selection-start-column="30" selection-end-line="2080" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-112">
+        <state relative-caret-position="1418">
           <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="267" column="20" lean-forward="true" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/ArrayCreation.pika">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="787">
-          <caret line="478" column="5" lean-forward="false" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
+        <state relative-caret-position="-109">
+          <caret line="350" column="31" lean-forward="false" selection-start-line="350" selection-start-column="31" selection-end-line="350" selection-end-column="31" />
           <folding />
         </state>
       </provider>

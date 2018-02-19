@@ -2086,6 +2086,30 @@
         Printf                                 
         PushD        $print-format-newline     
         Printf                                 
+        PushD        $global-memory-block      
+        PushI        28                        
+        Add                                    %% numSets
+        LoadI                                  
+        Call         $$release-reference       
+        PushD        $global-memory-block      
+        PushI        28                        
+        Add                                    %% numSets
+        LoadI                                  
+        Call         $$release-reference       
+        PushD        $global-memory-block      
+        PushI        20                        
+        Add                                    %% a4
+        LoadI                                  
+        Call         $$release-reference       
+        PushD        $global-memory-block      
+        PushI        16                        
+        Add                                    %% a2
+        LoadI                                  
+        Call         $$release-reference       
+        PushD        $global-memory-block      
+        PushI        40                        
+        Add                                    %% matrix
+        LoadI                                  
         Call         $$release-reference       
         Halt                                   
         Label        -mem-manager-make-tags    
