@@ -30,8 +30,8 @@ public class PrintStatementGenerator {
     public void generate(PrintStatementNode node) {
         for (ParseNode child : node.getChildren()) {
             if (child instanceof NewlineNode ||
-                child instanceof SpaceNode ||
-                child instanceof TabNode) {
+                    child instanceof SpaceNode ||
+                    child instanceof TabNode) {
                 ASMCodeFragment childCode = visitor.removeVoidCode(child);
                 code.append(childCode);
             } else {
@@ -53,7 +53,7 @@ public class PrintStatementGenerator {
         if (type == PrimitiveType.RATIONAL) {
             code.add(Call, RunTime.PRINT_RATIONAL);
         } else if (type instanceof Array) {
-            recursiveAppendPrintCode((Array)type);
+            recursiveAppendPrintCode((Array) type);
         } else {
             String format = printFormat(type);
             code.add(PushD, format);
@@ -81,7 +81,7 @@ public class PrintStatementGenerator {
         code.add(Exchange); // [... addr length]
 
         // begin check
-        code.add(Label,startflag);
+        code.add(Label, startflag);
         code.add(Duplicate); // [... addr length length]
         code.add(JumpFalse, endflag); // [... addr length]
 

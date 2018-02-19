@@ -9,7 +9,7 @@ import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.ConvertI;
 
-public class FloatingRationalizeCodeGenerator implements SimpleCodeGenerator{
+public class FloatingRationalizeCodeGenerator implements SimpleCodeGenerator {
 
     public FloatingRationalizeCodeGenerator() {
         super();

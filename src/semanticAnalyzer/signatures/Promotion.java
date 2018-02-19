@@ -44,13 +44,13 @@ public class Promotion {
         }
 
         public static Level getindex(int index) {
-            if (index==0) {
+            if (index == 0) {
                 return NONE;
-            } else if (index==1) {
+            } else if (index == 1) {
                 return FIRST;
-            } else if (index==2) {
+            } else if (index == 2) {
                 return SECOND;
-            } else if (index==3) {
+            } else if (index == 3) {
                 return BOTH;
             } else {
                 return ERROR;
@@ -76,16 +76,16 @@ public class Promotion {
         }
         return false;
     }
-    
+
     public static Object getMethod(Type type1, Type type2) {
-	    	for (Type[] types : PROMOTION_TYPES) {
+        for (Type[] types : PROMOTION_TYPES) {
             if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
-            		return PROMOTION_METHODS.get(types);
+                return PROMOTION_METHODS.get(types);
             }
         }
-	    	return null;
+        return null;
     }
-    
+
     // static flag is for assignment
     public static Promotion checkPromotion(List<Type> checktypes,
                                            FunctionSignatures signatures,

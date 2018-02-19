@@ -9,7 +9,7 @@ import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
-public class RationalSubtractCodeGenerator implements SimpleCodeGenerator{
+public class RationalSubtractCodeGenerator implements SimpleCodeGenerator {
 
     public RationalSubtractCodeGenerator() {
         super();

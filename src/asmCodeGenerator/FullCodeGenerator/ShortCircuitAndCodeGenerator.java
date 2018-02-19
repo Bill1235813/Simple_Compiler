@@ -14,7 +14,7 @@ public class ShortCircuitAndCodeGenerator implements FullCodeGenerator {
     }
 
     @Override
-    public ASMCodeFragment generate (ParseNode node, ASMCodeFragment... args) {
+    public ASMCodeFragment generate(ParseNode node, ASMCodeFragment... args) {
         ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
 
         Labeller labeller = new Labeller("SC-And");

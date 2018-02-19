@@ -19,7 +19,7 @@ public class StringToken extends TokenImp {
 
     public static StringToken make(TextLocation location, String lexeme) {
         StringToken result = new StringToken(location, lexeme);
-        result.setValue(lexeme.replaceAll("[\"]",""));
+        result.setValue(lexeme.replaceAll("[\"]", ""));
         return result;
     }
 

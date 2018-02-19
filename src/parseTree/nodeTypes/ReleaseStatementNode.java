@@ -8,14 +8,14 @@ import tokens.Token;
 
 public class ReleaseStatementNode extends ParseNode {
 
-	public ReleaseStatementNode(Token token) {
-		super(token);
-	}
-	
-	public ReleaseStatementNode(ParseNode node) {
-		super(node);
-	}
-	
+    public ReleaseStatementNode(Token token) {
+        super(token);
+    }
+
+    public ReleaseStatementNode(ParseNode node) {
+        super(node);
+    }
+
     ////////////////////////////////////////////////////////////
     // attributes
 
@@ -37,10 +37,10 @@ public class ReleaseStatementNode extends ParseNode {
         return node;
     }
 
-	///////////////////////////////////////////////////////////
-	// boilerplate for visitors
+    ///////////////////////////////////////////////////////////
+    // boilerplate for visitors
 
-	public void accept(ParseNodeVisitor visitor) {
+    public void accept(ParseNodeVisitor visitor) {
         visitor.visitEnter(this);
         visitChildren(visitor);
         visitor.visitLeave(this);

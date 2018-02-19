@@ -5,7 +5,7 @@ import parseTree.ParseNodeVisitor;
 import tokens.Token;
 
 public class TabNode extends ParseNode {
-    
+
     public TabNode(ParseNode node) {
         super(node);
     }

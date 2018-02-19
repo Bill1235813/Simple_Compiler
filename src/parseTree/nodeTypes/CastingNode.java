@@ -7,7 +7,7 @@ import tokens.LextantToken;
 import tokens.Token;
 
 // nobody use it now ~ smile
-public class CastingNode extends ParseNode{
+public class CastingNode extends ParseNode {
 
     private FunctionSignature signature = FunctionSignature.nullInstance();
 
@@ -32,6 +32,7 @@ public class CastingNode extends ParseNode{
     public final FunctionSignature getSignature() {
         return signature;
     }
+
     public final void setSignature(FunctionSignature signature) {
         this.signature = signature;
     }

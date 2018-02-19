@@ -31,7 +31,7 @@ public class Macros {
         frag.add(PushD, location);
         frag.add(LoadC);
     }
-    
+
     public static void storeITo(ASMCodeFragment frag, String location) {
         frag.add(PushD, location);
         frag.add(Exchange);
@@ -43,29 +43,29 @@ public class Macros {
         frag.add(Exchange);
         frag.add(StoreC);
     }
-    
+
     public static void declareI(ASMCodeFragment frag, String variableName) {
         frag.add(DLabel, variableName);
         frag.add(DataZ, 4);
     }
 
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
-    		loadIFrom(frag, fromlocation);
-    		storeITo(frag, tolocation);
+        loadIFrom(frag, fromlocation);
+        storeITo(frag, tolocation);
     }
-    
+
     public static void moveCMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
-		loadCFrom(frag, fromlocation);
-		storeCTo(frag, tolocation);
+        loadCFrom(frag, fromlocation);
+        storeCTo(frag, tolocation);
     }
-    
+
     public static void swap(ASMCodeFragment frag, String firstlocation, String secondlocation) {
-    		loadIFrom(frag, firstlocation);
-    		loadIFrom(frag, secondlocation);
-    		storeITo(frag, firstlocation);
-    		storeITo(frag, secondlocation);
+        loadIFrom(frag, firstlocation);
+        loadIFrom(frag, secondlocation);
+        storeITo(frag, firstlocation);
+        storeITo(frag, secondlocation);
     }
-    
+
     /**
      * [... baseLocation] -> [... intValue]
      *
@@ -117,34 +117,34 @@ public class Macros {
     }
 
     /**
-     * 
-     * @param frag	ASMCodeFragment to add code to
-     * @param location	the pointer stored location
-     * @param offset	amount to add to the base location before writing
-     * @param num	the number to be written
+     * @param frag     ASMCodeFragment to add code to
+     * @param location the pointer stored location
+     * @param offset   amount to add to the base location before writing
+     * @param num      the number to be written
      */
     public static void writeIPBaseOffset(ASMCodeFragment frag, String location, int offset, int num) {
-    		loadIFrom(frag, location); // [...pointer at location]
-    		frag.add(PushI, offset);
-    		frag.add(Add); // [...pointer+offset]
-    		frag.add(PushI, num); // [...pointer+offset num]
-    		frag.add(StoreI);
+        loadIFrom(frag, location); // [...pointer at location]
+        frag.add(PushI, offset);
+        frag.add(Add); // [...pointer+offset]
+        frag.add(PushI, num); // [...pointer+offset num]
+        frag.add(StoreI);
     }
-    
+
     /**
      * there should be one element on stack
-     * @param frag	ASMCodeFragment to add code to
-     * @param location	the pointer stored location
-     * @param offset	amount to add to the base location before writing
+     *
+     * @param frag     ASMCodeFragment to add code to
+     * @param location the pointer stored location
+     * @param offset   amount to add to the base location before writing
      */
     public static void writeIPtrOffset(ASMCodeFragment frag, String location, int offset) {
-    		loadIFrom(frag, location); // [...num pointer at location]
-            frag.add(PushI, offset);
-            frag.add(Add); // [...num pointer+offset]
-            frag.add(Exchange);
-            frag.add(StoreI);
+        loadIFrom(frag, location); // [...num pointer at location]
+        frag.add(PushI, offset);
+        frag.add(Add); // [...num pointer+offset]
+        frag.add(Exchange);
+        frag.add(StoreI);
     }
-    
+
     ////////////////////////////////////////////////////////////////////
     // debugging aids
 

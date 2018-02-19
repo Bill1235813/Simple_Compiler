@@ -6,7 +6,7 @@ import tokens.StringToken;
 import tokens.Token;
 
 public class StringConstantNode extends ParseNode {
-    
+
     public StringConstantNode(Token token) {
         super(token);
         assert (token instanceof StringToken);

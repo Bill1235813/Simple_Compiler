@@ -9,7 +9,7 @@ import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
-public class RationalExpressOverCodeGenerator implements SimpleCodeGenerator{
+public class RationalExpressOverCodeGenerator implements SimpleCodeGenerator {
 
     public RationalExpressOverCodeGenerator() {
         super();

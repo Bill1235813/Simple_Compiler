@@ -29,12 +29,12 @@ public final class LextantToken extends TokenImp {
     }
 
     public static LextantToken artificial(Token locator, Lextant lextant) {
-    		String lexeme = lextant.getLexeme(); 
-    		if (lexeme.equals("")) {
-    			lexeme = lextant.toString();
-    		}
-    		return new LextantToken(locator.getLocation(), lexeme, lextant);
-    	}
+        String lexeme = lextant.getLexeme();
+        if (lexeme.equals("")) {
+            lexeme = lextant.toString();
+        }
+        return new LextantToken(locator.getLocation(), lexeme, lextant);
+    }
 
     public static LextantToken make(TextLocation location, String lexeme, Lextant lextant) {
         return new LextantToken(location, lexeme, lextant);

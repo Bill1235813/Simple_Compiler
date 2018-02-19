@@ -5,7 +5,7 @@ import parseTree.ParseNode;
 
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
-public class RationalToFloatingCodeGenerator implements SimpleCodeGenerator{
+public class RationalToFloatingCodeGenerator implements SimpleCodeGenerator {
 
     public RationalToFloatingCodeGenerator() {
         super();

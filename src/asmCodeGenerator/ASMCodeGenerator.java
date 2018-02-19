@@ -45,7 +45,7 @@ public class ASMCodeGenerator {
         code.append(RunTime.getEnvironment());
         code.append(globalVariableBlockASM());
         code.append(programASM());
-		code.append(MemoryManager.codeForAfterApplication());
+        code.append(MemoryManager.codeForAfterApplication());
 
         return code;
     }
@@ -235,23 +235,23 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(AssignmentStatementNode node) {
-            ASMCodeFragment [] args = getAssignChildren(node);
+            ASMCodeFragment[] args = getAssignChildren(node);
             applyPromotion(node.getPromotion(), node, args);
             setAndStore(node, args);
         }
 
         public void visitLeave(DeclarationNode node) {
-            ASMCodeFragment [] args = getAssignChildren(node);
+            ASMCodeFragment[] args = getAssignChildren(node);
             setAndStore(node, args);
         }
 
-        private ASMCodeFragment [] getAssignChildren(ParseNode node) {
+        private ASMCodeFragment[] getAssignChildren(ParseNode node) {
             ASMCodeFragment lvalue = removeAddressCode(node.child(0));
             ASMCodeFragment rvalue = removeValueCode(node.child(1));
-            return new ASMCodeFragment[] {lvalue, rvalue};
+            return new ASMCodeFragment[]{lvalue, rvalue};
         }
-        
-        private void setAndStore(ParseNode node, ASMCodeFragment [] args) {
+
+        private void setAndStore(ParseNode node, ASMCodeFragment[] args) {
             newVoidCode(node);
 
             Type type = node.getType();
@@ -326,12 +326,12 @@ public class ASMCodeGenerator {
 
             code.add(Label, endsLabel);
         }
-        
+
         public void visitLeave(ReleaseStatementNode node) {
-        		
-        		ASMCodeFragment ref = removeValueCode(node.child(0));
-        		newVoidCode(node);
-        		code.add(Call, RunTime.RELEASE_REFERENCE);
+
+            ASMCodeFragment ref = removeValueCode(node.child(0));
+            newVoidCode(node);
+            code.add(Call, RunTime.RELEASE_REFERENCE);
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -394,7 +394,7 @@ public class ASMCodeGenerator {
         }
 
         private void appendUndeterminedChildren(ASMCodeFragment[] args) {
-            for (ASMCodeFragment arg: args) {
+            for (ASMCodeFragment arg : args) {
                 code.append(arg);
             }
         }
@@ -411,18 +411,18 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(ExpressionListNode node) {
-	    		newValueCode(node);
-	    		Type finaltype = ((Array) node.getType()).getSubtype();
-	    		ASMCodeFragment[] args = getUndeterminedChildren(node);
-	    		for (int i = node.nChildren() - 1; i >= 0; --i) {
-	    			Object varient = Promotion.getMethod(node.child(i).getType(), finaltype);
-	    			if (varient != null) {
-	    				applyPromotionMethods(varient, node, args[i]);
-	    			}
-                    code.append(args[i]);
-	    		}
-	    }
-        
+            newValueCode(node);
+            Type finaltype = ((Array) node.getType()).getSubtype();
+            ASMCodeFragment[] args = getUndeterminedChildren(node);
+            for (int i = node.nChildren() - 1; i >= 0; --i) {
+                Object varient = Promotion.getMethod(node.child(i).getType(), finaltype);
+                if (varient != null) {
+                    applyPromotionMethods(varient, node, args[i]);
+                }
+                code.append(args[i]);
+            }
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         // parentheses and casting nodes
         public void visitLeave(ParenthesesNode node) {

@@ -7,7 +7,7 @@ import parseTree.ParseNode;
 import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.codeStorage.ASMOpcode.Call;
 
-public class RationalRationalizeCodeGenerator implements SimpleCodeGenerator{
+public class RationalRationalizeCodeGenerator implements SimpleCodeGenerator {
 
     public RationalRationalizeCodeGenerator() {
         super();

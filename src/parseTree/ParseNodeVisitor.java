@@ -54,13 +54,13 @@ public interface ParseNodeVisitor {
     void visitEnter(TypeNode node);
 
     void visitLeave(TypeNode node);
-    
+
     void visitEnter(ExpressionListNode node);
-    
+
     void visitLeave(ExpressionListNode node);
-    
+
     void visitEnter(ReleaseStatementNode node);
-    
+
     void visitLeave(ReleaseStatementNode node);
 
     // leaf nodes: visitLeaf only
@@ -196,27 +196,27 @@ public interface ParseNodeVisitor {
             defaultVisitLeave(node);
         }
 
-		@Override
-		public void visitEnter(ExpressionListNode node) {
-			defaultVisitEnter(node);
-		}
+        @Override
+        public void visitEnter(ExpressionListNode node) {
+            defaultVisitEnter(node);
+        }
 
-		@Override
-		public void visitLeave(ExpressionListNode node) {
-			defaultVisitLeave(node);
-		}
-        
-		@Override
-		public void visitEnter(ReleaseStatementNode node) {
-			defaultVisitEnter(node);
-			
-		}
+        @Override
+        public void visitLeave(ExpressionListNode node) {
+            defaultVisitLeave(node);
+        }
 
-		@Override
-		public void visitLeave(ReleaseStatementNode node) {
-			defaultVisitLeave(node);
-		}
-		
+        @Override
+        public void visitEnter(ReleaseStatementNode node) {
+            defaultVisitEnter(node);
+
+        }
+
+        @Override
+        public void visitLeave(ReleaseStatementNode node) {
+            defaultVisitLeave(node);
+        }
+
         public void visit(BooleanConstantNode node) {
             defaultVisitForLeaf(node);
         }

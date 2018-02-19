@@ -53,7 +53,7 @@ public class IfStatementNode extends ParseNode {
         } else {
             assert children.length == 2;
         }
-        for (ParseNode child: children) {
+        for (ParseNode child : children) {
             node.appendChild(child);
         }
         return node;

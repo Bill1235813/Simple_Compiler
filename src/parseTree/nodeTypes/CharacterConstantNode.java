@@ -6,7 +6,7 @@ import tokens.CharacterToken;
 import tokens.Token;
 
 public class CharacterConstantNode extends ParseNode {
-    
+
     public CharacterConstantNode(Token token) {
         super(token);
         assert (token instanceof CharacterToken);

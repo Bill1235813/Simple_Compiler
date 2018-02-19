@@ -6,7 +6,7 @@ import parseTree.ParseNode;
 
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
-public class FloatingExpressOverCodeGenerator implements SimpleCodeGenerator{
+public class FloatingExpressOverCodeGenerator implements SimpleCodeGenerator {
 
     public FloatingExpressOverCodeGenerator() {
         super();

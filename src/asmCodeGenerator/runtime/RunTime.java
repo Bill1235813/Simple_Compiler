@@ -50,13 +50,13 @@ public class RunTime {
     public static final String PRINT_TEMP = "$print-temp";
     public static final String EXPRESS_OVER_DENOMINATOR = "$express-over-denominator";
     public static final String RECORD_CREATION_TEMPORARY = "$record-creation-temporary";
-	public static final String ARRAY_DATASIZE_TEMPORARY = "$array-datasize-temporary";
-	public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
-	public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
-	public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
-	public static final String CLONE_LOCATION_TEMP = "clone-location-temp";
-	public static final String CLONE_SIZE_TEMP = "clone-size-temp";
-	public static final String CLONE_NEW_LOCATION_TEMP = "clone-new-location-temp";
+    public static final String ARRAY_DATASIZE_TEMPORARY = "$array-datasize-temporary";
+    public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
+    public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
+    public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
+    public static final String CLONE_LOCATION_TEMP = "clone-location-temp";
+    public static final String CLONE_SIZE_TEMP = "clone-size-temp";
+    public static final String CLONE_NEW_LOCATION_TEMP = "clone-new-location-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
@@ -66,9 +66,9 @@ public class RunTime {
     public static final String INTEGER_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$i-divide-by-zero";
     public static final String FLOATING_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$f-divide-by-zero";
     public static final String RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR = "$$r-divide-by-zero";
-	public static final String NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR = "$$array-size-is-negative";
-	public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
-	public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
+    public static final String NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR = "$$array-size-is-negative";
+    public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
+    public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -143,7 +143,7 @@ public class RunTime {
         return frag;
     }
 
-	private ASMCodeFragment generalRuntimeError(ASMCodeFragment frag) {
+    private ASMCodeFragment generalRuntimeError(ASMCodeFragment frag) {
         String generalErrorMessage = "$errors-general-message";
 
         frag.add(DLabel, generalErrorMessage);
@@ -157,38 +157,38 @@ public class RunTime {
     }
 
     private void negativeArraySizeError(ASMCodeFragment frag) {
-		String negativeArraySizeMessage = "$errors-negative-array-size";
-		
-		frag.add(DLabel, negativeArraySizeMessage);
-		frag.add(DataS, "negative array size");
-		
-		frag.add(Label, NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR);
-		frag.add(PushD, negativeArraySizeMessage);
-		frag.add(Jump, GENERAL_RUNTIME_ERROR);
-	}
-    
+        String negativeArraySizeMessage = "$errors-negative-array-size";
+
+        frag.add(DLabel, negativeArraySizeMessage);
+        frag.add(DataS, "negative array size");
+
+        frag.add(Label, NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR);
+        frag.add(PushD, negativeArraySizeMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+
     private void nullArrayError(ASMCodeFragment frag) {
-		String nullArrayMessage = "$errors-null-array-size";
-		
-		frag.add(DLabel, nullArrayMessage);
-		frag.add(DataS, "array is null");
-		
-		frag.add(Label, NULL_ARRAY_RUNTIME_ERROR);
-		frag.add(PushD, nullArrayMessage);
-		frag.add(Jump, GENERAL_RUNTIME_ERROR);
-	}
-    
+        String nullArrayMessage = "$errors-null-array-size";
+
+        frag.add(DLabel, nullArrayMessage);
+        frag.add(DataS, "array is null");
+
+        frag.add(Label, NULL_ARRAY_RUNTIME_ERROR);
+        frag.add(PushD, nullArrayMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+
     private void overflowArraySizeError(ASMCodeFragment frag) {
-		String overflowArraySizeMessage = "$errors-overflow-array-size";
-		
-		frag.add(DLabel, overflowArraySizeMessage);
-		frag.add(DataS, "overflow array size");
-		
-		frag.add(Label, OVERFLOW_ARRAY_RUNTIME_ERROR);
-		frag.add(PushD, overflowArraySizeMessage);
-		frag.add(Jump, GENERAL_RUNTIME_ERROR);
-	}
-    
+        String overflowArraySizeMessage = "$errors-overflow-array-size";
+
+        frag.add(DLabel, overflowArraySizeMessage);
+        frag.add(DataS, "overflow array size");
+
+        frag.add(Label, OVERFLOW_ARRAY_RUNTIME_ERROR);
+        frag.add(PushD, overflowArraySizeMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+
     private void integerDivideByZeroError(ASMCodeFragment frag) {
         String intDivideByZeroMessage = "$errors-int-divide-by-zero";
 
@@ -221,7 +221,7 @@ public class RunTime {
         frag.add(PushD, ratDivideByZeroMessage);
         frag.add(Jump, GENERAL_RUNTIME_ERROR);
     }
-    
+
     private ASMCodeFragment temporaryVariables() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
         declareI(frag, ARRAY_INDEXING_ARRAY);
@@ -247,14 +247,14 @@ public class RunTime {
     }
 
     private ASMCodeFragment subroutinesGenerator() {
-    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
-    		frag.append(lowestTermsConverter());
-    		frag.append(clearNBytes());
-    		frag.append(printRational());
-    		frag.append(releaseReference());
-    		return frag;
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
+        frag.append(lowestTermsConverter());
+        frag.append(clearNBytes());
+        frag.append(printRational());
+        frag.append(releaseReference());
+        return frag;
     }
-    
+
     private ASMCodeFragment lowestTermsConverter() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);  //	[... num denom returnAddr]
         Labeller labeller = new Labeller("$function-lowest");
@@ -297,13 +297,13 @@ public class RunTime {
         loadIFrom(frag, FIRST_DENOMINATOR);
         loadIFrom(frag, GCD_TEMP_DENOMINATOR);  //		[... num(lowest) denom gcd]
         frag.add(Divide);  //	[.. num(lowest) denom(lowest)]
-        
+
         loadIFrom(frag, RETURN_FOR_RUNTIME_FUNCTION);  //	[.. num(lowest) denom(lowest) return addr]       
         frag.add(Return);  //	[.. num(lowest) denom(lowest)]
         return frag;
     }
 
-	// set elemSize bytes start from elemsPtr 0	// [...elemsPtr elemSize (return)]
+    // set elemSize bytes start from elemsPtr 0	// [...elemsPtr elemSize (return)]
     private ASMCodeFragment clearNBytes() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
         Labeller labeller = new Labeller("$function-clear");
@@ -429,18 +429,18 @@ public class RunTime {
 
     // [... ref_addr] -> [...] release
     private ASMCodeFragment releaseReference() {
-    		ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); // [... ref_addr (return)]
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); // [... ref_addr (return)]
         // set label
         Labeller labeller = new Labeller("$release-reference");
         String endflag = labeller.newLabel("endflag");
         String subtypeIsRefflag = labeller.newLabel("subtypeIsRefflag");
         String returnflag = labeller.newLabel("returnflag");
-        
+
         frag.add(Label, RELEASE_REFERENCE);
         frag.add(Exchange); // [... (return) ref_addr]
         // check permanent
         frag.add(Duplicate);
-        frag.add(PushI, Record.RECORD_PERMANENT_OFFSET); 
+        frag.add(PushI, Record.RECORD_PERMANENT_OFFSET);
         frag.add(Add);
         frag.add(LoadC); // [... (return) ref_addr permanent]
         frag.add(JumpTrue, endflag);
@@ -467,7 +467,7 @@ public class RunTime {
         // deal with subtype is ref
         frag.add(Label, subtypeIsRefflag);
         releaseSubtype(frag); // [... (return) ref_addr_bottom]
-        
+
         // end
         frag.add(Label, endflag); // [... (return) ref_addr]
         frag.add(Pop);
@@ -475,39 +475,39 @@ public class RunTime {
         frag.add(Return);
         return frag;
     }
-    
+
     // subtype reference release [... ref_addr] -> [... ref_addr_bottom]
     private static void releaseSubtype(ASMCodeFragment code) {
-    		Labeller labeller = new Labeller("$release-subtype-reference");
+        Labeller labeller = new Labeller("$release-subtype-reference");
         String endflag = labeller.newLabel("endflag");
         String loopflag = labeller.newLabel("loopflag");
-        
-    		code.add(Duplicate);
-    		getLength(code); // [... ref_addr length]
-    		code.add(Exchange); // [... length ref_addr]
-    		code.add(PushI, Record.ARRAY_HEADER_SIZE);
-    		code.add(Add); // [... length ref_addr_start]
-    		code.add(Exchange); // [... ref_addr length]
-    	
-    		code.add(Label, loopflag);
-    		code.add(Duplicate); // [... ref_addr length length]
-    		code.add(JumpFalse, endflag); // [... ref_addr length]
-    		code.add(Exchange);
-    		code.add(Duplicate); // [... length ref_addr ref_addr]
-    		code.add(LoadI); // [... length ref_addr sub_addr]
-    		code.add(Call, RELEASE_REFERENCE); // [... length ref_addr]
-    		code.add(PushI, PrimitiveType.INTEGER.getSize());
-    		code.add(Add); // [... length next_ref_addr]
-    		code.add(Exchange); // [... next_ref_addr length]
-    		code.add(PushI, -1);
-    		code.add(Add); // [... next_ref_addr length-1] 
-    		code.add(Jump, loopflag);
-    		
-    		code.add(Label, endflag); // [... ref_addr length]
-    		code.add(Pop); // [... ref_addr]
-    		
+
+        code.add(Duplicate);
+        getLength(code); // [... ref_addr length]
+        code.add(Exchange); // [... length ref_addr]
+        code.add(PushI, Record.ARRAY_HEADER_SIZE);
+        code.add(Add); // [... length ref_addr_start]
+        code.add(Exchange); // [... ref_addr length]
+
+        code.add(Label, loopflag);
+        code.add(Duplicate); // [... ref_addr length length]
+        code.add(JumpFalse, endflag); // [... ref_addr length]
+        code.add(Exchange);
+        code.add(Duplicate); // [... length ref_addr ref_addr]
+        code.add(LoadI); // [... length ref_addr sub_addr]
+        code.add(Call, RELEASE_REFERENCE); // [... length ref_addr]
+        code.add(PushI, PrimitiveType.INTEGER.getSize());
+        code.add(Add); // [... length next_ref_addr]
+        code.add(Exchange); // [... next_ref_addr length]
+        code.add(PushI, -1);
+        code.add(Add); // [... next_ref_addr length-1]
+        code.add(Jump, loopflag);
+
+        code.add(Label, endflag); // [... ref_addr length]
+        code.add(Pop); // [... ref_addr]
+
     }
-    
+
     // insert exprList to the specific location [... exprList nElems location]
     public static void insertToRecord(ASMCodeFragment code, Type subType) {
 
@@ -539,7 +539,7 @@ public class RunTime {
         addITo(code, RunTime.INSERT_LOCATION_TEMP); // location += subtype.size()
         code.add(Jump, loopflag);
 
-        code.add(Label, endflag);    
+        code.add(Label, endflag);
     }
 
     // leaves new record in RECORD_CREATION_TEMPORARY // [... stringExprList length+1]
@@ -561,90 +561,90 @@ public class RunTime {
                 Record.STRING_LENGTH_OFFSET, length); // [...]
     }
 
-     // leaves new record in RECORD_CREATION_TEMPORARY
-     // [... size] -> [...]
-     public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
-         code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
-         storeITo(code, RECORD_CREATION_TEMPORARY);
-         writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
-                 Record.RECORD_TYPEID_OFFSET, typecode);
-         writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
-                 Record.RECORD_STATUS_OFFSET, statusFlags);
-     }
-	 
-	 // leaves new record in RECORD_CREATION_TEMPORARY // [... nElems] -> [...]
-	 public static void createEmptyArrayRecord(ASMCodeFragment code, 
-			 int statusFlags, int subtypeSize) { 
-		 final int typecode = Record.ARRAY_TYPE_ID;
-		 
-		 code.add(Duplicate); // [... nElems nElems] 
-		 code.add(JumpNeg, RunTime.NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR); // [... nElems]
-		 
-		 code.add(Duplicate); // [... nElems nElems] 
-		 code.add(PushI, subtypeSize); // [... nElems nElems subSize] 
-		 code.add(Multiply); // [... nElems elemsSize]
-		 code.add(Duplicate); // [... nElems elemsSize elemsSize]
-		 storeITo(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsSize]
-		 code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems elemsSize AHS]
-		 code.add(Add); // [... nElems totalRecordSize]
-		 
-		 createRecord(code, typecode, statusFlags); // [... nElems]
-		 loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... nElems ptr]
-		 code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems ptr AHS]
-		 code.add(Add); // [... nElems elemsPtr] 
-		 loadIFrom(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsPtr elemSize]
-		 code.add(Call, CLEAR_N_BYTES); // [...nElems]
-		 
-		 writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY, 
-				 Record.ARRAY_SUBTYPE_SIZE_OFFSET, subtypeSize); // [... length]
-		 writeIPtrOffset(code, RECORD_CREATION_TEMPORARY, 
-				 Record.ARRAY_LENGTH_OFFSET); // [...]
-	 }
-	 
-	 // [... addr] -> [... addr2]
-	 public static void cloneArray(ASMCodeFragment code) {
-		 Labeller labeller = new Labeller("clone-array");
-		 String loopflag = labeller.newLabel("loopflag");
-		 String endflag = labeller.newLabel("endflag");
- 		
- 		 // store location and size
-		 storeITo(code, CLONE_LOCATION_TEMP);
-		 loadIFrom(code, CLONE_LOCATION_TEMP);
-		 getLength(code); // [... length]
-		 loadIFrom(code, CLONE_LOCATION_TEMP);
-		 readIOffset(code, Record.ARRAY_SUBTYPE_SIZE_OFFSET); // [... length subsize]
-		 code.add(Multiply);
-		 code.add(PushI, Record.ARRAY_HEADER_SIZE);
-		 code.add(Add); // [... totalsize]
-		 storeITo(code, CLONE_SIZE_TEMP);
-		 loadIFrom(code, CLONE_SIZE_TEMP); 
-		 
-		 // allocate new location
-		 code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
-		 storeITo(code, CLONE_NEW_LOCATION_TEMP);
-		 moveIMemory(code, CLONE_NEW_LOCATION_TEMP, RECORD_CREATION_TEMPORARY);
-		 
-		 // move char by char
-		 code.add(Label, loopflag);
-		 loadIFrom(code, CLONE_SIZE_TEMP); 
-		 code.add(JumpFalse, endflag);
-         loadIFrom(code, CLONE_LOCATION_TEMP);
-         code.add(LoadC);
-         loadIFrom(code, CLONE_NEW_LOCATION_TEMP);
-         code.add(Exchange);
-         code.add(StoreC);
-		 decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
-		 incrementInteger(code, CLONE_LOCATION_TEMP);
-		 incrementInteger(code, CLONE_NEW_LOCATION_TEMP); // location += 1
-		 code.add(Jump, loopflag);		
-		 code.add(Label, endflag);
-	 }
-	 
-	 // [... addr] -> [... length]
-	 public static void getLength(ASMCodeFragment code) {
-		 readIOffset(code, Record.ARRAY_LENGTH_OFFSET);
-	 }
-	 
+    // leaves new record in RECORD_CREATION_TEMPORARY
+    // [... size] -> [...]
+    public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
+        code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+        storeITo(code, RECORD_CREATION_TEMPORARY);
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.RECORD_TYPEID_OFFSET, typecode);
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.RECORD_STATUS_OFFSET, statusFlags);
+    }
+
+    // leaves new record in RECORD_CREATION_TEMPORARY // [... nElems] -> [...]
+    public static void createEmptyArrayRecord(ASMCodeFragment code,
+                                              int statusFlags, int subtypeSize) {
+        final int typecode = Record.ARRAY_TYPE_ID;
+
+        code.add(Duplicate); // [... nElems nElems]
+        code.add(JumpNeg, RunTime.NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR); // [... nElems]
+
+        code.add(Duplicate); // [... nElems nElems]
+        code.add(PushI, subtypeSize); // [... nElems nElems subSize]
+        code.add(Multiply); // [... nElems elemsSize]
+        code.add(Duplicate); // [... nElems elemsSize elemsSize]
+        storeITo(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsSize]
+        code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems elemsSize AHS]
+        code.add(Add); // [... nElems totalRecordSize]
+
+        createRecord(code, typecode, statusFlags); // [... nElems]
+        loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... nElems ptr]
+        code.add(PushI, Record.ARRAY_HEADER_SIZE); // [... nElems ptr AHS]
+        code.add(Add); // [... nElems elemsPtr]
+        loadIFrom(code, ARRAY_DATASIZE_TEMPORARY); // [... nElems elemsPtr elemSize]
+        code.add(Call, CLEAR_N_BYTES); // [...nElems]
+
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.ARRAY_SUBTYPE_SIZE_OFFSET, subtypeSize); // [... length]
+        writeIPtrOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.ARRAY_LENGTH_OFFSET); // [...]
+    }
+
+    // [... addr] -> [... addr2]
+    public static void cloneArray(ASMCodeFragment code) {
+        Labeller labeller = new Labeller("clone-array");
+        String loopflag = labeller.newLabel("loopflag");
+        String endflag = labeller.newLabel("endflag");
+
+        // store location and size
+        storeITo(code, CLONE_LOCATION_TEMP);
+        loadIFrom(code, CLONE_LOCATION_TEMP);
+        getLength(code); // [... length]
+        loadIFrom(code, CLONE_LOCATION_TEMP);
+        readIOffset(code, Record.ARRAY_SUBTYPE_SIZE_OFFSET); // [... length subsize]
+        code.add(Multiply);
+        code.add(PushI, Record.ARRAY_HEADER_SIZE);
+        code.add(Add); // [... totalsize]
+        storeITo(code, CLONE_SIZE_TEMP);
+        loadIFrom(code, CLONE_SIZE_TEMP);
+
+        // allocate new location
+        code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+        storeITo(code, CLONE_NEW_LOCATION_TEMP);
+        moveIMemory(code, CLONE_NEW_LOCATION_TEMP, RECORD_CREATION_TEMPORARY);
+
+        // move char by char
+        code.add(Label, loopflag);
+        loadIFrom(code, CLONE_SIZE_TEMP);
+        code.add(JumpFalse, endflag);
+        loadIFrom(code, CLONE_LOCATION_TEMP);
+        code.add(LoadC);
+        loadIFrom(code, CLONE_NEW_LOCATION_TEMP);
+        code.add(Exchange);
+        code.add(StoreC);
+        decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
+        incrementInteger(code, CLONE_LOCATION_TEMP);
+        incrementInteger(code, CLONE_NEW_LOCATION_TEMP); // location += 1
+        code.add(Jump, loopflag);
+        code.add(Label, endflag);
+    }
+
+    // [... addr] -> [... length]
+    public static void getLength(ASMCodeFragment code) {
+        readIOffset(code, Record.ARRAY_LENGTH_OFFSET);
+    }
+
     public static ASMCodeFragment getEnvironment() {
         RunTime rt = new RunTime();
         return rt.environmentASM();

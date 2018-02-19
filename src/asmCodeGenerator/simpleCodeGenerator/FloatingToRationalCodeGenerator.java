@@ -5,7 +5,7 @@ import parseTree.ParseNode;
 
 import static asmCodeGenerator.codeStorage.ASMOpcode.PushI;
 
-public class FloatingToRationalCodeGenerator implements SimpleCodeGenerator{
+public class FloatingToRationalCodeGenerator implements SimpleCodeGenerator {
     private static final int MAGIC_VALUE = 223092870;
 
     public FloatingToRationalCodeGenerator() {

@@ -10,8 +10,8 @@ import tokens.Token;
 
 public class OperatorNode extends ParseNode {
 
-//	private FunctionSignature signature = FunctionSignature.nullInstance();
-	private Promotion promotion = Promotion.nullPromotion;
+    //	private FunctionSignature signature = FunctionSignature.nullInstance();
+    private Promotion promotion = Promotion.nullPromotion;
 
     public OperatorNode(Token token) {
         super(token);

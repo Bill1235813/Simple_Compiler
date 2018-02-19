@@ -5,7 +5,7 @@ import parseTree.ParseNode;
 
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
-public class IntegerToRationalCodeGenerator implements SimpleCodeGenerator{
+public class IntegerToRationalCodeGenerator implements SimpleCodeGenerator {
 
     public IntegerToRationalCodeGenerator() {
         super();

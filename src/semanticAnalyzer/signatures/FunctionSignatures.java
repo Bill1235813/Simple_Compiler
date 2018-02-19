@@ -90,76 +90,76 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         List<TypeVariable> setS = Arrays.asList(S);
 
         // arithmetic +, -, *, /, //, ///, ////
-		new FunctionSignatures(
-		        Punctuator.ADD,
+        new FunctionSignatures(
+                Punctuator.ADD,
                 new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
-		        new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING),
+                new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING),
                 new FunctionSignature(new RationalAddCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
-		);
+        );
 
-		new FunctionSignatures(
-		        Punctuator.SUBTRACT,
+        new FunctionSignatures(
+                Punctuator.SUBTRACT,
                 new FunctionSignature(ASMOpcode.Subtract, INTEGER, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.FSubtract, FLOATING, FLOATING, FLOATING),
                 new FunctionSignature(new RationalSubtractCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
         );
 
-		new FunctionSignatures(
-		        Punctuator.MULTIPLY,
-			    new FunctionSignature(ASMOpcode.Multiply, INTEGER, INTEGER, INTEGER),
-			    new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING),
+        new FunctionSignatures(
+                Punctuator.MULTIPLY,
+                new FunctionSignature(ASMOpcode.Multiply, INTEGER, INTEGER, INTEGER),
+                new FunctionSignature(ASMOpcode.FMultiply, FLOATING, FLOATING, FLOATING),
                 new FunctionSignature(new RationalMultiplyCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
-		);
+        );
 
-		new FunctionSignatures(
+        new FunctionSignatures(
                 Punctuator.DIVIDE,
                 new FunctionSignature(new IntegerDivideCodeGenerator(), INTEGER, INTEGER, INTEGER),
                 new FunctionSignature(new FloatingDivideCodeGenerator(), FLOATING, FLOATING, FLOATING),
                 new FunctionSignature(new RationalDivideCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
         );
 
-		new FunctionSignatures(
-				Punctuator.OVER,
-				new FunctionSignature(new FormRationalCodeGenerator(), INTEGER, INTEGER, RATIONAL)
-		);
-		
-		new FunctionSignatures(
-				Punctuator.EXPRESS_OVER,
-				new FunctionSignature(new RationalExpressOverCodeGenerator(), RATIONAL, INTEGER, INTEGER),
-				new FunctionSignature(new FloatingExpressOverCodeGenerator(), FLOATING, INTEGER, INTEGER)
-		);
+        new FunctionSignatures(
+                Punctuator.OVER,
+                new FunctionSignature(new FormRationalCodeGenerator(), INTEGER, INTEGER, RATIONAL)
+        );
 
-		new FunctionSignatures(
-		        Punctuator.RATIONALIZE,
+        new FunctionSignatures(
+                Punctuator.EXPRESS_OVER,
+                new FunctionSignature(new RationalExpressOverCodeGenerator(), RATIONAL, INTEGER, INTEGER),
+                new FunctionSignature(new FloatingExpressOverCodeGenerator(), FLOATING, INTEGER, INTEGER)
+        );
+
+        new FunctionSignatures(
+                Punctuator.RATIONALIZE,
                 new FunctionSignature(new RationalRationalizeCodeGenerator(), RATIONAL, INTEGER, RATIONAL),
                 new FunctionSignature(new FloatingRationalizeCodeGenerator(), FLOATING, INTEGER, RATIONAL)
         );
-		
-		// comparison <. >, <=, >=, !=, ==
-		for (Punctuator comparison: Punctuator.comparisons) {
-			FunctionSignature iSignature = new FunctionSignature(new ComparisonCodeGenerator(), INTEGER, INTEGER, BOOLEAN);
-			FunctionSignature cSignature = new FunctionSignature(new ComparisonCodeGenerator(), CHARACTER, CHARACTER, BOOLEAN);
-			FunctionSignature fSignature = new FunctionSignature(new ComparisonCodeGenerator(), FLOATING, FLOATING, BOOLEAN);
-			FunctionSignature bSignature = new FunctionSignature(new ComparisonCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN);
-			FunctionSignature sSignature = new FunctionSignature(new ComparisonCodeGenerator(), STRING, STRING, BOOLEAN);
-			FunctionSignature aSignature = new FunctionSignature(new ComparisonCodeGenerator(), setS, arrayOfS, arrayOfS, BOOLEAN);
-			
-			if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
-				new FunctionSignatures(comparison, iSignature, cSignature, 
-						fSignature, bSignature, sSignature, aSignature);
-			} else {
-				new FunctionSignatures(comparison, iSignature, 
-						cSignature, fSignature);
-			}
-		}
 
-		// assignment
+        // comparison <. >, <=, >=, !=, ==
+        for (Punctuator comparison : Punctuator.comparisons) {
+            FunctionSignature iSignature = new FunctionSignature(new ComparisonCodeGenerator(), INTEGER, INTEGER, BOOLEAN);
+            FunctionSignature cSignature = new FunctionSignature(new ComparisonCodeGenerator(), CHARACTER, CHARACTER, BOOLEAN);
+            FunctionSignature fSignature = new FunctionSignature(new ComparisonCodeGenerator(), FLOATING, FLOATING, BOOLEAN);
+            FunctionSignature bSignature = new FunctionSignature(new ComparisonCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN);
+            FunctionSignature sSignature = new FunctionSignature(new ComparisonCodeGenerator(), STRING, STRING, BOOLEAN);
+            FunctionSignature aSignature = new FunctionSignature(new ComparisonCodeGenerator(), setS, arrayOfS, arrayOfS, BOOLEAN);
+
+            if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
+                new FunctionSignatures(comparison, iSignature, cSignature,
+                        fSignature, bSignature, sSignature, aSignature);
+            } else {
+                new FunctionSignatures(comparison, iSignature,
+                        cSignature, fSignature);
+            }
+        }
+
+        // assignment
         new FunctionSignatures(
                 Punctuator.ASSIGN,
                 new FunctionSignature(ASMOpcode.Nop, setS, S, S, S)
         );
 
-		// casting
+        // casting
         new FunctionSignatures(
                 Punctuator.CASTING,
                 new FunctionSignature(ASMOpcode.Nop, setS, S, Type(S), S),
@@ -170,15 +170,15 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new CastToCharacterCodeGenerator(), INTEGER, TYPE_CHARACTER, CHARACTER),
                 new FunctionSignature(ASMOpcode.Nop, CHARACTER, TYPE_INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.Divide, RATIONAL, TYPE_INTEGER, INTEGER),
-                new FunctionSignature(new RationalToFloatingCodeGenerator(), RATIONAL, TYPE_FLOATING,FLOATING),
+                new FunctionSignature(new RationalToFloatingCodeGenerator(), RATIONAL, TYPE_FLOATING, FLOATING),
                 new FunctionSignature(new IntegerToRationalCodeGenerator(), INTEGER, TYPE_RATIONAL, RATIONAL),
                 new FunctionSignature(new IntegerToRationalCodeGenerator(), CHARACTER, TYPE_RATIONAL, RATIONAL),
                 new FunctionSignature(new FloatingToRationalCodeGenerator(), FLOATING, TYPE_RATIONAL, RATIONAL)
         );
 
-		// boolean &&, ||, !
-		new FunctionSignatures(
-		        Punctuator.BOOLEAN_AND,
+        // boolean &&, ||, !
+        new FunctionSignatures(
+                Punctuator.BOOLEAN_AND,
                 new FunctionSignature(new ShortCircuitAndCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN)
         );
 
@@ -194,33 +194,33 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 
         // populated array creation
         new FunctionSignatures(
-        			Punctuator.POPULATED_ARRAY,
-        			new FunctionSignature(new PopulatedArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
-        	);
-        
+                Punctuator.POPULATED_ARRAY,
+                new FunctionSignature(new PopulatedArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
+        );
+
         // empty array creation
         new FunctionSignatures(
-        			Punctuator.EMPTY_ARRAY,
-        			new FunctionSignature(new EmptyArrayCodeGenerator(), setS, Type(arrayOfS), INTEGER, arrayOfS)
-        	);
+                Punctuator.EMPTY_ARRAY,
+                new FunctionSignature(new EmptyArrayCodeGenerator(), setS, Type(arrayOfS), INTEGER, arrayOfS)
+        );
 
         // array-indexing []
         new FunctionSignatures(
-        			Punctuator.ARRAY_INDEXING,
-        			new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, arrayOfS, INTEGER, S)
-        	);
-        
+                Punctuator.ARRAY_INDEXING,
+                new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, arrayOfS, INTEGER, S)
+        );
+
         // clone
         new FunctionSignatures(
-    			Keyword.CLONE,
-    			new FunctionSignature(new CloneArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
-        	);
-        
+                Keyword.CLONE,
+                new FunctionSignature(new CloneArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
+        );
+
         // length
         new FunctionSignatures(
-        			Keyword.LENGTH,
-        			new FunctionSignature(new LengthArrayCodeGenerator(), setS, arrayOfS, INTEGER)
-        	);
+                Keyword.LENGTH,
+                new FunctionSignature(new LengthArrayCodeGenerator(), setS, arrayOfS, INTEGER)
+        );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
         // Then, we give that key two signatures: one an (INT x INT -> INT) and the other

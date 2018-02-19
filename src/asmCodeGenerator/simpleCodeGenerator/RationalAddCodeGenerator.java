@@ -11,7 +11,7 @@ import static asmCodeGenerator.codeStorage.ASMOpcode.Add;
 import static asmCodeGenerator.codeStorage.ASMOpcode.Call;
 import static asmCodeGenerator.codeStorage.ASMOpcode.Multiply;
 
-public class RationalAddCodeGenerator implements SimpleCodeGenerator{
+public class RationalAddCodeGenerator implements SimpleCodeGenerator {
 
     public RationalAddCodeGenerator() {
         super();

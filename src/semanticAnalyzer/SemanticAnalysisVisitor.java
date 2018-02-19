@@ -122,6 +122,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitLeave(WhileStatementNode node) {
         checkConditionBoolean(node);
     }
+
     private void checkConditionBoolean(ParseNode node) {
         OperatorNode condition = (OperatorNode) node.child(0);
         if (condition.getType() != PrimitiveType.BOOLEAN) {
@@ -136,7 +137,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitLeave(OperatorNode node) {
 //        assert node.nChildren() == 2;
         List<Type> childTypes = new ArrayList<Type>();
-        for (int i=0; i<node.nChildren(); ++i) {
+        for (int i = 0; i < node.nChildren(); ++i) {
             if (node.child(i) instanceof TypeNode) {
                 childTypes.add(new TypeLiteral(node.child(i).getType()));
             } else {
@@ -184,33 +185,33 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     @Override
     public void visitLeave(ExpressionListNode node) {
-    		assert node.nChildren() >= 1;
-    		Type temptype = node.child(0).getType();
-    		for (int i=0;i<node.nChildren();++i) {
-    			Type nexttype = node.child(i).getType();
-    			if (nexttype.equivalent(temptype) || Promotion.promotable(nexttype, temptype)) {
-    				continue;
-    			} else if (Promotion.promotable(temptype, nexttype)) {
-    				temptype = nexttype;
-    			} else {
-    				expressionListPromotionError(node, i+1);
-    				node.setType(PrimitiveType.ERROR);
-    			}
-    		}
-    		node.setType(new Array(temptype));
+        assert node.nChildren() >= 1;
+        Type temptype = node.child(0).getType();
+        for (int i = 0; i < node.nChildren(); ++i) {
+            Type nexttype = node.child(i).getType();
+            if (nexttype.equivalent(temptype) || Promotion.promotable(nexttype, temptype)) {
+                continue;
+            } else if (Promotion.promotable(temptype, nexttype)) {
+                temptype = nexttype;
+            } else {
+                expressionListPromotionError(node, i + 1);
+                node.setType(PrimitiveType.ERROR);
+            }
+        }
+        node.setType(new Array(temptype));
     }
-    
+
     @Override
     public void visitLeave(ReleaseStatementNode node) {
-    		assert node.nChildren() == 1;
-    		Type referencetype = node.child(0).getType();
-    		if (Array.typeIsReference(referencetype)) {
-    			node.setType(referencetype);
-    		} else {
-    			notReferenceTypeError(node);
-    		}
+        assert node.nChildren() == 1;
+        Type referencetype = node.child(0).getType();
+        if (Array.typeIsReference(referencetype)) {
+            node.setType(referencetype);
+        } else {
+            notReferenceTypeError(node);
+        }
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes
     @Override
@@ -290,12 +291,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     ///////////////////////////////////////////////////////////////////////////
     // error logging/printing
     private void notReferenceTypeError(ParseNode node) {
-    		Token token = node.getToken();
+        Token token = node.getToken();
 
         logError("ReleaseStatement must have reference type"
                 + " at " + token.getLocation());
     }
-    
+
     private void notBooleanConditionError(ParseNode node) {
         Token token = node.getToken();
 
@@ -309,12 +310,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         logError("assign to untargetable variable " + token.getLexeme()
                 + " at " + token.getLocation());
     }
-    
+
     private void expressionListPromotionError(ParseNode node, int child) {
-    		Token token = node.getToken();
-    		
-    		logError("expression " + child + " in expressionList cannot get legal promotion at " 
-    				+ token.getLocation());
+        Token token = node.getToken();
+
+        logError("expression " + child + " in expressionList cannot get legal promotion at "
+                + token.getLocation());
     }
 
     private void overOnePromotionError(ParseNode node, List<Type> operandTypes) {

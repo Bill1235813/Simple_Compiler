@@ -22,13 +22,20 @@ public enum PrimitiveType implements Type {
         Keyword keyword = (Keyword) lextant;
 
         switch (keyword) {
-            case BOOL: return BOOLEAN;
-            case INT: return INTEGER;
-            case FLOAT: return  FLOATING;
-            case CHAR: return CHARACTER;
-            case STRING: return STRING;
-            case RAT: return RATIONAL;
-            default: return ERROR;
+            case BOOL:
+                return BOOLEAN;
+            case INT:
+                return INTEGER;
+            case FLOAT:
+                return FLOATING;
+            case CHAR:
+                return CHARACTER;
+            case STRING:
+                return STRING;
+            case RAT:
+                return RATIONAL;
+            default:
+                return ERROR;
         }
     }
 
@@ -50,14 +57,14 @@ public enum PrimitiveType implements Type {
         return infoString;
     }
 
-	@Override
-	public boolean equivalent(Type type) {
-		return this == type;
-	}
+    @Override
+    public boolean equivalent(Type type) {
+        return this == type;
+    }
 
-	@Override
-	public Type getConcreteType() {
-		return this;
-	}
-    
+    @Override
+    public Type getConcreteType() {
+        return this;
+    }
+
 }

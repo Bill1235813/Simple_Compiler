@@ -12,7 +12,7 @@ import tokens.Token;
 
 public class ParseNode {
 
-	public static final ParseNode NO_PARENT = null;
+    public static final ParseNode NO_PARENT = null;
 
     List<ParseNode> children;
     ParseNode parent;

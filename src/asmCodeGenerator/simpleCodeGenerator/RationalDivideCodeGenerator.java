@@ -10,7 +10,7 @@ import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.Call;
 import static asmCodeGenerator.codeStorage.ASMOpcode.Multiply;
 
-public class RationalDivideCodeGenerator implements SimpleCodeGenerator{
+public class RationalDivideCodeGenerator implements SimpleCodeGenerator {
 
     public RationalDivideCodeGenerator() {
         super();

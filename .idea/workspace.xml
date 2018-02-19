@@ -3,15 +3,60 @@
   <component name="ChangeListManager">
     <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/input/ArrayCreation.pika" afterPath="$PROJECT_DIR$/input/ArrayCreation.pika" />
-      <change beforePath="$PROJECT_DIR$/output/ArrayCreation.asm" afterPath="$PROJECT_DIR$/output/ArrayCreation.asm" />
-      <change beforePath="$PROJECT_DIR$/output/minestone1Test.asm" afterPath="$PROJECT_DIR$/output/minestone1Test.asm" />
+      <change beforePath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/applications/tests/FixtureDefinitions.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitAndCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitAndCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitOrCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/FullCodeGenerator/ShortCircuitOrCodeGenerator.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/MemoryManager.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CloneArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/CloneArrayCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ComparisonCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ComparisonCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/EmptyArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/EmptyArrayCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingExpressOverCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingExpressOverCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingRationalizeCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingRationalizeCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingToRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FloatingToRationalCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FormRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/FormRationalCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerToRationalCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/IntegerToRationalCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/LengthArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/LengthArrayCodeGenerator.java" />
       <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/PopulatedArrayCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/PopulatedArrayCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalAddCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalAddCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalDivideCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalDivideCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalExpressOverCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalExpressOverCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalMultiplyCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalMultiplyCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalRationalizeCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalRationalizeCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalSubtractCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalSubtractCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalToFloatingCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/RationalToFloatingCodeGenerator.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/LexicalAnalyzer.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
+      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNode.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" afterPath="$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/CastingNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/CharacterConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/CharacterConstantNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/FloatingConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/FloatingConstantNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/IfStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IfStatementNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/ReleaseStatementNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/ReleaseStatementNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/StringConstantNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/StringConstantNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/TabNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/TabNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
+      <change beforePath="$PROJECT_DIR$/src/parser/tests/FixtureDefinitions.java" afterPath="$PROJECT_DIR$/src/parser/tests/FixtureDefinitions.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Array.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/PrimitiveType.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/Type.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/types/TypeVariable.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/IntegerToken.java" afterPath="$PROJECT_DIR$/src/tokens/IntegerToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/LextantToken.java" afterPath="$PROJECT_DIR$/src/tokens/LextantToken.java" />
+      <change beforePath="$PROJECT_DIR$/src/tokens/StringToken.java" afterPath="$PROJECT_DIR$/src/tokens/StringToken.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,90 +74,28 @@
       <file leaf-file-name="SemanticAnalysisVisitor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-903">
-              <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-              <folding>
-                <element signature="e#4508#4514#0" expanded="true" />
-                <element signature="method#visit#6;class#SemanticAnalysisVisitor#0" expanded="false" />
-                <element signature="method#visit#7;class#SemanticAnalysisVisitor#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="-112">
+              <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ASMCodeGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="468" column="69" lean-forward="false" selection-start-line="468" selection-start-column="69" selection-end-line="468" selection-end-column="69" />
-              <folding>
-                <element signature="e#6396#6397#0" expanded="true" />
-                <element signature="e#6486#6487#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RunTime.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RunTime.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-240">
-              <caret line="478" column="5" lean-forward="true" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
-              <folding>
-                <element signature="e#24714#24715#0" expanded="true" />
-                <element signature="e#24768#24769#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrintStatementGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="120" column="22" lean-forward="true" selection-start-line="120" selection-start-column="22" selection-end-line="120" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="minestone1Test.pika" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input/pika-1/minestone1Test.pika">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="787">
+              <caret line="478" column="5" lean-forward="false" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Macros.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Macros.java">
+      <file leaf-file-name="ASMCodeGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="144" column="29" lean-forward="true" selection-start-line="144" selection-start-column="29" selection-end-line="144" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Record.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Record.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="20" column="62" lean-forward="false" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayCreation.pika" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input/ArrayCreation.pika">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+            <state relative-caret-position="616">
+              <caret line="362" column="30" lean-forward="false" selection-start-line="362" selection-start-column="30" selection-end-line="362" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -259,8 +242,8 @@
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/Record.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-        <option value="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
       </list>
     </option>
   </component>
@@ -306,41 +289,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MyPikaCompiler" type="58d84e3e:PackageViewProjectNode" />
-              <item name="pika" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="output" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="output" type="462c0819:PsiDirectoryNode" />
-              <item name="pika1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -360,23 +314,23 @@
               <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
               <item name="runtime" type="462c0819:PsiDirectoryNode" />
             </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
             <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="signatures" type="462c0819:PsiDirectoryNode" />
+              <item name="MyPikaCompiler" type="58d84e3e:PackageViewProjectNode" />
+              <item name="pika" type="616d4139:PackageViewModuleNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -390,12 +344,10 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/ASM_Emulator/ASMEmu.exe" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Solution code\java\MyPikaCompiler\output\pika1" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\input\pika-1" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\input" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\src\lexicalAnalyzer\test\fixtures" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\ASM_Emulator\input" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="asmCodeGenerator.simpleCodeGenerator" />
+      <recent name="semanticAnalyzer.signatures" />
+      <recent name="asmCodeGenerator" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Solution code\java\MyPikaCompiler" />
@@ -408,10 +360,12 @@
       <recent name="parser.test" />
       <recent name="lexicalAnalyzer.test" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="asmCodeGenerator.simpleCodeGenerator" />
-      <recent name="semanticAnalyzer.signatures" />
-      <recent name="asmCodeGenerator" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Solution code\java\MyPikaCompiler\output\pika1" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\input\pika-1" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\input" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\src\lexicalAnalyzer\test\fixtures" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\ASM_Emulator\input" />
     </key>
   </component>
   <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
@@ -428,9 +382,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/output/ArrayCreation.asm</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -523,6 +474,660 @@
         <option name="mySupportsDeletion" value="false" />
         <option name="myCanBeAbsent" value="false" />
         <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/output/ArrayCreation.asm</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java</PATH>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" />
+            <option name="myStatusName" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" />
+          <option name="myStatusName" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" />
+        </FILE-GROUP>
       </FILE-GROUP>
     </UpdatedFiles>
   </component>
@@ -755,14 +1360,16 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
-    <list size="7">
-      <item index="0" class="java.lang.String" itemvalue="Application.PikaStandaloneOptimizer" />
-      <item index="1" class="java.lang.String" itemvalue="Application.PikaCompiler" />
-      <item index="2" class="java.lang.String" itemvalue="Application.PikaAbstractSyntaxTree" />
-      <item index="3" class="java.lang.String" itemvalue="Application.PikaSemanticChecker" />
-      <item index="4" class="java.lang.String" itemvalue="Application.tryjava" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.applications.tests in pika" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.TestSemanticChecker" />
+    <list size="9">
+      <item index="0" class="java.lang.String" itemvalue="External Tools.ASMEmu_coins" />
+      <item index="1" class="java.lang.String" itemvalue="External Tools.ASMEmu_currentTest" />
+      <item index="2" class="java.lang.String" itemvalue="Application.PikaStandaloneOptimizer" />
+      <item index="3" class="java.lang.String" itemvalue="Application.PikaCompiler" />
+      <item index="4" class="java.lang.String" itemvalue="Application.PikaAbstractSyntaxTree" />
+      <item index="5" class="java.lang.String" itemvalue="Application.PikaSemanticChecker" />
+      <item index="6" class="java.lang.String" itemvalue="Application.tryjava" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.applications.tests in pika" />
+      <item index="8" class="java.lang.String" itemvalue="JUnit.TestSemanticChecker" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -1068,7 +1675,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="257021000" />
+    <option name="totallyTimeSpent" value="257310000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1080,37 +1687,56 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1166" extended-state="6" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14659686" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20440882" sideWeight="0.5052083" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13226452" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20440882" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1329843" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31623036" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1765625" sideWeight="0.5054602" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29358718" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29424083" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20440882" sideWeight="0.5052083" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29358718" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14659686" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13226452" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20440882" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1765625" sideWeight="0.5054602" order="5" side_tool="true" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1515,7 +2141,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="667">
           <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1540,7 +2165,7 @@
         <state relative-caret-position="224">
           <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
-            <element signature="e#1383#1384#0" expanded="true" />
+            <element signature="e#1386#1387#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1549,27 +2174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="638">
           <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-903">
-          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-          <folding>
-            <element signature="e#4508#4514#0" expanded="true" />
-            <element signature="method#visit#6;class#SemanticAnalysisVisitor#0" expanded="false" />
-            <element signature="method#visit#7;class#SemanticAnalysisVisitor#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Record.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="20" column="62" lean-forward="false" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1586,10 +2190,10 @@
         <state relative-caret-position="166">
           <caret line="68" column="16" lean-forward="false" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
           <folding>
-            <element signature="e#809#810#0" expanded="true" />
-            <element signature="e#860#861#0" expanded="true" />
-            <element signature="e#1748#1749#0" expanded="true" />
-            <element signature="e#1796#1797#0" expanded="true" />
+            <element signature="e#809#810#0" expanded="false" />
+            <element signature="e#860#861#0" expanded="false" />
+            <element signature="e#1748#1749#0" expanded="false" />
+            <element signature="e#1796#1797#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1606,7 +2210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1615,18 +2218,7 @@
         <state relative-caret-position="388">
           <caret line="120" column="22" lean-forward="true" selection-start-line="120" selection-start-column="22" selection-end-line="120" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="478" column="5" lean-forward="true" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
-          <folding>
-            <element signature="e#24714#24715#0" expanded="true" />
-            <element signature="e#24768#24769#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1635,18 +2227,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Record.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="19" column="38" lean-forward="true" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="468" column="69" lean-forward="false" selection-start-line="468" selection-start-column="69" selection-end-line="468" selection-end-column="69" />
-          <folding>
-            <element signature="e#6396#6397#0" expanded="true" />
-            <element signature="e#6486#6487#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="616">
+          <caret line="362" column="30" lean-forward="false" selection-start-line="362" selection-start-column="30" selection-end-line="362" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-112">
+          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="787">
+          <caret line="478" column="5" lean-forward="false" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

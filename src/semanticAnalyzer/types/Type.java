@@ -16,18 +16,19 @@ public interface Type {
      * @return string representation of type.
      */
     public String infoString();
-    
+
     public boolean equivalent(Type type);
+
     /**
      * compare if two types is the same
-     * 
+     *
      * @return two types equivalent or not
      */
-    
+
     public Type getConcreteType();
     /**
      * substitute out TypeVariables
-     * 
+     *
      * @return just the type
      */
 }

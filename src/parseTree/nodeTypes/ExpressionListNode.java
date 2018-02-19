@@ -4,20 +4,20 @@ import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
 import tokens.Token;
 
-public class ExpressionListNode extends ParseNode{
+public class ExpressionListNode extends ParseNode {
 
-	public ExpressionListNode(Token token) {
-		super(token);
-	}
-	
+    public ExpressionListNode(Token token) {
+        super(token);
+    }
+
     public ExpressionListNode(ParseNode node) {
         super(node);
     }
-    
+
     public static ExpressionListNode withChildren(Token token, ParseNode... children) {
-    		ExpressionListNode node = new ExpressionListNode(token);
+        ExpressionListNode node = new ExpressionListNode(token);
         for (ParseNode child : children) {
-        		node.appendChild(child);
+            node.appendChild(child);
         }
         return node;
     }

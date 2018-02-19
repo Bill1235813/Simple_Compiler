@@ -22,6 +22,7 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
     private static final Map<Type, ASMOpcode[]> comparisonJumpMap = new HashMap<Type, ASMOpcode[]>();
     private static final Map<Punctuator, Integer> comparisonJumpIndexMap = new HashMap<Punctuator, Integer>();
     private static final Map<Punctuator, Integer> comparisonBooleanIndexMap = new HashMap<Punctuator, Integer>();
+
     static {
         // makeComparisonOperationMap
         comparisonOperationMap.put(PrimitiveType.FLOATING, FSubtract);
@@ -51,7 +52,7 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
         comparisonJumpIndexMap.put(Punctuator.NOTEQUAL, 0);
         comparisonBooleanIndexMap.put(Punctuator.NOTEQUAL, 0);
     }
-    
+
     public ComparisonCodeGenerator() {
         super();
     }
@@ -59,10 +60,10 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
     @Override
     public ASMCodeFragment generate(ParseNode node) {
         ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
-        
-        OperatorNode operatorNode = (OperatorNode)node;
+
+        OperatorNode operatorNode = (OperatorNode) node;
         Lextant operator = operatorNode.getOperator();
-        
+
         // based on Type and Punctuator, find the correct way to compare
         Type compareType = operatorNode.getPromotion().getSignature().firstParamType();
         ASMOpcode comparisonOperation = comparisonOperationMap.getOrDefault(compareType, Subtract);

@@ -11,11 +11,11 @@ public class ShortCircuitOrCodeGenerator implements FullCodeGenerator {
     public ShortCircuitOrCodeGenerator() {
         super();
     }
-    
+
     @Override
-    public ASMCodeFragment generate (ParseNode node, ASMCodeFragment... args) {
+    public ASMCodeFragment generate(ParseNode node, ASMCodeFragment... args) {
         ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
-        
+
         Labeller labeller = new Labeller("SC-Or");
         final String trueLabel = labeller.newLabel("short-circuit-true");
         final String endLabel = labeller.newLabel("end");
