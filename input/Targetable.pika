@@ -8,8 +8,8 @@ exec {
     
     # not very sure?
     (([3.5,4.6,5.7])[0]):= 1.
-    	new[int](14)[2] := 2.  
-    	[new[int](14), new[int](0)][0][11]:=2.
+    new[int](14)[2] := 2.
+    [new[int](14), new[int](0)][0][11]:=2.
     	
     print v;v1;v2.  # 4;4;[4/5,1]
     

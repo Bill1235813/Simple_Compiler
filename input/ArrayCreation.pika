@@ -7,8 +7,10 @@ exec {
 	# this is wrong
 	# const a3:= [].
 	# a2:= [^a^].  not very sure?
+	# a2[-1]:=1.
+	# a2[4]:=1.
 	new[int](14)[2] := 2.  # not very sure?
-	
+
 	const a4 := clone a2.
 	const a5 := length a4.
 	const numSets := [ [1,2,3], [4,5], [6,7,8], new[int](0)].
@@ -23,7 +25,7 @@ exec {
 	var x:=0.
 	while (x< width) {
 		matrix[x]:=new[float](height).
-		x:=x+ 1.
+		# matrix[1][0]:=1.
 		var y:=0.
 		while (y<height) {
 			if (x==0 || y==0) {
@@ -31,7 +33,9 @@ exec {
 			} else {
 				matrix[x][y]:=matrix[x- 1][y- 1]+matrix[x- 1][y]+matrix[x][y- 1].
 			}
+			y:=y+ 1.
 		}
+		x:=x+ 1.
 	}
 	print matrix;_n_.
 	
