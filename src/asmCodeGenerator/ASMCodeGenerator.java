@@ -339,6 +339,7 @@ public class ASMCodeGenerator {
         ///////////////////////////////////////////////////////////////////////////
         // expressions
         public void visitLeave(OperatorNode node) {
+
             newValueCode(node);
             ASMCodeFragment[] args = getUndeterminedChildren(node);
             applyPromotion(node.getPromotion(), node, args);
@@ -348,7 +349,7 @@ public class ASMCodeGenerator {
             if (variant instanceof ASMOpcode) {
                 appendUndeterminedChildren(args);
                 ASMOpcode opcode = (ASMOpcode) variant;
-                code.add(opcode);                            // type-dependent! (opcode is different for floats and for ints)
+                code.add(opcode);
             } else if (variant instanceof SimpleCodeGenerator) {
                 appendUndeterminedChildren(args);
                 SimpleCodeGenerator generator = (SimpleCodeGenerator) variant;
@@ -370,48 +371,6 @@ public class ASMCodeGenerator {
             }
         }
 
-        private void applyPromotion(Promotion promotion, ParseNode node, ASMCodeFragment[] args) {
-            List<Object> methods = promotion.getMethods();
-            if (promotion.getLevel() == Promotion.Level.BOTH) {
-                assert (methods.size() == 2);
-                applyPromotionMethods(methods.get(0), node, args[0]);
-                applyPromotionMethods(methods.get(1), node, args[1]);
-            } else if (promotion.getLevel() == Promotion.Level.FIRST) {
-                assert (promotion.getMethods().size() == 1);
-                applyPromotionMethods(methods.get(0), node, args[0]);
-            } else if (promotion.getLevel() == Promotion.Level.SECOND) {
-                assert (promotion.getMethods().size() == 1);
-                applyPromotionMethods(methods.get(0), node, args[1]);
-            }
-        }
-
-        private void applyPromotionMethods(Object variant, ParseNode node, ASMCodeFragment arg) {
-            if (variant instanceof ASMOpcode) {
-                ASMOpcode opcode = (ASMOpcode) variant;
-                arg.add(opcode);
-            } else if (variant instanceof SimpleCodeGenerator) {
-                SimpleCodeGenerator generator = (SimpleCodeGenerator) variant;
-                arg.append(generator.generate(node));
-            }
-        }
-
-        private void appendUndeterminedChildren(ASMCodeFragment[] args) {
-            for (ASMCodeFragment arg : args) {
-                code.append(arg);
-            }
-        }
-
-        private ASMCodeFragment[] getUndeterminedChildren(ParseNode node) {
-            List<ASMCodeFragment> args = new ArrayList<>();
-            for (int i = 0; i < node.nChildren(); ++i) {
-                if (node.child(i) instanceof TypeNode) {
-                    continue;
-                }
-                args.add(removeValueCode(node.child(i)));
-            }
-            return args.toArray(new ASMCodeFragment[args.size()]);
-        }
-
         public void visitLeave(ExpressionListNode node) {
             newValueCode(node);
             Type finaltype = ((Array) node.getType()).getSubtype();
@@ -425,22 +384,70 @@ public class ASMCodeGenerator {
             }
         }
 
-        ///////////////////////////////////////////////////////////////////////////
-        // parentheses and casting nodes
-        public void visitLeave(ParenthesesNode node) {
-            newValueCode(node);
-            ASMCodeFragment child = getAndRemoveCode(node.child(0));
-            code.append(child);
-            if (child.isAddress()) {
-            		code.markAsAddress();
-            }
-        }
-
         public void visitLeave(TypeNode node) {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // leaf nodes (TypeNode and ErrorNode not necessary)
+        // parentheses and casting nodes
+        // unused
+//        public void visitLeave(ParenthesesNode node) {
+//            newValueCode(node);
+//            ASMCodeFragment child = getAndRemoveCode(node.child(0));
+//            code.append(child);
+//            if (child.isAddress()) {
+//            		code.markAsAddress();
+//            }
+//        }
+
+        // function for promotion application
+        private void applyPromotion(Promotion promotion, ParseNode node, ASMCodeFragment[] args) {
+            List<Object> methods = promotion.getMethods();
+            if (promotion.getLevel() == Promotion.Level.NONE) {
+                return;
+            }
+            else if (promotion.getLevel() == Promotion.Level.BOTH) {
+                assert (methods.size() == 2);
+                applyPromotionMethods(methods.get(0), node, args[0]);
+                applyPromotionMethods(methods.get(1), node, args[1]);
+            } else if (promotion.getLevel() == Promotion.Level.FIRST) {
+                assert (promotion.getMethods().size() == 1);
+                applyPromotionMethods(methods.get(0), node, args[0]);
+            } else if (promotion.getLevel() == Promotion.Level.SECOND) {
+                assert (promotion.getMethods().size() == 1);
+                applyPromotionMethods(methods.get(0), node, args[1]);
+            } else {
+                assert false: "promotion error!";
+            }
+        }
+        private void applyPromotionMethods(Object variant, ParseNode node, ASMCodeFragment arg) {
+            if (variant instanceof ASMOpcode) {
+                ASMOpcode opcode = (ASMOpcode) variant;
+                arg.add(opcode);
+            } else if (variant instanceof SimpleCodeGenerator) {
+                SimpleCodeGenerator generator = (SimpleCodeGenerator) variant;
+                arg.append(generator.generate(node));
+            }
+        }
+
+        // get children (value) and append
+        private void appendUndeterminedChildren(ASMCodeFragment[] args) {
+            for (ASMCodeFragment arg : args) {
+                code.append(arg);
+            }
+        }
+        private ASMCodeFragment[] getUndeterminedChildren(ParseNode node) {
+            List<ASMCodeFragment> args = new ArrayList<>();
+            for (int i = 0; i < node.nChildren(); ++i) {
+                if (node.child(i) instanceof TypeNode) {
+                    continue;
+                }
+                args.add(removeValueCode(node.child(i)));
+            }
+            return args.toArray(new ASMCodeFragment[args.size()]);
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        // leaf nodes (ErrorNode not necessary)
         public void visit(BooleanConstantNode node) {
             newValueCode(node);
             code.add(PushI, node.getValue() ? 1 : 0);

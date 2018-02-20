@@ -508,6 +508,9 @@ public class RunTime {
 
     }
 
+    /////////////////////////////////////////////////////////////////////////
+    // below are all frequently used functions
+
     // insert exprList to the specific location [... exprList nElems location]
     public static void insertToRecord(ASMCodeFragment code, Type subType) {
 
@@ -599,45 +602,6 @@ public class RunTime {
                 Record.ARRAY_SUBTYPE_SIZE_OFFSET, subtypeSize); // [... length]
         writeIPtrOffset(code, RECORD_CREATION_TEMPORARY,
                 Record.ARRAY_LENGTH_OFFSET); // [...]
-    }
-
-    // [... addr] -> [... addr2]
-    public static void cloneArray(ASMCodeFragment code) {
-        Labeller labeller = new Labeller("clone-array");
-        String loopflag = labeller.newLabel("loopflag");
-        String endflag = labeller.newLabel("endflag");
-
-        // store location and size
-        storeITo(code, CLONE_LOCATION_TEMP);
-        loadIFrom(code, CLONE_LOCATION_TEMP);
-        getLength(code); // [... length]
-        loadIFrom(code, CLONE_LOCATION_TEMP);
-        readIOffset(code, Record.ARRAY_SUBTYPE_SIZE_OFFSET); // [... length subsize]
-        code.add(Multiply);
-        code.add(PushI, Record.ARRAY_HEADER_SIZE);
-        code.add(Add); // [... totalsize]
-        storeITo(code, CLONE_SIZE_TEMP);
-        loadIFrom(code, CLONE_SIZE_TEMP);
-
-        // allocate new location
-        code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
-        storeITo(code, CLONE_NEW_LOCATION_TEMP);
-        moveIMemory(code, CLONE_NEW_LOCATION_TEMP, RECORD_CREATION_TEMPORARY);
-
-        // move char by char
-        code.add(Label, loopflag);
-        loadIFrom(code, CLONE_SIZE_TEMP);
-        code.add(JumpFalse, endflag);
-        loadIFrom(code, CLONE_LOCATION_TEMP);
-        code.add(LoadC);
-        loadIFrom(code, CLONE_NEW_LOCATION_TEMP);
-        code.add(Exchange);
-        code.add(StoreC);
-        decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
-        incrementInteger(code, CLONE_LOCATION_TEMP);
-        incrementInteger(code, CLONE_NEW_LOCATION_TEMP); // location += 1
-        code.add(Jump, loopflag);
-        code.add(Label, endflag);
     }
 
     // [... addr] -> [... length]

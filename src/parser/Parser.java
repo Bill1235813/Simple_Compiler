@@ -539,13 +539,11 @@ public class Parser {
             return syntaxErrorNode("parentheses expression");
         }
 
-        ParseNode parenthesesExpression = new ParenthesesNode(nowReading);
         expect(Punctuator.OPEN_PARENTHESE);
         ParseNode expression = parseExpression();
-        parenthesesExpression.appendChild(expression);
         expect(Punctuator.CLOSE_PARENTHESE);
 
-        return parenthesesExpression;
+        return expression;
     }
 
     private boolean startsParenthesesExpression(Token token) {

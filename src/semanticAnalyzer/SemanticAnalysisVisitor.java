@@ -164,15 +164,6 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     @Override
-    public void visitLeave(ParenthesesNode node) {
-        assert node.nChildren() == 1;
-        ParseNode expression = node.child(0);
-        Type resultType = expression.getType();
-        node.setType(resultType);
-        node.setTargetable(expression.getTargetable());
-    }
-
-    @Override
     public void visitLeave(TypeNode node) {
         assert node.getToken() instanceof LextantToken;
         assert node.nChildren() <= 1;
@@ -211,6 +202,15 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
             notReferenceTypeError(node);
         }
     }
+
+    //    @Override
+//    public void visitLeave(ParenthesesNode node) {
+//        assert node.nChildren() == 1;
+//        ParseNode expression = node.child(0);
+//        Type resultType = expression.getType();
+//        node.setType(resultType);
+//        node.setTargetable(expression.getTargetable());
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes

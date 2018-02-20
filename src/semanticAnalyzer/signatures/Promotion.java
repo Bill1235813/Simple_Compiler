@@ -68,6 +68,8 @@ public class Promotion {
         this.signature = signature;
     }
 
+
+    // function for random type comparison
     public static Boolean promotable(Type type1, Type type2) {
         for (Type[] types : PROMOTION_TYPES) {
             if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
