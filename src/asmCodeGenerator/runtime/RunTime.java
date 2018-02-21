@@ -267,7 +267,7 @@ public class RunTime {
 
         // check denominator not 0
         frag.add(Duplicate);  //	[... num denom denom]
-        frag.add(JumpFalse, RunTime.RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR);  //	[... num denom denom]
+        frag.add(JumpFalse, RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR);  //	[... num denom denom]
 
         // store arguments
         frag.add(Duplicate);
@@ -352,6 +352,10 @@ public class RunTime {
         // store return addr
         storeITo(frag, RETURN_FOR_RUNTIME_FUNCTION);
 
+        // check denominator not zero
+        frag.add(Duplicate);
+        frag.add(JumpFalse, RATIONAL_DIVIDE_BY_ZERO_RUNTIME_ERROR);
+
         // put the negative sign from denominator to numerator
         frag.add(Duplicate);    //  [... num denom denom]
         frag.add(JumpPos, positive2);   //  [... num denom]
@@ -360,62 +364,62 @@ public class RunTime {
         frag.add(Negate);   //  [... (pos)denom -num]
         frag.add(Exchange);   //  [... -num (pos)denom]
         frag.add(Label, positive2);
-        storeITo(frag, RunTime.FIRST_DENOMINATOR);
-        storeITo(frag, RunTime.FIRST_NUMERATOR);
-        loadIFrom(frag, RunTime.FIRST_NUMERATOR);
-        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);
+        storeITo(frag, FIRST_DENOMINATOR);
+        storeITo(frag, FIRST_NUMERATOR);
+        loadIFrom(frag, FIRST_NUMERATOR);
+        loadIFrom(frag, FIRST_DENOMINATOR);
         frag.add(Divide);   //  [... int]
         frag.add(Duplicate);    //  [... int int]
-        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... int int denom]
+        loadIFrom(frag, FIRST_DENOMINATOR);  //  [... int int denom]
         frag.add(Multiply); //  [... int int*denom]
-        loadIFrom(frag, RunTime.FIRST_NUMERATOR);    //  [... int int*denom num]
+        loadIFrom(frag, FIRST_NUMERATOR);    //  [... int int*denom num]
         frag.add(Exchange); //  [... int num int*denom]
         frag.add(Subtract); //  [... int fact.num]
         frag.add(Duplicate);    //  [... int fact.num fact.num]
         frag.add(JumpFalse, endwith_nofraction);    //  [... int fact.num] if (fact.num==0) jump
 
         // has faction
-        storeITo(frag, RunTime.FIRST_NUMERATOR); //  [... int]
+        storeITo(frag, FIRST_NUMERATOR); //  [... int]
         frag.add(Duplicate);    //  [... int int]
-        storeITo(frag, RunTime.PRINT_TEMP);  //  [... int]
+        storeITo(frag, PRINT_TEMP);  //  [... int]
         frag.add(JumpFalse, endwith_noint); //  [...]
 
         // has int
-        loadIFrom(frag, RunTime.FIRST_NUMERATOR);    //  [... fact.num]
+        loadIFrom(frag, FIRST_NUMERATOR);    //  [... fact.num]
         frag.add(Duplicate);    //  [... fact.num fact.num]
         frag.add(JumpPos, positive1);   //  [... fact.num]
         frag.add(Negate);   //  [... (pos)fact.num]
         frag.add(Label, positive1);    //  [... (pos)fact.num]
-        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
+        loadIFrom(frag, FIRST_DENOMINATOR);    //  [... (pos)fact.num (pos)denom]
         frag.add(Exchange); //  [... (pos)denom (pos)fact.num]
-        loadIFrom(frag, RunTime.PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
+        loadIFrom(frag, PRINT_TEMP); //  [... (pos)denom (pos)fact.num int]
         frag.add(Jump, endwith_original);
 
         // determine format
         frag.add(Label, endwith_nofraction);   //  [... int fact.num]
         frag.add(Pop);  //  [... int]
-        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_FRACTION);    //  [... int %d]
+        frag.add(PushD, RATIONAL_PRINT_NO_FRACTION);    //  [... int %d]
         frag.add(Jump, endjoin);
 
         frag.add(Label, endwith_noint);    //  [...] denom must be positive
-        loadIFrom(frag, RunTime.FIRST_NUMERATOR);
+        loadIFrom(frag, FIRST_NUMERATOR);
         frag.add(Duplicate);    //  [... num num]
         frag.add(JumpPos, endwith_nointpos);    //  [... num]
         frag.add(Negate);   //  [... -num]
         frag.add(Jump, endwith_nointneg);
         frag.add(Label, endwith_nointpos);
-        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        loadIFrom(frag, FIRST_DENOMINATOR);  //  [... num denom]
         frag.add(Exchange);  //  [... denom num]
-        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_POS);
+        frag.add(PushD, RATIONAL_PRINT_NO_INTEGER_POS);
         frag.add(Jump, endjoin);
         frag.add(Label, endwith_nointneg);
-        loadIFrom(frag, RunTime.FIRST_DENOMINATOR);  //  [... num denom]
+        loadIFrom(frag, FIRST_DENOMINATOR);  //  [... num denom]
         frag.add(Exchange); //  [... denom num]
-        frag.add(PushD, RunTime.RATIONAL_PRINT_NO_INTEGER_NEG);
+        frag.add(PushD, RATIONAL_PRINT_NO_INTEGER_NEG);
         frag.add(Jump, endjoin);
 
         frag.add(Label, endwith_original);  //  [... (pos)denom (pos)fact.num int]
-        frag.add(PushD, RunTime.RATIONAL_PRINT_ORIGINAL);
+        frag.add(PushD, RATIONAL_PRINT_ORIGINAL);
         frag.add(Jump, endjoin);
 
         // join
@@ -514,32 +518,32 @@ public class RunTime {
     // insert exprList to the specific location [... exprList nElems location]
     public static void insertToRecord(ASMCodeFragment code, Type subType) {
 
-        storeITo(code, RunTime.INSERT_LOCATION_TEMP);
-        storeITo(code, RunTime.INSERT_SIZE_TEMP); // [... exprList]
+        storeITo(code, INSERT_LOCATION_TEMP);
+        storeITo(code, INSERT_SIZE_TEMP); // [... exprList]
 
         Labeller labeller = new Labeller("function-insert");
         String loopflag = labeller.newLabel("loopflag");
         String endflag = labeller.newLabel("endflag");
 
         code.add(Label, loopflag);
-        loadIFrom(code, RunTime.INSERT_SIZE_TEMP); // [... exprList nElems]
+        loadIFrom(code, INSERT_SIZE_TEMP); // [... exprList nElems]
         code.add(JumpFalse, endflag); // [... exprList]
 
         // store one element
         if (subType.equivalent(PrimitiveType.RATIONAL)) {
-            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            loadIFrom(code, INSERT_LOCATION_TEMP);
             writeIOffset(code, 4);
-            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            loadIFrom(code, INSERT_LOCATION_TEMP);
             writeIOffset(code, 0);
         } else {
-            loadIFrom(code, RunTime.INSERT_LOCATION_TEMP);
+            loadIFrom(code, INSERT_LOCATION_TEMP);
             code.add(Exchange);
             code.add(ASMCodeGenerator.opcodeForStore(subType));
         }
 
-        decrementInteger(code, RunTime.INSERT_SIZE_TEMP); // elemsSize -= 1
+        decrementInteger(code, INSERT_SIZE_TEMP); // elemsSize -= 1
         code.add(PushI, subType.getSize());
-        addITo(code, RunTime.INSERT_LOCATION_TEMP); // location += subtype.size()
+        addITo(code, INSERT_LOCATION_TEMP); // location += subtype.size()
         code.add(Jump, loopflag);
 
         code.add(Label, endflag);
@@ -581,7 +585,7 @@ public class RunTime {
         final int typecode = Record.ARRAY_TYPE_ID;
 
         code.add(Duplicate); // [... nElems nElems]
-        code.add(JumpNeg, RunTime.NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR); // [... nElems]
+        code.add(JumpNeg, NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR); // [... nElems]
 
         code.add(Duplicate); // [... nElems nElems]
         code.add(PushI, subtypeSize); // [... nElems nElems subSize]

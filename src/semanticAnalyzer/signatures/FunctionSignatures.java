@@ -142,14 +142,15 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
             FunctionSignature fSignature = new FunctionSignature(new ComparisonCodeGenerator(), FLOATING, FLOATING, BOOLEAN);
             FunctionSignature bSignature = new FunctionSignature(new ComparisonCodeGenerator(), BOOLEAN, BOOLEAN, BOOLEAN);
             FunctionSignature sSignature = new FunctionSignature(new ComparisonCodeGenerator(), STRING, STRING, BOOLEAN);
+            FunctionSignature rSignature = new FunctionSignature(new ComparisonCodeGenerator(), RATIONAL, RATIONAL, BOOLEAN);
             FunctionSignature aSignature = new FunctionSignature(new ComparisonCodeGenerator(), setS, arrayOfS, arrayOfS, BOOLEAN);
 
             if (comparison == Punctuator.EQUAL || comparison == Punctuator.NOTEQUAL) {
                 new FunctionSignatures(comparison, iSignature, cSignature,
-                        fSignature, bSignature, sSignature, aSignature);
+                        fSignature, bSignature, rSignature, sSignature, aSignature);
             } else {
                 new FunctionSignatures(comparison, iSignature,
-                        cSignature, fSignature);
+                        cSignature, fSignature, rSignature);
             }
         }
 

@@ -80,7 +80,18 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
         String[] booleanList = {falseLabel, trueLabel};
 
         fragment.add(Label, subLabel);
-        fragment.add(comparisonOperation);
+        if (compareType.equivalent(PrimitiveType.RATIONAL)) {
+            // subtract and multiply two char (avoid overflow)
+            SimpleCodeGenerator f1 = new RationalSubtractCodeGenerator();
+            SimpleCodeGenerator f2 = new CastToCharacterCodeGenerator();
+            fragment.append(f1.generate(node));
+            fragment.append(f2.generate(node));
+            fragment.add(Exchange);
+            fragment.append(f2.generate(node));
+            fragment.add(Multiply);
+        } else {
+            fragment.add(comparisonOperation);
+        }
 
         fragment.add(comparisonJumpList[jumpIndex], booleanList[booleanIndex]);
         fragment.add(Jump, booleanList[1 - booleanIndex]);

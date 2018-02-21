@@ -381,6 +381,8 @@
         Exchange                               
         StoreI                                 
         Duplicate                              
+        JumpFalse    $$r-divide-by-zero        
+        Duplicate                              
         JumpPos      -$print-rational-3-positive2 
         Negate                                 
         Exchange                               
@@ -513,7 +515,7 @@
         Return                                 
         DLabel       $usable-memory-start      
         DLabel       $global-memory-block      
-        DataZ        176                       
+        DataZ        182                       
         Label        $$main                    
         Label        -mem-manager-initialize   
         DLabel       $heap-start-ptr           
@@ -1221,6 +1223,534 @@
         LoadI                                  
         StoreI                                 
         PushD        $global-memory-block      
+        PushI        168                       
+        Add                                    %% b1
+        PushD        $global-memory-block      
+        PushI        112                       
+        Add                                    %% i1
+        LoadI                                  
+        PushI        1                         
+        PushD        $global-memory-block      
+        PushI        104                       
+        Add                                    %% r14
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Label        -compare-6-sub            
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpNeg      -compare-6-true           
+        Jump         -compare-6-false          
+        Label        -compare-6-true           
+        PushI        1                         
+        Jump         -compare-6-join           
+        Label        -compare-6-false          
+        PushI        0                         
+        Jump         -compare-6-join           
+        Label        -compare-6-join           
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        169                       
+        Add                                    %% b2
+        PushD        $global-memory-block      
+        PushI        112                       
+        Add                                    %% i1
+        LoadI                                  
+        PushI        1                         
+        PushD        $global-memory-block      
+        PushI        104                       
+        Add                                    %% r14
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        Label        -compare-7-sub            
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpPos      -compare-7-true           
+        Jump         -compare-7-false          
+        Label        -compare-7-true           
+        PushI        1                         
+        Jump         -compare-7-join           
+        Label        -compare-7-false          
+        PushI        0                         
+        Jump         -compare-7-join           
+        Label        -compare-7-join           
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        170                       
+        Add                                    %% b3
+        PushD        $global-memory-block      
+        PushI        40                        
+        Add                                    %% r6
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushI        11                        
+        PushI        1                         
+        Label        -compare-8-sub            
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpPos      -compare-8-false          
+        Jump         -compare-8-true           
+        Label        -compare-8-true           
+        PushI        1                         
+        Jump         -compare-8-join           
+        Label        -compare-8-false          
+        PushI        0                         
+        Jump         -compare-8-join           
+        Label        -compare-8-join           
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        171                       
+        Add                                    %% b4
+        PushD        $global-memory-block      
+        PushI        40                        
+        Add                                    %% r6
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushI        11                        
+        PushI        1                         
+        Label        -compare-9-sub            
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpNeg      -compare-9-false          
+        Jump         -compare-9-true           
+        Label        -compare-9-true           
+        PushI        1                         
+        Jump         -compare-9-join           
+        Label        -compare-9-false          
+        PushI        0                         
+        Jump         -compare-9-join           
+        Label        -compare-9-join           
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        172                       
+        Add                                    %% b5
+        PushD        $global-memory-block      
+        PushI        32                        
+        Add                                    %% r5
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushI        0                         
+        PushI        1                         
+        PushD        $global-memory-block      
+        PushI        24                        
+        Add                                    %% r4
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        Label        -compare-10-sub           
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpFalse    -compare-10-true          
+        Jump         -compare-10-false         
+        Label        -compare-10-true          
+        PushI        1                         
+        Jump         -compare-10-join          
+        Label        -compare-10-false         
+        PushI        0                         
+        Jump         -compare-10-join          
+        Label        -compare-10-join          
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        173                       
+        Add                                    %% b6
+        PushD        $global-memory-block      
+        PushI        32                        
+        Add                                    %% r5
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushI        0                         
+        PushI        1                         
+        PushD        $global-memory-block      
+        PushI        24                        
+        Add                                    %% r4
+        Duplicate                              
+        LoadI                                  
+        Exchange                               
+        PushI        4                         
+        Add                                    
+        LoadI                                  
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        Label        -compare-11-sub           
+        PushD        $second-denominator       
+        Exchange                               
+        StoreI                                 
+        PushD        $second-numerator         
+        Exchange                               
+        StoreI                                 
+        PushD        $first-denominator        
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        Exchange                               
+        StoreI                                 
+        PushD        $first-numerator          
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-numerator         
+        LoadI                                  
+        Multiply                               
+        Subtract                               
+        PushD        $first-denominator        
+        LoadI                                  
+        PushD        $second-denominator       
+        LoadI                                  
+        Multiply                               
+        Call         $$convert-to-lowest-terms 
+        PushI        127                       
+        BTAnd                                  
+        Exchange                               
+        PushI        127                       
+        BTAnd                                  
+        Multiply                               
+        JumpFalse    -compare-11-false         
+        Jump         -compare-11-true          
+        Label        -compare-11-true          
+        PushI        1                         
+        Jump         -compare-11-join          
+        Label        -compare-11-false         
+        PushI        0                         
+        Jump         -compare-11-join          
+        Label        -compare-11-join          
+        StoreC                                 
+        PushD        $global-memory-block      
+        PushI        168                       
+        Add                                    %% b1
+        LoadC                                  
+        JumpTrue     -print-boolean-12-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-12-join    
+        Label        -print-boolean-12-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-12-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        169                       
+        Add                                    %% b2
+        LoadC                                  
+        JumpTrue     -print-boolean-13-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-13-join    
+        Label        -print-boolean-13-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-13-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        170                       
+        Add                                    %% b3
+        LoadC                                  
+        JumpTrue     -print-boolean-14-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-14-join    
+        Label        -print-boolean-14-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-14-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        171                       
+        Add                                    %% b4
+        LoadC                                  
+        JumpTrue     -print-boolean-15-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-15-join    
+        Label        -print-boolean-15-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-15-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        172                       
+        Add                                    %% b5
+        LoadC                                  
+        JumpTrue     -print-boolean-16-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-16-join    
+        Label        -print-boolean-16-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-16-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $global-memory-block      
+        PushI        173                       
+        Add                                    %% b6
+        LoadC                                  
+        JumpTrue     -print-boolean-17-true    
+        PushD        $boolean-false-string     
+        Jump         -print-boolean-17-join    
+        Label        -print-boolean-17-true    
+        PushD        $boolean-true-string      
+        Label        -print-boolean-17-join    
+        PushD        $print-format-boolean     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
+        PushD        $global-memory-block      
         PushI        0                         
         Add                                    %% r
         Duplicate                              
@@ -1530,23 +2060,23 @@
         Divide                                 
         Nop                                    
         PushI        0                         
-        Label        -compare-6-sub            
+        Label        -compare-18-sub           
         Subtract                               
-        JumpFalse    -compare-6-true           
-        Jump         -compare-6-false          
-        Label        -compare-6-true           
+        JumpFalse    -compare-18-true          
+        Jump         -compare-18-false         
+        Label        -compare-18-true          
         PushI        1                         
-        Jump         -compare-6-join           
-        Label        -compare-6-false          
+        Jump         -compare-18-join          
+        Label        -compare-18-false         
         PushI        0                         
-        Jump         -compare-6-join           
-        Label        -compare-6-join           
-        JumpTrue     -print-boolean-8-true     
+        Jump         -compare-18-join          
+        Label        -compare-18-join          
+        JumpTrue     -print-boolean-20-true    
         PushD        $boolean-false-string     
-        Jump         -print-boolean-8-join     
-        Label        -print-boolean-8-true     
+        Jump         -print-boolean-20-join    
+        Label        -print-boolean-20-true    
         PushD        $boolean-true-string      
-        Label        -print-boolean-8-join     
+        Label        -print-boolean-20-join    
         PushD        $print-format-boolean     
         Printf                                 
         PushD        $print-format-space       
@@ -1567,23 +2097,23 @@
         FDivide                                
         Nop                                    
         PushF        -1.750000                 
-        Label        -compare-7-sub            
+        Label        -compare-19-sub           
         FSubtract                              
-        JumpFZero    -compare-7-true           
-        Jump         -compare-7-false          
-        Label        -compare-7-true           
+        JumpFZero    -compare-19-true          
+        Jump         -compare-19-false         
+        Label        -compare-19-true          
         PushI        1                         
-        Jump         -compare-7-join           
-        Label        -compare-7-false          
+        Jump         -compare-19-join          
+        Label        -compare-19-false         
         PushI        0                         
-        Jump         -compare-7-join           
-        Label        -compare-7-join           
-        JumpTrue     -print-boolean-9-true     
+        Jump         -compare-19-join          
+        Label        -compare-19-join          
+        JumpTrue     -print-boolean-21-true    
         PushD        $boolean-false-string     
-        Jump         -print-boolean-9-join     
-        Label        -print-boolean-9-true     
+        Jump         -print-boolean-21-join    
+        Label        -print-boolean-21-true    
         PushD        $boolean-true-string      
-        Label        -print-boolean-9-join     
+        Label        -print-boolean-21-join    
         PushD        $print-format-boolean     
         Printf                                 
         PushD        $print-format-space       
@@ -1618,7 +2148,7 @@
         PushD        $print-format-newline     
         Printf                                 
         PushD        $global-memory-block      
-        PushI        168                       
+        PushI        174                       
         Add                                    %% r100
         Duplicate                              
         PushI        10                        

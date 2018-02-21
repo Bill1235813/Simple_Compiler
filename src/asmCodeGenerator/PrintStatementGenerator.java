@@ -70,6 +70,11 @@ public class PrintStatementGenerator {
         String loopflag = labeller.newLabel("loopflag");
         String endflag = labeller.newLabel("endflag");
 
+        // check array is not null
+        code.add(Duplicate);
+        code.add(JumpFalse, RunTime.NULL_ARRAY_RUNTIME_ERROR);
+
+        // start
         code.add(PushD, RunTime.ARRAY_PRINT_START);
         code.add(Printf);
 

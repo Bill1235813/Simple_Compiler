@@ -124,7 +124,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     private void checkConditionBoolean(ParseNode node) {
-        OperatorNode condition = (OperatorNode) node.child(0);
+        ParseNode condition = node.child(0);
         if (condition.getType() != PrimitiveType.BOOLEAN) {
             notBooleanConditionError(node);
             node.setType(PrimitiveType.ERROR);

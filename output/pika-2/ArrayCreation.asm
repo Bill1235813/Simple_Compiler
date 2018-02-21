@@ -381,6 +381,8 @@
         Exchange                               
         StoreI                                 
         Duplicate                              
+        JumpFalse    $$r-divide-by-zero        
+        Duplicate                              
         JumpPos      -$print-rational-3-positive2 
         Negate                                 
         Exchange                               
@@ -1560,6 +1562,8 @@
         PushI        16                        
         Add                                    %% a2
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -1604,6 +1608,8 @@
         PushI        20                        
         Add                                    %% a4
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -1648,6 +1654,8 @@
         PushI        28                        
         Add                                    %% numSets
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -1665,6 +1673,8 @@
         Exchange                               
         Duplicate                              
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -2434,6 +2444,8 @@
         PushI        46                        
         Add                                    %% matrix
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -2451,6 +2463,8 @@
         Exchange                               
         Duplicate                              
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -2716,6 +2730,8 @@
         PushI        54                        
         Add                                    %% a6
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
@@ -2762,6 +2778,8 @@
         PushI        58                        
         Add                                    %% a7
         LoadI                                  
+        Duplicate                              
+        JumpFalse    $$array-is-null           
         PushD        $array-print-start        
         Printf                                 
         Duplicate                              
