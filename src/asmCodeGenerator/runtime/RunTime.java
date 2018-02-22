@@ -69,6 +69,7 @@ public class RunTime {
     public static final String NEGATIVE_LENGTH_ARRAY_RUNTIME_ERROR = "$$array-size-is-negative";
     public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
     public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
+    public static final String NULL_STRING_RUNTIME_ERROR = "$$string-is-null";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -140,6 +141,8 @@ public class RunTime {
         negativeArraySizeError(frag);
         nullArrayError(frag);
         overflowArraySizeError(frag);
+        nullStringError(frag);
+        
         return frag;
     }
 
@@ -156,6 +159,17 @@ public class RunTime {
         return frag;
     }
 
+    private void nullStringError(ASMCodeFragment frag) {
+    		String nullStringMessage = "$errors-null-string";
+    		
+    		frag.add(DLabel, nullStringMessage);
+    		frag.add(DataS, "string is null");
+    		
+    		frag.add(Label, NULL_STRING_RUNTIME_ERROR);
+    		frag.add(PushD, nullStringMessage);
+    		frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+    
     private void negativeArraySizeError(ASMCodeFragment frag) {
         String negativeArraySizeMessage = "$errors-negative-array-size";
 

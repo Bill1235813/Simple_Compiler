@@ -48,7 +48,7 @@ public class PrintStatementGenerator {
 
     private void appendPrintCode(Type type) {
         convertToStringIfBoolean(type);
-        applyOffsetifString(type);
+        applyOffsetIfString(type);
 
         if (type == PrimitiveType.RATIONAL) {
             code.add(Call, RunTime.PRINT_RATIONAL);
@@ -117,11 +117,15 @@ public class PrintStatementGenerator {
     }
 
     // [... string_addr]
-    private void applyOffsetifString(Type type) {
+    private void applyOffsetIfString(Type type) {
         if (type != PrimitiveType.STRING) {
             return;
         }
 
+        // check if string is null
+        code.add(Duplicate);
+        code.add(JumpFalse, RunTime.NULL_STRING_RUNTIME_ERROR);
+        
         code.add(PushI, Record.STRING_HEADER_SIZE);
         code.add(Add);
     }

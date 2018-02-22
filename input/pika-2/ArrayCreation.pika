@@ -45,6 +45,7 @@ exec {
 	const a7:= [^a^, ^b^, ^c^, ^d^].
 	print a6;a7;_n_.
 	
+	print new[string](0);"Bill is God";new[string](1);_n_.
 	release numSets.
 	release numSets.
 	release a4.
