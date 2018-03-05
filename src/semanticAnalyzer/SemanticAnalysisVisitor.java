@@ -270,6 +270,35 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         // else parent DeclarationNode does the processing.
     }
 
+    @Override
+    public void visit(BreakStatementNode node) {
+        ParseNode parent = getParentLoop(node);
+        if (parent instanceof WhileStatementNode) {
+            node.setLoopLink((WhileStatementNode) parent);
+            ((WhileStatementNode) parent).setContinueflag(true);
+        }
+    }
+
+    @Override
+    public void visit(ContinueStatementNode node) {
+        ParseNode parent = getParentLoop(node);
+        if (parent instanceof WhileStatementNode) {
+            node.setLoopLink((WhileStatementNode) parent);
+            ((WhileStatementNode) parent).setContinueflag(true);
+        }
+    }
+
+    private ParseNode getParentLoop(ParseNode node) {
+        ParseNode parent = node.getParent();
+        while (!(parent instanceof WhileStatementNode)) {
+            parent = node.getParent();
+            if (parent instanceof ProgramNode) {
+                noParentLoop(node);
+            }
+        }
+        return parent;
+    }
+
     private boolean isBeingDeclared(IdentifierNode node) {
         ParseNode parent = node.getParent();
         return (parent instanceof DeclarationNode) && (node == parent.child(0));
@@ -290,6 +319,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // error logging/printing
+    private void noParentLoop(ParseNode node) {
+        Token token = node.getToken();
+
+        logError("no parent loop for " + token.getLexeme() +
+                "statement at" + token.getLocation());
+    }
+
     private void notReferenceTypeError(ParseNode node) {
         Token token = node.getToken();
 

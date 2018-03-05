@@ -26,6 +26,12 @@ public enum Keyword implements Lextant {
     TRUE("_true_"),
     FALSE("_false_"),
     EXEC("exec"),
+    VOID("void"),
+    FUNC("func"),
+    RETURN("return"),
+    CALL("call"),
+    BREAK("break"),
+    CONTINUE("continue"),
     NULL_KEYWORD("");
 
     private String lexeme;

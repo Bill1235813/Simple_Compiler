@@ -114,6 +114,12 @@ public class Parser {
         if (startsReleaseStatement(nowReading)) {
             return parseReleaseStatement();
         }
+        if (startsBreakStatement(nowReading)) {
+            return parseBreakStatement();
+        }
+        if (startsContinueStatement(nowReading)) {
+            return parseContinueStatement();
+        }
         return syntaxErrorNode("statement");
     }
 
@@ -124,7 +130,41 @@ public class Parser {
                 startsAssignmentStatement(token) ||
                 startsIfStatement(token) ||
                 startsWhileStatement(token) ||
-                startsReleaseStatement(token);
+                startsReleaseStatement(token) ||
+                startsBreakStatement(token) ||
+                startsContinueStatement(token);
+    }
+
+    // continueStmt -> continue .
+    private ParseNode parseContinueStatement() {
+        if (!startsContinueStatement(nowReading)) {
+            return syntaxErrorNode("continueStatement");
+        }
+        Token continueToken = nowReading;
+
+        expect(Keyword.CONTINUE);
+        expect(Punctuator.TERMINATOR);
+        return new ContinueStatementNode(nowReading);
+    }
+
+    private boolean startsContinueStatement(Token token) {
+        return token.isLextant(Keyword.CONTINUE);
+    }
+
+    // breakStmt -> break .
+    private ParseNode parseBreakStatement() {
+        if (!startsBreakStatement(nowReading)) {
+            return syntaxErrorNode("breakStatement");
+        }
+        Token breakToken = nowReading;
+
+        expect(Keyword.BREAK);
+        expect(Punctuator.TERMINATOR);
+        return new BreakStatementNode(nowReading);
+    }
+
+    private boolean startsBreakStatement(Token token) {
+        return token.isLextant(Keyword.BREAK);
     }
 
     // releaseStmt -> release expr.

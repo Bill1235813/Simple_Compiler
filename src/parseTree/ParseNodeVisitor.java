@@ -84,6 +84,10 @@ public interface ParseNodeVisitor {
 
     void visit(StringConstantNode node);
 
+    void visit(BreakStatementNode node);
+
+    void visit(ContinueStatementNode node);
+
     public static class Default implements ParseNodeVisitor {
         public void defaultVisit(ParseNode node) {
         }
@@ -209,7 +213,6 @@ public interface ParseNodeVisitor {
         @Override
         public void visitEnter(ReleaseStatementNode node) {
             defaultVisitEnter(node);
-
         }
 
         @Override
@@ -255,6 +258,16 @@ public interface ParseNodeVisitor {
 
         public void visit(StringConstantNode node) {
             defaultVisitForLeaf(node);
+        }
+
+        @Override
+        public void visit(BreakStatementNode node) {
+            defaultVisit(node);
+        }
+
+        @Override
+        public void visit(ContinueStatementNode node) {
+            defaultVisit(node);
         }
 
     }

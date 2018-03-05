@@ -315,6 +315,13 @@ public class ASMCodeGenerator {
             String startsLabel = labeller.newLabel("starts");
             String endsLabel = labeller.newLabel("ends");
 
+            if (node.isBreakflag()) {
+                endsLabel = node.getBreakLabel();
+            }
+            if (node.isContinueflag()) {
+                conditionLabel = node.getContinueLabel();
+            }
+
             newVoidCode(node);
             code.add(Label, conditionLabel);
             code.append(condition);
@@ -486,6 +493,32 @@ public class ASMCodeGenerator {
             code.add(PushI, length + 1);
             RunTime.createStringRecord(code, length);
             Macros.loadIFrom(code, RunTime.RECORD_CREATION_TEMPORARY);
+        }
+
+        public void visit(BreakStatementNode node) {
+            newVoidCode(node);
+
+            WhileStatementNode parent = node.getLoopLink();
+            String breakLabel = parent.getBreakLabel();
+            if (breakLabel == null) {
+                Labeller labeller = new Labeller("loop-break");
+                breakLabel = labeller.newLabel("ends");
+                parent.setBreakLabel(breakLabel);
+            }
+            code.add(Jump, breakLabel);
+        }
+
+        public void visit(ContinueStatementNode node) {
+            newVoidCode(node);
+
+            WhileStatementNode parent = node.getLoopLink();
+            String continueLabel = parent.getContinueLabel();
+            if (continueLabel == null) {
+                Labeller labeller = new Labeller("loop-continue");
+                continueLabel = labeller.newLabel("condition");
+                parent.setContinueLabel(continueLabel);
+            }
+            code.add(Jump, continueLabel);
         }
     }
 
