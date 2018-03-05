@@ -43,8 +43,16 @@ public class Parser {
         if (!startsProgram(nowReading)) {
             return syntaxErrorNode("program");
         }
-        ParseNode program = new ProgramNode(nowReading);
+        ParseNode program = new ProgramNode(
+                LextantToken.artificial(nowReading, Keyword.START_PROGRAM));
 
+        // parse global definition
+        if (startsGlobalDefinition(nowReading)) {
+            ParseNode globalDefinition = parseGlobalDefinition();
+            program.appendChild(globalDefinition);
+        }
+
+        // parse program
         expect(Keyword.EXEC);
         ParseNode blockStatement = parseBlockStatement();
         program.appendChild(blockStatement);
@@ -57,9 +65,135 @@ public class Parser {
     }
 
     private boolean startsProgram(Token token) {
-        return token.isLextant(Keyword.EXEC);
+        return token.isLextant(Keyword.EXEC) || startsGlobalDefinition(token);
     }
 
+    ///////////////////////////////////////////////////////////
+    // globalDefinition
+
+    // globalDefinition -> functionDefinition*
+    private ParseNode parseGlobalDefinition() {
+        if (!startsGlobalDefinition(nowReading)) {
+            return syntaxErrorNode("globalDefinition");
+        }
+        ParseNode global = new GlobalDefinitionNode(
+                LextantToken.artificial(nowReading, Keyword.GLOBAL_DEFINITION));
+
+        // parse function definition
+        while (startsFunctionDefinition(nowReading)) {
+            global.appendChild(parseFunctionDefinition());
+        }
+
+        return global;
+    }
+
+    private boolean startsGlobalDefinition(Token token) {
+        return startsFunctionDefinition(token);
+    }
+
+    // functionDefinition -> func identifier lambda
+    private ParseNode parseFunctionDefinition() {
+        if (!startsFunctionDefinition(nowReading)) {
+            return syntaxErrorNode("functionDefinition");
+        }
+        Token functionToken = nowReading;
+
+        expect(Keyword.FUNC);
+        ParseNode identifier = parseIdentifier();
+        ParseNode lambda = parseLambda();
+
+        return FunctionDefinitionNode.withChildren(functionToken, identifier, lambda);
+    }
+
+    private boolean startsFunctionDefinition(Token token) {
+        return token.isLextant(Keyword.FUNC);
+    }
+
+    // lambda -> lambdaParamType blockStatement
+    private ParseNode parseLambda() {
+        if (!startsLambda(nowReading)) {
+            return syntaxErrorNode("lambda");
+        }
+        Token realToken = nowReading;
+        Token indexToken = LextantToken.artificial(realToken, Punctuator.LAMBDA);
+        
+        ParseNode param = parseLambdaParamType();
+        ParseNode body = parseBlockStatement();
+        
+        return LambdaNode.withChildren(indexToken, param, body);
+    }
+    
+    private boolean startsLambda(Token token) {
+        return startsLambdaParamType(token);
+    }
+
+    // lambdaParamType -> <paramList>->type
+    private ParseNode parseLambdaParamType() {
+        if (!startsLambdaType(nowReading)) {
+            return syntaxErrorNode("lambdaParamType");
+        }
+        Token realToken = nowReading;
+        Token indexToken = LextantToken.artificial(realToken, Punctuator.LAMBDA_PARAM_TYPE);
+        
+        expect(Punctuator.LESS);
+        ParseNode paramList = parseParamList();
+        expect(Punctuator.GREATER);
+        expect(Punctuator.SUBTRACT);
+        expect(Punctuator.GREATER);
+        ParseNode returntype = parseType();
+        
+        return LambdaParamTypeNode.withChildren(indexToken, paramList, returntype);
+    }
+    
+    private boolean startsLambdaParamType(Token token) {
+        return token.isLextant(Punctuator.LESS);
+    }
+    
+    // paramList -> paramSpec bowtie ,
+    private ParseNode parseParamList() {
+        if (!startsParamList(nowReading)) {
+            return syntaxErrorNode("paramList");
+        }
+        Token realToken = nowReading;
+        Token indexToken = LextantToken.artificial(realToken, Punctuator.PARAMLIST);
+        ParseNode firstparam;
+
+        // no param or get the first param
+        if (nowReading.isLextant(Punctuator.GREATER)) {
+            return new ParamListNode(indexToken);
+        } else {
+            firstparam = parseParamSpec();
+        }
+        List<ParseNode> paramList = new ArrayList<ParseNode>(Arrays.asList(firstparam));
+
+        while (nowReading.isLextant(Punctuator.SEPARATOR)) {
+            readToken();
+            paramList.add(parseParamSpec());
+        }
+
+        return ParamListNode.withChildren(indexToken,
+                paramList.toArray(new ParseNode[paramList.size()]));
+    }
+
+    private boolean startsParamList(Token token) {
+        return startsParamSpec(token) || token.isLextant(Punctuator.GREATER);
+    }
+
+    // paramSpec -> type identifier
+    private ParseNode parseParamSpec() {
+        if (!startsParamSpec(nowReading)) {
+            return syntaxErrorNode("paramSpecification");
+        }
+
+        ParseNode type = parseType();
+        ParseNode identifier = parseIdentifier();
+
+        return ParamSpecNode.withChildren(type.getToken(), type, identifier);
+    }
+
+    private boolean startsParamSpec(Token token) {
+        return startsType(token);
+    }
 
     ///////////////////////////////////////////////////////////
     // blockStatement
@@ -691,7 +825,9 @@ public class Parser {
             return syntaxErrorNode("Type");
         }
 
-        if (startsArrayType(nowReading)) {
+        if (startsLambdaType(nowReading)) {
+            return parseLambdaType();
+        } else if (startsArrayType(nowReading)) {
             return parseArrayType();
         } else {
             return parsePrimitiveType();
@@ -699,9 +835,63 @@ public class Parser {
     }
 
     private boolean startsType(Token token) {
-        return startsArrayType(token) | startsPrimitiveType(token);
+        return startsArrayType(token) | startsPrimitiveType(token)
+                | startsLambdaType(token);
     }
 
+    // lambdaType -> <typeList>->type
+    private ParseNode parseLambdaType() {
+        if (!startsLambdaType(nowReading)) {
+            return syntaxErrorNode("lambdaType");
+        }
+        Token realToken = nowReading;
+        Token indexToken = LextantToken.artificial(realToken, Punctuator.LAMBDA_TYPE);
+
+        // start to parse
+        expect(Punctuator.LESS);
+        ParseNode typelist = parseTypeList();
+        expect(Punctuator.GREATER);
+        expect(Punctuator.SUBTRACT);
+        expect(Punctuator.GREATER);
+        ParseNode returntype = parseType();
+
+        return TypeNode.withChildren(indexToken, typelist, returntype);
+    }
+
+    private boolean startsLambdaType(Token token) {
+        return token.isLextant(Punctuator.LESS);
+    }
+    
+    // typeList -> type bowtie ,
+    private ParseNode parseTypeList() {
+        if (!startsTypeList(nowReading)) {
+            return syntaxErrorNode("typeList");
+        }
+        Token realToken = nowReading;
+        Token indexToken = LextantToken.artificial(realToken, Punctuator.TYPELIST);
+        ParseNode firsttype;
+
+        // no type or get the first type
+        if (nowReading.isLextant(Punctuator.GREATER)) {
+            return new TypeListNode(indexToken);
+        } else {
+            firsttype = parseType();
+        }
+        List<ParseNode> typeList = new ArrayList<ParseNode>(Arrays.asList(firsttype));
+
+        while (nowReading.isLextant(Punctuator.SEPARATOR)) {
+            readToken();
+            typeList.add(parseType());
+        }
+
+        return TypeListNode.withChildren(indexToken,
+                typeList.toArray(new ParseNode[typeList.size()]));
+    }
+    
+    private boolean startsTypeList(Token token) {
+        return startsType(token) || token.isLextant(Punctuator.GREATER);
+    }
+    
     // arrayType -> [ Type ]
     private ParseNode parseArrayType() {
         if (!startsArrayType(nowReading)) {
@@ -713,7 +903,7 @@ public class Parser {
         readToken();
         ParseNode subtype = parseType();
         expect(Punctuator.CLOSE_BRACKET);
-        return TypeNode.withSubType(indexToken, subtype);
+        return TypeNode.withChildren(indexToken, subtype);
     }
 
     private boolean startsArrayType(Token token) {
@@ -732,7 +922,7 @@ public class Parser {
 
     private boolean startsPrimitiveType(Token token) {
         return token.isLextant(Keyword.BOOL, Keyword.CHAR, Keyword.STRING,
-                Keyword.INT, Keyword.FLOAT, Keyword.RAT);
+                Keyword.INT, Keyword.FLOAT, Keyword.RAT, Keyword.VOID);
     }
 
     // literal -> integerConstant | identifier | booleanConstant

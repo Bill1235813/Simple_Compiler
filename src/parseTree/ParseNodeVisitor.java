@@ -63,6 +63,34 @@ public interface ParseNodeVisitor {
 
     void visitLeave(ReleaseStatementNode node);
 
+    void visitEnter(FunctionDefinitionNode node);
+
+    void visitLeave(FunctionDefinitionNode node);
+
+    void visitEnter(GlobalDefinitionNode node);
+
+    void visitLeave(GlobalDefinitionNode node);
+
+    void visitEnter(LambdaNode node);
+
+    void visitLeave(LambdaNode node);
+
+    void visitEnter(LambdaParamTypeNode node);
+
+    void visitLeave(LambdaParamTypeNode node);
+
+    void visitEnter(ParamListNode node);
+
+    void visitLeave(ParamListNode node);
+
+    void visitEnter(ParamSpecNode node);
+
+    void visitLeave(ParamSpecNode node);
+
+    void visitEnter(TypeListNode node);
+
+    void visitLeave(TypeListNode node);
+
     // leaf nodes: visitLeaf only
     void visit(BooleanConstantNode node);
 
@@ -217,6 +245,76 @@ public interface ParseNodeVisitor {
 
         @Override
         public void visitLeave(ReleaseStatementNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(FunctionDefinitionNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(FunctionDefinitionNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(GlobalDefinitionNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(GlobalDefinitionNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(LambdaNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(LambdaNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(LambdaParamTypeNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(LambdaParamTypeNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(ParamListNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(ParamListNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(ParamSpecNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(ParamSpecNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(TypeListNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(TypeListNode node) {
             defaultVisitLeave(node);
         }
 

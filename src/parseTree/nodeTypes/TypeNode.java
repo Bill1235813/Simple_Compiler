@@ -16,9 +16,11 @@ public class TypeNode extends ParseNode {
         initChildren();
     }
 
-    public static TypeNode withSubType(Token token, ParseNode subtype) {
+    public static TypeNode withChildren(Token token, ParseNode... childrentypes) {
         TypeNode node = new TypeNode(token);
-        node.appendChild(subtype);
+        for (ParseNode childtype: childrentypes) {
+            node.appendChild(childtype);
+        }
         return node;
     }
 

@@ -33,11 +33,16 @@ public enum Punctuator implements Lextant {
     CLOSE_PARENTHESE(")"),
     VERTICAL_LINE("|"),
     SHARP("#"),
+    LAMBDA_TYPE(""),
     ARRAY_INDEXING(""),
     ARRAY_TYPE(""),
     POPULATED_ARRAY(""),
     EMPTY_ARRAY(""),
+    TYPELIST(""),
     EXPRESSIONLIST(""),
+    LAMBDA(""),
+    LAMBDA_PARAM_TYPE(""),
+    PARAMLIST(""),
     CASTING(""),
     NULL_PUNCTUATOR("");
 

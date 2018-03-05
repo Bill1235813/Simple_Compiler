@@ -166,11 +166,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     @Override
     public void visitLeave(TypeNode node) {
         assert node.getToken() instanceof LextantToken;
-        assert node.nChildren() <= 1;
+        assert node.nChildren() <= 2;
         if (node.nChildren() == 0) {
-            node.setType(PrimitiveType.getTypeFromLextant(lextantFor(node)));
-        } else {
+            Lextant type = lextantFor(node);
+            node.setType(PrimitiveType.getTypeFromLextant(type));
+        } else if (node.nChildren() == 1) {
             node.setType(new Array(node.child(0).getType()));
+        } else {
         }
     }
 

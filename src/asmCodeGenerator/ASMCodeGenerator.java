@@ -317,6 +317,7 @@ public class ASMCodeGenerator {
 
             if (node.isBreakflag()) {
                 endsLabel = node.getBreakLabel();
+
             }
             if (node.isContinueflag()) {
                 conditionLabel = node.getContinueLabel();

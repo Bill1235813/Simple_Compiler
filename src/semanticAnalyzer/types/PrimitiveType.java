@@ -11,6 +11,7 @@ public enum PrimitiveType implements Type {
     FLOATING(8),
     RATIONAL(8),
     STRING(4),
+    VOID(0),            // use only as return type
     ERROR(0),            // use as a value when a syntax error has occurred
     NO_TYPE(0, "");        // use as a value when no type has been assigned.
 
@@ -34,6 +35,8 @@ public enum PrimitiveType implements Type {
                 return STRING;
             case RAT:
                 return RATIONAL;
+            case VOID:
+                return VOID;
             default:
                 return ERROR;
         }
