@@ -275,7 +275,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         ParseNode parent = getParentLoop(node);
         if (parent instanceof WhileStatementNode) {
             node.setLoopLink((WhileStatementNode) parent);
-            ((WhileStatementNode) parent).setContinueflag(true);
+            ((WhileStatementNode) parent).setBreakflag(true);
         }
     }
 
@@ -291,9 +291,10 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     private ParseNode getParentLoop(ParseNode node) {
         ParseNode parent = node.getParent();
         while (!(parent instanceof WhileStatementNode)) {
-            parent = node.getParent();
+            parent = parent.getParent();
             if (parent instanceof ProgramNode) {
                 noParentLoop(node);
+                break;
             }
         }
         return parent;

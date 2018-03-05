@@ -1,0 +1,16 @@
+exec {
+    var i:=100.
+    var sum:=0.
+    while (i>0) {
+        if (i<10) {
+            break.
+        }
+        i:=i- 1.
+        if (i>20) {
+            continue.
+        }
+        sum:=sum+ i.
+    }
+    # break.
+    print sum;_n_.
+}

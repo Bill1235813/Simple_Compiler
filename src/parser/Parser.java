@@ -144,7 +144,7 @@ public class Parser {
 
         expect(Keyword.CONTINUE);
         expect(Punctuator.TERMINATOR);
-        return new ContinueStatementNode(nowReading);
+        return new ContinueStatementNode(continueToken);
     }
 
     private boolean startsContinueStatement(Token token) {
@@ -160,7 +160,7 @@ public class Parser {
 
         expect(Keyword.BREAK);
         expect(Punctuator.TERMINATOR);
-        return new BreakStatementNode(nowReading);
+        return new BreakStatementNode(breakToken);
     }
 
     private boolean startsBreakStatement(Token token) {
