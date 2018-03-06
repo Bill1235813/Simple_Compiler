@@ -14,10 +14,7 @@ import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.FunctionSignature;
 import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.signatures.Promotion;
-import semanticAnalyzer.types.Array;
-import semanticAnalyzer.types.PrimitiveType;
-import semanticAnalyzer.types.Type;
-import semanticAnalyzer.types.TypeLiteral;
+import semanticAnalyzer.types.*;
 import symbolTable.Binding;
 import symbolTable.Scope;
 import tokens.LextantToken;
@@ -52,13 +49,14 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     ///////////////////////////////////////////////////////////////////////////
     // helper methods for scoping.
     private void enterProgramScope(ParseNode node) {
-        Scope scope = Scope.createProgramScope();
-        node.setScope(scope);
+        Scope scope = node.getScope();
+        scope.enter();
     }
 
     private void enterSubscope(ParseNode node) {
         Scope baseScope = node.getLocalScope();
         Scope scope = baseScope.createSubscope();
+        scope.enter();
         node.setScope(scope);
     }
 
@@ -173,12 +171,22 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         } else if (node.nChildren() == 1) {
             node.setType(new Array(node.child(0).getType()));
         } else {
+            setLambdaType(node);
         }
     }
 
     @Override
+    public void visitLeave(TypeListNode node) {
+        List<Type> typeList = new ArrayList<>();
+        for (int i=0; i<node.nChildren(); ++i) {
+            typeList.add(node.child(i).getType());
+        }
+        node.setType(new LambdaType(typeList));
+    }
+
+    @Override
     public void visitLeave(ExpressionListNode node) {
-        assert node.nChildren() >= 1;
+        assert node.nChildren() >= 1; // TODO: only for array not function
         Type temptype = node.child(0).getType();
         for (int i = 0; i < node.nChildren(); ++i) {
             Type nexttype = node.child(i).getType();
@@ -307,7 +315,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         return (parent instanceof DeclarationNode) && (node == parent.child(0));
     }
 
-    private void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
+    public static void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Scope scope = identifierNode.getLocalScope();
         Binding binding = scope.createBinding(identifierNode, type, constflag);
         identifierNode.setBinding(binding);
@@ -315,9 +323,26 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // helper functions for finding Lextant
-    private Lextant lextantFor(ParseNode node) {
+    public static Lextant lextantFor(ParseNode node) {
         LextantToken token = (LextantToken) node.getToken();
         return token.getLextant();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // helper functions for acquiring list of type and setting lambda type
+    public static void getListOfTypes(ParseNode node) {
+        List<Type> typeList = new ArrayList<>();
+        for (int i=0; i<node.nChildren(); ++i) {
+            typeList.add(node.child(i).getType());
+        }
+        node.setType(new LambdaType(typeList));
+    }
+
+    public static void setLambdaType(ParseNode node) {
+        assert node.nChildren() == 2;
+        LambdaType lambdaType = (LambdaType) node.child(0).getType();
+        lambdaType.setReturntype(node.child(1).getType());
+        node.setType(lambdaType);
     }
 
     ///////////////////////////////////////////////////////////////////////////

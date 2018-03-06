@@ -1,5 +1,6 @@
 package semanticAnalyzer;
 
+import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import parseTree.*;
 
 
@@ -16,6 +17,7 @@ public class SemanticAnalyzer {
     }
 
     public ParseNode analyze() {
+        ASTree.accept(new PreSemanticAnalysisVisitor());
         ASTree.accept(new SemanticAnalysisVisitor());
 
         return ASTree;

@@ -36,9 +36,11 @@ public class Scope {
         this.symbolTable = new SymbolTable();
 
         this.allocator = allocator;
-        allocator.saveState();
     }
 
+    public void enter() {
+        allocator.saveState();
+    }
     ///////////////////////////////////////////////////////////////////////
 //  basic queries	
     public Scope getBaseScope() {

@@ -1005,7 +1005,7 @@ public class Parser {
         return token.isLextant(Punctuator.OPEN_BRACKET);
     }
 
-    // primitiveTyep -> bool | char | string | int | float | rat 
+    // primitiveType -> bool | char | string | int | float | rat
     private ParseNode parsePrimitiveType() {
         if (!startsPrimitiveType(nowReading)) {
             return syntaxErrorNode("PrimitiveType");
