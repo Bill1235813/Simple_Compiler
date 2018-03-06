@@ -1,0 +1,27 @@
+func bill0 <int a, int b, bool c> -> rat {
+    if (c==_true_) {
+        return a//b.
+    } else {
+        return b//a.
+    }
+}
+func bill1 <int a, int b, bool c> -> rat {
+    if (c==_false_) {
+        return (a+ 1)//b.
+    } else {
+        return b//(a+ 1).
+    }
+}
+func bill2 <<int,int,bool>->rat a,<int,int,bool>->rat b, bool c> -> <int,int,bool>->rat {
+    if (c==_true_) {
+        return a.
+    } else {
+        return b.
+    }
+}
+exec {
+    var a:=1.
+    var b:=5.
+    call bill0(a,b,_true_).
+    print a;b;bill2(bill0,bill1,_false_)(a,b,_true_);_n_.
+}

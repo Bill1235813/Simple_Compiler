@@ -44,6 +44,7 @@ public enum Punctuator implements Lextant {
     LAMBDA_PARAM_TYPE(""),
     PARAMLIST(""),
     CASTING(""),
+    FUNCTION_INVOCATION(""),
     NULL_PUNCTUATOR("");
 
     private String lexeme;
