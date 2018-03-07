@@ -22,7 +22,7 @@ import symbolTable.Scope;
 import tokens.LextantToken;
 import tokens.Token;
 
-class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
+public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     @Override
     public void visitLeave(ParseNode node) {
         throw new RuntimeException("Node class unimplemented in SemanticAnalysisVisitor: " + node.getClass());
@@ -187,14 +187,32 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     @Override
     public void visitLeave(CallStatementNode node) {
-
+    		node.setType(node.child(0).getType());
     }
 
     @Override
     public void visitLeave(ReturnStatementNode node) {
-
+    		Type childType;
+    		if (node.nChildren()==0) {
+    			childType = PrimitiveType.VOID;
+    		} else {
+    			childType = node.child(0).getType();
+    		}
+    		Type lambdaType = getParentLambda(node).getType();
+    		Type returnType = ((LambdaType)lambdaType).getReturntype();
+    		if (Promotion.promotable(childType, returnType)) {
+    			node.setType(returnType);
+    		} else {
+    			returnTypeError(node);
+    		}
     }
 
+	private ParseNode getParentLambda(ParseNode node) {
+    		while (!(node instanceof LambdaNode)) {
+    			node = node.getParent();
+    		}
+    		return node;
+    }
     ///////////////////////////////////////////////////////////////////////////
     // expressions
     @Override
@@ -222,7 +240,6 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         } else {
             FunctionSignature signature = promotion.getSignature();
             node.setType(signature.resultType());
-            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
             node.setPromotion(promotion);
         }
     }
@@ -307,10 +324,8 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 node.setType(PrimitiveType.ERROR);
             }
         }
-        Array newArrayType = new Array(temptype);
         Arrays.fill(types, temptype);
-        types[node.nChildren()] = newArrayType;
-        node.setType(newArrayType);
+        node.setType(temptype);
         ((ExpressionListNode) node).setSignature(new FunctionSignature(1, types));
     }
 
@@ -507,6 +522,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + token.getLocation());
     }
 
+    private void returnTypeError(ParseNode node) {
+    		Token token = node.getToken();
+
+        logError("return statement have wrong type at "
+                + token.getLocation());
+	}
+    
     private void overOnePromotionError(ParseNode node, List<Type> operandTypes) {
         Token token = node.getToken();
 
@@ -521,7 +543,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + operandTypes + " at " + token.getLocation());
     }
 
-    private void logError(String message) {
+    public static void voidError(ParseNode node) {
+    		Token token = node.getToken();
+    		
+    		logError("void type as non-return type at " + token.getLocation());
+    }
+    
+    private static void logError(String message) {
         PikaLogger log = PikaLogger.getLogger("compiler.semanticAnalyzer");
         log.severe(message);
     }

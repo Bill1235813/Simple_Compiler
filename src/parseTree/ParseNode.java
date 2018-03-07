@@ -3,6 +3,14 @@ package parseTree;
 import java.util.ArrayList;
 import java.util.List;
 
+import static semanticAnalyzer.SemanticAnalysisVisitor.voidError;
+import lexicalAnalyzer.Punctuator;
+import parseTree.nodeTypes.CallStatementNode;
+import parseTree.nodeTypes.ExpressionListNode;
+import parseTree.nodeTypes.LambdaParamTypeNode;
+import parseTree.nodeTypes.OperatorNode;
+import parseTree.nodeTypes.ReturnStatementNode;
+import parseTree.nodeTypes.TypeNode;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
@@ -49,9 +57,34 @@ public class ParseNode {
 
     public void setType(Type type) {
         this.type = type;
+        if (type.equivalent(PrimitiveType.VOID)) {
+        		if (!checkValidVoid()) {
+        			voidError(this);
+        		}
+        		
+        }
     }
 
-    public Type getType() {
+    private boolean checkValidVoid() {
+    		if (this instanceof ReturnStatementNode || this instanceof CallStatementNode) {
+    			return true;
+    		} else if (this instanceof OperatorNode) {
+    			return ((OperatorNode)this).getOperator() == Punctuator.FUNCTION_INVOCATION;
+    		} else if (this instanceof ExpressionListNode) {
+    			return ((OperatorNode)this.parent).getOperator() == Punctuator.FUNCTION_INVOCATION;
+    		} else if (this instanceof TypeNode) {
+    			if (this.parent.nChildren() < 2) {
+    				return false;
+    			} else if (this.parent.child(1) != this){
+    				return false;
+    			} else {
+    				return (this.parent instanceof TypeNode) || (this.parent instanceof LambdaParamTypeNode);
+    			}
+    		}
+    		return false;
+    }
+
+	public Type getType() {
         return type;
     }
 

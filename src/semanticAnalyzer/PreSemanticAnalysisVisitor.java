@@ -32,7 +32,6 @@ public class PreSemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     public void visitLeave(GlobalDefinitionNode node) {
-        
     }
 
     public void visitLeave(FunctionDefinitionNode node) {

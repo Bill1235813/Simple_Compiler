@@ -201,7 +201,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // populated array creation
         new FunctionSignatures(
                 Punctuator.POPULATED_ARRAY,
-                new FunctionSignature(new PopulatedArrayCodeGenerator(), setS, arrayOfS, arrayOfS)
+                new FunctionSignature(new PopulatedArrayCodeGenerator(), setS, S, arrayOfS)
         );
 
         // empty array creation

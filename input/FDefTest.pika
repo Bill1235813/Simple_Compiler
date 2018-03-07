@@ -1,3 +1,10 @@
+func bill2 <<int,int,bool>->rat a,<int,int,bool>->rat b, bool c> -> <int,int,bool>->rat {
+    if (c==_true_) {
+        return bill0.
+    } else {
+        return b.
+    }
+}
 func bill0 <int a, int b, bool c> -> rat {
     if (c==_true_) {
         return a//b.
@@ -12,16 +19,20 @@ func bill1 <int a, int b, bool c> -> rat {
         return b//(a+ 1).
     }
 }
-func bill2 <<int,int,bool>->rat a,<int,int,bool>->rat b, bool c> -> <int,int,bool>->rat {
-    if (c==_true_) {
-        return a.
-    } else {
-        return b.
-    }
-}
 exec {
     var a:=1.
     var b:=5.
+    # call inside(a,b,a,b,b).
+    const inside:= <int a1, int a2, int a3, int a4, int a5>->void {
+    		# return a1+a2+a3+a4+a5.
+    		return .
+    	}.
+    	const inside2:= <int a1, int a2, int a3, int a4, int a5>->void {
+    		# return [inside(a1,a2,a3,a4,a5)|void].
+    	}.
+    	# var gg:=inside(a,a,a,a,a).
+    	# var array:=[inside(a,a,a,a,a)].
+    	call inside(a,b,a,b,a).
     call bill0(a,b,_true_).
     print a;b;bill2(bill0,bill1,_false_)(a,b,_true_);_n_.
 }
