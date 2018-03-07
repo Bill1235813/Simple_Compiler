@@ -11,7 +11,6 @@ import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
 public class EmptyArrayCodeGenerator implements SimpleCodeGenerator {
-    private int statusFlag = 0;
 
     public EmptyArrayCodeGenerator() {
         super();
@@ -20,11 +19,14 @@ public class EmptyArrayCodeGenerator implements SimpleCodeGenerator {
     @Override
     public ASMCodeFragment generate(ParseNode node) {
         ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
+        int statusFlag;
 
         assert node.getType() instanceof Array;
         Array arrayType = (Array) node.getType();
         if (arrayType.subtypeIsReference()) {
             statusFlag = 1 << Record.SUBTYPE_REFERENCE_SHIFT;
+        } else {
+            statusFlag = 0;
         }
 
         RunTime.createEmptyArrayRecord(fragment, statusFlag, arrayType.getSubtype().getSize());

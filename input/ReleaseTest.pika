@@ -1,0 +1,32 @@
+exec {
+
+	var iterations := 0.
+	while (iterations < 10) {
+
+		var collect := new [[[int]]](50).
+		var collect_index := 0.
+
+		while (collect_index < length collect) {
+			var elem := new [[int]](10).
+
+			var elem_index := 0.
+			while (elem_index < length elem) {
+				var subelem := new [int](100).
+				var subelem_index := 0.
+				while (subelem_index < length subelem) {
+					subelem[subelem_index] := (collect_index + elem_index) * subelem_index.
+					subelem_index := subelem_index + 1.
+				}
+				elem[elem_index] := subelem.
+				elem_index := elem_index + 1.
+			}
+			collect[collect_index] := elem.
+#			print elem, _n_.
+			collect_index := collect_index + 1.
+		}
+
+		release collect.
+		iterations := iterations + 1.
+		print "iteration ", iterations, " done.", _n_.
+	}
+}

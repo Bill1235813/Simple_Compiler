@@ -393,6 +393,7 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(TypeNode node) {
+            newVoidCode(node);
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -447,9 +448,10 @@ public class ASMCodeGenerator {
             List<ASMCodeFragment> args = new ArrayList<>();
             for (int i = 0; i < node.nChildren(); ++i) {
                 if (node.child(i) instanceof TypeNode) {
-                    continue;
+                    args.add(removeVoidCode(node.child(i)));
+                } else {
+                    args.add(removeValueCode(node.child(i)));
                 }
-                args.add(removeValueCode(node.child(i)));
             }
             return args.toArray(new ASMCodeFragment[args.size()]);
         }

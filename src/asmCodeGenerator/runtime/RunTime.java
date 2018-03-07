@@ -451,11 +451,12 @@ public class RunTime {
         // set label
         Labeller labeller = new Labeller("$release-reference");
         String endflag = labeller.newLabel("endflag");
-        String subtypeIsRefflag = labeller.newLabel("subtypeIsRefflag");
+        String subtypeIsNotRefflag = labeller.newLabel("subtypeIsRefflag");
         String returnflag = labeller.newLabel("returnflag");
 
         frag.add(Label, RELEASE_REFERENCE);
         frag.add(Exchange); // [... (return) ref_addr]
+
         // check permanent
         frag.add(Duplicate);
         frag.add(PushI, Record.RECORD_PERMANENT_OFFSET);
@@ -473,8 +474,15 @@ public class RunTime {
         frag.add(PushI, Record.RECORD_SUBTYPE_IS_REF_OFFSET);
         frag.add(Add);
         frag.add(LoadC); // [... (return) ref_addr subtype]
-        frag.add(JumpTrue, subtypeIsRefflag); // [... (return) ref_addr]
-        // deal with subtype not ref
+        frag.add(JumpFalse, subtypeIsNotRefflag); // [... (return) ref_addr]
+
+        // deal with subtype is ref
+        frag.add(Duplicate); // [... (return) ref_addr ref_addr]
+        releaseSubtype(frag); // [... (return) ref_addr ref_addr_bottom]
+        frag.add(Pop); // [... (return) ref_addr]
+
+        // deal with normal array
+        frag.add(Label, subtypeIsNotRefflag);
         frag.add(Duplicate);
         frag.add(PushI, Record.RECORD_IS_DELETED_OFFSET);
         frag.add(Add);
@@ -482,9 +490,6 @@ public class RunTime {
         frag.add(StoreC); // [... (return) ref_addr] set deleted bit
         frag.add(Call, MemoryManager.MEM_MANAGER_DEALLOCATE);
         frag.add(Jump, returnflag); // [... (return)]
-        // deal with subtype is ref
-        frag.add(Label, subtypeIsRefflag);
-        releaseSubtype(frag); // [... (return) ref_addr_bottom]
 
         // end
         frag.add(Label, endflag); // [... (return) ref_addr]

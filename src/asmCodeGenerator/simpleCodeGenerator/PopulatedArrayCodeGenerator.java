@@ -2,6 +2,9 @@ package asmCodeGenerator.simpleCodeGenerator;
 
 import static asmCodeGenerator.Macros.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
+import static asmCodeGenerator.runtime.RunTime.INTEGER_PRINT_FORMAT;
+import static asmCodeGenerator.runtime.RunTime.NEWLINE_PRINT_FORMAT;
+import static asmCodeGenerator.runtime.RunTime.RECORD_CREATION_TEMPORARY;
 
 import asmCodeGenerator.ASMCodeGenerator;
 import asmCodeGenerator.Labeller;
@@ -15,7 +18,6 @@ import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
 public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
-    private int statusFlag = 0;
 
     public PopulatedArrayCodeGenerator() {
         super();
@@ -24,6 +26,7 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
     @Override
     public ASMCodeFragment generate(ParseNode node) {
         ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
+        int statusFlag;
 
         assert node.nChildren() == 1;
         fragment.add(PushI, node.child(0).nChildren()); // number of the child [... exprList nElems]
@@ -34,17 +37,20 @@ public class PopulatedArrayCodeGenerator implements SimpleCodeGenerator {
         Type subType = arrayType.getSubtype();
         if (arrayType.subtypeIsReference()) {
             statusFlag = 1 << Record.SUBTYPE_REFERENCE_SHIFT;
+        } else {
+            statusFlag = 0;
         }
+
         RunTime.createEmptyArrayRecord(fragment, statusFlag, subType.getSize()); // [... exprList]
 
         // insert the children - addr still in RunTime.RECORD_CREATION_TEMPORARY
         fragment.add(PushI, node.child(0).nChildren()); // number of the child [... exprList nElems]
-        loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
+        loadIFrom(fragment, RECORD_CREATION_TEMPORARY);
         fragment.add(PushI, Record.ARRAY_HEADER_SIZE);
         fragment.add(Add); // [... exprList nElems location]
 
         RunTime.insertToRecord(fragment, subType);
-        loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
+        loadIFrom(fragment, RECORD_CREATION_TEMPORARY);
 
         return fragment;
     }

@@ -10,6 +10,7 @@ import parseTree.nodeTypes.OperatorNode;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,11 +84,10 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
         if (compareType.equivalent(PrimitiveType.RATIONAL)) {
             // subtract and multiply two char (avoid overflow)
             SimpleCodeGenerator f1 = new RationalSubtractCodeGenerator();
-            SimpleCodeGenerator f2 = new CastToCharacterCodeGenerator();
             fragment.append(f1.generate(node));
-            fragment.append(f2.generate(node));
+            fragment.append(sign());
             fragment.add(Exchange);
-            fragment.append(f2.generate(node));
+            fragment.append(sign());
             fragment.add(Multiply);
         } else {
             fragment.add(comparisonOperation);
@@ -105,5 +105,29 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
         fragment.add(Label, joinLabel);
 
         return fragment;
+    }
+
+    private ASMCodeFragment sign() {
+        ASMCodeFragment frag = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
+
+        Labeller labeller = new Labeller("sign");
+        String posLabel = labeller.newLabel("pos");
+        String endLabel = labeller.newLabel("end");
+
+        // [... value] -> [... 1 or -1]
+        frag.add(Duplicate);
+        frag.add(JumpFalse, endLabel);
+        frag.add(JumpPos, posLabel);
+
+        // negative
+        frag.add(PushI, -1);
+        frag.add(Jump, endLabel);
+
+        // positive
+        frag.add(Label, posLabel);
+        frag.add(PushI, 1);
+
+        frag.add(Label, endLabel);
+        return frag;
     }
 }

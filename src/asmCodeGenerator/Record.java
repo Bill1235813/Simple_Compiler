@@ -6,7 +6,7 @@ public class Record {
     public static final int RECORD_SUBTYPE_IS_REF_OFFSET = 5;
     public static final int RECORD_IS_DELETED_OFFSET = 6;
     public static final int RECORD_PERMANENT_OFFSET = 7;
-    public static final int SUBTYPE_REFERENCE_SHIFT = 16;
+    public static final int SUBTYPE_REFERENCE_SHIFT = 8;
 
     public static final int ARRAY_SUBTYPE_SIZE_OFFSET = 8;
     public static final int ARRAY_LENGTH_OFFSET = 12;
