@@ -37,7 +37,7 @@ public class Parser {
 
     ////////////////////////////////////////////////////////////
     // "program" is the start symbol S
-    // S -> EXEC blockStatement
+    // S -> globalDefinition* EXEC blockStatement
 
     private ParseNode parseProgram() {
         if (!startsProgram(nowReading)) {
@@ -47,7 +47,7 @@ public class Parser {
                 LextantToken.artificial(nowReading, Keyword.START_PROGRAM));
 
         // parse global definition
-        if (startsGlobalDefinition(nowReading)) {
+        while (startsGlobalDefinition(nowReading)) {
             ParseNode globalDefinition = parseGlobalDefinition();
             program.appendChild(globalDefinition);
         }
@@ -71,7 +71,7 @@ public class Parser {
     ///////////////////////////////////////////////////////////
     // globalDefinition
 
-    // globalDefinition -> functionDefinition*
+    // globalDefinition -> functionDefinition
     private ParseNode parseGlobalDefinition() {
         if (!startsGlobalDefinition(nowReading)) {
             return syntaxErrorNode("globalDefinition");
@@ -80,10 +80,7 @@ public class Parser {
                 LextantToken.artificial(nowReading, Keyword.GLOBAL_DEFINITION));
 
         // parse function definition
-        while (startsFunctionDefinition(nowReading)) {
-            global.appendChild(parseFunctionDefinition());
-        }
-
+        global.appendChild(parseFunctionDefinition());
         return global;
     }
 

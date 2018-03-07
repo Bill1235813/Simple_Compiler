@@ -39,7 +39,7 @@ public class PreSemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         IdentifierNode identifier = (IdentifierNode) node.child(0);
         ParseNode lambda = node.child(1);
 
-        Type functionType = lambda.getType();
+        LambdaType functionType = (LambdaType) lambda.getType();
         node.setType(functionType);
 
         identifier.setType(functionType);

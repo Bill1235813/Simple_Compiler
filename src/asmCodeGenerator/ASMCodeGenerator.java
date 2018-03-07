@@ -22,6 +22,7 @@ import semanticAnalyzer.types.Type;
 import symbolTable.Binding;
 import symbolTable.Scope;
 
+import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
@@ -66,8 +67,20 @@ public class ASMCodeGenerator {
 
         code.add(Label, RunTime.MAIN_PROGRAM_LABEL);
         code.append(MemoryManager.codeForInitialization());
+        code.append(initializeFrameStack());
         code.append(programCode());
         code.add(Halt);
+
+        return code;
+    }
+
+    private ASMCodeFragment initializeFrameStack() {
+        ASMCodeFragment code = new ASMCodeFragment(GENERATES_VOID);
+
+        code.add(Memtop);
+        code.add(Duplicate);
+        storeITo(code, RunTime.FRAME_POINTER);
+        storeITo(code, RunTime.STACK_POINTER);
 
         return code;
     }
@@ -259,7 +272,7 @@ public class ASMCodeGenerator {
                 code.append(args[0]);
                 code.add(Duplicate);
                 code.append(args[1]);
-                Macros.storeITo(code, RunTime.FIRST_DENOMINATOR);
+                storeITo(code, RunTime.FIRST_DENOMINATOR);
                 code.add(StoreI);
                 code.add(PushI, 4);
                 code.add(Add);

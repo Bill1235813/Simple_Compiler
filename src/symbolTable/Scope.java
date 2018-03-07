@@ -2,6 +2,7 @@ package symbolTable;
 
 import inputHandler.TextLocation;
 import logging.PikaLogger;
+import parseTree.ParseNode;
 import parseTree.nodeTypes.IdentifierNode;
 import semanticAnalyzer.types.Type;
 import tokens.Token;
@@ -18,6 +19,14 @@ public class Scope {
         return new Scope(programScopeAllocator(), nullInstance());
     }
 
+    public static Scope createProcedureScope() {
+        return new Scope(procedureScopeAllocator(), nullInstance());
+    }
+
+    public static Scope createParameterScope() {
+        return new Scope(parameterScopeAllocator(), nullInstance());
+    }
+
     public Scope createSubscope() {
         return new Scope(allocator, this);
     }
@@ -28,8 +37,18 @@ public class Scope {
                 MemoryLocation.GLOBAL_VARIABLE_BLOCK);
     }
 
+    private static MemoryAllocator procedureScopeAllocator() {
+        return new NegativeMemoryAllocator(
+                MemoryAccessMethod.INDIRECT_ACCESS_BASE,
+                MemoryLocation.FRAME_POINTER);
+    }
+
+    private static MemoryAllocator parameterScopeAllocator() {
+        return new ParameterMemoryAllocator.Builder();
+    }
+
     //////////////////////////////////////////////////////////////////////
-// private constructor.	
+    // private constructor.
     private Scope(MemoryAllocator allocator, Scope baseScope) {
         super();
         this.baseScope = (baseScope == null) ? this : baseScope;
@@ -64,6 +83,10 @@ public class Scope {
 
     public int getAllocatedSize() {
         return allocator.getMaxAllocatedSize();
+    }
+
+    public void manualAllocate(int size) {
+        allocator.allocate(size);
     }
 
     ///////////////////////////////////////////////////////////////////////

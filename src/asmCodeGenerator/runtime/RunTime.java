@@ -38,6 +38,8 @@ public class RunTime {
     public static final String MAIN_PROGRAM_LABEL = "$$main";
 
     // temporary variables
+    public static final String FRAME_POINTER = "$frame-pointer";
+    public static final String STACK_POINTER = "$stack-pointer";
     public static final String ARRAY_INDEXING_ARRAY = "$a-indexing-array";
     public static final String ARRAY_INDEXING_INDEX = "$a-indexing-index";
     public static final String FIRST_NUMERATOR = "$first-numerator";

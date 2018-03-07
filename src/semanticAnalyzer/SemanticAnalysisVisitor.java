@@ -37,8 +37,46 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         leaveScope(node);
     }
 
+    public void visitLeave(GlobalDefinitionNode node) {
+    }
+
+    public void visitLeave(FunctionDefinitionNode node) {
+    }
+
+    public void visitEnter(LambdaNode node) {
+        enterParameterScope(node);
+    }
+
+    public void visitLeave(LambdaNode node) {
+        leaveScope(node);
+    }
+
+    public void visitLeave(LambdaParamTypeNode node) {
+
+    }
+
+    public void visitLeave(ParamListNode node) {
+    }
+
+    public void visitLeave(ParamSpecNode node) {
+        ParseNode type = node.child(0);
+        IdentifierNode identifier = (IdentifierNode) node.child(1);
+
+        Type paramType = type.getType();
+        node.setType(paramType);
+
+        identifier.setType(paramType);
+        addBinding(identifier, paramType, true);
+    }
+
     public void visitEnter(BlockStatementNode node) {
-        enterSubscope(node);
+        assert node.getParent() != null;
+        ParseNode parent = node.getParent();
+        if  (parent instanceof LambdaNode) {
+            enterProcedureScope(node);
+        } else {
+            enterSubscope(node);
+        }
     }
 
     public void visitLeave(BlockStatementNode node) {
@@ -48,6 +86,17 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // helper methods for scoping.
+    private void enterParameterScope(ParseNode node) {
+        Scope scope = Scope.createParameterScope();
+        scope.enter();
+    }
+
+    private void enterProcedureScope(ParseNode node) {
+        Scope scope = Scope.createProcedureScope();
+        scope.enter();
+        scope.manualAllocate(8);
+    }
+
     private void enterProgramScope(ParseNode node) {
         Scope scope = node.getScope();
         scope.enter();
@@ -165,6 +214,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitLeave(TypeNode node) {
         assert node.getToken() instanceof LextantToken;
         assert node.nChildren() <= 2;
+        // already set
+        if (!node.getType().equivalent(PrimitiveType.NO_TYPE)) {
+            return;
+        }
+
+        // set type
         if (node.nChildren() == 0) {
             Lextant type = lextantFor(node);
             node.setType(PrimitiveType.getTypeFromLextant(type));
@@ -270,7 +325,8 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     // IdentifierNodes, with helper methods
     @Override
     public void visit(IdentifierNode node) {
-        if (!isBeingDeclared(node)) {
+        assert node.getParent() != null;
+        if (!isBeingDeclared(node) && !isParameter(node)) {
             Binding binding = node.findVariableBinding();
 
             node.setType(binding.getType());
@@ -313,6 +369,11 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     private boolean isBeingDeclared(IdentifierNode node) {
         ParseNode parent = node.getParent();
         return (parent instanceof DeclarationNode) && (node == parent.child(0));
+    }
+
+    private boolean isParameter(IdentifierNode node) {
+        ParseNode parent = node.getParent();
+        return (parent instanceof ParamSpecNode) && (node == parent.child(1));
     }
 
     public static void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {

@@ -8,6 +8,7 @@ import static semanticAnalyzer.types.PrimitiveType.INTEGER;
 public class LambdaType implements Type {
     private List<Type> typeList;
     private Type returntype;
+    private int size;
 
     public LambdaType(List<Type> typeList) {
         this.typeList = typeList;
@@ -16,10 +17,11 @@ public class LambdaType implements Type {
     public LambdaType(List<Type> typeList, Type returntype) {
         this.typeList = typeList;
         this.returntype = returntype;
+        this.size =  INTEGER.getSize();
     }
     @Override
     public int getSize() {
-        return INTEGER.getSize();
+        return size;
     }
 
     @Override
@@ -81,5 +83,9 @@ public class LambdaType implements Type {
 
     public void setTypeList(List<Type> typeList) {
         this.typeList = typeList;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
