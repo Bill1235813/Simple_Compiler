@@ -86,7 +86,9 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
         TypeVariable S = new TypeVariable("S");
+        TypeVariable T = new TypeVariable("T");
         Array arrayOfS = new Array(S);
+        List<TypeVariable> setST = Arrays.asList(S,T);
         List<TypeVariable> setS = Arrays.asList(S);
 
         // arithmetic +, -, *, /, //, ///, ////
@@ -193,6 +195,9 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(ASMOpcode.BNegate, BOOLEAN, BOOLEAN)
         );
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        // arrays
+
         // populated array creation
         new FunctionSignatures(
                 Punctuator.POPULATED_ARRAY,
@@ -221,6 +226,14 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         new FunctionSignatures(
                 Keyword.LENGTH,
                 new FunctionSignature(new LengthArrayCodeGenerator(), setS, arrayOfS, INTEGER)
+        );
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        // functions
+
+        new FunctionSignatures(
+                Punctuator.FUNCTION_INVOCATION,
+                new FunctionSignature(1, setST, S, T, T)
         );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.

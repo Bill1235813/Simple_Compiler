@@ -47,7 +47,16 @@ public class PreSemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     public void visitLeave(LambdaNode node) {
-        node.setType(node.child(0).getType());
+        LambdaType lambdaType = (LambdaType) node.child(0).getType();
+        Scope scope = Scope.createParameterScope();
+        List<Type> typeList = lambdaType.getTypeList();
+        int totalSize = 0; // the negative total
+        for (Type type: typeList) {
+            totalSize -= type.getSize();
+        }
+        scope.preAllocatedSize(totalSize);
+        node.setType(lambdaType);
+        node.setScope(scope);
     }
 
     public void visitLeave(LambdaParamTypeNode node) {

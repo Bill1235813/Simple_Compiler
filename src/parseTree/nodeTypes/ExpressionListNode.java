@@ -2,9 +2,11 @@ package parseTree.nodeTypes;
 
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
+import semanticAnalyzer.signatures.FunctionSignature;
 import tokens.Token;
 
 public class ExpressionListNode extends ParseNode {
+    private FunctionSignature signature;
 
     public ExpressionListNode(Token token) {
         super(token);
@@ -30,5 +32,13 @@ public class ExpressionListNode extends ParseNode {
         visitor.visitEnter(this);
         visitChildren(visitor);
         visitor.visitLeave(this);
+    }
+
+    public FunctionSignature getSignature() {
+        return signature;
+    }
+
+    public void setSignature(FunctionSignature signature) {
+        this.signature = signature;
     }
 }

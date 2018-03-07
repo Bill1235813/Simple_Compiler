@@ -1,5 +1,7 @@
 package semanticAnalyzer.types;
 
+import semanticAnalyzer.signatures.FunctionSignature;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +11,21 @@ public class LambdaType implements Type {
     private List<Type> typeList;
     private Type returntype;
     private int size;
+    private FunctionSignature signature;
 
     public LambdaType(List<Type> typeList) {
         this.typeList = typeList;
+        this.returntype = PrimitiveType.NO_TYPE;
+        this.size = INTEGER.getSize();
     }
 
     public LambdaType(List<Type> typeList, Type returntype) {
         this.typeList = typeList;
         this.returntype = returntype;
-        this.size =  INTEGER.getSize();
+        this.size = INTEGER.getSize();
+        computeSignature();
     }
+
     @Override
     public int getSize() {
         return size;
@@ -32,11 +39,11 @@ public class LambdaType implements Type {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder("<");
-        for (Type type: typeList) {
+        for (Type type : typeList) {
             s.append(type.toString());
             s.append(",");
         }
-        s.deleteCharAt(s.length()-1);
+        s.deleteCharAt(s.length() - 1);
         s.append(">->");
         s.append(returntype.toString());
         return s.toString();
@@ -49,7 +56,7 @@ public class LambdaType implements Type {
             if (!returntype.equivalent(otherLambda.returntype)) {
                 return false;
             }
-            for (int i=0;i<typeList.size();++i) {
+            for (int i = 0; i < typeList.size(); ++i) {
                 if (!typeList.get(i).equivalent(otherLambda.typeList.get(i))) {
                     return false;
                 }
@@ -62,7 +69,7 @@ public class LambdaType implements Type {
     @Override
     public Type getConcreteType() {
         List<Type> concreteTypeList = new ArrayList<>();
-        for (Type type:typeList) {
+        for (Type type : typeList) {
             concreteTypeList.add(type.getConcreteType());
         }
         Type concreteReturn = returntype.getConcreteType();
@@ -75,6 +82,7 @@ public class LambdaType implements Type {
 
     public void setReturntype(Type returntype) {
         this.returntype = returntype;
+        computeSignature();
     }
 
     public List<Type> getTypeList() {
@@ -87,5 +95,18 @@ public class LambdaType implements Type {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    private void computeSignature() {
+        Type[] types = new Type[typeList.size() + 1];
+        for (int i = 0; i < typeList.size(); ++i) {
+            types[i] = typeList.get(i);
+        }
+        types[typeList.size()] = returntype;
+        this.signature = new FunctionSignature(1, types);
+    }
+
+    public FunctionSignature getSignature() {
+        return signature;
     }
 }

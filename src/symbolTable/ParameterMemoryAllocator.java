@@ -13,56 +13,27 @@ public class ParameterMemoryAllocator implements MemoryAllocator {
     String baseAddress;
     List<Integer> bookmarks;
 
-    public static class Builder {
-        MemoryAccessMethod accessor;
-        final int startingOffset = 0;
-        int currentOffset;
-        int minOffset;
-        String baseAddress;
-        List<Integer> bookmarks;
-
-        public MemoryLocation allocate(int sizeInBytes) {
-            currentOffset -= sizeInBytes;
-            updateMin();
-            return new MemoryLocation(accessor, baseAddress, currentOffset);
-        }
-
-        private void updateMin() {
-            if (minOffset > currentOffset) {
-                minOffset = currentOffset;
-            }
-        }
-
-        public String getBaseAddress() {
-            return baseAddress;
-        }
-
-        public int getMaxAllocatedSize() {
-            return startingOffset - minOffset;
-        }
-
-        public void saveState() {
-            bookmarks.add(currentOffset);
-        }
-
-        public void restoreState() {
-            assert bookmarks.size() > 0;
-            int bookmarkIndex = bookmarks.size() - 1;
-            currentOffset = (int) bookmarks.remove(bookmarkIndex);
-        }
-
-        public ParameterMemoryAllocator build() {
-            return new ParameterMemoryAllocator(this);
-        }
+    public ParameterMemoryAllocator(MemoryAccessMethod accessor, String baseAddress, int startingOffset) {
+        this.accessor = accessor;
+        this.baseAddress = baseAddress;
+        this.startingOffset = startingOffset;
+        this.currentOffset = startingOffset;
+        this.minOffset = startingOffset;
+        this.bookmarks = new ArrayList<Integer>();
     }
 
-    private ParameterMemoryAllocator(Builder b) {
-        this.accessor = b.accessor;
-        this.baseAddress = b.baseAddress;
-        this.startingOffset = b.startingOffset;
-        this.currentOffset = b.startingOffset;
-        this.minOffset = b.startingOffset;
-        this.bookmarks = new ArrayList<Integer>();
+    public ParameterMemoryAllocator(MemoryAccessMethod accessor, String baseAddress) {
+        this(accessor, baseAddress, 0);
+    }
+
+    @Override
+    public MemoryLocation allocate(int sizeInBytes) {
+        currentOffset -= sizeInBytes;
+        return new MemoryLocation(accessor, baseAddress, currentOffset - minOffset);
+    }
+
+    public void setMin(int minOffset) {
+        this.minOffset = minOffset;
     }
 
     @Override
@@ -71,8 +42,8 @@ public class ParameterMemoryAllocator implements MemoryAllocator {
     }
 
     @Override
-    public MemoryLocation allocate(int sizeInBytes) {
-        return null;
+    public int getMaxAllocatedSize() {
+        return startingOffset - minOffset;
     }
 
     @Override
@@ -82,10 +53,8 @@ public class ParameterMemoryAllocator implements MemoryAllocator {
 
     @Override
     public void restoreState() {
-    }
-
-    @Override
-    public int getMaxAllocatedSize() {
-        return startingOffset - minOffset;
+        assert bookmarks.size() > 0;
+        int bookmarkIndex = bookmarks.size() - 1;
+        currentOffset = (int) bookmarks.remove(bookmarkIndex);
     }
 }

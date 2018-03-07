@@ -71,6 +71,9 @@ public class Promotion {
 
     // function for random type comparison
     public static Boolean promotable(Type type1, Type type2) {
+        if (type1.equivalent(type2)) {
+            return true;
+        }
         for (Type[] types : PROMOTION_TYPES) {
             if (type1.equivalent(types[0]) && type2.equivalent(types[1])) {
                 return true;

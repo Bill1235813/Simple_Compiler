@@ -394,10 +394,10 @@ public class ASMCodeGenerator {
 
         public void visitLeave(ExpressionListNode node) {
             newValueCode(node);
-            Type finaltype = ((Array) node.getType()).getSubtype();
+            Type[] finaltypes = node.getSignature().getParamTypes();
             ASMCodeFragment[] args = getUndeterminedChildren(node);
             for (int i = node.nChildren() - 1; i >= 0; --i) {
-                Object varient = Promotion.getMethod(node.child(i).getType(), finaltype);
+                Object varient = Promotion.getMethod(node.child(i).getType(), finaltypes[i]);
                 if (varient != null) {
                     applyPromotionMethods(varient, node, args[i]);
                 }

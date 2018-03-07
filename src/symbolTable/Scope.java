@@ -7,13 +7,15 @@ import parseTree.nodeTypes.IdentifierNode;
 import semanticAnalyzer.types.Type;
 import tokens.Token;
 
+import java.util.Locale;
+
 public class Scope {
     private Scope baseScope;
     private MemoryAllocator allocator;
     private SymbolTable symbolTable;
 
 //////////////////////////////////////////////////////////////////////
-// factories
+    //// factories
 
     public static Scope createProgramScope() {
         return new Scope(programScopeAllocator(), nullInstance());
@@ -44,7 +46,9 @@ public class Scope {
     }
 
     private static MemoryAllocator parameterScopeAllocator() {
-        return new ParameterMemoryAllocator.Builder();
+        return new ParameterMemoryAllocator(
+                MemoryAccessMethod.INDIRECT_ACCESS_BASE,
+                MemoryLocation.FRAME_POINTER);
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -61,7 +65,7 @@ public class Scope {
         allocator.saveState();
     }
     ///////////////////////////////////////////////////////////////////////
-//  basic queries	
+    //  basic queries
     public Scope getBaseScope() {
         return baseScope;
     }
@@ -75,7 +79,7 @@ public class Scope {
     }
 
     ///////////////////////////////////////////////////////////////////////
-//memory allocation
+    // memory allocation
     // must call leave() when destroying/leaving a scope.
     public void leave() {
         allocator.restoreState();
@@ -85,12 +89,17 @@ public class Scope {
         return allocator.getMaxAllocatedSize();
     }
 
+    public void preAllocatedSize(int size) {
+        assert allocator instanceof ParameterMemoryAllocator;
+        ((ParameterMemoryAllocator) allocator).setMin(size);
+    }
+
     public void manualAllocate(int size) {
         allocator.allocate(size);
     }
 
     ///////////////////////////////////////////////////////////////////////
-//bindings
+    // bindings
     public Binding createBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Token token = identifierNode.getToken();
         symbolTable.errorIfAlreadyDefined(token);
@@ -108,7 +117,7 @@ public class Scope {
     }
 
     ///////////////////////////////////////////////////////////////////////
-//toString
+    // toString
     public String toString() {
         String result = "scope: ";
         result += " hash " + hashCode() + "\n";
@@ -117,7 +126,7 @@ public class Scope {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
-//Null Scope object - lazy singleton (Lazy Holder) implementation pattern
+    // Null Scope object - lazy singleton (Lazy Holder) implementation pattern
     public static Scope nullInstance() {
         return NullScope.instance;
     }
@@ -148,7 +157,7 @@ public class Scope {
 
 
     ///////////////////////////////////////////////////////////////////////
-//error reporting
+    // error reporting
     private static void unscopedIdentifierError(Token token) {
         PikaLogger log = PikaLogger.getLogger("compiler.scope");
         log.severe("variable " + token.getLexeme() +

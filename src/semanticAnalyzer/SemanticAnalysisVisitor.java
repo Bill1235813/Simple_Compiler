@@ -16,6 +16,8 @@ import semanticAnalyzer.signatures.FunctionSignatures;
 import semanticAnalyzer.signatures.Promotion;
 import semanticAnalyzer.types.*;
 import symbolTable.Binding;
+import symbolTable.ParameterMemoryAllocator;
+import symbolTable.PositiveMemoryAllocator;
 import symbolTable.Scope;
 import tokens.LextantToken;
 import tokens.Token;
@@ -37,6 +39,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         leaveScope(node);
     }
 
+    // global definition
     public void visitLeave(GlobalDefinitionNode node) {
     }
 
@@ -69,6 +72,7 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         addBinding(identifier, paramType, true);
     }
 
+    // blockStmt
     public void visitEnter(BlockStatementNode node) {
         assert node.getParent() != null;
         ParseNode parent = node.getParent();
@@ -87,7 +91,8 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     ///////////////////////////////////////////////////////////////////////////
     // helper methods for scoping.
     private void enterParameterScope(ParseNode node) {
-        Scope scope = Scope.createParameterScope();
+        Scope scope = node.getScope();
+        assert scope.getAllocationStrategy() instanceof ParameterMemoryAllocator;
         scope.enter();
     }
 
@@ -95,10 +100,12 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         Scope scope = Scope.createProcedureScope();
         scope.enter();
         scope.manualAllocate(8);
+        node.setScope(scope);
     }
 
     private void enterProgramScope(ParseNode node) {
         Scope scope = node.getScope();
+        assert scope.getAllocationStrategy() instanceof PositiveMemoryAllocator;
         scope.enter();
     }
 
@@ -178,6 +185,16 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         }
     }
 
+    @Override
+    public void visitLeave(CallStatementNode node) {
+
+    }
+
+    @Override
+    public void visitLeave(ReturnStatementNode node) {
+
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // expressions
     @Override
@@ -239,13 +256,49 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         node.setType(new LambdaType(typeList));
     }
 
+    // expressionList in ad hoc method
     @Override
     public void visitLeave(ExpressionListNode node) {
-        assert node.nChildren() >= 1; // TODO: only for array not function
+        assert node.getParent() instanceof OperatorNode;
+        Lextant lextant = ((OperatorNode) node.getParent()).getOperator();
+        if (lextant == Punctuator.POPULATED_ARRAY) {
+            arrayExpressionList(node); // only for array
+        } else {
+            lambdaExpressionList(node);
+        }
+    }
+
+    private void lambdaExpressionList(ParseNode node) {
+        ParseNode sibling = node.getParent().child(0);
+        Type lambda = sibling.getType();
+        if (lambda instanceof LambdaType) {
+            FunctionSignature signature = ((LambdaType)lambda).getSignature();
+            Type[] promotionTypes = signature.getParamTypes();
+            for (int i=0; i<node.nChildren(); ++i) {
+                Type nexttype = node.child(i).getType();
+                if (Promotion.promotable(nexttype, promotionTypes[i])) {
+                    continue;
+                } else {
+                    expressionListPromotionError(node, i + 1);
+                    node.setType(PrimitiveType.ERROR);
+                }
+            }
+            // set type and signature
+            node.setType(signature.resultType());
+            ((ExpressionListNode) node).setSignature(signature);
+        } else {
+            expressionListLambdaError(node);
+            node.setType(PrimitiveType.ERROR);
+        }
+    }
+
+    private void arrayExpressionList(ParseNode node) {
+        assert node.nChildren() >= 1;
+        Type[] types = new Type[node.nChildren() + 1];
         Type temptype = node.child(0).getType();
         for (int i = 0; i < node.nChildren(); ++i) {
             Type nexttype = node.child(i).getType();
-            if (nexttype.equivalent(temptype) || Promotion.promotable(nexttype, temptype)) {
+            if (Promotion.promotable(nexttype, temptype)) {
                 continue;
             } else if (Promotion.promotable(temptype, nexttype)) {
                 temptype = nexttype;
@@ -254,7 +307,11 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 node.setType(PrimitiveType.ERROR);
             }
         }
-        node.setType(new Array(temptype));
+        Array newArrayType = new Array(temptype);
+        Arrays.fill(types, temptype);
+        types[node.nChildren()] = newArrayType;
+        node.setType(newArrayType);
+        ((ExpressionListNode) node).setSignature(new FunctionSignature(1, types));
     }
 
     @Override
@@ -434,6 +491,13 @@ class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
         logError("assign to untargetable variable " + token.getLexeme()
                 + " at " + token.getLocation());
+    }
+
+    private void expressionListLambdaError(ParseNode node) {
+        Token token = node.getToken();
+
+        logError("expect a lambda sibling for expressionList at "
+                + token.getLocation());
     }
 
     private void expressionListPromotionError(ParseNode node, int child) {

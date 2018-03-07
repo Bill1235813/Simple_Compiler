@@ -496,15 +496,8 @@
         PushI        5                         
         Add                                    
         LoadC                                  
-        JumpTrue     -$release-reference-4-subtypeIsRefflag 
+        JumpFalse    -$release-reference-4-subtypeIsRefflag 
         Duplicate                              
-        PushI        6                         
-        Add                                    
-        PushI        1                         
-        StoreC                                 
-        Call         -mem-manager-deallocate   
-        Jump         -$release-reference-4-returnflag 
-        Label        -$release-reference-4-subtypeIsRefflag 
         Duplicate                              
         PushI        12                        
         Add                                    
@@ -528,6 +521,15 @@
         Jump         -$release-subtype-reference-5-loopflag 
         Label        -$release-subtype-reference-5-endflag 
         Pop                                    
+        Pop                                    
+        Label        -$release-reference-4-subtypeIsRefflag 
+        Duplicate                              
+        PushI        6                         
+        Add                                    
+        PushI        1                         
+        StoreC                                 
+        Call         -mem-manager-deallocate   
+        Jump         -$release-reference-4-returnflag 
         Label        -$release-reference-4-endflag 
         Pop                                    
         Label        -$release-reference-4-returnflag 
@@ -557,6 +559,14 @@
         StoreI                                 
         PushI        0                         
         PushD        $heap-first-free          
+        Exchange                               
+        StoreI                                 
+        Memtop                                 
+        Duplicate                              
+        PushD        $frame-pointer            
+        Exchange                               
+        StoreI                                 
+        PushD        $stack-pointer            
         Exchange                               
         StoreI                                 
         PushD        $global-memory-block      
@@ -1322,7 +1332,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        256                       
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -1817,7 +1827,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        256                       
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -1937,7 +1947,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        0                         
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -2594,7 +2604,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        0                         
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -2686,7 +2696,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        0                         
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -2863,7 +2873,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        256                       
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
@@ -3036,7 +3046,7 @@
         LoadI                                  
         PushI        4                         
         Add                                    
-        PushI        65536                     
+        PushI        256                       
         StoreI                                 
         PushD        $record-creation-temporary 
         LoadI                                  
