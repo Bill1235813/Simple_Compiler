@@ -71,6 +71,7 @@ public class RunTime {
     public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
     public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
     public static final String NULL_STRING_RUNTIME_ERROR = "$$string-is-null";
+    public static final String FUNCTION_NO_RETURN_ERROR = "$$function-no-return";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -143,7 +144,8 @@ public class RunTime {
         nullArrayError(frag);
         overflowArraySizeError(frag);
         nullStringError(frag);
-        
+        functionNoReturnError(frag);
+
         return frag;
     }
 
@@ -160,17 +162,28 @@ public class RunTime {
         return frag;
     }
 
-    private void nullStringError(ASMCodeFragment frag) {
-    		String nullStringMessage = "$errors-null-string";
-    		
-    		frag.add(DLabel, nullStringMessage);
-    		frag.add(DataS, "string is null");
-    		
-    		frag.add(Label, NULL_STRING_RUNTIME_ERROR);
-    		frag.add(PushD, nullStringMessage);
-    		frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    private void functionNoReturnError(ASMCodeFragment frag) {
+        String functionNoReturnErrorMessage = "$errors-function-no-return";
+
+        frag.add(DLabel, functionNoReturnErrorMessage);
+        frag.add(DataS, "function no return");
+
+        frag.add(Label, FUNCTION_NO_RETURN_ERROR);
+        frag.add(PushD, functionNoReturnErrorMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
     }
-    
+
+    private void nullStringError(ASMCodeFragment frag) {
+        String nullStringMessage = "$errors-null-string";
+
+        frag.add(DLabel, nullStringMessage);
+        frag.add(DataS, "string is null");
+
+        frag.add(Label, NULL_STRING_RUNTIME_ERROR);
+        frag.add(PushD, nullStringMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+
     private void negativeArraySizeError(ASMCodeFragment frag) {
         String negativeArraySizeMessage = "$errors-negative-array-size";
 
@@ -258,6 +271,9 @@ public class RunTime {
         declareI(frag, CLONE_NEW_LOCATION_TEMP);
         declareI(frag, CLONE_LOCATION_TEMP);
         declareI(frag, CLONE_SIZE_TEMP);
+        declareI(frag, FRAME_POINTER);
+        declareI(frag, STACK_POINTER);
+
         return frag;
     }
 
@@ -635,25 +651,25 @@ public class RunTime {
 
     // frame return, [... value] -> [...]
     public static void returnFrame(ASMCodeFragment code, int totalOffset, Type returnType) {
-    		getReturnAddr(code); // [... value return_addr]
-    		getOldFP(code); // [... value return_addr oldFP]
-    		storeITo(code, FRAME_POINTER); // [... value return_addr]
-    		code.add(PushI, totalOffset);
-    		addITo(code, STACK_POINTER);
-    		if (returnType.equivalent(PrimitiveType.RATIONAL)) {
-    			code.add(Exchange);
-    			pushStack(code, 4);
-    			code.add(Exchange);
-    			pushStack(code, 4); // numerator below denominator
-    		} else {
-    			code.add(Exchange); // [... return_addr value]
-    			pushStack(code, 4); // [... return_addr]
-    		}
-    		code.add(Return);
-    		
-    		
+        getReturnAddr(code); // [... value return_addr]
+        getOldFP(code); // [... value return_addr oldFP]
+        storeITo(code, FRAME_POINTER); // [... value return_addr]
+        code.add(PushI, totalOffset);
+        addITo(code, STACK_POINTER); // [... value return_addr]
+        if (returnType.equivalent(PrimitiveType.RATIONAL)) {
+            code.add(Exchange);
+            pushStack(code, 4);
+            code.add(Exchange);
+            pushStack(code, 4); // numerator below denominator
+        } else if (!returnType.equivalent(PrimitiveType.VOID)){
+            code.add(Exchange); // [... return_addr value]
+            pushStack(code, returnType.getSize()); // [... return_addr]
+        }
+        code.add(Return);
+
+
     }
-    
+
     public static ASMCodeFragment getEnvironment() {
         RunTime rt = new RunTime();
         return rt.environmentASM();

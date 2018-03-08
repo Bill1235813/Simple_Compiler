@@ -54,13 +54,15 @@ public class Macros {
 
     public static void getOldFP(ASMCodeFragment frag) {
 		loadIFrom(frag, FRAME_POINTER);
-		frag.add(PushI, -4); // [... old_frame_addr]
+		frag.add(PushI, -4);
+		frag.add(Add); // [... old_frame_addr]
 		frag.add(LoadI); // [... old_frame]
     }
     
     public static void getReturnAddr(ASMCodeFragment frag) {
 		loadIFrom(frag, FRAME_POINTER);
-		frag.add(PushI, -8); // [... RA]
+		frag.add(PushI, -8);
+		frag.add(Add); // [... RA_addr]
 		frag.add(LoadI); // [... RA]
     }
     
@@ -84,10 +86,23 @@ public class Macros {
     			}
     		}
     }
-    
+
+    // [...] -> [... value or void]
     public static void popStack(ASMCodeFragment frag, int size) {
-    		frag.add(PushI, size);
-    		addITo(frag, STACK_POINTER);
+            loadIFrom(frag, STACK_POINTER); // [... SP]
+            if (size == 0) {
+                frag.add(Pop);
+            } else {
+                if (size == 1) {
+                    frag.add(LoadC);
+                } else if (size == 4) {
+                    frag.add(LoadI);
+                } else if (size == 8) {
+                    frag.add(LoadF);
+                }
+                frag.add(PushI, size);
+                addITo(frag, STACK_POINTER);
+            }
     }
     
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {

@@ -250,6 +250,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         } else {
             FunctionSignature signature = promotion.getSignature();
             node.setType(signature.resultType());
+            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
             node.setPromotion(promotion);
         }
     }
@@ -301,6 +302,10 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         if (lambda instanceof LambdaType) {
             FunctionSignature signature = ((LambdaType)lambda).getSignature();
             Type[] promotionTypes = signature.getParamTypes();
+            if (node.nChildren() != promotionTypes.length) {
+                expressionListNumberError(node);
+                node.setType(PrimitiveType.ERROR);
+            }
             for (int i=0; i<node.nChildren(); ++i) {
                 Type nexttype = node.child(i).getType();
                 if (Promotion.promotable(nexttype, promotionTypes[i])) {
@@ -308,6 +313,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 } else {
                     expressionListPromotionError(node, i + 1);
                     node.setType(PrimitiveType.ERROR);
+                    return;
                 }
             }
             // set type and signature
@@ -332,6 +338,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
             } else {
                 expressionListPromotionError(node, i + 1);
                 node.setType(PrimitiveType.ERROR);
+                return;
             }
         }
         Arrays.fill(types, temptype);
@@ -516,6 +523,13 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
         logError("assign to untargetable variable " + token.getLexeme()
                 + " at " + token.getLocation());
+    }
+
+    private void expressionListNumberError(ParseNode node) {
+        Token token = node.getToken();
+
+        logError("number of parameter not correct in expressionList at "
+                + token.getLocation());
     }
 
     private void expressionListLambdaError(ParseNode node) {

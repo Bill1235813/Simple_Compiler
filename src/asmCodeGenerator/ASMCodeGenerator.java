@@ -26,6 +26,7 @@ import symbolTable.Scope;
 import static asmCodeGenerator.Macros.*;
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
+import static semanticAnalyzer.SemanticAnalysisVisitor.getParentLambda;
 
 // do not call the code generator if any errors have occurred during analysis.
 public class ASMCodeGenerator {
@@ -216,30 +217,64 @@ public class ASMCodeGenerator {
             }
         }
 
-        public void visitEnter(FunctionDefinitionNode node);
+        public void visitLeave(GlobalDefinitionNode node) {
+            newVoidCode(node);
+            code.append(removeVoidCode(node.child(0)));
+        }
 
-        public void visitLeave(FunctionDefinitionNode node);
+        public void visitLeave(FunctionDefinitionNode node) {
+            ASMCodeFragment[] args = getAssignChildren(node);
+            setAndStore(node, args);
+        }
 
-        public void visitEnter(GlobalDefinitionNode node);
+        public void visitLeave(LambdaNode node) {
+            newValueCode(node);
+            removeVoidCode(node.child(0));
+            ASMCodeFragment body = removeVoidCode(node.child(1));
+            Scope procedureScope = node.child(1).getScope();
 
-        public void visitLeave(GlobalDefinitionNode node);
+            Labeller labeller = new Labeller("function-definition");
+            String starts = labeller.newLabel("starts");
+            String ends = labeller.newLabel("ends");
 
-        public void visitEnter(LambdaNode node);
+            code.add(PushPC);
+            code.add(Jump, ends); // [... PC(at jump)]
 
-        public void visitLeave(LambdaNode node);
+            code.add(Label, starts);
+            loadIFrom(code, RunTime.STACK_POINTER); // [... (return) SP]
+            code.add(Duplicate);
+            code.add(PushI, -4);
+            code.add(Add); // [... (return) SP SP-4]
+            loadIFrom(code, RunTime.FRAME_POINTER); // [... (return) SP SP oldFP]
+            code.add(StoreI);
+            code.add(PushI, -8);
+            code.add(Add); // [... (return) SP-8]
+            code.add(Exchange);
+            code.add(StoreI); // [...]
+            moveIMemory(code, RunTime.STACK_POINTER, RunTime.FRAME_POINTER);
+            code.add(PushI, -procedureScope.getAllocatedSize());
+            addITo(code, RunTime.STACK_POINTER);
 
-        public void visitEnter(LambdaParamTypeNode node);
+            code.append(body);
+            code.add(Jump, RunTime.FUNCTION_NO_RETURN_ERROR);
 
-        public void visitLeave(LambdaParamTypeNode node);
+            code.add(Label, ends);
+            code.add(PushI, 1);
+            code.add(Add); // [... PC(at body)]
+        }
 
-        public void visitEnter(ParamListNode node);
+        public void visitLeave(LambdaParamTypeNode node) {
+            removeVoidChildren(node);
+        }
 
-        public void visitLeave(ParamListNode node);
+        public void visitLeave(ParamListNode node) {
+            removeVoidChildren(node);
+        }
 
-        public void visitEnter(ParamSpecNode node);
+        public void visitLeave(ParamSpecNode node) {
+            removeVoidChildren(node);
+        }
 
-        public void visitLeave(ParamSpecNode node);
-        
         public void visitLeave(BlockStatementNode node) {
             newVoidCode(node);
             for (ParseNode child : node.getChildren()) {
@@ -385,27 +420,38 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(CallStatementNode node) {
-        		// only trash collection
-        		ASMCodeFragment addr = removeValueCode(node.child(0));
-        		newVoidCode(node);
-        		
-        		code.append(addr);
-        		// add some value
-        		Macros.popStack(code, node.getType().getSize());
+            // only trash collection
+            ASMCodeFragment addr = removeValueCode(node.child(0));
+            newVoidCode(node);
+
+            code.append(addr);
+            if (node.getType().equivalent(PrimitiveType.RATIONAL)) {
+                code.add(Pop);
+                code.add(Pop);
+            } else if (!node.getType().equivalent(PrimitiveType.VOID)) {
+                code.add(Pop);
+            }
         }
 
         public void visitLeave(ReturnStatementNode node) {
-        		ASMCodeFragment returnValue = removeValueCode(node.child(0));
-	    		newVoidCode(node);
-	    		
-	    		code.append(returnValue);
-	    		LambdaNode parent = (LambdaNode) getParentLambda(node);
-	    		Scope paramScope = parent.getScope();
-	    		Scope precedureScope = parent.child(1).getScope();
-	    		int totalsize =
-	    		RunTime.returnFrame(code, 0, node.getType());
+            newVoidCode(node);
+
+            if (node.nChildren() !=0) {
+                ASMCodeFragment returnValue = removeValueCode(node.child(0));
+                Object varient = Promotion.getMethod(node.child(0).getType(), node.getType());
+                if (varient != null) {
+                    applyPromotionMethods(varient, node, returnValue);
+                }
+                code.append(returnValue);
+            }
+
+            LambdaNode parent = (LambdaNode) getParentLambda(node);
+            Scope paramScope = parent.getScope();
+            Scope precedureScope = parent.child(1).getScope();
+            int totalsize = paramScope.getAllocatedSize() + precedureScope.getAllocatedSize();
+            RunTime.returnFrame(code, totalsize, node.getType());
         }
-        
+
         ///////////////////////////////////////////////////////////////////////////
         // expressions
         public void visitLeave(OperatorNode node) {
@@ -455,15 +501,13 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(TypeNode node) {
-            newVoidCode(node);
             removeVoidChildren(node);
         }
 
         public void visitLeave(TypeListNode node) {
-        		newVoidCode(node);
-        		removeVoidChildren(node);
+            removeVoidChildren(node);
         }
-        
+
         ///////////////////////////////////////////////////////////////////////////
         // parentheses and casting nodes
         // unused
@@ -481,8 +525,7 @@ public class ASMCodeGenerator {
             List<Object> methods = promotion.getMethods();
             if (promotion.getLevel() == Promotion.Level.NONE) {
                 return;
-            }
-            else if (promotion.getLevel() == Promotion.Level.BOTH) {
+            } else if (promotion.getLevel() == Promotion.Level.BOTH) {
                 assert (methods.size() == 2);
                 applyPromotionMethods(methods.get(0), node, args[0]);
                 applyPromotionMethods(methods.get(1), node, args[1]);
@@ -493,9 +536,10 @@ public class ASMCodeGenerator {
                 assert (promotion.getMethods().size() == 1);
                 applyPromotionMethods(methods.get(0), node, args[1]);
             } else {
-                assert false: "promotion error!";
+                assert false : "promotion error!";
             }
         }
+
         private void applyPromotionMethods(Object variant, ParseNode node, ASMCodeFragment arg) {
             if (variant instanceof ASMOpcode) {
                 ASMOpcode opcode = (ASMOpcode) variant;
@@ -512,6 +556,7 @@ public class ASMCodeGenerator {
                 code.append(arg);
             }
         }
+
         private ASMCodeFragment[] getUndeterminedChildren(ParseNode node) {
             List<ASMCodeFragment> args = new ArrayList<>();
             for (int i = 0; i < node.nChildren(); ++i) {
@@ -523,12 +568,14 @@ public class ASMCodeGenerator {
             }
             return args.toArray(new ASMCodeFragment[args.size()]);
         }
+
         private void removeVoidChildren(ParseNode node) {
-        		for (int i=0;i<node.nChildren();++i) {
-        			removeVoidCode(node.child(i));
-        		}
+            newVoidCode(node);
+            for (int i = 0; i < node.nChildren(); ++i) {
+                removeVoidCode(node.child(i));
+            }
         }
-        
+
         ///////////////////////////////////////////////////////////////////////////
         // leaf nodes (ErrorNode not necessary)
         public void visit(BooleanConstantNode node) {
@@ -537,10 +584,14 @@ public class ASMCodeGenerator {
         }
 
         public void visit(IdentifierNode node) {
-            newAddressCode(node);
-            Binding binding = node.getBinding();
+            if (node.getParent() instanceof ParamSpecNode) {
+                newVoidCode(node);
+            } else {
+                newAddressCode(node);
+                Binding binding = node.getBinding();
 
-            binding.generateAddress(code);
+                binding.generateAddress(code);
+            }
         }
 
         public void visit(IntegerConstantNode node) {

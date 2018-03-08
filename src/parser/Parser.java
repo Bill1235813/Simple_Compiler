@@ -748,7 +748,7 @@ public class Parser {
             return new ExpressionListNode(indexToken);
         } else {
             ParseNode firstexpression = parseExpression();
-            ParseNode invocation = parseExpressionList(indexToken, firstexpression);
+            ParseNode invocation = parseExpressionListWithFirstExpr(indexToken, firstexpression);
             expect(Punctuator.CLOSE_PARENTHESE);
             return invocation;
         }
@@ -756,6 +756,9 @@ public class Parser {
 
     private boolean startsInvocation(Token token) {
         return token.isLextant(Punctuator.OPEN_PARENTHESE);
+    }
+    private boolean endsInvocation(Token token) {
+        return token.isLextant(Punctuator.CLOSE_PARENTHESE);
     }
     
     // indexingExpression -> [ Expression ] (left-assoc)
@@ -847,7 +850,7 @@ public class Parser {
         expect(Punctuator.OPEN_BRACKET);
         ParseNode expression = parseExpression(); // must have a least one expression
 
-        if (continuesPopulatedArray(nowReading)) {
+        if (continuesPopulatedArray(nowReading)||endsPopulatedArray(nowReading)) {
             return parsePopulatedArray(realToken, expression);
         } else if (continuesCastingExpression(nowReading)) {
             return parseCastingExpression(realToken, expression);
@@ -862,23 +865,26 @@ public class Parser {
 
     // populated array creation -> [ expressionList ]
     private ParseNode parsePopulatedArray(Token realToken, ParseNode firstexpression) {
-        if (!continuesPopulatedArray(nowReading)) {
+        if (!continuesPopulatedArray(nowReading)&& !endsPopulatedArray(nowReading)) {
             return syntaxErrorNode("populated array");
         }
         Token indexToken = LextantToken.artificial(realToken, Punctuator.POPULATED_ARRAY);
-        ParseNode expressionListNode = parseExpressionList(realToken, firstexpression);
+        ParseNode expressionListNode = parseExpressionListWithFirstExpr(realToken, firstexpression);
         expect(Punctuator.CLOSE_BRACKET);
 
         return OperatorNode.withChildren(indexToken, expressionListNode);
     }
 
     private boolean continuesPopulatedArray(Token token) {
-        return token.isLextant(Punctuator.SEPARATOR) || token.isLextant(Punctuator.CLOSE_BRACKET);
+        return token.isLextant(Punctuator.SEPARATOR);
+    }
+    private boolean endsPopulatedArray(Token token) {
+        return token.isLextant(Punctuator.CLOSE_BRACKET);
     }
 
     // the expressionList to be parse must have more than one expression
-    private ParseNode parseExpressionList(Token realToken, ParseNode firstexpression) {
-        if (!continuesPopulatedArray(nowReading)) {
+    private ParseNode parseExpressionListWithFirstExpr(Token realToken, ParseNode firstexpression) {
+        if (!continuesPopulatedArray(nowReading)&& !endsInvocation(nowReading)) {
             return syntaxErrorNode("expression list");
         }
         Token indexToken = LextantToken.artificial(realToken, Punctuator.EXPRESSIONLIST);

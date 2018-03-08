@@ -233,7 +233,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 
         new FunctionSignatures(
                 Punctuator.FUNCTION_INVOCATION,
-                new FunctionSignature(1, setST, S, T, T)
+                new FunctionSignature(new FunctionInvocationCodeGenerator(), setST, S, T, T)
         );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.

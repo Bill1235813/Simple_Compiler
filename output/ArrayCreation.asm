@@ -276,6 +276,29 @@
         Label        $$string-is-null          
         PushD        $errors-null-string       
         Jump         $$general-runtime-error   
+        DLabel       $errors-function-no-return 
+        DataC        102                       %% "function no return"
+        DataC        117                       
+        DataC        110                       
+        DataC        99                        
+        DataC        116                       
+        DataC        105                       
+        DataC        111                       
+        DataC        110                       
+        DataC        32                        
+        DataC        110                       
+        DataC        111                       
+        DataC        32                        
+        DataC        114                       
+        DataC        101                       
+        DataC        116                       
+        DataC        117                       
+        DataC        114                       
+        DataC        110                       
+        DataC        0                         
+        Label        $$function-no-return      
+        PushD        $errors-function-no-return 
+        Jump         $$general-runtime-error   
         DLabel       $a-indexing-array         
         DataZ        4                         
         DLabel       $a-indexing-index         
@@ -313,6 +336,10 @@
         DLabel       clone-location-temp       
         DataZ        4                         
         DLabel       clone-size-temp           
+        DataZ        4                         
+        DLabel       $frame-pointer            
+        DataZ        4                         
+        DLabel       $stack-pointer            
         DataZ        4                         
         Label        $$convert-to-lowest-terms 
         PushD        $return-for-runtime-func  
