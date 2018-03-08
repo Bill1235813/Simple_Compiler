@@ -1,6 +1,5 @@
 package asmCodeGenerator.runtime;
 
-import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 import static asmCodeGenerator.Macros.*;
@@ -634,6 +633,27 @@ public class RunTime {
         readIOffset(code, Record.ARRAY_LENGTH_OFFSET);
     }
 
+    // frame return, [... value] -> [...]
+    public static void returnFrame(ASMCodeFragment code, int totalOffset, Type returnType) {
+    		getReturnAddr(code); // [... value return_addr]
+    		getOldFP(code); // [... value return_addr oldFP]
+    		storeITo(code, FRAME_POINTER); // [... value return_addr]
+    		code.add(PushI, totalOffset);
+    		addITo(code, STACK_POINTER);
+    		if (returnType.equivalent(PrimitiveType.RATIONAL)) {
+    			code.add(Exchange);
+    			pushStack(code, 4);
+    			code.add(Exchange);
+    			pushStack(code, 4); // numerator below denominator
+    		} else {
+    			code.add(Exchange); // [... return_addr value]
+    			pushStack(code, 4); // [... return_addr]
+    		}
+    		code.add(Return);
+    		
+    		
+    }
+    
     public static ASMCodeFragment getEnvironment() {
         RunTime rt = new RunTime();
         return rt.environmentASM();

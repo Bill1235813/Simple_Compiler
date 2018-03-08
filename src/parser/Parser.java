@@ -559,7 +559,7 @@ public class Parser {
     // multiplicativeExpression -> unaryExpression [MULT unaryExpression]*  (left-assoc)
     // unaryExpression          -> [!]* indexingExpression (prefix right-assoc)
     // indexingExpression       -> atomicExpression [ Expression ]* (left-assoc)
-    // atomicExpression         -> literal | parentheses | casting | populated array | empty array
+    // atomicExpression         -> literal | parentheses | casting | populated array | empty array | lambda
     // literal                  -> integerConstant | identifier | booleanConstant
 
     // expr  -> comparisonExpression

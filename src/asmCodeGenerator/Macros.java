@@ -1,6 +1,9 @@
 package asmCodeGenerator;
 
+import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
+import static asmCodeGenerator.runtime.RunTime.FRAME_POINTER;
+import static asmCodeGenerator.runtime.RunTime.STACK_POINTER;
 
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 
@@ -49,6 +52,44 @@ public class Macros {
         frag.add(DataZ, 4);
     }
 
+    public static void getOldFP(ASMCodeFragment frag) {
+		loadIFrom(frag, FRAME_POINTER);
+		frag.add(PushI, -4); // [... old_frame_addr]
+		frag.add(LoadI); // [... old_frame]
+    }
+    
+    public static void getReturnAddr(ASMCodeFragment frag) {
+		loadIFrom(frag, FRAME_POINTER);
+		frag.add(PushI, -8); // [... RA]
+		frag.add(LoadI); // [... RA]
+    }
+    
+    // [... value (or void)] -> [...]
+    public static void pushStack(ASMCodeFragment frag, int size) {
+    		loadIFrom(frag, STACK_POINTER);
+    		frag.add(PushI, -size); // [... SP -size]
+    		frag.add(Add); // [... newSP]
+    		frag.add(Duplicate); // [... newSP newSP]
+    		storeITo(frag, STACK_POINTER); // [... newSP]
+    		if (size == 0) {
+    			frag.add(Pop);
+    		} else {
+    			frag.add(Exchange);
+    			if (size == 1) {
+    				frag.add(StoreC);
+    			} else if (size == 4) {
+    				frag.add(StoreI);
+    			} else if (size == 8) {
+    				frag.add(StoreF);
+    			}
+    		}
+    }
+    
+    public static void popStack(ASMCodeFragment frag, int size) {
+    		frag.add(PushI, size);
+    		addITo(frag, STACK_POINTER);
+    }
+    
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
         loadIFrom(frag, fromlocation);
         storeITo(frag, tolocation);

@@ -198,18 +198,28 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     		} else {
     			childType = node.child(0).getType();
     		}
-    		Type lambdaType = getParentLambda(node).getType();
-    		Type returnType = ((LambdaType)lambdaType).getReturntype();
-    		if (Promotion.promotable(childType, returnType)) {
-    			node.setType(returnType);
+    		
+    		ParseNode parent = getParentLambda(node);
+    		if (parent instanceof ProgramNode) {
+    			returnNotInFunction(node);
+    			node.setType(PrimitiveType.ERROR);
     		} else {
-    			returnTypeError(node);
+			Type returnType = ((LambdaType)parent.getType()).getReturntype();
+			if (Promotion.promotable(childType, returnType)) {
+				node.setType(returnType);
+			} else {
+				returnTypeError(node);
+				node.setType(PrimitiveType.ERROR);
+			}
     		}
     }
 
-	private ParseNode getParentLambda(ParseNode node) {
+	public static ParseNode getParentLambda(ParseNode node) {
     		while (!(node instanceof LambdaNode)) {
     			node = node.getParent();
+    			if (node instanceof ProgramNode) {
+    				break;
+    			}
     		}
     		return node;
     }
@@ -528,6 +538,13 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         logError("return statement have wrong type at "
                 + token.getLocation());
 	}
+    
+    private void returnNotInFunction(ParseNode node) {
+    	 	Token token = node.getToken();
+    	 	
+    	 	logError("return statement outside function definition at " 
+    	 	+ token.getLocation());
+    }
     
     private void overOnePromotionError(ParseNode node, List<Type> operandTypes) {
         Token token = node.getToken();
