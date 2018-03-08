@@ -399,6 +399,11 @@ public class ASMCodeGenerator {
 	    		newVoidCode(node);
 	    		
 	    		code.append(returnValue);
+	    		LambdaNode parent = (LambdaNode) getParentLambda(node);
+	    		Scope paramScope = parent.getScope();
+	    		Scope precedureScope = parent.child(1).getScope();
+	    		int totalsize =
+	    		RunTime.returnFrame(code, 0, node.getType());
         }
         
         ///////////////////////////////////////////////////////////////////////////
