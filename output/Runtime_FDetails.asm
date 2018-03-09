@@ -827,6 +827,10 @@
         Pop                                    
         PushD        $array-print-end          
         Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
+        Printf                                 
         PushD        $frame-pointer            
         LoadI                                  
         PushI        -12                       
@@ -996,12 +1000,13 @@
         PushI        0                         
         Add                                    %% array_rebuild
         LoadI                                  
+        PushI        5                         
         PushI        4                         
         PushI        3                         
         PushI        97                        
         Nop                                    
         PushI        1                         
-        PushI        4                         
+        PushI        5                         
         Duplicate                              
         JumpNeg      $$array-size-is-negative  
         Duplicate                              
@@ -1048,7 +1053,7 @@
         Add                                    
         Exchange                               
         StoreI                                 
-        PushI        4                         
+        PushI        5                         
         PushD        $record-creation-temporary 
         LoadI                                  
         PushI        16                        
@@ -1107,6 +1112,10 @@
         Exchange                               
         StoreI                                 
         PushD        $print-format-integer     
+        Printf                                 
+        PushD        $print-format-space       
+        Printf                                 
+        PushD        $print-format-newline     
         Printf                                 
         PushD        $global-memory-block      
         PushI        0                         

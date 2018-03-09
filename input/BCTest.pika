@@ -1,3 +1,10 @@
+func i <int a, int b> -> int {
+    if (a>b) {
+        # break.
+    } else {
+        return a.
+   }
+}
 exec {
     var i:=100.
     var sum:=0.
@@ -11,6 +18,22 @@ exec {
         }
         sum:=sum+ i.
     }
-    # break.
+    print sum;_n_.
+    i:=0.
+    sum:=0.
+    while (i<100) {
+        var j:=0.
+        while (j<100) {
+            j:=j+ 1.
+            if (j>i) {
+                break.
+            }
+            if (i>10) {
+                continue.
+            }
+            sum:=sum+j.
+        }
+        i:=i+ 1.
+    }
     print sum;_n_.
 }

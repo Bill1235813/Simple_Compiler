@@ -94,10 +94,11 @@ public class ASMCodeGenerator {
     }
 
     ////////////////////////////////////////////////////////////
-    // Some static functions for other code generator
-    public static ASMOpcode opcodeForStore(Type type) {
+    // Some static functions for other code generator, store and load
+    private static ASMOpcode opcodeForStore(Type type) {
         if (type == PrimitiveType.INTEGER ||
                 type == PrimitiveType.STRING ||
+                type == PrimitiveType.RATIONAL ||
                 type instanceof Array ||
                 type instanceof LambdaType) {
             return StoreI;
@@ -113,6 +114,7 @@ public class ASMCodeGenerator {
         return null;
     }
 
+    // [... address] -> [... value]
     public static void turnAddressIntoValue(ASMCodeFragment code, Type type) {
         if (type == PrimitiveType.INTEGER ||
                 type == PrimitiveType.STRING ||
@@ -128,11 +130,35 @@ public class ASMCodeGenerator {
             code.add(Duplicate);
             code.add(LoadI);
             code.add(Exchange);
-            Macros.readIOffset(code, 4);
+            readIOffset(code, 4);
+        } else if (type == PrimitiveType.VOID) {
+            code.add(Pop);
         } else {
             assert false : "node type" + type;
         }
         code.markAsValue();
+    }
+
+    // [...]->[... value], address in stack-pointer or ...
+    public static void turnAddressIntoValue(ASMCodeFragment code, Type type, String address) {
+        loadIFrom(code, address);
+        turnAddressIntoValue(code, type);
+    }
+
+    // [...value]->[...], address in store-address-temp or stack-pointer ...
+    public static void getValueFromAddress(ASMCodeFragment code, Type type, String address) {
+        if (type == PrimitiveType.RATIONAL) {
+            loadIFrom(code, address);
+            code.add(PushI, 4);
+            code.add(Add);
+            code.add(Exchange);
+            code.add(opcodeForStore(type));
+        }
+        if (type != PrimitiveType.VOID) {
+            loadIFrom(code, address);
+            code.add(Exchange);
+            code.add(opcodeForStore(type));
+        }
     }
 
     protected class CodeVisitor extends ParseNodeVisitor.Default {
@@ -232,6 +258,8 @@ public class ASMCodeGenerator {
             removeVoidCode(node.child(0));
             ASMCodeFragment body = removeVoidCode(node.child(1));
             Scope procedureScope = node.child(1).getScope();
+            int bodysize = procedureScope.getAllocatedSize();
+            int totalsize = node.getScope().getAllocatedSize() + bodysize;
 
             Labeller labeller = new Labeller("function-definition");
             String starts = labeller.newLabel("starts");
@@ -240,6 +268,7 @@ public class ASMCodeGenerator {
             code.add(PushPC);
             code.add(Jump, ends); // [... PC(at jump)]
 
+            // preparation
             code.add(Label, starts);
             loadIFrom(code, RunTime.STACK_POINTER); // [... (return) SP]
             code.add(Duplicate);
@@ -252,11 +281,16 @@ public class ASMCodeGenerator {
             code.add(Exchange);
             code.add(StoreI); // [...]
             moveIMemory(code, RunTime.STACK_POINTER, RunTime.FRAME_POINTER);
-            code.add(PushI, -procedureScope.getAllocatedSize());
+            code.add(PushI, -bodysize);
             addITo(code, RunTime.STACK_POINTER);
 
+            // real body
             code.append(body);
             code.add(Jump, RunTime.FUNCTION_NO_RETURN_ERROR);
+
+            // exit handshake
+            code.add(Label, node.getExitHandshake());
+            RunTime.returnFrame(code, totalsize, ((LambdaType)node.getType()).getReturntype());
 
             code.add(Label, ends);
             code.add(PushI, 1);
@@ -330,20 +364,11 @@ public class ASMCodeGenerator {
             newVoidCode(node);
 
             Type type = node.getType();
-            if (type == PrimitiveType.RATIONAL) {
-                code.append(args[0]);
-                code.add(Duplicate);
-                code.append(args[1]);
-                storeITo(code, RunTime.FIRST_DENOMINATOR);
-                code.add(StoreI);
-                code.add(PushI, 4);
-                code.add(Add);
-                Macros.loadIFrom(code, RunTime.FIRST_DENOMINATOR);
-                code.add(StoreI);
-            } else {
-                appendUndeterminedChildren(args);
-                code.add(opcodeForStore(type));
-            }
+            code.append(args[1]);
+            code.append(args[0]);
+            storeITo(code, RunTime.STORE_ADDRESS_TEMP);
+
+            getValueFromAddress(code, type, RunTime.STORE_ADDRESS_TEMP);
         }
 
         public void visitLeave(IfStatementNode node) {
@@ -446,10 +471,7 @@ public class ASMCodeGenerator {
             }
 
             LambdaNode parent = (LambdaNode) getParentLambda(node);
-            Scope paramScope = parent.getScope();
-            Scope precedureScope = parent.child(1).getScope();
-            int totalsize = paramScope.getAllocatedSize() + precedureScope.getAllocatedSize();
-            RunTime.returnFrame(code, totalsize, node.getType());
+            code.add(Jump, parent.getExitHandshake());
         }
 
         ///////////////////////////////////////////////////////////////////////////

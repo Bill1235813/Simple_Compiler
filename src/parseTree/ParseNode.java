@@ -59,6 +59,7 @@ public class ParseNode {
         this.type = type;
         if (type.equivalent(PrimitiveType.VOID)) {
         		if (!checkValidVoid()) {
+        		    this.type = PrimitiveType.ERROR;
         			voidError(this);
         		}
         }

@@ -22,15 +22,22 @@ func bill1 <int a, int b, bool c> -> rat {
         return (b+ 1)//a + con.
     }
 }
+func billextra <rat a, rat b> -> rat {
+    return a+b.
+}
 exec {
     var a:=1.
     var b:=5.
     var re2:= bill2(bill0,bill1,_true_)(a,b,_true_).
     const b1:=bill0==bill1.
     const b2:=bill0==bill0.
+    print a;b;re2;.
+
+    # all in error
     # const boolean:=bill0==bill2.
     # var re2:= bill2(bill0,bill1,_true_)(^a^,^b^,_true_).
     # call inside(a,b,a,b,b).
+
     var inside:= <int a1, int a2, int a3, int a4, int a5>->void {
     		# return a1+a2+a3+a4+a5.
     		return .
@@ -38,13 +45,15 @@ exec {
     const inside2:= <int a1, int a2, int a3, int a4, int a5>->void {
         # return [inside(a1,a2,a3,a4,a5)|void].
     }.
+
     # return a.
     # var gg:=inside(a,a,a,a,a).
     # var array:=[inside(a,a,a,a,a)].
+
     call inside(a,b,a,b,a).
     call bill0(a,b,_true_).
-    # var re:=inside(a,b,a,b,a).
-    print a;b;re2;.
+    print bill0(a,b,_true_);_n_.
+    print billextra(bill0(a,b,_true_),bill0(a,b,_true_));_n_.
     print bill2(bill0,bill1,_false_)(a,b,_false_);.
     print bill2(bill0,bill1,_false_)(a,b,_true_);.
     print bill2(bill0,bill1,_true_)(b,b,_false_);_n_.

@@ -9,6 +9,7 @@ import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Macros;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import parseTree.ParseNode;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
@@ -39,6 +40,7 @@ public class RunTime {
     // temporary variables
     public static final String FRAME_POINTER = "$frame-pointer";
     public static final String STACK_POINTER = "$stack-pointer";
+    public static final String STORE_ADDRESS_TEMP = "store-addr-temp";
     public static final String ARRAY_INDEXING_ARRAY = "$a-indexing-array";
     public static final String ARRAY_INDEXING_INDEX = "$a-indexing-index";
     public static final String FIRST_NUMERATOR = "$first-numerator";
@@ -273,6 +275,7 @@ public class RunTime {
         declareI(frag, CLONE_SIZE_TEMP);
         declareI(frag, FRAME_POINTER);
         declareI(frag, STACK_POINTER);
+        declareI(frag, STORE_ADDRESS_TEMP);
 
         return frag;
     }
@@ -566,16 +569,7 @@ public class RunTime {
         code.add(JumpFalse, endflag); // [... exprList]
 
         // store one element
-        if (subType.equivalent(PrimitiveType.RATIONAL)) {
-            loadIFrom(code, INSERT_LOCATION_TEMP);
-            writeIOffset(code, 4);
-            loadIFrom(code, INSERT_LOCATION_TEMP);
-            writeIOffset(code, 0);
-        } else {
-            loadIFrom(code, INSERT_LOCATION_TEMP);
-            code.add(Exchange);
-            code.add(ASMCodeGenerator.opcodeForStore(subType));
-        }
+        ASMCodeGenerator.getValueFromAddress(code, subType, INSERT_LOCATION_TEMP);
 
         decrementInteger(code, INSERT_SIZE_TEMP); // elemsSize -= 1
         code.add(PushI, subType.getSize());
@@ -651,22 +645,18 @@ public class RunTime {
 
     // frame return, [... value] -> [...]
     public static void returnFrame(ASMCodeFragment code, int totalOffset, Type returnType) {
-        getReturnAddr(code); // [... value return_addr]
-        getOldFP(code); // [... value return_addr oldFP]
-        storeITo(code, FRAME_POINTER); // [... value return_addr]
+        getReturnAddr(code); // [... value]
+        storeITo(code, RETURN_FOR_RUNTIME_FUNCTION);
+        getOldFP(code); // [... value oldFP]
+        storeITo(code, FRAME_POINTER); // [... value]
         code.add(PushI, totalOffset);
-        addITo(code, STACK_POINTER); // [... value return_addr]
-        if (returnType.equivalent(PrimitiveType.RATIONAL)) {
-            code.add(Exchange);
-            pushStack(code, 4);
-            code.add(Exchange);
-            pushStack(code, 4); // numerator below denominator
-        } else if (!returnType.equivalent(PrimitiveType.VOID)){
-            code.add(Exchange); // [... return_addr value]
-            pushStack(code, returnType.getSize()); // [... return_addr]
-        }
-        code.add(Return);
+        addITo(code, STACK_POINTER); // [... value]
 
+        pushStack(code, returnType.getSize());
+        ASMCodeGenerator.getValueFromAddress(code, returnType, STACK_POINTER);
+
+        loadIFrom(code, RETURN_FOR_RUNTIME_FUNCTION);
+        code.add(Return);
 
     }
 

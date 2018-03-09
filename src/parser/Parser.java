@@ -884,7 +884,9 @@ public class Parser {
 
     // the expressionList to be parse must have more than one expression
     private ParseNode parseExpressionListWithFirstExpr(Token realToken, ParseNode firstexpression) {
-        if (!continuesPopulatedArray(nowReading)&& !endsInvocation(nowReading)) {
+        if (!continuesPopulatedArray(nowReading)
+                && !endsPopulatedArray(nowReading)
+                && !endsInvocation(nowReading)) {
             return syntaxErrorNode("expression list");
         }
         Token indexToken = LextantToken.artificial(realToken, Punctuator.EXPRESSIONLIST);

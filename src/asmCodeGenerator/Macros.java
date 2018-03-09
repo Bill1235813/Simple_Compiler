@@ -1,6 +1,5 @@
 package asmCodeGenerator;
 
-import static asmCodeGenerator.Macros.loadIFrom;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 import static asmCodeGenerator.runtime.RunTime.FRAME_POINTER;
 import static asmCodeGenerator.runtime.RunTime.STACK_POINTER;
@@ -65,44 +64,15 @@ public class Macros {
 		frag.add(Add); // [... RA_addr]
 		frag.add(LoadI); // [... RA]
     }
-    
-    // [... value (or void)] -> [...]
+
     public static void pushStack(ASMCodeFragment frag, int size) {
-    		loadIFrom(frag, STACK_POINTER);
-    		frag.add(PushI, -size); // [... SP -size]
-    		frag.add(Add); // [... newSP]
-    		frag.add(Duplicate); // [... newSP newSP]
-    		storeITo(frag, STACK_POINTER); // [... newSP]
-    		if (size == 0) {
-    			frag.add(Pop);
-    		} else {
-    			frag.add(Exchange);
-    			if (size == 1) {
-    				frag.add(StoreC);
-    			} else if (size == 4) {
-    				frag.add(StoreI);
-    			} else if (size == 8) {
-    				frag.add(StoreF);
-    			}
-    		}
+        frag.add(PushI, -size);
+        addITo(frag, STACK_POINTER);
     }
 
-    // [...] -> [... value or void]
     public static void popStack(ASMCodeFragment frag, int size) {
-            loadIFrom(frag, STACK_POINTER); // [... SP]
-            if (size == 0) {
-                frag.add(Pop);
-            } else {
-                if (size == 1) {
-                    frag.add(LoadC);
-                } else if (size == 4) {
-                    frag.add(LoadI);
-                } else if (size == 8) {
-                    frag.add(LoadF);
-                }
-                frag.add(PushI, size);
-                addITo(frag, STACK_POINTER);
-            }
+        frag.add(PushI, size);
+        addITo(frag, STACK_POINTER);
     }
     
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
