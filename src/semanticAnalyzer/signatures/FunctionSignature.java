@@ -104,6 +104,9 @@ public class FunctionSignature {
 
     private boolean assignableTo(Type variableType, Type valueType) {
         if (valueType == PrimitiveType.ERROR && ALL_TYPES_ACCEPT_ERROR_TYPES) {
+        		if (variableType instanceof TypeVariable) {
+        			variableType.equivalent(valueType);
+        		}
             return true;
         }
         return variableType.equivalent(valueType);

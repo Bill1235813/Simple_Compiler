@@ -19,15 +19,19 @@ func bill1 <int a, int b, bool c> -> rat {
     if (c==_false_) {
         return (a+ 1)//b + con.
     } else {
-        return con.
+        return (b+ 1)//a + con.
     }
 }
 exec {
     var a:=1.
     var b:=5.
-    var re2:= bill2(bill0,bill1,_true_)(^a^,^b^,_true_).
+    var re2:= bill2(bill0,bill1,_true_)(a,b,_true_).
+    const b1:=bill0==bill1.
+    const b2:=bill0==bill0.
+    # const boolean:=bill0==bill2.
+    # var re2:= bill2(bill0,bill1,_true_)(^a^,^b^,_true_).
     # call inside(a,b,a,b,b).
-    const inside:= <int a1, int a2, int a3, int a4, int a5>->void {
+    var inside:= <int a1, int a2, int a3, int a4, int a5>->void {
     		# return a1+a2+a3+a4+a5.
     		return .
     }.
@@ -44,4 +48,6 @@ exec {
     print bill2(bill0,bill1,_false_)(a,b,_false_);.
     print bill2(bill0,bill1,_false_)(a,b,_true_);.
     print bill2(bill0,bill1,_true_)(b,b,_false_);_n_.
+    inside:=inside2.
+    call inside(a,a,a,a,a).
 }

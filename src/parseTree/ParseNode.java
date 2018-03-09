@@ -61,7 +61,6 @@ public class ParseNode {
         		if (!checkValidVoid()) {
         			voidError(this);
         		}
-        		
         }
     }
 
@@ -69,6 +68,9 @@ public class ParseNode {
     		if (this instanceof ReturnStatementNode || this instanceof CallStatementNode) {
     			return true;
     		} else if (this instanceof OperatorNode) {
+    			if (!(this.parent instanceof ReturnStatementNode) && !(this.parent instanceof CallStatementNode)) {
+    				return false;
+    			}
     			return ((OperatorNode)this).getOperator() == Punctuator.FUNCTION_INVOCATION;
     		} else if (this instanceof ExpressionListNode) {
     			return ((OperatorNode)this.parent).getOperator() == Punctuator.FUNCTION_INVOCATION;

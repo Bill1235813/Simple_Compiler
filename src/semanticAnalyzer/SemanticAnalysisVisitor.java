@@ -205,7 +205,8 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     			node.setType(PrimitiveType.ERROR);
     		} else {
 			Type returnType = ((LambdaType)parent.getType()).getReturntype();
-			if (Promotion.promotable(childType, returnType)) {
+			if (childType.equivalent(returnType)) {
+//			if (Promotion.promotable(childType, returnType)) {
 				node.setType(returnType);
 			} else {
 				returnTypeError(node);
@@ -308,10 +309,11 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
             }
             for (int i=0; i<node.nChildren(); ++i) {
                 Type nexttype = node.child(i).getType();
-                if (Promotion.promotable(nexttype, promotionTypes[i])) {
+                if (nexttype.equivalent(promotionTypes[i])) {
+//                if (Promotion.promotable(nexttype, promotionTypes[i])) {
                     continue;
                 } else {
-                    expressionListPromotionError(node, i + 1);
+                    expressionListMatchError(node, i + 1);
                     node.setType(PrimitiveType.ERROR);
                     return;
                 }
@@ -336,7 +338,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
             } else if (Promotion.promotable(temptype, nexttype)) {
                 temptype = nexttype;
             } else {
-                expressionListPromotionError(node, i + 1);
+                expressionListMatchError(node, i + 1);
                 node.setType(PrimitiveType.ERROR);
                 return;
             }
@@ -539,10 +541,10 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + token.getLocation());
     }
 
-    private void expressionListPromotionError(ParseNode node, int child) {
+    private void expressionListMatchError(ParseNode node, int child) {
         Token token = node.getToken();
 
-        logError("expression " + child + " in expressionList cannot get legal promotion at "
+        logError("expression " + child + " in expressionList not match at "
                 + token.getLocation());
     }
 
