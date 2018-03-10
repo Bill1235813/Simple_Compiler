@@ -15,7 +15,7 @@
 
 
 ##################################################################################################3
-$DEFAULT_INPUT = ".\input\pika-3\"  # MAY CHANGE HERE
+$DEFAULT_INPUT = ".\input\pika-3-lqc\"  # MAY CHANGE HERE
 $COMPARE_DIR = ".\outpu\pika-3\"    # MAY CHANGE HERE
 $OUTPUT = ".\output\"
 $ASM_EXECUTABLE = ".\ASM_Emulator\ASMEmu.exe"
@@ -71,7 +71,7 @@ echo "Finish Running`n"
 
 # compare results
 If (!(Test-Path -Path $COMPARE_DIR )){
-   echo "Directory $COMPARE_DIR doesn't exist"
+   echo "Comparing Directory $COMPARE_DIR doesn't exist"
    Exit
 }
 
