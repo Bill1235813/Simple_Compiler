@@ -23,6 +23,7 @@ public class RunTime {
     public static final String BOOLEAN_PRINT_FORMAT = "$print-format-boolean";
     public static final String RATIONAL_PRINT_ORIGINAL = "$print-format-rational-original";
     public static final String RATIONAL_PRINT_NO_FRACTION = "$print-format-rational-no-frac";
+    public static final String LAMBDA_PRINT_FORMAT = "$print-format-lambda";
     public static final String RATIONAL_PRINT_NO_INTEGER_POS = "$print-format-rational-no-int-pos";
     public static final String RATIONAL_PRINT_NO_INTEGER_NEG = "$print-format-rantional-no-int-neg";
     public static final String ARRAY_PRINT_START = "$array-print-start";
@@ -114,6 +115,8 @@ public class RunTime {
         frag.add(DataS, "-_%d/%d");
         frag.add(DLabel, RATIONAL_PRINT_ORIGINAL);
         frag.add(DataS, "%d_%d/%d");
+        frag.add(DLabel, LAMBDA_PRINT_FORMAT);
+        frag.add(DataS, "{Function at address %d}");
         frag.add(DLabel, NEWLINE_PRINT_FORMAT);
         frag.add(DataS, "\n");
         frag.add(DLabel, TAB_PRINT_FORMAT);

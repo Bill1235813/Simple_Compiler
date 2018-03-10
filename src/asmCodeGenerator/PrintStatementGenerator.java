@@ -6,6 +6,7 @@ import parseTree.nodeTypes.PrintStatementNode;
 import parseTree.nodeTypes.SpaceNode;
 import parseTree.nodeTypes.TabNode;
 import semanticAnalyzer.types.Array;
+import semanticAnalyzer.types.LambdaType;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 import asmCodeGenerator.ASMCodeGenerator.CodeVisitor;
@@ -149,8 +150,11 @@ public class PrintStatementGenerator {
 
 
     private static String printFormat(Type type) {
-        assert type instanceof PrimitiveType;
+        if (type instanceof LambdaType) {
+            return RunTime.LAMBDA_PRINT_FORMAT;
+        }
 
+        assert type instanceof PrimitiveType;
         switch ((PrimitiveType) type) {
             case INTEGER:
                 return RunTime.INTEGER_PRINT_FORMAT;

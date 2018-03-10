@@ -16,7 +16,7 @@
 
 ##################################################################################################3
 $DEFAULT_INPUT = ".\input\pika-3-lqc\"  # MAY CHANGE HERE
-$COMPARE_DIR = ".\outpu\pika-3\"    # MAY CHANGE HERE
+$COMPARE_DIR = ".\actual\"    # MAY CHANGE HERE
 $OUTPUT = ".\output\"
 $ASM_EXECUTABLE = ".\ASM_Emulator\ASMEmu.exe"
 $SRC_DIR = ".\src"
@@ -78,12 +78,19 @@ If (!(Test-Path -Path $COMPARE_DIR )){
 echo "Start Comparing"
 $COMPARE_FILES = Get-ChildItem $COMPARE_DIR -Filter *.txt
 ForEach ($correctTxt in $COMPARE_FILES) {
-   $outTxt = $OUTPUT + $correctTxt.Name
+   $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
+   # $outTxt = $OUTPUT + $correctTxt.Name
    If (!(Test-Path -Path $outTxt)){
       echo "No File $correctTxt in output"
    } Else {
       echo "Comparing output $correctTxt with correct result"
-      Compare-Object (Get-Content $outTxt) (Get-Content $COMPARE_DIR\$correctTxt)
+      If ((Get-Content $outTxt) -eq $Null -Or (Get-Content $COMPARE_DIR\$correctTxt) -eq $Null) {
+          If (!((Get-Content $COMPARE_DIR\$correctTxt) -eq $Null -And (Get-Content $outTxt) -eq $Null)) {
+            echo "Not both null files"
+          }
+      } Else {
+      	  Compare-Object (Get-Content $outTxt) (Get-Content $COMPARE_DIR\$correctTxt)
+      }
    }
 }
 echo "Finish Comparing`n"
@@ -92,7 +99,7 @@ echo "Finish Comparing`n"
 # rm -r $DES_DIR\*
 
 # remove .asm file
-# rm $OUTPUT\*.asm
+rm $OUTPUT\*.asm
 
 # done
 Exit
