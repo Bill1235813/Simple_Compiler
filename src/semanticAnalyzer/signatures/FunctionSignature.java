@@ -48,7 +48,7 @@ public class FunctionSignature {
             for (int i = 0; i < paramTypes.length; ++i) {
                 concreteparam[i] = paramTypes[i].getConcreteType();
             }
-            concreteparam[paramTypes.length] = resultType();
+            concreteparam[paramTypes.length] = resultType().getConcreteType();
             return new FunctionSignature(whichVariant, concreteparam);
         } else {
             return this;

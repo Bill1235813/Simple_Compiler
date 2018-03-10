@@ -3,6 +3,7 @@ package asmCodeGenerator.simpleCodeGenerator;
 import asmCodeGenerator.Labeller;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.codeStorage.ASMOpcode;
+import asmCodeGenerator.runtime.RunTime;
 import lexicalAnalyzer.Lextant;
 import lexicalAnalyzer.Punctuator;
 import parseTree.ParseNode;
@@ -10,7 +11,6 @@ import parseTree.nodeTypes.OperatorNode;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,9 +85,9 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
             // subtract and multiply two char (avoid overflow)
             SimpleCodeGenerator f1 = new RationalSubtractCodeGenerator();
             fragment.append(f1.generate(node));
-            fragment.append(sign());
+            fragment.append(signInt());
             fragment.add(Exchange);
-            fragment.append(sign());
+            fragment.append(signInt());
             fragment.add(Multiply);
         } else {
             fragment.add(comparisonOperation);
@@ -107,14 +107,14 @@ public class ComparisonCodeGenerator implements SimpleCodeGenerator {
         return fragment;
     }
 
-    private ASMCodeFragment sign() {
+    // [... value] -> [... 1 or -1 or 0]
+    private ASMCodeFragment signInt() {
         ASMCodeFragment frag = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
 
-        Labeller labeller = new Labeller("sign");
+        Labeller labeller = new Labeller("signInt");
         String posLabel = labeller.newLabel("pos");
         String endLabel = labeller.newLabel("end");
 
-        // [... value] -> [... 1 or -1]
         frag.add(Duplicate);
         frag.add(JumpFalse, endLabel);
         frag.add(JumpPos, posLabel);

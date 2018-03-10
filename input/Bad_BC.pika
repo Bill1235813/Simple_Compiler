@@ -1,9 +1,0 @@
-func i <int a, int b> -> int {
-    if (a>b) {
-        break.
-    } else {
-        return a.
-   }
-}
-exec {
-}

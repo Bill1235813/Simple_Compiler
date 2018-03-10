@@ -100,7 +100,7 @@ public class Promotion {
         } else if (checktypes.size() == 1) {
             return checkunary(checktypes, signatures);
         } else if (checktypes.size() == 2 && staticflag) {
-            return checkassign(checktypes, signatures);
+            return  checkassign(checktypes, signatures);
         } else {
             return checkbinary(checktypes, signatures);
         }
@@ -148,7 +148,7 @@ public class Promotion {
     private static Promotion noPromotion(List<Type> checktypes, FunctionSignatures signatures) {
         FunctionSignature signature = signatures.acceptingSignature(checktypes);
         if (signature.accepts(checktypes)) {
-            return new Promotion(Level.NONE, new ArrayList<>(), signature);
+            return new Promotion(Level.NONE, new ArrayList<>(), signature.getConcreteSignature());
         }
         return nullPromotion;
     }
@@ -169,8 +169,8 @@ public class Promotion {
             }
             checktypes.set(index, type_pro[1]);
             if (signatures.accepts(checktypes)) {
-                FunctionSignature signature = signatures.acceptingSignature(checktypes).
-                        getConcreteSignature();
+                FunctionSignature signature = 
+                        signatures.acceptingSignature(checktypes).getConcreteSignature();
                 promotions.add(new Promotion(
                         Level.getindex(index + 1),
                         new ArrayList<>(Arrays.asList(PROMOTION_METHODS.get(type_pro))),
@@ -194,8 +194,8 @@ public class Promotion {
                 }
                 checktypes.set(1, type_pro2[1]);
                 if (signatures.accepts(checktypes)) {
-                    FunctionSignature signature = signatures.acceptingSignature(checktypes).
-                            getConcreteSignature();
+                    FunctionSignature signature = 
+                            signatures.acceptingSignature(checktypes).getConcreteSignature();
                     promotions.add(new Promotion(
                             Level.BOTH,
                             new ArrayList<>(Arrays.asList(
