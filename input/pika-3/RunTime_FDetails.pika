@@ -1,0 +1,14 @@
+func array_rebuild<[int] a>->int {
+	a[1]:=1.
+	a[2]:=2.
+	a[3]:=3.
+	a[4]:=4.
+	print a;_n_.
+	var a:=new[int](10).
+	return length clone a.
+}
+exec {
+	print array_rebuild([1, ^a^, 3, 4, 5]);_n_.
+	call array_rebuild([1, 3]).
+	# print array_rebuild.
+}

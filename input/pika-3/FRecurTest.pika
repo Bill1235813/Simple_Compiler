@@ -1,0 +1,50 @@
+# the worst function ever
+func fib1 <int arg> -> int {
+    if (arg==0) {
+        return 0.
+    } else {
+        if (arg==1) {
+            return 1.
+        } else {
+            return fib1(arg- 1)+fib1(arg- 2).
+        }
+    }
+}
+func fib2 <int arg1, [int] arg2> -> [int] {
+    const len:= length arg2.
+    var newlist:= new[int](len+ 1).
+
+    var i:=0.
+    while (i<len) {
+        newlist[i]:=arg2[i].
+        i:=i+ 1.
+    }
+
+    if (len==0) {
+        newlist[0]:=1.
+    } else {
+        if (len==1) {
+            newlist[1]:=1.
+        } else {
+            newlist[len]:=newlist[len- 1]+newlist[len- 2].
+        }
+    }
+
+    if (arg1==0) {
+        # return newlist.
+    } else {
+        print newlist;_n_.
+        return fib2(arg1- 1, newlist).
+    }
+}
+exec {
+    const fib_inline:= <>->int {
+        return fib1(10).
+    }.
+    var a:=0.
+    print a;.
+    print fib_inline();.
+    a:=fib1(30).
+    print a;_n_.
+    call fib2(30, new[int](0)).
+}
