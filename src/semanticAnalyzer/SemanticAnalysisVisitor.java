@@ -23,6 +23,12 @@ import tokens.LextantToken;
 import tokens.Token;
 
 public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
+    private static ParseNode programNode;
+
+    public static ParseNode getProgramNode() {
+        return programNode;
+    }
+
     @Override
     public void visitLeave(ParseNode node) {
         throw new RuntimeException("Node class unimplemented in SemanticAnalysisVisitor: " + node.getClass());
@@ -32,6 +38,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     // constructs larger than statements
     @Override
     public void visitEnter(ProgramNode node) {
+        programNode = node;
         enterProgramScope(node);
     }
 

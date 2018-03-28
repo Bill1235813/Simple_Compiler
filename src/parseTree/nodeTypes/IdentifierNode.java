@@ -3,7 +3,9 @@ package parseTree.nodeTypes;
 import parseTree.ParseNode;
 import parseTree.ParseNodeVisitor;
 import logging.PikaLogger;
+import semanticAnalyzer.SemanticAnalysisVisitor;
 import symbolTable.Binding;
+import symbolTable.ParameterMemoryAllocator;
 import symbolTable.Scope;
 import tokens.IdentifierToken;
 import tokens.Token;
@@ -62,9 +64,23 @@ public class IdentifierNode extends ParseNode {
                 declarationScope = current.getScope();
                 return current.bindingOf(identifier);
             }
+            if (checkParameterMemoryAllocator(current)) {
+                ParseNode programNode = SemanticAnalysisVisitor.getProgramNode();
+                if (programNode.containsBindingOf(identifier)) {
+                    declarationScope = programNode.getScope();
+                    return programNode.bindingOf(identifier);
+                } else {
+                    break;
+                }
+            }
         }
         useBeforeDefineError();
         return Binding.nullInstance();
+    }
+
+    private boolean checkParameterMemoryAllocator(ParseNode node) {
+        return node.hasScope()
+                && node.getScope().getAllocationStrategy() instanceof ParameterMemoryAllocator;
     }
 
     public Scope getDeclarationScope() {

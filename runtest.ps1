@@ -15,7 +15,7 @@
 
 
 ##################################################################################################3
-$DEFAULT_INPUT = ".\input\pika-3-lqc\"  # MAY CHANGE HERE
+$DEFAULT_INPUT = ".\input\pika-3\"  # MAY CHANGE HERE
 $COMPARE_DIR = ".\actual\"    # MAY CHANGE HERE
 $OUTPUT = ".\output\"
 $ASM_EXECUTABLE = ".\ASM_Emulator\ASMEmu.exe"
@@ -78,8 +78,8 @@ If (!(Test-Path -Path $COMPARE_DIR )){
 echo "Start Comparing"
 $COMPARE_FILES = Get-ChildItem $COMPARE_DIR -Filter *.txt
 ForEach ($correctTxt in $COMPARE_FILES) {
-   $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
-   # $outTxt = $OUTPUT + $correctTxt.Name
+   # $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
+   $outTxt = $OUTPUT + $correctTxt.Name
    If (!(Test-Path -Path $outTxt)){
       echo "No File $correctTxt in output"
    } Else {

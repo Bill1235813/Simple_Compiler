@@ -1,0 +1,23 @@
+func pax <int a, int b> -> int {
+	print "pax(", a, ", ", b, ")", _n_.
+	if (a < b) {
+	    return a.
+	}
+	return b + pax(a, 3*b).
+}
+
+exec {
+	const max := 5.
+
+	if(max > 3) {
+		const pax := pax(88, 2).
+		const twopax := 2 * <int a, int b> -> int {return pax(a, b).}(176, 2).
+		print pax; twopax, _n_.
+
+	}
+
+	var count := 0.
+	print pax(1234, 4), _n_.
+
+	print "all done.", _n_.
+}

@@ -4,11 +4,17 @@
     <bookmark url="file://$PROJECT_DIR$/runtest.ps1" description="$COMPARE_FILES = Get-ChildItem $COMPARE_DIR -Filte..." line="78" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment=":art: update shell">
+    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/actual/BCTestResult.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/actual/FDefTestResult.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/actual/FRecurTestResult.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/actual/ReleaseTestResult.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/actual/RunTime_FDetailsResult.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/input/Visibility.pika" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/runtest.ps1" afterPath="$PROJECT_DIR$/runtest.ps1" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
+      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,32 +34,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PrintStatementGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java">
+      <file leaf-file-name="SemanticAnalysisVisitor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="156" column="14" lean-forward="false" selection-start-line="156" selection-start-column="14" selection-end-line="156" selection-end-column="14" />
+            <state relative-caret-position="190">
+              <caret line="427" column="0" lean-forward="false" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
+              <folding>
+                <element signature="e#864#865#0" expanded="true" />
+                <element signature="e#898#899#0" expanded="true" />
+                <element signature="method#visitEnter#0;class#SemanticAnalysisVisitor#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExpressionListNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-21">
+              <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="runtest.ps1" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/runtest.ps1">
+      <file leaf-file-name="IdentifierNode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="290">
+              <caret line="70" column="61" lean-forward="false" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
+              <folding>
+                <element signature="e#2947#2948#0" expanded="true" />
+                <element signature="e#2982#2983#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunTime.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
+      <file leaf-file-name="Scope.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/symbolTable/Scope.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="118" column="45" lean-forward="false" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="446">
+              <caret line="76" column="32" lean-forward="false" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+              <folding>
+                <element signature="e#624#625#0" expanded="true" />
+                <element signature="e#699#700#0" expanded="true" />
+                <element signature="e#2265#2266#0" expanded="true" />
+                <element signature="e#2299#2300#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,8 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/TypeListNode.java" />
-        <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/LambdaParamTypeNode.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/ParamListNode.java" />
         <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/ParamSpecNode.java" />
         <option value="$PROJECT_DIR$/src/lexicalAnalyzer/Punctuator.java" />
@@ -184,12 +210,10 @@
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ArrayIndexingCodeGenerator.java" />
         <option value="$PROJECT_DIR$/output/Rational.asm" />
         <option value="$PROJECT_DIR$/output/FDefTest.asm" />
-        <option value="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
         <option value="$PROJECT_DIR$/input/FRecurTest.pika" />
         <option value="$PROJECT_DIR$/input/RunTime_FDetails.pika" />
         <option value="$PROJECT_DIR$/input/Bad_BC.pika" />
         <option value="$PROJECT_DIR$/input/BCTest.pika" />
-        <option value="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
         <option value="$PROJECT_DIR$/src/parser/Parser.java" />
         <option value="$PROJECT_DIR$/input/Bad_VOID.pika" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/Macros.java" />
@@ -207,6 +231,10 @@
         <option value="$PROJECT_DIR$/input/pika-3-lqc/invoke_sem.pika" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java" />
         <option value="$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java" />
+        <option value="$PROJECT_DIR$/input/Visibility.pika" />
+        <option value="$PROJECT_DIR$/src/parseTree/ParseNode.java" />
+        <option value="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
+        <option value="$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java" />
         <option value="$PROJECT_DIR$/runtest.ps1" />
       </list>
     </option>
@@ -237,6 +265,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -259,47 +305,10 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="semanticAnalyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="signatures" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches">
-        <subPane>
-          <expand>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -316,7 +325,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="nodejs_interpreter_path" value="node" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -325,29 +334,29 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/outlog.log&#10;D:/Solution code/java/MyPikaCompiler/output/FDefTest.log" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="asmCodeGenerator.simpleCodeGenerator" />
+      <recent name="parseTree.nodeTypes" />
+      <recent name="semanticAnalyzer.signatures" />
+      <recent name="asmCodeGenerator" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Solution code\java\MyPikaCompiler\actual" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\input" />
+      <recent name="D:\Solution code\java\MyPikaCompiler" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\output" />
+      <recent name="D:\Solution code\java\MyPikaCompiler\ASM_Emulator\input" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="parser.test" />
+      <recent name="lexicalAnalyzer.test" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Solution code\java\MyPikaCompiler\output\pika-3-lqc" />
       <recent name="D:\Solution code\java\MyPikaCompiler\bin\applications" />
       <recent name="D:\Solution code\java\MyPikaCompiler" />
       <recent name="D:\Solution code\java\MyPikaCompiler\input" />
       <recent name="D:\Solution code\java\MyPikaCompiler\output\pika-2" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Solution code\java\MyPikaCompiler\input" />
-      <recent name="D:\Solution code\java\MyPikaCompiler" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\output" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\ASM_Emulator\input" />
-      <recent name="D:\Solution code\java\MyPikaCompiler\src\lexicalAnalyzer\tests\fixtures" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="parser.test" />
-      <recent name="lexicalAnalyzer.test" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="asmCodeGenerator.simpleCodeGenerator" />
-      <recent name="parseTree.nodeTypes" />
-      <recent name="semanticAnalyzer.signatures" />
-      <recent name="asmCodeGenerator" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -379,7 +388,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="applications.PikaAbstractSyntaxTree" />
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/pika-2/ArrayCreation.pika" />
+      <option name="PROGRAM_PARAMETERS" value="input/Visibility.pika" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -398,7 +407,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="applications.PikaCompiler" />
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/pika-3-lqc/invoke_sem.pika" />
+      <option name="PROGRAM_PARAMETERS" value="input/Visibility.pika" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -637,14 +646,9 @@
       <workItem from="1520383614054" duration="64923000" />
       <workItem from="1520662373069" duration="754000" />
       <workItem from="1520663663005" duration="9626000" />
-      <workItem from="1520675459280" duration="2346000" />
-    </task>
-    <task id="LOCAL-00001" summary=":droplet: refactor">
-      <created>1515742003980</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1515742003980</updated>
+      <workItem from="1520675459280" duration="2381000" />
+      <workItem from="1521182348354" duration="732000" />
+      <workItem from="1522217529238" duration="4139000" />
     </task>
     <task id="LOCAL-00002" summary=":droplet: refactor">
       <created>1515742187111</created>
@@ -982,7 +986,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520672991077</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary=":art: update shell">
+      <created>1520677818073</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1520677818073</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1018,7 +1029,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="402228000" />
+    <option name="totallyTimeSpent" value="407134000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1030,7 +1041,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1041,18 +1053,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20440882" sideWeight="0.5052083" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13193718" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30890054" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3082873" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16145833" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16145833" sideWeight="0.49453977" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1765625" sideWeight="0.5054602" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29319373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29281768" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1133,7 +1145,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="209" />
+      <option name="time" value="214" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1193,34 +1205,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/outpu/RunTime_FDetailsResult.txt" />
-    <entry file="file://$PROJECT_DIR$/src/applications/PikaCompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/outpu/Bad_VOID.log" />
-    <entry file="file://$PROJECT_DIR$/outpu/Bad_FDetails.log" />
-    <entry file="file://$PROJECT_DIR$/outpu/Bad_BC.log" />
-    <entry file="file://$PROJECT_DIR$/output/BoolexprTestResult.txt" />
-    <entry file="file://$PROJECT_DIR$/output/ArrayCreationResult.txt" />
-    <entry file="file://$PROJECT_DIR$/output/RationalResult.txt" />
-    <entry file="file://$PROJECT_DIR$/output/pika-2/RationalResult.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applications/PikaAbstractSyntaxTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/Labeller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
@@ -1231,202 +1215,154 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignatures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="152" column="61" lean-forward="false" selection-start-line="152" selection-start-column="61" selection-end-line="152" selection-end-column="61" />
+        <state relative-caret-position="112">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="58" column="15" lean-forward="true" selection-start-line="58" selection-start-column="15" selection-end-line="58" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="251" column="60" lean-forward="false" selection-start-line="251" selection-start-column="60" selection-end-line="251" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-2/Rational.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-250">
-          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/FunctionSignature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="44" column="44" lean-forward="false" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
+        <state relative-caret-position="140">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/signatures/Promotion.java">
+    <entry file="file://$PROJECT_DIR$/input/Visibility.pika">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="174" column="10" lean-forward="false" selection-start-line="174" selection-start-column="10" selection-end-line="174" selection-end-column="10" />
+        <state relative-caret-position="261">
+          <caret line="13" column="33" lean-forward="false" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/ParseNodeVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="341" column="0" lean-forward="false" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
           <folding>
-            <element signature="e#9984#9985#0" expanded="false" />
-            <element signature="e#10016#10017#0" expanded="false" />
+            <element signature="e#8147#8148#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/ComparisonCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="91" column="16" lean-forward="false" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
+        <state relative-caret-position="231">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/80013_funcResult.txt" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/break_continueResult.txt" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/80013_func.pika" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/err_function_overloading.pika" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/currentTestResult.txt" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/currentTest.pika" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/err_return.asm" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/err_returnResult.txt" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/function_shadow.log" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/function_test.pika" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/function_test.log" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/func_rat.log" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/func_rat.pika" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/func_sem.log" />
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/invoke_sem.asm" />
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/simpleCodeGenerator/EmptyArrayCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ReturnStatementNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="331">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/symbolTable/Scope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="76" column="32" lean-forward="false" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+          <folding>
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#699#700#0" expanded="true" />
+            <element signature="e#2265#2266#0" expanded="true" />
+            <element signature="e#2299#2300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ProgramNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/BlockStatementNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/pika-3-lqc/invoke_semResult.txt" />
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/PreSemanticAnalysisVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="288" column="61" lean-forward="true" selection-start-line="288" selection-start-column="61" selection-end-line="288" selection-end-column="61" />
+        <state relative-caret-position="-140">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/invoke_sem.pika" />
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/err_return.pika">
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/ExpressionListNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state relative-caret-position="-21">
+          <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/function_shadow.log">
+    <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="427" column="0" lean-forward="false" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
+          <folding>
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+            <element signature="method#visitEnter#0;class#SemanticAnalysisVisitor#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/ParseNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="111" column="19" lean-forward="false" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
+          <folding>
+            <element signature="e#3282#3283#0" expanded="false" />
+            <element signature="e#3318#3319#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/actual/ReleaseTestResult.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/func_sem.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/function_shadow.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="37" column="32" lean-forward="false" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/lambda_array.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/func_sem.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/void_return.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-166">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/void_return.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/immu_param.asm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/immu_paramResult.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input/pika-3-lqc/immu_param.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/runtime/RunTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="118" column="45" lean-forward="false" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asmCodeGenerator/PrintStatementGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="156" column="14" lean-forward="false" selection-start-line="156" selection-start-column="14" selection-end-line="156" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/runtest.ps1">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="83" column="42" lean-forward="true" selection-start-line="83" selection-start-column="42" selection-end-line="83" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/IdentifierNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="70" column="61" lean-forward="false" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
+          <folding>
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
