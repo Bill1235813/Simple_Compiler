@@ -11,8 +11,6 @@ import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.runtime.MemoryManager;
 import asmCodeGenerator.runtime.RunTime;
 import asmCodeGenerator.simpleCodeGenerator.SimpleCodeGenerator;
-import lexicalAnalyzer.Lextant;
-import lexicalAnalyzer.Punctuator;
 import parseTree.*;
 import parseTree.nodeTypes.*;
 import semanticAnalyzer.signatures.Promotion;
@@ -145,8 +143,8 @@ public class ASMCodeGenerator {
         turnAddressIntoValue(code, type);
     }
 
-    // [...value]->[...], address in store-address-temp or stack-pointer ...
-    public static void getValueFromAddress(ASMCodeFragment code, Type type, String address) {
+    // [... value]->[...], address in store-address-temp or stack-pointer ...
+    public static void storeValueIntoAddress(ASMCodeFragment code, Type type, String address) {
         if (type == PrimitiveType.RATIONAL) {
             loadIFrom(code, address);
             code.add(PushI, 4);
@@ -368,7 +366,7 @@ public class ASMCodeGenerator {
             code.append(args[0]);
             storeITo(code, RunTime.STORE_ADDRESS_TEMP);
 
-            getValueFromAddress(code, type, RunTime.STORE_ADDRESS_TEMP);
+            storeValueIntoAddress(code, type, RunTime.STORE_ADDRESS_TEMP);
         }
 
         public void visitLeave(IfStatementNode node) {
@@ -635,12 +633,11 @@ public class ASMCodeGenerator {
             newValueCode(node);
 
             int length = node.getValue().length();
-            code.add(PushI, 0);
             for (int i = length - 1; i >= 0; --i) {
                 code.add(PushI, (int) node.getValue().charAt(i));
             }
-            code.add(PushI, length + 1);
-            RunTime.createStringRecord(code, length);
+            code.add(PushI, length);
+            RunTime.createStringRecord(code, false);
             Macros.loadIFrom(code, RunTime.RECORD_CREATION_TEMPORARY);
         }
 

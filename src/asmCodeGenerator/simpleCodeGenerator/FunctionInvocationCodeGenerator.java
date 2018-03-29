@@ -5,7 +5,6 @@ import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.runtime.RunTime;
 import parseTree.ParseNode;
 import parseTree.nodeTypes.ExpressionListNode;
-import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
 import static asmCodeGenerator.Macros.*;
@@ -25,7 +24,7 @@ public class FunctionInvocationCodeGenerator implements SimpleCodeGenerator {
         Type[] types = ((ExpressionListNode)expressionList).getSignature().getParamTypes();
         for (int i=0;i< types.length;++i) {
             pushStack(frag, types[i].getSize());
-            ASMCodeGenerator.getValueFromAddress(frag, types[i], RunTime.STACK_POINTER);
+            ASMCodeGenerator.storeValueIntoAddress(frag, types[i], RunTime.STACK_POINTER);
         }
         frag.add(CallV); // [... addr] -> [... (return)]
 

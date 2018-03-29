@@ -31,7 +31,7 @@ public class CloneArrayCodeGenerator implements SimpleCodeGenerator {
         // store location and size
         storeITo(fragment, CLONE_LOCATION_TEMP);
         loadIFrom(fragment, CLONE_LOCATION_TEMP);
-        RunTime.getLength(fragment); // [... length]
+        RunTime.getArrayLength(fragment); // [... length]
         loadIFrom(fragment, CLONE_LOCATION_TEMP);
         readIOffset(fragment, Record.ARRAY_SUBTYPE_SIZE_OFFSET); // [... length subsize]
         fragment.add(Multiply);

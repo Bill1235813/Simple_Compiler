@@ -5,6 +5,7 @@ import static asmCodeGenerator.runtime.RunTime.FRAME_POINTER;
 import static asmCodeGenerator.runtime.RunTime.STACK_POINTER;
 
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
+import semanticAnalyzer.types.Type;
 
 public class Macros {
 
@@ -74,7 +75,7 @@ public class Macros {
         frag.add(PushI, size);
         addITo(frag, STACK_POINTER);
     }
-    
+
     public static void moveIMemory(ASMCodeFragment frag, String fromlocation, String tolocation) {
         loadIFrom(frag, fromlocation);
         storeITo(frag, tolocation);

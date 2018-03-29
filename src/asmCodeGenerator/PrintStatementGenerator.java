@@ -13,8 +13,6 @@ import asmCodeGenerator.ASMCodeGenerator.CodeVisitor;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.runtime.RunTime;
 
-import static asmCodeGenerator.Macros.loadIFrom;
-import static asmCodeGenerator.Macros.storeITo;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
 
 public class PrintStatementGenerator {
@@ -80,7 +78,7 @@ public class PrintStatementGenerator {
         code.add(Printf);
 
         code.add(Duplicate); // [... array_addr array_addr]
-        RunTime.getLength(code); // [... array_addr length]
+        RunTime.getArrayLength(code); // [... array_addr length]
         code.add(Exchange); // [... length array_addr]
         code.add(PushI, Record.ARRAY_HEADER_SIZE);
         code.add(Add); // [... length start_addr]

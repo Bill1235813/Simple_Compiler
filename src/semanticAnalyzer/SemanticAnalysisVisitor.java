@@ -258,7 +258,8 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         } else {
             FunctionSignature signature = promotion.getSignature();
             node.setType(signature.resultType());
-            node.setTargetable(node.getToken().isLextant(Punctuator.ARRAY_INDEXING));
+            node.setTargetable(node.getToken().isLextant(Punctuator.INDEXING)
+                    && node.child(0).getType() instanceof Array);
             node.setPromotion(promotion);
         }
     }

@@ -6,11 +6,8 @@ import static asmCodeGenerator.Macros.*;
 
 import asmCodeGenerator.ASMCodeGenerator;
 import asmCodeGenerator.Labeller;
-import asmCodeGenerator.Macros;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import parseTree.ParseNode;
 import semanticAnalyzer.types.PrimitiveType;
 import semanticAnalyzer.types.Type;
 
@@ -42,8 +39,9 @@ public class RunTime {
     public static final String FRAME_POINTER = "$frame-pointer";
     public static final String STACK_POINTER = "$stack-pointer";
     public static final String STORE_ADDRESS_TEMP = "store-addr-temp";
-    public static final String ARRAY_INDEXING_ARRAY = "$a-indexing-array";
-    public static final String ARRAY_INDEXING_INDEX = "$a-indexing-index";
+    public static final String INDEXING_ELEM = "$indexing-element";
+    public static final String INDEXING_INDEX2 = "$indexing-element2";
+    public static final String INDEXING_INDEX = "$indexing-index";
     public static final String FIRST_NUMERATOR = "$first-numerator";
     public static final String SECOND_NUMERATOR = "$second-numerator";
     public static final String FIRST_DENOMINATOR = "$first-denominator";
@@ -61,6 +59,10 @@ public class RunTime {
     public static final String CLONE_LOCATION_TEMP = "clone-location-temp";
     public static final String CLONE_SIZE_TEMP = "clone-size-temp";
     public static final String CLONE_NEW_LOCATION_TEMP = "clone-new-location-temp";
+    public static final String STRING_SIZE_TEMP = "string-size-temp";
+    public static final String STRING_LOCATION_TEMP = "string-location-temp";
+    public static final String STRING_CONCATENATION_FIRST = "string-concatenation-first-temp";
+    public static final String STRING_CONCATENATION_SECOND = "string-concatenation-second-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
@@ -74,6 +76,9 @@ public class RunTime {
     public static final String NULL_ARRAY_RUNTIME_ERROR = "$$array-is-null";
     public static final String OVERFLOW_ARRAY_RUNTIME_ERROR = "$$array-size-is-out-of-bound";
     public static final String NULL_STRING_RUNTIME_ERROR = "$$string-is-null";
+    public static final String NEGATIVE_LENGTH_STRING_RUNTIME_ERROR = "$$string-size-is-negative";
+    public static final String OVERFLOW_STRING_RUNTIME_ERROR = "$$string-size-is-out-of-bound";
+    public static final String OVERFLOW_SUBSTRING_RUNTIME_ERROR = "$$substring-size-is-out-of-bound";
     public static final String FUNCTION_NO_RETURN_ERROR = "$$function-no-return";
 
     private ASMCodeFragment environmentASM() {
@@ -149,6 +154,9 @@ public class RunTime {
         nullArrayError(frag);
         overflowArraySizeError(frag);
         nullStringError(frag);
+        negativeStringSizeError(frag);
+        overflowStringSizeError(frag);
+        overflowSubstringSizeError(frag);
         functionNoReturnError(frag);
 
         return frag;
@@ -189,6 +197,39 @@ public class RunTime {
         frag.add(Jump, GENERAL_RUNTIME_ERROR);
     }
 
+    private void negativeStringSizeError(ASMCodeFragment frag) {
+        String negativeStringSizeMessage = "$errors-negative-string-size";
+
+        frag.add(DLabel, negativeStringSizeMessage);
+        frag.add(DataS, "negative string size");
+
+        frag.add(Label, NEGATIVE_LENGTH_STRING_RUNTIME_ERROR);
+        frag.add(PushD, negativeStringSizeMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+
+    private void overflowStringSizeError(ASMCodeFragment frag) {
+        String overflowStringSizeMessage = "$errors-overflow-string-size";
+
+        frag.add(DLabel, overflowStringSizeMessage);
+        frag.add(DataS, "overflow string size");
+
+        frag.add(Label, OVERFLOW_STRING_RUNTIME_ERROR);
+        frag.add(PushD, overflowStringSizeMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+    
+    private void overflowSubstringSizeError(ASMCodeFragment frag) {
+        String overflowSubstringSizeMessage = "$errors-overflow-substring-size";
+
+        frag.add(DLabel, overflowSubstringSizeMessage);
+        frag.add(DataS, "overflow substring size");
+
+        frag.add(Label, OVERFLOW_SUBSTRING_RUNTIME_ERROR);
+        frag.add(PushD, overflowSubstringSizeMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+    
     private void negativeArraySizeError(ASMCodeFragment frag) {
         String negativeArraySizeMessage = "$errors-negative-array-size";
 
@@ -257,8 +298,9 @@ public class RunTime {
 
     private ASMCodeFragment temporaryVariables() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
-        declareI(frag, ARRAY_INDEXING_ARRAY);
-        declareI(frag, ARRAY_INDEXING_INDEX);
+        declareI(frag, INDEXING_ELEM);
+        declareI(frag, INDEXING_INDEX2);
+        declareI(frag, INDEXING_INDEX);
         declareI(frag, FIRST_NUMERATOR);
         declareI(frag, SECOND_NUMERATOR);
         declareI(frag, FIRST_DENOMINATOR);
@@ -279,6 +321,10 @@ public class RunTime {
         declareI(frag, FRAME_POINTER);
         declareI(frag, STACK_POINTER);
         declareI(frag, STORE_ADDRESS_TEMP);
+        declareI(frag, STRING_SIZE_TEMP);
+        declareI(frag, STRING_LOCATION_TEMP);
+        declareI(frag, STRING_CONCATENATION_FIRST);
+        declareI(frag, STRING_CONCATENATION_SECOND);
 
         return frag;
     }
@@ -375,7 +421,7 @@ public class RunTime {
     private ASMCodeFragment printRational() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID);
         // set label
-        Labeller labeller = new Labeller("$print-rational");
+        Labeller labeller = new Labeller("$function-print-rational");
         String endwith_nofraction = labeller.newLabel("end-with-no-fraction");
         String endwith_noint = labeller.newLabel("end-with-no-int");
         String endwith_nointpos = labeller.newLabel("end-with-no-int-pos");
@@ -472,7 +518,7 @@ public class RunTime {
     private ASMCodeFragment releaseReference() {
         ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VOID); // [... ref_addr (return)]
         // set label
-        Labeller labeller = new Labeller("$release-reference");
+        Labeller labeller = new Labeller("$function-release-reference");
         String endflag = labeller.newLabel("endflag");
         String subtypeIsNotRefflag = labeller.newLabel("subtypeIsRefflag");
         String returnflag = labeller.newLabel("returnflag");
@@ -529,7 +575,7 @@ public class RunTime {
         String loopflag = labeller.newLabel("loopflag");
 
         code.add(Duplicate);
-        getLength(code); // [... ref_addr length]
+        getArrayLength(code); // [... ref_addr length]
         code.add(Exchange); // [... length ref_addr]
         code.add(PushI, Record.ARRAY_HEADER_SIZE);
         code.add(Add); // [... length ref_addr_start]
@@ -563,7 +609,7 @@ public class RunTime {
         storeITo(code, INSERT_LOCATION_TEMP);
         storeITo(code, INSERT_SIZE_TEMP); // [... exprList]
 
-        Labeller labeller = new Labeller("function-insert");
+        Labeller labeller = new Labeller("$insert");
         String loopflag = labeller.newLabel("loopflag");
         String endflag = labeller.newLabel("endflag");
 
@@ -572,7 +618,7 @@ public class RunTime {
         code.add(JumpFalse, endflag); // [... exprList]
 
         // store one element
-        ASMCodeGenerator.getValueFromAddress(code, subType, INSERT_LOCATION_TEMP);
+        ASMCodeGenerator.storeValueIntoAddress(code, subType, INSERT_LOCATION_TEMP);
 
         decrementInteger(code, INSERT_SIZE_TEMP); // elemsSize -= 1
         code.add(PushI, subType.getSize());
@@ -582,23 +628,73 @@ public class RunTime {
         code.add(Label, endflag);
     }
 
-    // leaves new record in RECORD_CREATION_TEMPORARY // [... stringExprList length+1]
-    public static void createStringRecord(ASMCodeFragment code, int length) {
+    // move record from part of memory to another part, [... size location]
+    public static void moveToRecord(ASMCodeFragment code, Type subType) {
+
+        storeITo(code, CLONE_NEW_LOCATION_TEMP);
+        storeITo(code, CLONE_SIZE_TEMP); // [...]
+
+        Labeller labeller = new Labeller("$move");
+        String loopflag = labeller.newLabel("loopflag");
+        String endflag = labeller.newLabel("endflag");
+
+        code.add(Label, loopflag);
+        loadIFrom(code, CLONE_SIZE_TEMP); // [... nElems]
+        code.add(JumpFalse, endflag); // [... ]
+
+        // store one element
+        moveMemory(code, subType, CLONE_LOCATION_TEMP, CLONE_NEW_LOCATION_TEMP);
+
+        decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
+        code.add(PushI, subType.getSize());
+        addITo(code, CLONE_LOCATION_TEMP); // location += subtype.size()
+        code.add(PushI, subType.getSize());
+        addITo(code, CLONE_NEW_LOCATION_TEMP);
+        code.add(Jump, loopflag);
+
+        code.add(Label, endflag);
+    }
+
+    public static void moveMemory(ASMCodeFragment code, Type type, String fromlocation, String tolocation) {
+        ASMCodeGenerator.turnAddressIntoValue(code, type, fromlocation); // [... value]
+        ASMCodeGenerator.storeValueIntoAddress(code, type, tolocation); // [... ]
+    }
+
+    // leaves new record in RECORD_CREATION_TEMPORARY // [... (stringExprList)? length]
+    public static void createStringRecord(ASMCodeFragment code, boolean fromMemory) {
         final int typecode = Record.STRING_TYPE_ID;
         final int statusFlags = Record.STRING_STATUSFLAG;
 
-        code.add(Duplicate);
-        code.add(PushI, Record.STRING_HEADER_SIZE);
-        code.add(Add); // [... stringExprList length+1 total]
+        storeITo(code, STRING_SIZE_TEMP);
+        loadIFrom(code, STRING_SIZE_TEMP);
+        code.add(PushI, Record.STRING_EXTRA_SIZE);
+        code.add(Add); // [... (stringExprList)? total]
 
-        createRecord(code, typecode, statusFlags);
-        loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... stringExprList length+1 addr]
-        code.add(PushI, Record.STRING_HEADER_SIZE);
-        code.add(Add); // [... stringExprList length+1 start_addr]
+        createRecord(code, typecode, statusFlags); // [... (stringExprList)?]
 
-        insertToRecord(code, PrimitiveType.CHARACTER); // [...]
-        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
-                Record.STRING_LENGTH_OFFSET, length); // [...]
+        // set final 0 bit
+        loadIFrom(code, STRING_SIZE_TEMP);
+        loadIFrom(code, RECORD_CREATION_TEMPORARY);
+        code.add(PushI, Record.STRING_HEADER_SIZE);
+        code.add(Add);
+        code.add(Add); // [... (stringExprList)? total-1]
+        code.add(PushI, 0);
+        code.add(StoreC); // [... (stringExprList)?]
+
+        loadIFrom(code, STRING_SIZE_TEMP);
+        loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... (stringExprList)? length addr]
+        code.add(PushI, Record.STRING_HEADER_SIZE);
+        code.add(Add); // [... (stringExprList)? length start_addr]
+
+        if (fromMemory) {
+            moveToRecord(code, PrimitiveType.CHARACTER);
+        } else {
+            insertToRecord(code, PrimitiveType.CHARACTER); // [...]
+        }
+
+        loadIFrom(code, STRING_SIZE_TEMP);
+        writeIPtrOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.STRING_LENGTH_OFFSET); // [...]
     }
 
     // leaves new record in RECORD_CREATION_TEMPORARY
@@ -642,7 +738,11 @@ public class RunTime {
     }
 
     // [... addr] -> [... length]
-    public static void getLength(ASMCodeFragment code) {
+    public static void getStringLength(ASMCodeFragment code) {
+        readIOffset(code, Record.STRING_LENGTH_OFFSET);
+    }
+
+    public static void getArrayLength(ASMCodeFragment code) {
         readIOffset(code, Record.ARRAY_LENGTH_OFFSET);
     }
 
@@ -656,7 +756,7 @@ public class RunTime {
         addITo(code, STACK_POINTER); // [... value]
 
         pushStack(code, returnType.getSize());
-        ASMCodeGenerator.getValueFromAddress(code, returnType, STACK_POINTER);
+        ASMCodeGenerator.storeValueIntoAddress(code, returnType, STACK_POINTER);
 
         loadIFrom(code, RETURN_FOR_RUNTIME_FUNCTION);
         code.add(Return);

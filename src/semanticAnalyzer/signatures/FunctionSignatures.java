@@ -10,7 +10,6 @@ import asmCodeGenerator.FullCodeGenerator.ShortCircuitAndCodeGenerator;
 import asmCodeGenerator.FullCodeGenerator.ShortCircuitOrCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.simpleCodeGenerator.*;
-import com.sun.org.apache.bcel.internal.generic.NOP;
 
 import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Punctuator;
@@ -96,7 +95,10 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 Punctuator.ADD,
                 new FunctionSignature(ASMOpcode.Add, INTEGER, INTEGER, INTEGER),
                 new FunctionSignature(ASMOpcode.FAdd, FLOATING, FLOATING, FLOATING),
-                new FunctionSignature(new RationalAddCodeGenerator(), RATIONAL, RATIONAL, RATIONAL)
+                new FunctionSignature(new RationalAddCodeGenerator(), RATIONAL, RATIONAL, RATIONAL),
+                new FunctionSignature(new StringConcatenationCodeGenerator(), STRING, STRING, STRING),
+                new FunctionSignature(new StringConcatenationCodeGenerator(), STRING, CHARACTER, STRING),
+                new FunctionSignature(new StringConcatenationCodeGenerator(), CHARACTER, STRING, STRING)
         );
 
         new FunctionSignatures(
@@ -214,7 +216,9 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
 
         // array-indexing []
         new FunctionSignatures(
-                Punctuator.ARRAY_INDEXING,
+                Punctuator.INDEXING,
+                new FunctionSignature(new StringIndexingCodeGenerator(), STRING, INTEGER, CHARACTER),
+                new FunctionSignature(new SubStringIndexingCodeGenerator(), STRING, INTEGER, INTEGER, STRING),
                 new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, arrayOfS, INTEGER, S)
         );
 
@@ -227,7 +231,8 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // length
         new FunctionSignatures(
                 Keyword.LENGTH,
-                new FunctionSignature(new LengthArrayCodeGenerator(), setS, arrayOfS, INTEGER)
+                new FunctionSignature(new LengthCodeGenerator(), STRING, INTEGER),
+                new FunctionSignature(new LengthCodeGenerator(), setS, arrayOfS, INTEGER)
         );
 
         //////////////////////////////////////////////////////////////////////////////////////

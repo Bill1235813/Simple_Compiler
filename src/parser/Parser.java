@@ -113,13 +113,13 @@ public class Parser {
         }
         Token realToken = nowReading;
         Token indexToken = LextantToken.artificial(realToken, Punctuator.LAMBDA);
-        
+
         ParseNode param = parseLambdaParamType();
         ParseNode body = parseBlockStatement();
-        
+
         return LambdaNode.withChildren(indexToken, param, body);
     }
-    
+
     private boolean startsLambda(Token token) {
         return startsLambdaParamType(token);
     }
@@ -131,21 +131,21 @@ public class Parser {
         }
         Token realToken = nowReading;
         Token indexToken = LextantToken.artificial(realToken, Punctuator.LAMBDA_PARAM_TYPE);
-        
+
         expect(Punctuator.LESS);
         ParseNode paramList = parseParamList();
         expect(Punctuator.GREATER);
         expect(Punctuator.SUBTRACT);
         expect(Punctuator.GREATER);
         ParseNode returntype = parseType();
-        
+
         return LambdaParamTypeNode.withChildren(indexToken, paramList, returntype);
     }
-    
+
     private boolean startsLambdaParamType(Token token) {
         return token.isLextant(Punctuator.LESS);
     }
-    
+
     // paramList -> paramSpec bowtie ,
     private ParseNode parseParamList() {
         if (!startsParamList(nowReading)) {
@@ -719,13 +719,9 @@ public class Parser {
         while (startsIndexingExpression(nowReading) ||
                 startsInvocation(nowReading)) {
             if (startsIndexingExpression(nowReading)) {
-                Token indexToken = LextantToken.artificial(nowReading, Punctuator.ARRAY_INDEXING);
-                ParseNode index = parseIndexingExpression();
-                base = OperatorNode.withChildren(indexToken, base, index);
+                base = parseIndexingExpression(base);
             } else {
-                Token invocationToken = LextantToken.artificial(nowReading, Punctuator.FUNCTION_INVOCATION);
-                ParseNode invocation = parseInvocation();
-                base = OperatorNode.withChildren(invocationToken, base, invocation);
+                base = parseInvocation(base);
             }
 
         }
@@ -737,39 +733,66 @@ public class Parser {
     }
 
     // functionInvocation -> ( expressionList )
-    private ParseNode parseInvocation() {
+    private ParseNode parseInvocation(ParseNode base) {
         if (!startsInvocation(nowReading)) {
             return syntaxErrorNode("functionInvocation");
         }
-        readToken();
-        Token indexToken = LextantToken.artificial(nowReading, Punctuator.EXPRESSIONLIST);
-        if (nowReading.isLextant(Punctuator.CLOSE_PARENTHESE)) {
-            readToken();
-            return new ExpressionListNode(indexToken);
-        } else {
-            ParseNode firstexpression = parseExpression();
-            ParseNode invocation = parseExpressionListWithFirstExpr(indexToken, firstexpression);
-            expect(Punctuator.CLOSE_PARENTHESE);
-            return invocation;
-        }
+
+        expect(Punctuator.OPEN_PARENTHESE);
+        Token invocationToken = LextantToken.artificial(nowReading, Punctuator.FUNCTION_INVOCATION);
+        ParseNode invocation = parseExpressionListWithNothing();
+        expect(Punctuator.CLOSE_PARENTHESE);
+        return OperatorNode.withChildren(invocationToken, base, invocation);
     }
 
     private boolean startsInvocation(Token token) {
         return token.isLextant(Punctuator.OPEN_PARENTHESE);
     }
+
     private boolean endsInvocation(Token token) {
         return token.isLextant(Punctuator.CLOSE_PARENTHESE);
     }
-    
-    // indexingExpression -> [ Expression ] (left-assoc)
-    private ParseNode parseIndexingExpression() {
+
+    private ParseNode parseExpressionListWithNothing() {
+        if (!startsExpressionListWithNothing(nowReading) && !endsExpressionListWithNothing(nowReading)) {
+            return syntaxErrorNode("expression list");
+        }
+        Token indexToken = LextantToken.artificial(nowReading, Punctuator.EXPRESSIONLIST);
+        if (endsExpressionListWithNothing(nowReading)) {
+            return new ExpressionListNode(indexToken);
+        } else {
+            ParseNode firstexpression = parseExpression();
+            return parseExpressionListWithFirstExpr(indexToken, firstexpression);
+        }
+    }
+
+    private boolean startsExpressionListWithNothing(Token token) {
+        return startsExpression(token);
+    }
+
+    private boolean endsExpressionListWithNothing(Token token) {
+        return token.isLextant(Punctuator.CLOSE_PARENTHESE);
+    }
+
+    // indexingExpression -> [ Expression (, Expression)? ] (left-assoc)
+    private ParseNode parseIndexingExpression(ParseNode base) {
         if (!startsIndexingExpression(nowReading)) {
             return syntaxErrorNode("indexingExpression");
         }
-        readToken();
+        Token indexToken = LextantToken.artificial(nowReading, Punctuator.INDEXING);
+        expect(Punctuator.OPEN_BRACKET);
         ParseNode index = parseExpression();
+        ParseNode index2 = null;
+        if (nowReading.isLextant(Punctuator.SEPARATOR)) {
+            readToken();
+            index2 = parseExpression();
+        }
         expect(Punctuator.CLOSE_BRACKET);
-        return index;
+        if (index2 != null) {
+            return OperatorNode.withChildren(indexToken, base, index, index2);
+        } else {
+            return OperatorNode.withChildren(indexToken, base, index);
+        }
     }
 
     private boolean startsIndexingExpression(Token token) {
@@ -850,7 +873,7 @@ public class Parser {
         expect(Punctuator.OPEN_BRACKET);
         ParseNode expression = parseExpression(); // must have a least one expression
 
-        if (continuesPopulatedArray(nowReading)||endsPopulatedArray(nowReading)) {
+        if (continuesPopulatedArray(nowReading) || endsPopulatedArray(nowReading)) {
             return parsePopulatedArray(realToken, expression);
         } else if (continuesCastingExpression(nowReading)) {
             return parseCastingExpression(realToken, expression);
@@ -865,7 +888,7 @@ public class Parser {
 
     // populated array creation -> [ expressionList ]
     private ParseNode parsePopulatedArray(Token realToken, ParseNode firstexpression) {
-        if (!continuesPopulatedArray(nowReading)&& !endsPopulatedArray(nowReading)) {
+        if (!continuesPopulatedArray(nowReading) && !endsPopulatedArray(nowReading)) {
             return syntaxErrorNode("populated array");
         }
         Token indexToken = LextantToken.artificial(realToken, Punctuator.POPULATED_ARRAY);
@@ -878,6 +901,7 @@ public class Parser {
     private boolean continuesPopulatedArray(Token token) {
         return token.isLextant(Punctuator.SEPARATOR);
     }
+
     private boolean endsPopulatedArray(Token token) {
         return token.isLextant(Punctuator.CLOSE_BRACKET);
     }
@@ -961,7 +985,7 @@ public class Parser {
     private boolean startsLambdaType(Token token) {
         return token.isLextant(Punctuator.LESS);
     }
-    
+
     // typeList -> type bowtie ,
     private ParseNode parseTypeList() {
         if (!startsTypeList(nowReading)) {
@@ -987,11 +1011,11 @@ public class Parser {
         return TypeListNode.withChildren(indexToken,
                 typeList.toArray(new ParseNode[typeList.size()]));
     }
-    
+
     private boolean startsTypeList(Token token) {
         return startsType(token) || token.isLextant(Punctuator.GREATER);
     }
-    
+
     // arrayType -> [ Type ]
     private ParseNode parseArrayType() {
         if (!startsArrayType(nowReading)) {
