@@ -556,11 +556,13 @@ public class Parser {
     // andExpression            -> comparisonExpression [|| comparisonExpression]* (left-assoc)
     // comparisonExpression     -> additiveExpression [> additiveExpression]* (left-assoc)
     // additiveExpression       -> multiplicativeExpression [+ multiplicativeExpression]*  (left-assoc)
-    // multiplicativeExpression -> unaryExpression [MULT unaryExpression]*  (left-assoc)
+    // multiplicativeExpression -> foldExpression [MULT foldExpression]*  (left-assoc)
+    // foldExpression           -> mapExpression [fold mapExpression]* (left-assoc)
+    // mapExpression            -> unaryExpression [map|reduce unaryExpression]* (left-assoc)
     // unaryExpression          -> [!]* indexingExpression (prefix right-assoc)
     // indexingExpression       -> atomicExpression [ Expression ]* (left-assoc)
     // atomicExpression         -> literal | parentheses | casting | populated array | empty array | lambda
-    // literal                  -> integerConstant | identifier | booleanConstant
+    // literal                  -> integerConstant | identifier | booleanConstant | ...Constant
 
     // expr  -> comparisonExpression
     private ParseNode parseExpression() {
@@ -661,17 +663,17 @@ public class Parser {
         return startsMultiplicativeExpression(token);
     }
 
-    // multiplicativeExpression -> unaryExpression [MULT unaryExpression]*  (left-assoc)
+    // multiplicativeExpression -> foldExpression [MULT foldExpression]*  (left-assoc)
     private ParseNode parseMultiplicativeExpression() {
         if (!startsMultiplicativeExpression(nowReading)) {
             return syntaxErrorNode("multiplicativeExpression");
         }
 
-        ParseNode left = parseUnaryExpression();
+        ParseNode left = parseFoldExpression();
         while (nowReading.isLextant(Punctuator.multiplicative)) {
             Token multiplicativeToken = nowReading;
             readToken();
-            ParseNode right = parseUnaryExpression();
+            ParseNode right = parseFoldExpression();
 
             left = OperatorNode.withChildren(multiplicativeToken, left, right);
         }
@@ -679,9 +681,61 @@ public class Parser {
     }
 
     private boolean startsMultiplicativeExpression(Token token) {
-        return startsUnaryExpression(token);
+        return startsFoldExpression(token);
+    }
+    
+    // foldExpression -> mapExpression [fold mapExpression]* (left-assoc)
+    private ParseNode parseFoldExpression() {
+        if (!startsFoldExpression(nowReading)) {
+            return syntaxErrorNode("foldExpression");
+        }
+
+        ParseNode left = parseMapExpression();
+        while (nowReading.isLextant(Keyword.FOLD)) {
+            Token foldToken = nowReading;
+            readToken();
+            ParseNode base = null;
+            if (nowReading.isLextant(Punctuator.OPEN_BRACKET)) {
+                readToken();
+                base = parseExpression();
+                expect(Punctuator.CLOSE_BRACKET);
+            }
+            ParseNode right = parseMapExpression();
+
+            if (base != null) {
+                left = OperatorNode.withChildren(foldToken, left, base, right);
+            } else {
+                left = OperatorNode.withChildren(foldToken, left, right);
+            }
+        }
+        return left;
     }
 
+    private boolean startsFoldExpression(Token token) {
+        return startsMapExpression(token);
+    }
+    
+    // mapExpression -> unaryExpression [map|reduce unaryExpression]* (left-assoc)
+    private ParseNode parseMapExpression() {
+        if (!startsMapExpression(nowReading)) {
+            return syntaxErrorNode("mapExpression");
+        }
+
+        ParseNode left = parseUnaryExpression();
+        while (nowReading.isLextant(Keyword.MAP)) {
+            Token mapToken = nowReading;
+            readToken();
+            ParseNode right = parseUnaryExpression();
+
+            left = OperatorNode.withChildren(mapToken, left, right);
+        }
+        return left;
+    }
+
+    private boolean startsMapExpression(Token token) {
+        return startsUnaryExpression(token);
+    }
+    
     // unaryExpression -> [!]* indexingExpression (prefix right-assoc)
     private ParseNode parseUnaryExpression() {
         if (!startsUnaryExpression(nowReading)) {

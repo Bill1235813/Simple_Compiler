@@ -13,10 +13,7 @@ import asmCodeGenerator.simpleCodeGenerator.*;
 
 import lexicalAnalyzer.Keyword;
 import lexicalAnalyzer.Punctuator;
-import semanticAnalyzer.types.Array;
-import semanticAnalyzer.types.Type;
-import semanticAnalyzer.types.TypeLiteral;
-import semanticAnalyzer.types.TypeVariable;
+import semanticAnalyzer.types.*;
 
 import static semanticAnalyzer.types.PrimitiveType.*;
 import static semanticAnalyzer.types.TypeLiteral.*;
@@ -84,11 +81,21 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
     static {
         // here's one example to get you started with FunctionSignatures: the signatures for addition.
         // for this to work, you should statically import PrimitiveType.*
+        // TypeVariables definition
         TypeVariable S = new TypeVariable("S");
         TypeVariable T = new TypeVariable("T");
+        TypeVariable U = new TypeVariable("U");
         Array arrayOfS = new Array(S);
+        Array arrayOfT = new Array(T);
+        Array arrayOfU = new Array(U);
+        List<TypeVariable> setSTU = Arrays.asList(S,T,U);
         List<TypeVariable> setST = Arrays.asList(S,T);
         List<TypeVariable> setS = Arrays.asList(S);
+        LambdaType mapST = new LambdaType(Arrays.asList(S), T);
+        LambdaType reduceS = new LambdaType(Arrays.asList(S), PrimitiveType.BOOLEAN);
+        LambdaType foldS = new LambdaType(Arrays.asList(S,S), S);
+        LambdaType foldTS = new LambdaType(Arrays.asList(T,S), T);
+        LambdaType zipUST = new LambdaType(Arrays.asList(U,S),T);
 
         // arithmetic +, -, *, /, //, ///, ////
         new FunctionSignatures(
@@ -245,12 +252,41 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new ReverseCodeGenerator(), setS, arrayOfS, arrayOfS)
         );
 
+        // zip
+        new FunctionSignatures(
+                Keyword.ZIP,
+                new FunctionSignature(1, setSTU, arrayOfU, arrayOfS, zipUST, arrayOfT)
+        );
+
         //////////////////////////////////////////////////////////////////////////////////////
         // functions
 
         new FunctionSignatures(
                 Punctuator.FUNCTION_INVOCATION,
                 new FunctionSignature(new FunctionInvocationCodeGenerator(), setST, S, T, T)
+        );
+
+        // map
+        new FunctionSignatures(
+                Keyword.MAP,
+                new FunctionSignature(1, setST, arrayOfS, mapST, arrayOfT)
+        );
+
+        // reduce
+        new FunctionSignatures(
+                Keyword.REDUCE,
+                new FunctionSignature(1, setS, arrayOfS, reduceS, arrayOfS)
+        );
+
+        // fold
+        new FunctionSignatures(
+                Keyword.FOLD,
+                new FunctionSignature(1, setS, arrayOfS, foldS, S)
+        );
+
+        new FunctionSignatures(
+                Keyword.FOLD,
+                new FunctionSignature(1, setST, arrayOfS, T, foldTS, T)
         );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.
