@@ -32,6 +32,11 @@ public enum Keyword implements Lextant {
     CALL("call"),
     BREAK("break"),
     CONTINUE("continue"),
+    REVERSE("reverse"),
+    ZIP("zip"),
+    MAP("map"),
+    REDUCE("reduce"),
+    FOLD("fold"),
     START_PROGRAM(""),
     GLOBAL_DEFINITION(""),
     NULL_KEYWORD("");

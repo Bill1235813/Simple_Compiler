@@ -222,6 +222,9 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 new FunctionSignature(new ArrayIndexingCodeGenerator(), setS, arrayOfS, INTEGER, S)
         );
 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        // some of unary operator
+
         // clone
         new FunctionSignatures(
                 Keyword.CLONE,
@@ -233,6 +236,13 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
                 Keyword.LENGTH,
                 new FunctionSignature(new LengthCodeGenerator(), STRING, INTEGER),
                 new FunctionSignature(new LengthCodeGenerator(), setS, arrayOfS, INTEGER)
+        );
+
+        // reverse
+        new FunctionSignatures(
+                Keyword.REVERSE,
+                new FunctionSignature(new ReverseCodeGenerator(), STRING, STRING),
+                new FunctionSignature(new ReverseCodeGenerator(), setS, arrayOfS, arrayOfS)
         );
 
         //////////////////////////////////////////////////////////////////////////////////////

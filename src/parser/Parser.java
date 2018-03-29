@@ -704,9 +704,9 @@ public class Parser {
     private boolean startsUnaryExpression(Token token) {
         return haveUnary(token) | startsIndexingOrInvocation(token);
     }
-
     private boolean haveUnary(Token token) {
-        return token.isLextant(Punctuator.BOOLEAN_NOT, Keyword.CLONE, Keyword.LENGTH);
+        return token.isLextant(Punctuator.BOOLEAN_NOT, Keyword.CLONE, Keyword.LENGTH,
+                Keyword.REVERSE, Keyword.ZIP);
     }
 
     // indexingOrInvocation -> atomicExpression (indexingExpression or functionInvocation)*
@@ -748,7 +748,6 @@ public class Parser {
     private boolean startsInvocation(Token token) {
         return token.isLextant(Punctuator.OPEN_PARENTHESE);
     }
-
     private boolean endsInvocation(Token token) {
         return token.isLextant(Punctuator.CLOSE_PARENTHESE);
     }
@@ -769,7 +768,6 @@ public class Parser {
     private boolean startsExpressionListWithNothing(Token token) {
         return startsExpression(token);
     }
-
     private boolean endsExpressionListWithNothing(Token token) {
         return token.isLextant(Punctuator.CLOSE_PARENTHESE);
     }

@@ -56,9 +56,9 @@ public class RunTime {
     public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
     public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
     public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
-    public static final String CLONE_LOCATION_TEMP = "clone-location-temp";
-    public static final String CLONE_SIZE_TEMP = "clone-size-temp";
-    public static final String CLONE_NEW_LOCATION_TEMP = "clone-new-location-temp";
+    public static final String COPY_LOCATION_TEMP = "copy-location-temp";
+    public static final String COPY_SIZE_TEMP = "copy-size-temp";
+    public static final String COPY_NEW_LOCATION_TEMP = "copy-new-location-temp";
     public static final String STRING_SIZE_TEMP = "string-size-temp";
     public static final String STRING_LOCATION_TEMP = "string-location-temp";
     public static final String STRING_CONCATENATION_FIRST = "string-concatenation-first-temp";
@@ -315,9 +315,9 @@ public class RunTime {
         declareI(frag, CLEANING_SIZE_TEMP);
         declareI(frag, INSERT_SIZE_TEMP);
         declareI(frag, INSERT_LOCATION_TEMP);
-        declareI(frag, CLONE_NEW_LOCATION_TEMP);
-        declareI(frag, CLONE_LOCATION_TEMP);
-        declareI(frag, CLONE_SIZE_TEMP);
+        declareI(frag, COPY_NEW_LOCATION_TEMP);
+        declareI(frag, COPY_LOCATION_TEMP);
+        declareI(frag, COPY_SIZE_TEMP);
         declareI(frag, FRAME_POINTER);
         declareI(frag, STACK_POINTER);
         declareI(frag, STORE_ADDRESS_TEMP);
@@ -629,39 +629,53 @@ public class RunTime {
     }
 
     // move record from part of memory to another part, [... size location]
-    public static void moveToRecord(ASMCodeFragment code, Type subType) {
-
-        storeITo(code, CLONE_NEW_LOCATION_TEMP);
-        storeITo(code, CLONE_SIZE_TEMP); // [...]
+    public static void moveToRecord(ASMCodeFragment code, Type subType, boolean reverseFlag) {
+        storeITo(code, COPY_NEW_LOCATION_TEMP);
+        storeITo(code, COPY_SIZE_TEMP); // [...]
 
         Labeller labeller = new Labeller("$move");
         String loopflag = labeller.newLabel("loopflag");
         String endflag = labeller.newLabel("endflag");
 
         code.add(Label, loopflag);
-        loadIFrom(code, CLONE_SIZE_TEMP); // [... nElems]
-        code.add(JumpFalse, endflag); // [... ]
+        loadIFrom(code, COPY_SIZE_TEMP); // [... nElems]
+        code.add(JumpFalse, endflag); // [...]
 
         // store one element
-        moveMemory(code, subType, CLONE_LOCATION_TEMP, CLONE_NEW_LOCATION_TEMP);
+        moveMemory(code, subType, COPY_LOCATION_TEMP, COPY_NEW_LOCATION_TEMP);
 
-        decrementInteger(code, CLONE_SIZE_TEMP); // elemsSize -= 1
+        decrementInteger(code, COPY_SIZE_TEMP); // elemsSize -= 1
         code.add(PushI, subType.getSize());
-        addITo(code, CLONE_LOCATION_TEMP); // location += subtype.size()
-        code.add(PushI, subType.getSize());
-        addITo(code, CLONE_NEW_LOCATION_TEMP);
+        addITo(code, COPY_LOCATION_TEMP); // location += subtype.size()
+        if (reverseFlag) {
+            code.add(PushI, -subType.getSize());
+        } else {
+            code.add(PushI, subType.getSize());
+        }
+        addITo(code, COPY_NEW_LOCATION_TEMP);
         code.add(Jump, loopflag);
 
         code.add(Label, endflag);
     }
 
-    public static void moveMemory(ASMCodeFragment code, Type type, String fromlocation, String tolocation) {
+    private static void moveMemory(ASMCodeFragment code, Type type, String fromlocation, String tolocation) {
         ASMCodeGenerator.turnAddressIntoValue(code, type, fromlocation); // [... value]
         ASMCodeGenerator.storeValueIntoAddress(code, type, tolocation); // [... ]
     }
 
+    // leaves new record in RECORD_CREATION_TEMPORARY
+    // [... size] -> [...]
+    public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
+        code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
+        storeITo(code, RECORD_CREATION_TEMPORARY);
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.RECORD_TYPEID_OFFSET, typecode);
+        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.RECORD_STATUS_OFFSET, statusFlags);
+    }
+
     // leaves new record in RECORD_CREATION_TEMPORARY // [... (stringExprList)? length]
-    public static void createStringRecord(ASMCodeFragment code, boolean fromMemory) {
+    public static void createEmptyString(ASMCodeFragment code) {
         final int typecode = Record.STRING_TYPE_ID;
         final int statusFlags = Record.STRING_STATUSFLAG;
 
@@ -682,30 +696,22 @@ public class RunTime {
         code.add(StoreC); // [... (stringExprList)?]
 
         loadIFrom(code, STRING_SIZE_TEMP);
+        writeIPtrOffset(code, RECORD_CREATION_TEMPORARY,
+                Record.STRING_LENGTH_OFFSET); // [...]
+    }
+
+    public static void createStringRecord(ASMCodeFragment code, boolean fromMemory) {
+        createEmptyString(code);
+        loadIFrom(code, STRING_SIZE_TEMP);
         loadIFrom(code, RECORD_CREATION_TEMPORARY); // [... (stringExprList)? length addr]
         code.add(PushI, Record.STRING_HEADER_SIZE);
         code.add(Add); // [... (stringExprList)? length start_addr]
 
         if (fromMemory) {
-            moveToRecord(code, PrimitiveType.CHARACTER);
+            moveToRecord(code, PrimitiveType.CHARACTER, false);
         } else {
             insertToRecord(code, PrimitiveType.CHARACTER); // [...]
         }
-
-        loadIFrom(code, STRING_SIZE_TEMP);
-        writeIPtrOffset(code, RECORD_CREATION_TEMPORARY,
-                Record.STRING_LENGTH_OFFSET); // [...]
-    }
-
-    // leaves new record in RECORD_CREATION_TEMPORARY
-    // [... size] -> [...]
-    public static void createRecord(ASMCodeFragment code, int typecode, int statusFlags) {
-        code.add(Call, MemoryManager.MEM_MANAGER_ALLOCATE);
-        storeITo(code, RECORD_CREATION_TEMPORARY);
-        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
-                Record.RECORD_TYPEID_OFFSET, typecode);
-        writeIPBaseOffset(code, RECORD_CREATION_TEMPORARY,
-                Record.RECORD_STATUS_OFFSET, statusFlags);
     }
 
     // leaves new record in RECORD_CREATION_TEMPORARY // [... nElems] -> [...]

@@ -81,7 +81,7 @@ ForEach ($correctTxt in $COMPARE_FILES) {
    # $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
    $outTxt = $OUTPUT + $correctTxt.Name
    If (!(Test-Path -Path $outTxt)){
-      echo "No File $correctTxt in output"
+      echo "No File $outTxt in output"
    } Else {
       echo "Comparing output $correctTxt with correct result"
       If ((Get-Content $outTxt) -eq $Null -Or (Get-Content $COMPARE_DIR\$correctTxt) -eq $Null) {

@@ -55,7 +55,7 @@ public class SubStringIndexingCodeGenerator implements SimpleCodeGenerator{
         frag.add(Add); // [... start_addr]
         loadIFrom(frag, INDEXING_INDEX); // [... start_addr index]
         frag.add(Add); // [... addr]
-        storeITo(frag, RunTime.CLONE_LOCATION_TEMP);
+        storeITo(frag, RunTime.COPY_LOCATION_TEMP);
         loadIFrom(frag, INDEXING_INDEX2);
         loadIFrom(frag, INDEXING_INDEX);
         frag.add(Subtract); // [... length]

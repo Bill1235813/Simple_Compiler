@@ -4,7 +4,6 @@ import asmCodeGenerator.ASMCodeGenerator;
 import asmCodeGenerator.Labeller;
 import asmCodeGenerator.Record;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
-import asmCodeGenerator.codeStorage.ASMOpcode;
 import asmCodeGenerator.runtime.RunTime;
 import parseTree.ParseNode;
 import semanticAnalyzer.types.PrimitiveType;
@@ -34,20 +33,9 @@ public class StringConcatenationCodeGenerator implements SimpleCodeGenerator{
         getChildLength(node, frag, 1);
         frag.add(Add); // [... totalLength]
 
-        storeITo(frag, RunTime.STRING_SIZE_TEMP);
-        loadIFrom(frag, RunTime.STRING_SIZE_TEMP);
-        frag.add(PushI, Record.STRING_EXTRA_SIZE);
-        frag.add(Add); // [... total]
+        // create an empty string first
+        RunTime.createEmptyString(frag);
 
-        RunTime.createRecord(frag, Record.STRING_TYPE_ID, Record.STRING_STATUSFLAG);
-        // set final 0 bit
-        loadIFrom(frag, RunTime.STRING_SIZE_TEMP);
-        loadIFrom(frag, RunTime.RECORD_CREATION_TEMPORARY);
-        frag.add(PushI, Record.STRING_HEADER_SIZE);
-        frag.add(Add);
-        frag.add(Add); // [... total-1]
-        frag.add(PushI, 0);
-        frag.add(StoreC); 
         loadIFrom(frag, RunTime.RECORD_CREATION_TEMPORARY);
         frag.add(PushI, Record.STRING_HEADER_SIZE);
         frag.add(Add); // [start_addr]
@@ -67,11 +55,11 @@ public class StringConcatenationCodeGenerator implements SimpleCodeGenerator{
             frag.add(Duplicate); // [... clone_Addr clone_Addr]
             frag.add(PushI, Record.STRING_HEADER_SIZE);
             frag.add(Add); // [... clone_Addr clone_start_addr]
-            storeITo(frag, RunTime.CLONE_LOCATION_TEMP);
+            storeITo(frag, RunTime.COPY_LOCATION_TEMP);
             RunTime.getStringLength(frag); // [... size]
             frag.add(Duplicate); // [... size size]
             loadIFrom(frag, RunTime.STRING_LOCATION_TEMP); // [... size size location]
-            RunTime.moveToRecord(frag, PrimitiveType.CHARACTER); // [... size]
+            RunTime.moveToRecord(frag, PrimitiveType.CHARACTER, false); // [... size]
             addITo(frag, RunTime.STRING_LOCATION_TEMP);
         } else if (node.child(childIndex).getType() == PrimitiveType.CHARACTER) {
             ASMCodeGenerator.storeValueIntoAddress(frag, PrimitiveType.CHARACTER, RunTime.STRING_LOCATION_TEMP);
