@@ -79,13 +79,17 @@ public class Parser {
         ParseNode global = new GlobalDefinitionNode(
                 LextantToken.artificial(nowReading, Keyword.GLOBAL_DEFINITION));
 
-        // parse function definition
-        global.appendChild(parseFunctionDefinition());
+        // parse function definition or global definition
+        if (startsFunctionDefinition(nowReading)) {
+            global.appendChild(parseFunctionDefinition());
+        } else if (startsDeclaration(nowReading)) {
+            global.appendChild(parseDeclaration());
+        }
         return global;
     }
 
     private boolean startsGlobalDefinition(Token token) {
-        return startsFunctionDefinition(token);
+        return startsFunctionDefinition(token) | startsDeclaration(token);
     }
 
     // functionDefinition -> func identifier lambda
@@ -528,11 +532,22 @@ public class Parser {
     }
 
 
-    // declaration -> CONST identifier := expression .
+    // declaration -> (STATIC)? CONST|VAR identifier := expression .
     private ParseNode parseDeclaration() {
         if (!startsDeclaration(nowReading)) {
             return syntaxErrorNode("declaration");
         }
+
+        // deal with static declaration
+        boolean staticFlag = false;
+        if (nowReading.isLextant(Keyword.STATIC)) {
+            staticFlag = true;
+            readToken();
+            if (!continuesDeclaration(nowReading)) {
+                return syntaxErrorNode("declaration");
+            }
+        }
+
         Token declarationToken = nowReading;
         readToken();
 
@@ -541,10 +556,13 @@ public class Parser {
         ParseNode initializer = parseExpression();
         expect(Punctuator.TERMINATOR);
 
-        return DeclarationNode.withChildren(declarationToken, identifier, initializer);
+        return DeclarationNode.withChildren(declarationToken, identifier, initializer, staticFlag);
     }
 
     private boolean startsDeclaration(Token token) {
+        return token.isLextant(Keyword.CONST, Keyword.VAR, Keyword.STATIC);
+    }
+    private boolean continuesDeclaration(Token token) {
         return token.isLextant(Keyword.CONST, Keyword.VAR);
     }
 

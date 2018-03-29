@@ -73,23 +73,10 @@ public class PreSemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitLeave(TypeNode node) {
         assert node.getToken() instanceof LextantToken;
         assert node.nChildren() <= 2;
-        if (node.nChildren() == 0) {
-            Lextant type = lextantFor(node);
-            node.setType(PrimitiveType.getTypeFromLextant(type));
-        } else if (node.nChildren() == 1) {
-            node.setType(new Array(node.child(0).getType()));
-        } else {
-            setLambdaType(node);
-        }
+        setType(node);
     }
 
     public void visitLeave(TypeListNode node) {
         getListOfTypes(node);
-    }
-
-    public void visitLeave(BlockStatementNode node) {
-    }
-
-    public void visit(IdentifierNode node) {
     }
 }

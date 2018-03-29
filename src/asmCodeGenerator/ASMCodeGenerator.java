@@ -235,10 +235,18 @@ public class ASMCodeGenerator {
         // constructs larger than statements
         public void visitLeave(ProgramNode node) {
             newVoidCode(node);
+            ASMCodeFragment functionCode = new ASMCodeFragment(GENERATES_VOID);
+            ASMCodeFragment otherCode = new ASMCodeFragment(GENERATES_VOID);
             for (ParseNode child : node.getChildren()) {
                 ASMCodeFragment childCode = removeVoidCode(child);
-                code.append(childCode);
+                if (child.nChildren()>0 && child.child(0) instanceof FunctionDefinitionNode) {
+                    functionCode.append(childCode);
+                } else {
+                    otherCode.append(childCode);
+                }
             }
+            code.append(functionCode);
+            code.append(otherCode);
         }
 
         public void visitLeave(GlobalDefinitionNode node) {
