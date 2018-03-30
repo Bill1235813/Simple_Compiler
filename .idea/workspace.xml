@@ -4,18 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/runtest.ps1" description="$COMPARE_FILES = Get-ChildItem $COMPARE_DIR -Filte..." line="78" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment=":art: update shell">
-      <change beforePath="" afterPath="$PROJECT_DIR$/input/Global.pika" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/input/NewOps.pika" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/Pre2SemanticAnalysisVisitor.java" />
+    <list default="true" id="67f94965-4f39-414a-a83b-e5bbe6bba959" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" afterPath="$PROJECT_DIR$/src/asmCodeGenerator/ASMCodeGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" afterPath="$PROJECT_DIR$/src/lexicalAnalyzer/Keyword.java" />
-      <change beforePath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" afterPath="$PROJECT_DIR$/src/parseTree/nodeTypes/DeclarationNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" afterPath="$PROJECT_DIR$/src/parser/Parser.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/PreSemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/PreSemanticAnalysisVisitor.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java" />
-      <change beforePath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" afterPath="$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalyzer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +28,7 @@
       <file leaf-file-name="SemanticAnalysisVisitor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
+            <state relative-caret-position="-484">
               <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding>
                 <element signature="method#visitEnter#0;class#SemanticAnalysisVisitor#0" expanded="false" />
@@ -285,13 +275,6 @@
               <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyPikaCompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="asmCodeGenerator" type="462c0819:PsiDirectoryNode" />
-              <item name="simpleCodeGenerator" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyPikaCompiler" type="b2602c69:ProjectViewProjectNode" />
@@ -5385,7 +5368,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.PikaCompiler">
+  <component name="RunManager" selected="Application.PikaSemanticChecker">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -5440,7 +5423,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="applications.PikaSemanticChecker" />
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PROGRAM_PARAMETERS" value="input/FDefTest.pika" />
+      <option name="PROGRAM_PARAMETERS" value="input/NewOps.pika" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -5661,13 +5644,6 @@
       <workItem from="1520675459280" duration="2381000" />
       <workItem from="1521182348354" duration="732000" />
       <workItem from="1522217529238" duration="4139000" />
-    </task>
-    <task id="LOCAL-00002" summary=":droplet: refactor">
-      <created>1515742187111</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1515742187111</updated>
     </task>
     <task id="LOCAL-00003" summary=":droplet: run several tests">
       <created>1515817563782</created>
@@ -6005,7 +5981,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520677818073</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary=":sparkles: add another SA to deal with global variable">
+      <created>1522366549379</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1522366549379</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -6041,7 +6024,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="442071000" />
+    <option name="totallyTimeSpent" value="442631000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -6065,7 +6048,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296845" sideWeight="0.50328946" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13135865" sideWeight="0.49634504" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3084353" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3084353" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -6150,7 +6133,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=":sparkles: add short-circuit-or and short-circuit-and" />
     <MESSAGE value=":sparkles: add rational printing (finish)" />
     <MESSAGE value=":sparkles: :flags: finish rational part and improve the test" />
     <MESSAGE value=":beer: add typeliteral class, prepare for promotion" />
@@ -6175,7 +6157,8 @@
     <MESSAGE value=":art: :beer: fix a small bug and add a Windows powershell script" />
     <MESSAGE value=":flags: add test cases" />
     <MESSAGE value=":art: update shell" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: update shell" />
+    <MESSAGE value=":sparkles: add another SA to deal with global variable" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: add another SA to deal with global variable" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -6239,7 +6222,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/input/Visibility.pika" />
     <entry file="file://$PROJECT_DIR$/src/parseTree/nodeTypes/OperatorNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -6640,14 +6622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input/Global.pika">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/Pre2SemanticAnalysisVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="559">
@@ -6670,9 +6644,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/output/Global.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input/Global.pika">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/semanticAnalyzer/SemanticAnalysisVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
+        <state relative-caret-position="-484">
           <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
             <element signature="method#visitEnter#0;class#SemanticAnalysisVisitor#0" expanded="false" />
