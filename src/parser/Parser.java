@@ -1,10 +1,12 @@
 
 package parser;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.org.apache.xpath.internal.compiler.Keywords;
 import logging.PikaLogger;
 import parseTree.*;
 import parseTree.nodeTypes.*;
@@ -765,9 +767,19 @@ public class Parser {
         ParseNode right;
         if (haveUnary(nowReading)) {
             Token unaryToken = nowReading;
-            readToken();
-            right = parseUnaryExpression();
-            right = OperatorNode.withChildren(unaryToken, right);
+            if (nowReading.isLextant(Keyword.ZIP)) {
+                readToken();
+                ParseNode first = parseUnaryExpression();
+                expect(Punctuator.SEPARATOR);
+                ParseNode second = parseUnaryExpression();
+                expect(Punctuator.SEPARATOR);
+                ParseNode third = parseUnaryExpression();
+                right = OperatorNode.withChildren(unaryToken, first, second, third);
+            } else {
+                readToken();
+                right = parseUnaryExpression();
+                right = OperatorNode.withChildren(unaryToken, right);
+            }
         } else {
             right = parseIndexingOrInvocation();
         }
