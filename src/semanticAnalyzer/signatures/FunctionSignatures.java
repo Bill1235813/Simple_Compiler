@@ -269,24 +269,20 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // map
         new FunctionSignatures(
                 Keyword.MAP,
-                new FunctionSignature(1, setST, arrayOfS, mapST, arrayOfT)
+                new FunctionSignature(new MapCodeGenerator(), setST, arrayOfS, mapST, arrayOfT)
         );
 
         // reduce
         new FunctionSignatures(
                 Keyword.REDUCE,
-                new FunctionSignature(1, setS, arrayOfS, reduceS, arrayOfS)
+                new FunctionSignature(new ReduceCodeGenerator(), setS, arrayOfS, reduceS, arrayOfS)
         );
 
         // fold
         new FunctionSignatures(
                 Keyword.FOLD,
-                new FunctionSignature(1, setS, arrayOfS, foldS, S)
-        );
-
-        new FunctionSignatures(
-                Keyword.FOLD,
-                new FunctionSignature(1, setST, arrayOfS, T, foldTS, T)
+                new FunctionSignature(new FoldCodeGenerator(), setS, arrayOfS, foldS, S),
+                new FunctionSignature(new FoldCodeGenerator(), setST, arrayOfS, T, foldTS, T)
         );
 
         // First, we use the operator itself (in this case the Punctuator ADD) as the key.

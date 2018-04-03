@@ -740,7 +740,8 @@ public class Parser {
         }
 
         ParseNode left = parseUnaryExpression();
-        while (nowReading.isLextant(Keyword.MAP)) {
+        while (nowReading.isLextant(Keyword.MAP) ||
+                nowReading.isLextant(Keyword.REDUCE)) {
             Token mapToken = nowReading;
             readToken();
             ParseNode right = parseUnaryExpression();

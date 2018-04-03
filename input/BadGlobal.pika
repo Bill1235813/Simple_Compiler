@@ -1,0 +1,11 @@
+const s:=f1(1,2,3).
+func f1<int a, int b, int c>->int {
+    return 4.
+}
+# var y:=10.
+var x:=[6|char]+y.
+var y:=10.
+# print y.
+exec {
+    print y;_n_.
+}

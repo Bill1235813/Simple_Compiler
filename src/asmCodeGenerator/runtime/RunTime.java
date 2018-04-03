@@ -55,14 +55,16 @@ public class RunTime {
     public static final String ARRAY_DATASIZE_TEMPORARY = "$array-datasize-temporary";
     public static final String CLEANING_SIZE_TEMP = "$clear-size-temp";
     public static final String INSERT_SIZE_TEMP = "$insert-size-temp";
-    public static final String INSERT_LOCATION_TEMP = "insert-location-temp";
-    public static final String COPY_LOCATION_TEMP = "copy-location-temp";
-    public static final String COPY_SIZE_TEMP = "copy-size-temp";
-    public static final String COPY_NEW_LOCATION_TEMP = "copy-new-location-temp";
-    public static final String STRING_SIZE_TEMP = "string-size-temp";
-    public static final String STRING_LOCATION_TEMP = "string-location-temp";
-    public static final String STRING_CONCATENATION_FIRST = "string-concatenation-first-temp";
-    public static final String STRING_CONCATENATION_SECOND = "string-concatenation-second-temp";
+    public static final String INSERT_LOCATION_TEMP = "$insert-location-temp";
+    public static final String COPY_LOCATION_TEMP = "$copy-location-temp";
+    public static final String COPY_LOCATION_TEMP2 = "$copy-location-temp2";
+    public static final String COPY_SIZE_TEMP = "$copy-size-temp";
+    public static final String COPY_NEW_LOCATION_TEMP = "$copy-new-location-temp";
+    public static final String STRING_SIZE_TEMP = "$string-size-temp";
+    public static final String STRING_LOCATION_TEMP = "$string-location-temp";
+    public static final String STRING_CONCATENATION_FIRST = "$string-concatenation-first-temp";
+    public static final String STRING_CONCATENATION_SECOND = "$string-concatenation-second-temp";
+    public static final String FUNCTION_TEMP = "$function-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
@@ -80,6 +82,7 @@ public class RunTime {
     public static final String OVERFLOW_STRING_RUNTIME_ERROR = "$$string-size-is-out-of-bound";
     public static final String OVERFLOW_SUBSTRING_RUNTIME_ERROR = "$$substring-size-is-out-of-bound";
     public static final String FUNCTION_NO_RETURN_ERROR = "$$function-no-return";
+    public static final String FOLD_WITH_EMPTY_ARRAY = "$$fold-with-empty-array";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -158,6 +161,7 @@ public class RunTime {
         overflowStringSizeError(frag);
         overflowSubstringSizeError(frag);
         functionNoReturnError(frag);
+        foldWithEmptyArray(frag);
 
         return frag;
     }
@@ -173,6 +177,17 @@ public class RunTime {
         frag.add(Printf);
         frag.add(Halt);
         return frag;
+    }
+
+    private void foldWithEmptyArray(ASMCodeFragment frag) {
+        String foldWithEmptyArrayMessage = "$errors-fold-with-empty-array";
+
+        frag.add(DLabel, foldWithEmptyArrayMessage);
+        frag.add(DataS, "fold with empty array");
+
+        frag.add(Label, FOLD_WITH_EMPTY_ARRAY);
+        frag.add(PushD, foldWithEmptyArrayMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
     }
 
     private void functionNoReturnError(ASMCodeFragment frag) {
@@ -317,6 +332,7 @@ public class RunTime {
         declareI(frag, INSERT_LOCATION_TEMP);
         declareI(frag, COPY_NEW_LOCATION_TEMP);
         declareI(frag, COPY_LOCATION_TEMP);
+        declareI(frag, COPY_LOCATION_TEMP2);
         declareI(frag, COPY_SIZE_TEMP);
         declareI(frag, FRAME_POINTER);
         declareI(frag, STACK_POINTER);
@@ -325,6 +341,7 @@ public class RunTime {
         declareI(frag, STRING_LOCATION_TEMP);
         declareI(frag, STRING_CONCATENATION_FIRST);
         declareI(frag, STRING_CONCATENATION_SECOND);
+        declareI(frag, FUNCTION_TEMP);
 
         return frag;
     }
@@ -658,7 +675,29 @@ public class RunTime {
         code.add(Label, endflag);
     }
 
-    private static void moveMemory(ASMCodeFragment code, Type type, String fromlocation, String tolocation) {
+    // get a single value from specific location (at COPY_LOCATION) and increase it
+    // [...] -> [... value]
+    public static void getOneFromRecord(ASMCodeFragment code, Type subType, int index) {
+        String temp;
+        if (index == 1) {
+            temp = COPY_LOCATION_TEMP;
+        } else {
+            temp = COPY_LOCATION_TEMP2;
+        }
+        ASMCodeGenerator.turnAddressIntoValue(code, subType, temp);
+        code.add(PushI, subType.getSize());
+        addITo(code, temp);
+    }
+
+    // insert a single value to specific location (at COPY_NEW_LOCATION) and increase it
+    // [... value] -> [...]
+    public static void insertOneToRecord(ASMCodeFragment code, Type subType) {
+        ASMCodeGenerator.storeValueIntoAddress(code, subType, COPY_NEW_LOCATION_TEMP);
+        code.add(PushI, subType.getSize());
+        addITo(code, COPY_NEW_LOCATION_TEMP);
+    }
+
+    public static void moveMemory(ASMCodeFragment code, Type type, String fromlocation, String tolocation) {
         ASMCodeGenerator.turnAddressIntoValue(code, type, fromlocation); // [... value]
         ASMCodeGenerator.storeValueIntoAddress(code, type, tolocation); // [... ]
     }

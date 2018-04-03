@@ -34,4 +34,20 @@ public class EmptyArrayCodeGenerator implements SimpleCodeGenerator {
 
         return fragment;
     }
+
+    public ASMCodeFragment generate(Type type) {
+        ASMCodeFragment fragment = new ASMCodeFragment(ASMCodeFragment.CodeType.GENERATES_VALUE);
+        int statusFlag;
+
+        if (type.equivalent(PrimitiveType.STRING) || type instanceof Array) {
+            statusFlag = 1 << Record.SUBTYPE_REFERENCE_SHIFT;
+        } else {
+            statusFlag = 0;
+        }
+
+        RunTime.createEmptyArrayRecord(fragment, statusFlag, type.getSize());
+        loadIFrom(fragment, RunTime.RECORD_CREATION_TEMPORARY);
+
+        return fragment;
+    }
 }

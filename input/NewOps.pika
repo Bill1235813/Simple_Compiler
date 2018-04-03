@@ -1,3 +1,61 @@
-exec {
+# basic functions
+func double<rat a>->rat {
+    return a*2.
+}
+func parityString<int a>->string {
+    if ((a/2)*2==a) {
+        return "even".
+    } else {
+        return "odd".
+    }
+}
+func isOdd<int a>->bool {
+    return a!=(a/2)*2.
+}
+var max:=<int x, int y>->int {
+    if (x>y) {
+        return x.
+    } else {
+        return y.
+    }
+}.
+var maxRAT:=<rat x, int y>->rat {
+    if (x>y) {
+        return x.
+    } else {
+        return [y|rat].
+    }
+}.
+# recursion
+var mapRec:=<int x, [rat] array>->[rat] {
+    if (x==0) {
+        return array.
+    } else {
+        return mapRec(x - 1, array map double).
+    }
+}.
 
+const X:=3//2.
+var a:=[1//2, 2//3, 3//4, 4//5, 5//6, 6//7, 7//8, 8//9, 9//10].
+
+exec {
+    var largerThanX:=<rat a>->bool {
+        return a > X.
+    }.
+    var catNumber:=<string s,int x>->string {
+        return s + ^ ^ + [x+^0^|char].
+    }.
+    var numbers:=[1,3,5,8,11,12].
+    var parities:=numbers map parityString.
+    # print a fold maxRAT; a fold[2//1] maxRAT;_n_.
+    print numbers fold[2//1] maxRAT;.
+    print numbers fold max; numbers fold [20] max; numbers fold["list:"] catNumber; _n_.
+    print ["even","odd"];_n_.
+    print parities;new[int](0) map parityString;_n_.
+    print numbers reduce isOdd;_n_.
+    print a;_n_.
+    print a map double;_n_.
+    print a map double map double;_n_.
+    print a map double reduce largerThanX;_n_.
+    print mapRec(5, a).
 }

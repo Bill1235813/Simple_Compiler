@@ -31,7 +31,20 @@ public class FunctionInvocationCodeGenerator implements SimpleCodeGenerator {
         // get return value
         ASMCodeGenerator.turnAddressIntoValue(frag, node.getType(), RunTime.STACK_POINTER);
         popStack(frag, node.getType().getSize());
+        return frag;
+    }
 
+    public ASMCodeFragment generate(Type[] types, Type resultType) {
+        ASMCodeFragment frag = new ASMCodeFragment(GENERATES_VALUE);
+        for (int i=0;i< types.length;++i) {
+            pushStack(frag, types[i].getSize());
+            ASMCodeGenerator.storeValueIntoAddress(frag, types[i], RunTime.STACK_POINTER);
+        }
+        frag.add(CallV); // [... addr] -> [... (return)]
+
+        // get return value
+        ASMCodeGenerator.turnAddressIntoValue(frag, resultType, RunTime.STACK_POINTER);
+        popStack(frag, resultType.getSize());
         return frag;
     }
 }
