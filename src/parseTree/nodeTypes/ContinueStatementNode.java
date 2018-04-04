@@ -6,7 +6,7 @@ import tokens.LextantToken;
 import tokens.Token;
 
 public class ContinueStatementNode extends ParseNode {
-    private WhileStatementNode loopLink;
+    private ParseNode loopLink;
 
     public ContinueStatementNode(Token token) {
         super(token);
@@ -24,11 +24,11 @@ public class ContinueStatementNode extends ParseNode {
         visitor.visit(this);
     }
 
-    public WhileStatementNode getLoopLink() {
+    public ParseNode getLoopLink() {
         return loopLink;
     }
 
-    public void setLoopLink(WhileStatementNode loopLink) {
+    public void setLoopLink(ParseNode loopLink) {
         this.loopLink = loopLink;
     }
 }

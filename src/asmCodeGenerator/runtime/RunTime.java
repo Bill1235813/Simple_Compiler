@@ -83,6 +83,7 @@ public class RunTime {
     public static final String OVERFLOW_SUBSTRING_RUNTIME_ERROR = "$$substring-size-is-out-of-bound";
     public static final String FUNCTION_NO_RETURN_ERROR = "$$function-no-return";
     public static final String FOLD_WITH_EMPTY_ARRAY = "$$fold-with-empty-array";
+    public static final String ZIP_WITH_DIFFERENT_ARRAY_LENGTH = "$$zip-with-different-array-length";
 
     private ASMCodeFragment environmentASM() {
         ASMCodeFragment result = new ASMCodeFragment(GENERATES_VOID);
@@ -162,6 +163,7 @@ public class RunTime {
         overflowSubstringSizeError(frag);
         functionNoReturnError(frag);
         foldWithEmptyArray(frag);
+        zipWithWrongLength(frag);
 
         return frag;
     }
@@ -179,6 +181,17 @@ public class RunTime {
         return frag;
     }
 
+     private void zipWithWrongLength(ASMCodeFragment frag) {
+        String zipWithWrongLengthMessage = "$errors-zip-with-wrong-length";
+
+        frag.add(DLabel, zipWithWrongLengthMessage);
+        frag.add(DataS, "zip with wrong length");
+
+        frag.add(Label, ZIP_WITH_DIFFERENT_ARRAY_LENGTH);
+        frag.add(PushD, zipWithWrongLengthMessage);
+        frag.add(Jump, GENERAL_RUNTIME_ERROR);
+    }
+    
     private void foldWithEmptyArray(ASMCodeFragment frag) {
         String foldWithEmptyArrayMessage = "$errors-fold-with-empty-array";
 

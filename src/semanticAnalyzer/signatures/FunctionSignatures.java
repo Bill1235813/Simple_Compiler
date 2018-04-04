@@ -255,7 +255,7 @@ public class FunctionSignatures extends ArrayList<FunctionSignature> {
         // zip
         new FunctionSignatures(
                 Keyword.ZIP,
-                new FunctionSignature(1, setSTU, arrayOfU, arrayOfS, zipUST, arrayOfT)
+                new FunctionSignature(new ZipCodeGenerator(), setSTU, arrayOfU, arrayOfS, zipUST, arrayOfT)
         );
 
         //////////////////////////////////////////////////////////////////////////////////////

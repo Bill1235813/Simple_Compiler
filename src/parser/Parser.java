@@ -264,6 +264,9 @@ public class Parser {
         if (startsReturnStatement(nowReading)) {
             return parseReturnStatement();
         }
+        if (startsForStatement(nowReading)) {
+            return parseForStatement();
+        }
         return syntaxErrorNode("statement");
     }
 
@@ -278,7 +281,41 @@ public class Parser {
                 startsBreakStatement(token) ||
                 startsContinueStatement(token) ||
                 startsCallStatement(token) ||
-                startsReturnStatement(token);
+                startsReturnStatement(token) ||
+                startsForStatement(token);
+    }
+
+    // forStmt -> for index identifier of expression blockStmt
+    //         -> for elem identifier of expression blockStmt
+    private ParseNode parseForStatement() {
+        if (!startsForStatement(nowReading)) {
+            return syntaxErrorNode("forStatement");
+        }
+        Token forToken = nowReading;
+        expect(Keyword.FOR);
+
+        // index or elem
+        boolean indexFlag;
+        if (!continuesForStatement(nowReading)) {
+            return syntaxErrorNode("forStatement");
+        } else {
+            indexFlag = nowReading.isLextant(Keyword.INDEX);
+        }
+
+        // parse
+        readToken();
+        ParseNode identifier = parseIdentifier();
+        expect(Keyword.OF);
+        ParseNode sequence = parseExpression();
+        ParseNode body = parseBlockStatement();
+        return ForStatementNode.withChildren(forToken, indexFlag, identifier, sequence, body);
+    }
+
+    private boolean startsForStatement(Token token) {
+        return token.isLextant(Keyword.FOR);
+    }
+    private boolean continuesForStatement(Token token) {
+        return token.isLextant(Keyword.ELEM) || token.isLextant(Keyword.INDEX);
     }
 
     // returnStmt -> return expression? .

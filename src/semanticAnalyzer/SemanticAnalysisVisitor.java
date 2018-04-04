@@ -198,6 +198,17 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     @Override
+    public void visitLeave(ForStatementNode node) {
+        assert node.nChildren() == 3;
+        ParseNode sequence = node.child(2);
+        if (!sequence.getType().equivalent(PrimitiveType.STRING)
+                && !(sequence.getType() instanceof Array)) {
+            notSequenceError(node);
+            node.setType(PrimitiveType.ERROR);
+        }
+    }
+
+    @Override
     public void visitLeave(CallStatementNode node) {
     		node.setType(node.child(0).getType());
     }
@@ -244,6 +255,9 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         if (parent instanceof WhileStatementNode) {
             node.setLoopLink((WhileStatementNode) parent);
             ((WhileStatementNode) parent).setBreakflag(true);
+        } else if (parent instanceof ForStatementNode) {
+            node.setLoopLink((ForStatementNode) parent);
+            ((ForStatementNode) parent).setBreakflag(true);
         }
     }
 
@@ -253,12 +267,16 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         if (parent instanceof WhileStatementNode) {
             node.setLoopLink((WhileStatementNode) parent);
             ((WhileStatementNode) parent).setContinueflag(true);
+        } else if (parent instanceof ForStatementNode) {
+            node.setLoopLink((ForStatementNode) parent);
+            ((ForStatementNode) parent).setContinueflag(true);
         }
     }
 
     private ParseNode getParentLoop(ParseNode node) {
         ParseNode parent = node.getParent();
-        while (!(parent instanceof WhileStatementNode)) {
+        while (!(parent instanceof WhileStatementNode)
+                && !(parent instanceof ForStatementNode)) {
             parent = parent.getParent();
             if (parent instanceof ProgramNode) {
                 noParentLoop(node);
@@ -532,6 +550,13 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         Token token = node.getToken();
 
         logError(token.getLexeme() + " statement must have boolean condition"
+                + " at " + token.getLocation());
+    }
+
+    private void notSequenceError(ForStatementNode node) {
+        Token token = node.getToken();
+
+        logError(token.getLexeme() + " statement must have string or array sequence type"
                 + " at " + token.getLocation());
     }
 

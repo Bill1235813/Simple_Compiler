@@ -99,6 +99,10 @@ public interface ParseNodeVisitor {
 
     void visitLeave(ReturnStatementNode node);
 
+    void visitEnter(ForStatementNode node);
+
+    void visitLeave(ForStatementNode node);
+
     // leaf nodes: visitLeaf only
     void visit(BooleanConstantNode node);
 
@@ -343,6 +347,16 @@ public interface ParseNodeVisitor {
 
         @Override
         public void visitLeave(ReturnStatementNode node) {
+            defaultVisitLeave(node);
+        }
+
+        @Override
+        public void visitEnter(ForStatementNode node) {
+            defaultVisitEnter(node);
+        }
+
+        @Override
+        public void visitLeave(ForStatementNode node) {
             defaultVisitLeave(node);
         }
 
