@@ -100,6 +100,14 @@ public class Scope {
 
     ///////////////////////////////////////////////////////////////////////
     // bindings
+    public void createStaticBinding(IdentifierNode identifierNode, Binding binding, Boolean constflag) {
+        Token token = identifierNode.getToken();
+        symbolTable.errorIfAlreadyDefined(token);
+
+        String lexeme = token.getLexeme();
+        symbolTable.install(lexeme, binding);
+    }
+
     public Binding createBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Token token = identifierNode.getToken();
         symbolTable.errorIfAlreadyDefined(token);

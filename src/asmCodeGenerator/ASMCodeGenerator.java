@@ -255,6 +255,7 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(FunctionDefinitionNode node) {
+            newVoidCode(node);
             ASMCodeFragment[] args = getAssignChildren(node);
             setAndStore(node, args);
         }
@@ -350,14 +351,37 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(AssignmentStatementNode node) {
+            newVoidCode(node);
             ASMCodeFragment[] args = getAssignChildren(node);
             applyPromotion(node.getPromotion(), node, args);
             setAndStore(node, args);
         }
 
         public void visitLeave(DeclarationNode node) {
+            newVoidCode(node);
+            // initializer for static
+            String endflag = null;
+            if (node.isStaticFlag()) {
+                assert node.nChildren() > 2;
+                Labeller labeller = new Labeller("static-initializer");
+                endflag = labeller.newLabel("endflag");
+                ASMCodeFragment initializer = removeAddressCode(node.child(2));
+                code.append(initializer);
+                code.add(Duplicate);
+                storeITo(code, RunTime.STORE_ADDRESS_TEMP);
+                code.add(LoadC);
+                code.add(JumpTrue, endflag); // [...]
+                loadIFrom(code, RunTime.STORE_ADDRESS_TEMP);
+                code.add(PushI, 1);
+                code.add(StoreC);
+            }
+
             ASMCodeFragment[] args = getAssignChildren(node);
             setAndStore(node, args);
+
+            if (node.isStaticFlag()) {
+                code.add(Label, endflag);
+            }
         }
 
         private ASMCodeFragment[] getAssignChildren(ParseNode node) {
@@ -367,8 +391,6 @@ public class ASMCodeGenerator {
         }
 
         private void setAndStore(ParseNode node, ASMCodeFragment[] args) {
-            newVoidCode(node);
-
             Type type = node.getType();
             code.append(args[1]);
             code.append(args[0]);
@@ -652,25 +674,49 @@ public class ASMCodeGenerator {
         public void visit(BreakStatementNode node) {
             newVoidCode(node);
 
-            WhileStatementNode parent = node.getLoopLink();
-            String breakLabel = parent.getBreakLabel();
-            if (breakLabel == null) {
-                Labeller labeller = new Labeller("loop-break");
-                breakLabel = labeller.newLabel("ends");
-                parent.setBreakLabel(breakLabel);
+            ParseNode parent = node.getLoopLink();
+            String breakLabel = null;
+            if (parent instanceof WhileStatementNode) {
+                WhileStatementNode whileParent = (WhileStatementNode) parent;
+                breakLabel = whileParent.getBreakLabel();
+                if (breakLabel == null) {
+                    Labeller labeller = new Labeller("loop-break");
+                    breakLabel = labeller.newLabel("ends");
+                    whileParent.setBreakLabel(breakLabel);
+                }
+            } else if (parent instanceof ForStatementNode) {
+                ForStatementNode forParent = (ForStatementNode) parent;
+                breakLabel = forParent.getBreakLabel();
+                if (breakLabel == null) {
+                    Labeller labeller = new Labeller("loop-break");
+                    breakLabel = labeller.newLabel("ends");
+                    forParent.setBreakLabel(breakLabel);
+                }
             }
-            code.add(Jump, breakLabel);
+            code.add(Jump, breakLabel);  
         }
 
         public void visit(ContinueStatementNode node) {
             newVoidCode(node);
 
-            WhileStatementNode parent = node.getLoopLink();
-            String continueLabel = parent.getContinueLabel();
-            if (continueLabel == null) {
-                Labeller labeller = new Labeller("loop-continue");
-                continueLabel = labeller.newLabel("condition");
-                parent.setContinueLabel(continueLabel);
+            ParseNode parent = node.getLoopLink();
+            String continueLabel = null;
+            if (parent instanceof WhileStatementNode) {
+                WhileStatementNode whileParent = (WhileStatementNode) parent;
+                continueLabel = whileParent.getContinueLabel();
+                if (continueLabel == null) {
+                    Labeller labeller = new Labeller("loop-continue");
+                    continueLabel = labeller.newLabel("condition");
+                    whileParent.setContinueLabel(continueLabel);
+                }
+            } else if (parent instanceof ForStatementNode) {
+                ForStatementNode forParent = (ForStatementNode) parent;
+                continueLabel = forParent.getContinueLabel();
+                if (continueLabel == null) {
+                    Labeller labeller = new Labeller("loop-continue");
+                    continueLabel = labeller.newLabel("condition");
+                    forParent.setContinueLabel(continueLabel);
+                }
             }
             code.add(Jump, continueLabel);
         }

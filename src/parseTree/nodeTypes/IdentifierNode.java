@@ -5,12 +5,12 @@ import parseTree.ParseNodeVisitor;
 import logging.PikaLogger;
 import semanticAnalyzer.SemanticAnalysisVisitor;
 import symbolTable.Binding;
-import symbolTable.ParameterMemoryAllocator;
 import symbolTable.Scope;
 import tokens.IdentifierToken;
 import tokens.Token;
 
 public class IdentifierNode extends ParseNode {
+    private static int count = 0;
     private Binding binding;
     private Scope declarationScope;
 
@@ -47,6 +47,13 @@ public class IdentifierNode extends ParseNode {
 
 ////////////////////////////////////////////////////////////
 // Speciality functions
+    public IdentifierNode createArtificialNode(String suffix) {
+        IdentifierNode artificial = new IdentifierNode(this);
+        String lexeme = "#" + artificial.token.getLexeme() + "-" + count + suffix;
+        artificial.token = IdentifierToken.make(artificial.token.getLocation(), lexeme);
+        count++;
+        return artificial;
+    }
 
     public void setConst(Boolean constflag) {
         binding.setConstflag(constflag);
@@ -59,28 +66,28 @@ public class IdentifierNode extends ParseNode {
     public Binding findVariableBinding() {
         String identifier = token.getLexeme();
 
+        boolean lambdaFlag = false;
         for (ParseNode current : pathToRoot()) {
-            if (current.containsBindingOf(identifier)) {
+            if (!lambdaFlag && current.containsBindingOf(identifier)) {
+                declarationScope = current.getScope();
+                return current.bindingOf(identifier);
+            } else if (lambdaFlag && current.containsStaticBindingOf(identifier)) {
+                declarationScope = current.getScope();
+                return current.bindingOf(identifier);
+            } else if (current instanceof ProgramNode && current.containsBindingOf(identifier)){
                 declarationScope = current.getScope();
                 return current.bindingOf(identifier);
             }
-            if (checkParameterMemoryAllocator(current)) {
-                ParseNode programNode = SemanticAnalysisVisitor.getProgramNode();
-                if (programNode.containsBindingOf(identifier)) {
-                    declarationScope = programNode.getScope();
-                    return programNode.bindingOf(identifier);
-                } else {
-                    break;
-                }
+            if (isLambdaNode(current)) {
+                lambdaFlag = true;
             }
         }
         useBeforeDefineError();
         return Binding.nullInstance();
     }
 
-    private boolean checkParameterMemoryAllocator(ParseNode node) {
-        return node.hasScope()
-                && node.getScope().getAllocationStrategy() instanceof ParameterMemoryAllocator;
+    private boolean isLambdaNode(ParseNode node) {
+        return node instanceof LambdaNode;
     }
 
     public Scope getDeclarationScope() {

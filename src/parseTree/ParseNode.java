@@ -66,10 +66,12 @@ public class ParseNode {
     }
 
     private boolean checkValidVoid() {
-    		if (this instanceof ReturnStatementNode || this instanceof CallStatementNode) {
+    		if (this instanceof ReturnStatementNode
+                    || this instanceof CallStatementNode) {
     			return true;
     		} else if (this instanceof OperatorNode) {
-    			if (!(this.parent instanceof ReturnStatementNode) && !(this.parent instanceof CallStatementNode)) {
+    			if (!(this.parent instanceof ReturnStatementNode)
+                        && !(this.parent instanceof CallStatementNode)) {
     				return false;
     			}
     			return ((OperatorNode)this).getOperator() == Punctuator.FUNCTION_INVOCATION;
@@ -81,7 +83,8 @@ public class ParseNode {
     			} else if (this.parent.child(1) != this){
     				return false;
     			} else {
-    				return (this.parent instanceof TypeNode) || (this.parent instanceof LambdaParamTypeNode);
+    				return (this.parent instanceof TypeNode)
+                            || (this.parent instanceof LambdaParamTypeNode);
     			}
     		}
     		return false;
@@ -128,6 +131,15 @@ public class ParseNode {
         }
         SymbolTable symbolTable = scope.getSymbolTable();
         return symbolTable.containsKey(identifier);
+    }
+
+    public boolean containsStaticBindingOf(String identifier) {
+        if (!hasScope()) {
+            return false;
+        }
+        SymbolTable symbolTable = scope.getSymbolTable();
+        return symbolTable.containsKey(identifier)
+                && symbolTable.lookup(identifier).getLexeme().contains("#");
     }
 
     public Binding bindingOf(String identifier) {

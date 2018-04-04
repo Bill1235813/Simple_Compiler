@@ -200,12 +200,20 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     @Override
     public void visitLeave(ForStatementNode node) {
         assert node.nChildren() == 3;
-        ParseNode sequence = node.child(2);
+        IdentifierNode identifier = (IdentifierNode) node.child(0);
+        ParseNode sequence = node.child(1);
+        Type subType = PrimitiveType.ERROR;
         if (!sequence.getType().equivalent(PrimitiveType.STRING)
                 && !(sequence.getType() instanceof Array)) {
             notSequenceError(node);
             node.setType(PrimitiveType.ERROR);
+        } else if (sequence.getType().equivalent(PrimitiveType.STRING)){
+            subType = PrimitiveType.CHARACTER;
+        } else if (sequence.getType() instanceof Array) {
+            subType = ((Array) sequence.getType()).getSubtype();
         }
+        identifier.setType(subType);
+        addBinding(identifier, subType, true);
     }
 
     @Override
@@ -459,7 +467,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
     public static void getIdentifier(IdentifierNode node) {
         assert node.getParent() != null;
-        if (!isBeingDeclared(node) && !isParameter(node)) {
+        if (!isBeingDeclared(node) && !isParameter(node) && !isForLoopIterator(node)) {
             Binding binding = node.findVariableBinding();
 
             node.setType(binding.getType());
@@ -479,9 +487,36 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         return (parent instanceof ParamSpecNode) && (node == parent.child(1));
     }
 
+    private static boolean isForLoopIterator(IdentifierNode node) {
+        ParseNode parent = node.getParent();
+        return (parent instanceof ForStatementNode) && (node == parent.child(0)) && (parent.nChildren() == 3);
+    }
+
+    private static boolean isStatic(IdentifierNode node) {
+        assert node.getParent() instanceof DeclarationNode;
+        return ((DeclarationNode) node.getParent()).isStaticFlag();
+    }
+
     public static void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
-        Scope scope = identifierNode.getLocalScope();
-        Binding binding = scope.createBinding(identifierNode, type, constflag);
+        Scope scope;
+        Binding binding;
+        if (isForLoopIterator(identifierNode)) {
+            scope = identifierNode.getParent().child(2).getScope();
+            binding = scope.createBinding(identifierNode, type, constflag);
+        } else if (isBeingDeclared(identifierNode) && isStatic(identifierNode)) {
+            scope = programNode.getScope();
+            IdentifierNode artificial = identifierNode.createArtificialNode("");
+            binding = scope.createBinding(artificial, type, constflag);
+            identifierNode.getLocalScope().createStaticBinding(identifierNode, binding, constflag);
+            // set initializer flag
+            IdentifierNode artificialFlag = identifierNode.createArtificialNode("-initializer");
+            artificialFlag.setBinding(scope.createBinding(artificialFlag,
+                    PrimitiveType.BOOLEAN, false));
+            identifierNode.getParent().appendChild(artificialFlag);
+        } else {
+            scope = identifierNode.getLocalScope();
+            binding = scope.createBinding(identifierNode, type, constflag);
+        }
         identifierNode.setBinding(binding);
     }
 
