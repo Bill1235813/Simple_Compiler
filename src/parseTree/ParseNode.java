@@ -45,6 +45,7 @@ public class ParseNode {
         this.type = node.type;
         this.targetable = node.targetable;
         this.scope = node.scope;
+        initChildren();
     }
 
     public Token getToken() {

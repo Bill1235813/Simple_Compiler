@@ -1,0 +1,10 @@
+static const f1:=ff.
+
+func ff <>->void {
+    print 6;.
+}
+
+exec {
+    print 5;.
+    call f1().
+}

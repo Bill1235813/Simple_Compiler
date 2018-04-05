@@ -1,0 +1,41 @@
+func f1 <>->int {
+    print "Bill is my father";_n_.
+    return 0.
+}
+func f2 <>->void {
+    static var a:=f1().
+    print a + 5;_n_.
+    return.
+}
+func f3 <int a>->int {
+    static var b:=5.
+    print b;_n_.
+    b:=a + 5.
+    return b.
+}
+func f4 <int a>->void {
+    static var a:=5.
+    print a;_n_.
+    return.
+}
+exec {
+    call f2().
+    call f2().
+    call f3(f3(f3(5))).
+    call f4(0).
+    billJoeBob:=1.
+    while (_true_) {
+        static var billJoeBob := 15.
+        {
+            static const billJoeBob := 13.
+            static var f5 := <int a>->void {
+                print billJoeBob;_n_.
+                return.
+            }.
+            print billJoeBob;_n_.
+            call f5(0).
+        }
+        # call f5(0).
+        break.
+    }
+}

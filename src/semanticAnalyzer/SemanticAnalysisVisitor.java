@@ -29,6 +29,10 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
         return programNode;
     }
 
+    public static void setProgramNode(ParseNode node) {
+        programNode = node;
+    }
+
     @Override
     public void visitLeave(ParseNode node) {
         throw new RuntimeException("Node class unimplemented in SemanticAnalysisVisitor: " + node.getClass());
@@ -38,7 +42,6 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     // constructs larger than statements
     @Override
     public void visitEnter(ProgramNode node) {
-        programNode = node;
         enterProgramScope(node);
     }
 
@@ -83,15 +86,18 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitEnter(BlockStatementNode node) {
         assert node.getParent() != null;
         ParseNode parent = node.getParent();
-        if  (parent instanceof LambdaNode) {
+        if (parent instanceof LambdaNode) {
             enterProcedureScope(node);
-        } else {
+        } else if (!(parent instanceof ForStatementNode)){
             enterSubscope(node);
         }
     }
 
     public void visitLeave(BlockStatementNode node) {
-        leaveScope(node);
+        assert node.getParent() != null;
+        if (!(node.getParent() instanceof ForStatementNode)) {
+            leaveScope(node);
+        }
     }
 
 
@@ -198,22 +204,21 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     }
 
     @Override
-    public void visitLeave(ForStatementNode node) {
+    public void visitEnter(ForStatementNode node) {
         assert node.nChildren() == 3;
-        IdentifierNode identifier = (IdentifierNode) node.child(0);
-        ParseNode sequence = node.child(1);
-        Type subType = PrimitiveType.ERROR;
-        if (!sequence.getType().equivalent(PrimitiveType.STRING)
-                && !(sequence.getType() instanceof Array)) {
-            notSequenceError(node);
-            node.setType(PrimitiveType.ERROR);
-        } else if (sequence.getType().equivalent(PrimitiveType.STRING)){
-            subType = PrimitiveType.CHARACTER;
-        } else if (sequence.getType() instanceof Array) {
-            subType = ((Array) sequence.getType()).getSubtype();
-        }
-        identifier.setType(subType);
-        addBinding(identifier, subType, true);
+        enterSubscope(node);
+        // add identifier node to the body
+        node.child(2).insertChild(new IdentifierNode(node.child(0)));
+    }
+
+    @Override
+    public void visitLeave(ForStatementNode node) {
+        IdentifierNode identifierNode = (IdentifierNode) node.child(0);
+        IdentifierNode copyNode = (IdentifierNode) node.child(2).child(0);
+        identifierNode.setType(copyNode.getType());
+        identifierNode.setTargetable(copyNode.getTargetable());
+        identifierNode.setBinding(copyNode.getBinding());
+        leaveScope(node);
     }
 
     @Override
@@ -415,35 +420,6 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     ///////////////////////////////////////////////////////////////////////////
     // simple leaf nodes
-//    @Override
-//    public void visit(BooleanConstantNode node) {
-//        node.setType(PrimitiveType.BOOLEAN);
-//    }
-//
-//    @Override
-//    public void visit(ErrorNode node) {
-//        node.setType(PrimitiveType.ERROR);
-//    }
-//
-//    @Override
-//    public void visit(IntegerConstantNode node) {
-//        node.setType(PrimitiveType.INTEGER);
-//    }
-//
-//    @Override
-//    public void visit(FloatingConstantNode node) {
-//        node.setType(PrimitiveType.FLOATING);
-//    }
-//
-//    @Override
-//    public void visit(CharacterConstantNode node) {
-//        node.setType(PrimitiveType.CHARACTER);
-//    }
-//
-//    @Override
-//    public void visit(StringConstantNode node) {
-//        node.setType(PrimitiveType.STRING);
-//    }
 
     @Override
     public void visit(NewlineNode node) {
@@ -473,6 +449,23 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
             node.setType(binding.getType());
             node.setBinding(binding);
             node.setTargetable(!node.getConst()); // const is not targetable
+        } else if (node.getParent() instanceof BlockStatementNode) {
+            ParseNode sequence = node.getParent().getParent().child(1);
+            Type subType = PrimitiveType.ERROR;
+            if (((ForStatementNode) sequence.getParent()).isIndexFlag()) {
+                subType = PrimitiveType.INTEGER;
+            } else {
+                if (!sequence.getType().equivalent(PrimitiveType.STRING)
+                        && !(sequence.getType() instanceof Array)) {
+                    notSequenceError(((ForStatementNode) node.getParent().getParent()));
+                } else if (sequence.getType().equivalent(PrimitiveType.STRING)) {
+                    subType = PrimitiveType.CHARACTER;
+                } else if (sequence.getType() instanceof Array) {
+                    subType = ((Array) sequence.getType()).getSubtype();
+                }
+            }
+            node.setType(subType);
+            addBinding(node, subType, true);
         }
         // else parent DeclarationNode does the processing.
     }
@@ -489,7 +482,8 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
 
     private static boolean isForLoopIterator(IdentifierNode node) {
         ParseNode parent = node.getParent();
-        return (parent instanceof ForStatementNode) && (node == parent.child(0)) && (parent.nChildren() == 3);
+        return ((parent instanceof BlockStatementNode) || (parent instanceof ForStatementNode))
+                && (node == parent.child(0));
     }
 
     private static boolean isStatic(IdentifierNode node) {
@@ -500,10 +494,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public static void addBinding(IdentifierNode identifierNode, Type type, Boolean constflag) {
         Scope scope;
         Binding binding;
-        if (isForLoopIterator(identifierNode)) {
-            scope = identifierNode.getParent().child(2).getScope();
-            binding = scope.createBinding(identifierNode, type, constflag);
-        } else if (isBeingDeclared(identifierNode) && isStatic(identifierNode)) {
+        if (isBeingDeclared(identifierNode) && isStatic(identifierNode)) {
             scope = programNode.getScope();
             IdentifierNode artificial = identifierNode.createArtificialNode("");
             binding = scope.createBinding(artificial, type, constflag);
@@ -588,7 +579,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
                 + " at " + token.getLocation());
     }
 
-    private void notSequenceError(ForStatementNode node) {
+    private static void notSequenceError(ForStatementNode node) {
         Token token = node.getToken();
 
         logError(token.getLexeme() + " statement must have string or array sequence type"

@@ -16,6 +16,11 @@ public class Pre2SemanticAnalysisVisitor extends ParseNodeVisitor.Default{
     }
 
     @Override
+    public void visitEnter(ProgramNode node) {
+        setProgramNode(node);
+    }
+
+    @Override
     public void visitLeave(DeclarationNode node) {
         if (!isChildOfBlock(node)) {
             setDeclaration(node);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import asmCodeGenerator.FullCodeGenerator.ForStatementCodeGenerator;
 import asmCodeGenerator.FullCodeGenerator.FullCodeGenerator;
 import asmCodeGenerator.codeStorage.ASMCodeFragment;
 import asmCodeGenerator.codeStorage.ASMOpcode;
@@ -24,6 +25,7 @@ import symbolTable.Scope;
 import static asmCodeGenerator.Macros.*;
 import static asmCodeGenerator.codeStorage.ASMCodeFragment.CodeType.*;
 import static asmCodeGenerator.codeStorage.ASMOpcode.*;
+import static asmCodeGenerator.runtime.RunTime.*;
 import static semanticAnalyzer.SemanticAnalysisVisitor.getParentLambda;
 
 // do not call the code generator if any errors have occurred during analysis.
@@ -433,7 +435,6 @@ public class ASMCodeGenerator {
         }
 
         public void visitLeave(WhileStatementNode node) {
-
             ASMCodeFragment condition = removeValueCode(node.child(0));
             ASMCodeFragment body = removeVoidCode(node.child(1));
 
@@ -461,6 +462,14 @@ public class ASMCodeGenerator {
             code.add(Jump, conditionLabel);
 
             code.add(Label, endsLabel);
+        }
+
+        public void visitLeave(ForStatementNode node) {
+            ASMCodeFragment identifier = removeAddressCode(node.child(0));
+            ASMCodeFragment sequence = removeValueCode(node.child(1));
+            ASMCodeFragment body = removeVoidCode(node.child(2));
+            newVoidCode(node);
+            code.append(new ForStatementCodeGenerator().generate(node, identifier, sequence, body));
         }
 
         public void visitLeave(ReleaseStatementNode node) {
@@ -634,7 +643,8 @@ public class ASMCodeGenerator {
         }
 
         public void visit(IdentifierNode node) {
-            if (node.getParent() instanceof ParamSpecNode) {
+            if (node.getParent() instanceof ParamSpecNode
+                    || node.getParent() instanceof BlockStatementNode) {
                 newVoidCode(node);
             } else {
                 newAddressCode(node);

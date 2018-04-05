@@ -308,7 +308,10 @@ public class Parser {
         expect(Keyword.OF);
         ParseNode sequence = parseExpression();
         ParseNode body = parseBlockStatement();
-        return ForStatementNode.withChildren(forToken, indexFlag, identifier, sequence, body);
+        ForStatementNode forStatementNode =
+                ForStatementNode.withChildren(forToken, identifier, sequence, body);
+        forStatementNode.setIndexFlag(indexFlag);
+        return forStatementNode;
     }
 
     private boolean startsForStatement(Token token) {
@@ -595,7 +598,10 @@ public class Parser {
         ParseNode initializer = parseExpression();
         expect(Punctuator.TERMINATOR);
 
-        return DeclarationNode.withChildren(declarationToken, identifier, initializer, staticFlag);
+        DeclarationNode declarationNode
+                = DeclarationNode.withChildren(declarationToken, identifier, initializer);
+        declarationNode.setStaticFlag(staticFlag);
+        return declarationNode;
     }
 
     private boolean startsDeclaration(Token token) {

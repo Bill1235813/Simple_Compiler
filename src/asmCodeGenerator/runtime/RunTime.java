@@ -65,6 +65,7 @@ public class RunTime {
     public static final String STRING_CONCATENATION_FIRST = "$string-concatenation-first-temp";
     public static final String STRING_CONCATENATION_SECOND = "$string-concatenation-second-temp";
     public static final String FUNCTION_TEMP = "$function-temp";
+    public static final String STACK_POP_TEMP = "$stack-pop-temp";
 
     public static final String LOWEST_TERMS = "$$convert-to-lowest-terms";
     public static final String CLEAR_N_BYTES = "$$clear-n-bytes";
@@ -355,6 +356,7 @@ public class RunTime {
         declareI(frag, STRING_CONCATENATION_FIRST);
         declareI(frag, STRING_CONCATENATION_SECOND);
         declareI(frag, FUNCTION_TEMP);
+        declareI(frag, STACK_POP_TEMP);
 
         return frag;
     }
@@ -806,6 +808,10 @@ public class RunTime {
 
     // frame return, [... value] -> [...]
     public static void returnFrame(ASMCodeFragment code, int totalOffset, Type returnType) {
+        // add reasonable pop
+        loadIFrom(code, STACK_POP_TEMP);
+        addITo(code, STACK_POINTER);
+
         getReturnAddr(code); // [... value]
         storeITo(code, RETURN_FOR_RUNTIME_FUNCTION);
         getOldFP(code); // [... value oldFP]
@@ -815,7 +821,12 @@ public class RunTime {
 
         pushStack(code, returnType.getSize());
         ASMCodeGenerator.storeValueIntoAddress(code, returnType, STACK_POINTER);
-
+        
+        // set pop temp
+        ASMCodeGenerator.turnAddressIntoValue(code, PrimitiveType.INTEGER, STACK_POINTER);
+        popStack(code, 4);
+        storeITo(code, STACK_POP_TEMP);
+        
         loadIFrom(code, RETURN_FOR_RUNTIME_FUNCTION);
         code.add(Return);
 

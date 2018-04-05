@@ -8,7 +8,7 @@ import tokens.LextantToken;
 import tokens.Token;
 
 public class DeclarationNode extends ParseNode {
-    private static boolean staticFlag;
+    private boolean staticFlag;
 
     public DeclarationNode(Token token) {
         super(token);
@@ -35,11 +35,10 @@ public class DeclarationNode extends ParseNode {
     // convenience factory
 
     public static DeclarationNode withChildren(Token token, ParseNode declaredName,
-                                               ParseNode initializer, boolean staticflag) {
+                                               ParseNode initializer) {
         DeclarationNode node = new DeclarationNode(token);
         node.appendChild(declaredName);
         node.appendChild(initializer);
-        staticFlag = staticflag;
         return node;
     }
 
@@ -55,5 +54,9 @@ public class DeclarationNode extends ParseNode {
 
     public boolean isStaticFlag() {
         return staticFlag;
+    }
+
+    public void setStaticFlag(boolean staticFlag) {
+        this.staticFlag = staticFlag;
     }
 }

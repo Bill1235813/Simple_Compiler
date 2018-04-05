@@ -1,0 +1,17 @@
+exec {
+    const a:= "string:12345".
+    for index i of a {
+        i:=i + 1.
+        print a[i];.
+    }
+    for elem i of a {
+        var i:=^a^.
+        print i.
+    }
+    break.
+    continue.
+    while (1==1) {
+        break.
+        continue.
+    }
+}

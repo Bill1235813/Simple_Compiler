@@ -5,7 +5,7 @@ import parseTree.ParseNodeVisitor;
 import tokens.Token;
 
 public class ForStatementNode extends ParseNode {
-    private static boolean indexFlag;
+    private boolean indexFlag;
     private boolean breakflag;
     private boolean continueflag;
     private String breakLabel;
@@ -30,11 +30,9 @@ public class ForStatementNode extends ParseNode {
     ////////////////////////////////////////////////////////////
     // attributes
 
-    public static ForStatementNode withChildren(Token token, boolean indexflag,
-                                                ParseNode identifier, ParseNode sequence,
-                                                ParseNode body) {
+    public static ForStatementNode withChildren(Token token, ParseNode identifier,
+                                                ParseNode sequence, ParseNode body) {
         ForStatementNode node = new ForStatementNode(token);
-        indexFlag = indexflag;
         node.appendChild(identifier);
         node.appendChild(sequence);
         node.appendChild(body);
@@ -86,4 +84,7 @@ public class ForStatementNode extends ParseNode {
         this.continueLabel = continueLabel;
     }
 
+    public void setIndexFlag(boolean indexFlag) {
+        this.indexFlag = indexFlag;
+    }
 }

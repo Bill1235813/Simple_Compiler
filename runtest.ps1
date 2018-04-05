@@ -15,7 +15,7 @@
 
 
 ##################################################################################################3
-$DEFAULT_INPUT = ".\input\pika-3\"  # MAY CHANGE HERE
+$DEFAULT_INPUT = ".\input\pika-4-lqc"  # MAY CHANGE HERE
 $COMPARE_DIR = ".\actual\"    # MAY CHANGE HERE
 $OUTPUT = ".\output\"
 $ASM_EXECUTABLE = ".\ASM_Emulator\ASMEmu.exe"
@@ -69,6 +69,9 @@ ForEach ($pikaFile in $FILES) {
 }
 echo "Finish Running`n"
 
+# remove .asm file
+rm $OUTPUT\*.asm
+
 # compare results
 If (!(Test-Path -Path $COMPARE_DIR )){
    echo "Comparing Directory $COMPARE_DIR doesn't exist"
@@ -97,9 +100,6 @@ echo "Finish Comparing`n"
 
 # delete compile
 # rm -r $DES_DIR\*
-
-# remove .asm file
-rm $OUTPUT\*.asm
 
 # done
 Exit

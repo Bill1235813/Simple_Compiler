@@ -1,0 +1,11 @@
+var nn:=[1,5,3,9,2].
+var ff:=[2.1, -3.3, 4.2, 5.0, 17.79].
+var ratIt:= <int n, float f>-> rat {
+    return n//[f|int].
+}.
+func isOdd<int a>->bool {
+    return a!=(a/2)*2.
+}
+var numListwrong:=zip (nn reduce isOdd), ff, ratIt.
+exec {
+}
