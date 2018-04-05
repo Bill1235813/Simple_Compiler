@@ -35,11 +35,11 @@ public class ForStatementCodeGenerator implements FullCodeGenerator {
         // Set several Labels
         Labeller labeller = new Labeller("for");
         String continuesLabel = labeller.newLabel("continue");
-        String breaksLabel = labeller.newLabel("starts");
+        String breaksLabel = labeller.newLabel("breaks");
         String endsLabel = labeller.newLabel("ends");
+        String loopLabel = labeller.newLabel("loop");
         if (forNode.isBreakflag()) {
-            endsLabel = forNode.getBreakLabel();
-
+            breaksLabel = forNode.getBreakLabel();
         }
         if (forNode.isContinueflag()) {
             continuesLabel = forNode.getContinueLabel();
@@ -66,9 +66,12 @@ public class ForStatementCodeGenerator implements FullCodeGenerator {
             fragment.add(PushI, -1);
             fragment.add(StoreI);
         }
+        // add to pop-temp
+        fragment.add(PushI, 12);
+        addITo(fragment, STACK_POP_TEMP);
 
         // store before body
-        fragment.add(Label, continuesLabel);
+        fragment.add(Label, loopLabel);
         loadIFrom(fragment, COPY_SIZE_TEMP); // [... nElems]
         fragment.add(JumpFalse, endsLabel); // [...]
         decrementInteger(fragment, COPY_SIZE_TEMP); // elemsSize -= 1
@@ -82,10 +85,6 @@ public class ForStatementCodeGenerator implements FullCodeGenerator {
             getOneFromRecord(fragment, subType, 1); // [... elem]
             ASMCodeGenerator.storeValueIntoAddress(fragment, subType, STORE_ADDRESS_TEMP);
         }
-
-        // add to pop-temp
-        fragment.add(PushI, 12);
-        addITo(fragment, STACK_POP_TEMP);
         
         loadIFrom(fragment, COPY_LOCATION_TEMP);
         pushStack(fragment, 4);
@@ -97,6 +96,7 @@ public class ForStatementCodeGenerator implements FullCodeGenerator {
         pushStack(fragment, 4);
         ASMCodeGenerator.storeValueIntoAddress(fragment, PrimitiveType.INTEGER, STACK_POINTER);
         fragment.append(args[2]);
+        fragment.add(Label, continuesLabel);
         ASMCodeGenerator.turnAddressIntoValue(fragment, PrimitiveType.INTEGER, STACK_POINTER);
         popStack(fragment, 4);
         storeITo(fragment, STORE_ADDRESS_TEMP);
@@ -106,7 +106,7 @@ public class ForStatementCodeGenerator implements FullCodeGenerator {
         ASMCodeGenerator.turnAddressIntoValue(fragment, PrimitiveType.INTEGER, STACK_POINTER);
         popStack(fragment, 4);
         storeITo(fragment, COPY_LOCATION_TEMP);
-        fragment.add(Jump, continuesLabel);
+        fragment.add(Jump, loopLabel);
 
         // break and end
         fragment.add(Label, breaksLabel);

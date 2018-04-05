@@ -819,17 +819,16 @@ public class RunTime {
         code.add(PushI, totalOffset);
         addITo(code, STACK_POINTER); // [... value]
 
-        pushStack(code, returnType.getSize());
-        ASMCodeGenerator.storeValueIntoAddress(code, returnType, STACK_POINTER);
-        
         // set pop temp
         ASMCodeGenerator.turnAddressIntoValue(code, PrimitiveType.INTEGER, STACK_POINTER);
         popStack(code, 4);
         storeITo(code, STACK_POP_TEMP);
+
+        pushStack(code, returnType.getSize());
+        ASMCodeGenerator.storeValueIntoAddress(code, returnType, STACK_POINTER);
         
         loadIFrom(code, RETURN_FOR_RUNTIME_FUNCTION);
         code.add(Return);
-
     }
 
     public static ASMCodeFragment getEnvironment() {

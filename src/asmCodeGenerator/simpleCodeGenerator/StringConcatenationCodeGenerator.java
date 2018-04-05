@@ -69,7 +69,11 @@ public class StringConcatenationCodeGenerator implements SimpleCodeGenerator{
     
     private void getChildLength(ParseNode node, ASMCodeFragment frag, int childIndex) {
         if (node.child(childIndex).getType() == PrimitiveType.STRING) {
-            loadIFrom(frag, RunTime.STRING_CONCATENATION_FIRST);
+            if (childIndex == 0) {
+                loadIFrom(frag, RunTime.STRING_CONCATENATION_FIRST);
+            } else {
+                loadIFrom(frag, RunTime.STRING_CONCATENATION_SECOND);
+            }
             RunTime.getStringLength(frag); // [... length]
         } else if (node.child(childIndex).getType() == PrimitiveType.CHARACTER) {
             frag.add(PushI, 1);
