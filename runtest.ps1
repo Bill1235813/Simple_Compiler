@@ -81,8 +81,8 @@ If (!(Test-Path -Path $COMPARE_DIR )){
 echo "Start Comparing"
 $COMPARE_FILES = Get-ChildItem $COMPARE_DIR -Filter *.txt
 ForEach ($correctTxt in $COMPARE_FILES) {
-   # $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
-   $outTxt = $OUTPUT + $correctTxt.Name
+   $outTxt = $OUTPUT + $correctTxt.baseName + "Result.txt"
+   # $outTxt = $OUTPUT + $correctTxt.Name
    If (!(Test-Path -Path $outTxt)){
       echo "No File $outTxt in output"
    } Else {
