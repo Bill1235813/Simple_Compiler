@@ -11,6 +11,9 @@ type | regular expr
 *booleanConstant* | **\_true\_ \| \_false\_**
 *stringConstant* | **"[^"\n]*"**
 *characterConstant* | **^a^, ascii from 32 to 126**
+*Rational* | **N/A** (rational number)
+*Array* | **N/A** (array of other types)
+*Lambda* | **N/A** (function types)
 
 ## Keywords
 
@@ -18,35 +21,66 @@ pika-0: ``exec`` | ``const`` | ``var`` | ``print`` | ``_true_`` | ``_false`` | `
 
 pika-1: ``bool`` | ``char`` | ``string`` | ``int`` | ``float`` |  ``_t_`` (only in print) | pika-0
 
+pika-2: ``if`` | ``else`` | ``while`` | ``release`` | ``length`` | ``rat`` | ``new`` | ``clone`` | pika-1
+
+pika-3: ``func`` | ``void`` | ``return`` | ``call`` | ``break`` | ``continue`` | pika-2
+
+pika-4: ``static`` | ``for`` | ``elem`` | ``index`` | ``of`` | ``map`` | ``reduce`` | ``fold`` | ``zip`` | ``reverse`` | pika-3
+
 ## Operator
 
-**+** | **-** | **\*** | **/** | **<** | **<=** | **==** | **!=** | **>** | **>=**
+**+** | **-** | **\*** | **/** | **<** | **<=** | **==** | **!=** | **>** | **>=** | **&&** | **!** | **||** | **//** | **///** | **////**
 
 ## Punctuation
 
 **;** | **,** | **.** | **{** | **}** | **(** | **)** | **\[** | **\]** | **|** | **#** | **:=**
 
 ## Grammar
-*S* -> **exec** *blockStatement*
+*S* -> *globalDefinition* **exec** *blockStatement*
 
-*blockStatement* -> {*statement\**}
+*globalDefinition* -> *functionDefinition* \
+*functionDefinition* -> **func** *identifier* *lambda*
 
-*statement* -> *declaration* | *assignmentStatement* | *printStatement* | *blockStatement*
+*lambda* -> *lambdaParamType* *blockStatement* \
+*lambdaParamType* -> **<** *parameterList* **> ->** *type*
+*parameterList* -> *parameterSpecification* CONCATENATES **,** \
+*parameterSpecification* -> *type* *identifier*
 
-*declaration* -> **const** *identifier* := *expression*. | **var** *identifier* := *expression*.
+*type* -> **void** | *primitiveType* | *arrayType* | *lambdaType* \
+*primitiveType* -> **bool** | **char*** | **string** | **int** | **float** | **rat** \
+*arrayType* -> **\[** *type* **\]**
+*lambdaType* -> **<** *typeList* **> ->** *type* \
+*typeList* -> *type* CONCATENATES **,**
 
-*assignmentStatement* -> *target* := *expression*.
+*blockStatement* -> **{** *statement\** **}**
 
+*statement* -> *declaration* | *assignmentStatement* | *ifStatement* | *whileStatement* | *forStatement* | *releaseStatement* | *returnStatement* | *callStatement* | *breakStatement* | *continueStatement* | *printStatement* | *blockStatement*
+
+*declaration* -> **static**? (**const** | **var**) *identifier* := *expression* **.**
+
+*assignmentStatement* -> *target* := *expression*. \
 *target* -> *identifier*
 
-*printStatement* -> **print** *printExpressionList*.
+*ifStatement* -> **if** **(** *expression* **)** *blockStatement* (**else** *blockStatement*)? \
+*whileStatement* -> **while** **(** *expression* **)** *blockStatement* \
+*forStatement* -> **for** (**index** | **elem**) *identifier* **of** *expression blockStatement*
 
-*printExpressionList* -> *printExpression* concatenates (**,** | **;**)
+*releaseStatement* -> **release** *expression* **.** \ 
+*returnStatement* -> **return** *expression*? **.**
 
+*callStatement* -> **call** *functionInvocation* **.** \
+*functionInvocation* -> *expression* **(** *expressionList* **)** \
+*expressionList* -> *expression* CONCATENATES **,**
+
+*breakStatement* -> **break .** \
+*continueStatement* -> **call .**
+
+*printStatement* -> **print** *printExpressionList*. \
+*printExpressionList* -> *printExpression* CONCATENATES (**,** | **;**) \
 *printExpression* -> *expression* | **\_n\_** | **\_t\_** | ``epsilon``
 
-*expression* -> *expression operator expression* | **(** *expression* **)** | **\[** *expression* **|** *type* **\]** | *literal*
+*expression* ->  *expression* **map** *expression* | *expression* **reduce** *expression* | *expression* **fold** (**\[** *expression* **\]**)? *expression* | **zip** *expression* **,** *expression* **,** *expression* | **reverse** *expression* | *expression operator expression* | **!** *expression* | **(** *expression* **)** | **\[** *expression* **|** *type* **\]** | *expression* **\[** *expression* **\]** | **length** *expression* | *arrayExpression* | *functionInvocation* | *lambda* | *literal*
 
-*type* -> **bool** | **char*** | **string** | **int** | **float**
+*arrayExpression* -> **new** *arrayType* **(** *expression* **)** | **\[** *expressionList* **\]** | **clone** *expression*
 
 *literal* -> *integerConstant* | *floatingConstant* | *characterConstant* | *booleanConstant* | *stringConstant* | *identifier*
