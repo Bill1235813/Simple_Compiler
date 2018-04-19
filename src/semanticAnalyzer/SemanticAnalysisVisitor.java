@@ -215,10 +215,14 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     public void visitLeave(ForStatementNode node) {
         IdentifierNode identifierNode = (IdentifierNode) node.child(0);
         IdentifierNode copyNode = (IdentifierNode) node.child(2).child(0);
+        Type sequence = node.child(1).getType();
         identifierNode.setType(copyNode.getType());
         identifierNode.setTargetable(copyNode.getTargetable());
         identifierNode.setBinding(copyNode.getBinding());
         leaveScope(node);
+        if (!Array.typeIsReference(sequence)) {
+            notReferenceTypeError(node);
+        }
     }
 
     @Override
@@ -568,7 +572,7 @@ public class SemanticAnalysisVisitor extends ParseNodeVisitor.Default {
     private void notReferenceTypeError(ParseNode node) {
         Token token = node.getToken();
 
-        logError("ReleaseStatement must have reference type"
+        logError("Statement must have reference type"
                 + " at " + token.getLocation());
     }
 
